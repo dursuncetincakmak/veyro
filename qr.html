@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veyro - Expo Go Canlı Bağlantı QR Kodu</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0B0C0E;
+      color: #FFFFFF;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+    }
+    .card {
+      background: #141720;
+      border: 1px solid rgba(255, 87, 34, 0.3);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 87, 34, 0.15);
+      border-radius: 24px;
+      padding: 36px 32px;
+      max-width: 440px;
+      width: 100%;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 87, 34, 0.15);
+      border: 1px solid rgba(255, 87, 34, 0.4);
+      color: #FF5722;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    p.sub {
+      color: #9CA3AF;
+      font-size: 13.5px;
+      line-height: 1.45;
+      margin-bottom: 24px;
+    }
+    .qr-frame {
+      background: #FFFFFF;
+      padding: 16px;
+      border-radius: 18px;
+      display: inline-block;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+      margin-bottom: 24px;
+    }
+    .qr-frame img {
+      display: block;
+      width: 260px;
+      height: 260px;
+    }
+    .url-box {
+      background: #0B0C0E;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-family: monospace;
+      font-size: 14px;
+      color: #FF5722;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      word-break: break-all;
+    }
+    .btn-copy {
+      background: #FF5722;
+      border: none;
+      color: #FFF;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-left: 8px;
+      flex-shrink: 0;
+    }
+    .instructions {
+      text-align: left;
+      background: #1B1E29;
+      border-radius: 14px;
+      padding: 16px;
+      font-size: 12.5px;
+      color: #D1D5DB;
+      line-height: 1.6;
+    }
+    .instructions strong {
+      color: #FFF;
+    }
+    .instructions ol {
+      padding-left: 18px;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="badge">🔥 EXPO GO CANLI MOBİL TEST</div>
+    <h1>Veyro Mobil Uygulaması</h1>
+    <p class="sub">Telefonunuzun kamerası veya Expo Go uygulamasıyla bu QR kodu taratarak hemen bağlanın.</p>
+
+    <div class="qr-frame">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=exp://192.168.1.100:8081" alt="Veyro Expo QR Kodu">
+    </div>
+
+    <div class="url-box">
+      <span>exp://192.168.1.100:8081</span>
+      <button class="btn-copy" onclick="navigator.clipboard.writeText('exp://192.168.1.100:8081'); alert('URL Kopyalandı!');">KOPYALA</button>
+    </div>
+
+    <div class="instructions">
+      <strong style="color: #FF5722; font-size: 13.5px; display: block; margin-bottom: 6px;">📱 En Hızlı Açma Yolları:</strong>
+      
+      <div style="background: rgba(255, 87, 34, 0.1); border: 1px solid rgba(255, 87, 34, 0.3); border-radius: 10px; padding: 12px; margin-bottom: 12px;">
+        <strong style="color: #FFF;">🍏 iPhone Kullanıyorsanız (En Kolay & Girişsiz Yöntem):</strong>
+        <p style="margin-top: 4px; font-size: 12px; color: #E5E7EB;">
+          iPhone'unuzun <strong>Safari</strong> tarayıcısını açıp doğrudan şu adrese girin:
+        </p>
+        <div style="margin-top: 6px; font-weight: bold; color: #FF5722; font-family: monospace; font-size: 14px;">
+          http://192.168.1.100:5173/
+        </div>
+        <p style="margin-top: 4px; font-size: 11px; color: #9CA3AF;">
+          (Safari'nin altındaki Paylaş butonuna basıp <strong>"Ana Ekrana Ekle"</strong> derseniz tam ekran native uygulama olarak telefonunuza yüklenir).
+        </p>
+      </div>
+
+      <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 10px; padding: 12px;">
+        <strong style="color: #FFF;">🤖 Android Kullanıyorsanız:</strong>
+        <p style="margin-top: 4px; font-size: 12px; color: #E5E7EB;">
+          Expo Go uygulamasından <strong>"Scan QR code"</strong> diyerek yukarıdaki kodu taratın veya adresi girin.
+        </p>
+      </div>
+
+      <div style="margin-top: 12px; font-size: 11px; color: #9CA3AF; line-height: 1.4;">
+        ℹ️ <em>Apple'ın son güvenlik kuralları nedeniyle iPhone'da Expo Go uygulaması kullanılırken ücretsiz bir Expo hesabıyla oturum açılması gerekmektedir. Safari üzerinden giriş yapıldığında hiçbir hesap gerekmeden doğrudan çalışır.</em>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

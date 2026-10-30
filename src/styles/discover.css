@@ -1,0 +1,688 @@
+/* Veyro - Keşfet (Discover) Styles */
+
+.discover-page {
+  padding: 6px 12px 6px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+}
+
+/* Horizontal Filter Bar */
+.filter-pills-scroll {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  margin-bottom: 10px;
+  scrollbar-width: none;
+}
+
+.filter-pills-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-pill {
+  background: var(--bg-surface-elevated);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-glass);
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-pill:hover {
+  border-color: var(--border-glass-bright);
+  color: var(--text-main);
+}
+
+.filter-pill.active {
+  background: var(--color-kor);
+  color: #FFFFFF;
+  border-color: var(--color-kor);
+  box-shadow: 0 4px 14px var(--color-kor-glow);
+}
+
+/* Gym Live Activity Banner */
+.gym-stats-card {
+  background: linear-gradient(135deg, rgba(32, 35, 46, 0.9) 0%, rgba(20, 21, 27, 0.9) 100%);
+  border: 1px solid var(--border-glass-bright);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gym-stats-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.live-pulse {
+  width: 10px;
+  height: 10px;
+  background: var(--color-emerald);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--color-emerald);
+  animation: pulseEmerald 2s infinite;
+}
+
+@keyframes pulseEmerald {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.gym-stats-text strong {
+  font-size: 14px;
+  color: var(--text-main);
+  display: block;
+}
+
+.gym-stats-text span {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* Workout Partner Feed */
+.members-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.member-card {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-sm);
+}
+
+.member-card:hover {
+  border-color: var(--border-glass-bright);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.member-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.member-profile-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.member-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2D303E 0%, #1A1C24 100%);
+  border: 2px solid var(--border-glass-bright);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 16px;
+  color: #FFFFFF;
+  position: relative;
+}
+
+.member-avatar.accent-kor {
+  background: var(--color-kor-gradient);
+}
+
+.member-meta h4 {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.verified-icon {
+  width: 14px;
+  height: 14px;
+  color: var(--color-kor);
+}
+
+.member-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.member-tag-chip {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-surface-card);
+  padding: 3px 8px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border-glass);
+}
+
+.member-workout-slot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  margin-top: 10px;
+}
+
+.workout-slot-time {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.workout-slot-time svg {
+  width: 16px;
+  height: 16px;
+  color: var(--color-kor);
+}
+
+.btn-send-request {
+  background: var(--color-kor);
+  color: #FFFFFF;
+  border: none;
+  padding: 9px 16px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px var(--color-kor-glow);
+}
+
+.btn-send-request:hover {
+  background: var(--color-kor-hover);
+  transform: translateY(-1px);
+}
+
+.btn-send-request.sent {
+  background: var(--bg-surface-card);
+  color: var(--text-secondary);
+  box-shadow: none;
+  border: 1px solid var(--border-glass);
+  cursor: default;
+}
+
+/* ----------------------------------------------------
+   TINDER-STYLE ATHLETE MATCHING DECK & ACTION BUTTONS
+---------------------------------------------------- */
+.tinder-deck-container {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tinder-athlete-card {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  background: linear-gradient(180deg, #191B26 0%, #11131C 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 22px;
+  padding: 12px 14px 10px;
+  position: relative;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.tinder-athlete-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: radial-gradient(ellipse at top, rgba(255, 87, 34, 0.15) 0%, transparent 75%);
+  pointer-events: none;
+}
+
+.tinder-card-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.tinder-online-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--color-emerald);
+  background: rgba(16, 185, 129, 0.12);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.tinder-distance-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-kor);
+  background: rgba(255, 87, 34, 0.12);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 87, 34, 0.25);
+}
+
+/* Athlete Hero */
+.tinder-hero-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.tinder-large-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FF5722 0%, #FF7043 100%);
+  border: 2.5px solid #FFFFFF;
+  box-shadow: 0 4px 16px rgba(255, 87, 34, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 4px;
+  position: relative;
+}
+
+.tinder-athlete-name {
+  font-size: 17.5px;
+  font-weight: 800;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  line-height: 1.2;
+}
+
+.tinder-athlete-gym {
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  margin-top: 1px;
+}
+
+/* Activity Spotlight Box */
+.tinder-activity-box {
+  background: rgba(255, 87, 34, 0.08);
+  border: 1px solid rgba(255, 87, 34, 0.22);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tinder-activity-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tinder-activity-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: var(--color-kor);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(255, 87, 34, 0.35);
+  font-size: 12px;
+}
+
+.tinder-activity-text strong {
+  font-size: 12px;
+  color: var(--text-main);
+  display: block;
+}
+
+.tinder-activity-text span {
+  font-size: 10.5px;
+  color: var(--text-secondary);
+}
+
+/* Athlete Bio */
+.tinder-athlete-bio {
+  font-size: 11px;
+  color: var(--text-secondary);
+  line-height: 1.35;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-sm);
+  padding: 5px 8px;
+  margin-bottom: 6px;
+  border: 1px solid var(--border-glass);
+  font-style: italic;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Athlete Stats Strip */
+.tinder-stats-strip {
+  display: flex;
+  justify-content: space-around;
+  padding: 4px 0;
+  border-top: 1px solid var(--border-glass);
+  border-bottom: 1px solid var(--border-glass);
+  margin-bottom: 4px;
+}
+
+.tinder-stat-col {
+  text-align: center;
+}
+
+.tinder-stat-val {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text-main);
+  display: block;
+}
+
+.tinder-stat-label {
+  font-size: 9.5px;
+  color: var(--text-muted);
+}
+
+/* Athletic Circular Action Buttons */
+.tinder-actions-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 10px;
+  margin-bottom: 4px;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.tinder-action-btn {
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  border: none !important;
+}
+
+.tinder-action-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+}
+
+.tinder-action-btn:active {
+  transform: translateY(1px) scale(0.94);
+}
+
+/* Pass (Red X) */
+.tinder-action-btn.pass {
+  width: 48px;
+  height: 48px;
+  background: #181A24 !important;
+  border: 2px solid rgba(239, 68, 68, 0.4) !important;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.2);
+}
+
+/* Chat (Cyan Bubble) */
+.tinder-action-btn.chat {
+  width: 42px;
+  height: 42px;
+  background: #181A24 !important;
+  border: 2px solid rgba(0, 240, 255, 0.4) !important;
+  box-shadow: 0 4px 14px rgba(0, 240, 255, 0.2);
+}
+
+/* Match / Flame (Orange Core) */
+.tinder-action-btn.match {
+  width: 56px;
+  height: 56px;
+  background: var(--color-kor-gradient) !important;
+  border: 2.5px solid #FFFFFF !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 6px 22px rgba(255, 87, 34, 0.5);
+}
+
+/* Info (Grey) */
+.tinder-action-btn.info {
+  width: 42px;
+  height: 42px;
+  background: #181A24 !important;
+  border: 2px solid rgba(255, 255, 255, 0.16) !important;
+}
+
+/* Shorter screens (iPhone SE, smaller Androids) */
+@media (max-height: 720px) {
+  .discover-page {
+    padding: 4px 10px 10px;
+  }
+  .tinder-large-avatar {
+    width: 44px;
+    height: 44px;
+    font-size: 17px;
+    margin-bottom: 2px;
+  }
+  .tinder-athlete-name {
+    font-size: 16px;
+  }
+  .tinder-activity-box {
+    padding: 4px 8px;
+    margin-bottom: 4px;
+  }
+  .tinder-action-btn.pass { width: 44px; height: 44px; }
+  .tinder-action-btn.match { width: 50px; height: 50px; }
+  .tinder-action-btn.chat, .tinder-action-btn.info { width: 38px; height: 38px; }
+}
+
+/* Swiping Animations */
+@keyframes swipeLeftAnim {
+  to { transform: translateX(-130%) rotate(-20deg); opacity: 0; }
+}
+
+@keyframes swipeRightAnim {
+  to { transform: translateX(130%) rotate(20deg); opacity: 0; }
+}
+
+.swiping-left {
+  animation: swipeLeftAnim 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.swiping-right {
+  animation: swipeRightAnim 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* User Workout Planning Callout Banner */
+.workout-plan-callout-card {
+  background: linear-gradient(135deg, rgba(255, 87, 34, 0.12) 0%, rgba(24, 26, 36, 0.85) 100%);
+  border: 1.5px solid rgba(255, 87, 34, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  box-shadow: 0 8px 24px rgba(255, 87, 34, 0.08);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.workout-plan-callout-card.collapsed {
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  background: linear-gradient(135deg, rgba(255, 87, 34, 0.10) 0%, rgba(20, 22, 30, 0.92) 100%);
+}
+
+.workout-plan-callout-card.collapsed:hover {
+  border-color: rgba(255, 87, 34, 0.55);
+  background: linear-gradient(135deg, rgba(255, 87, 34, 0.16) 0%, rgba(26, 28, 38, 0.95) 100%);
+}
+
+.callout-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.callout-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--color-kor-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px var(--color-kor-glow);
+}
+
+.callout-text h4 {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0 0 2px 0;
+}
+
+.callout-text p {
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  line-height: 1.35;
+  margin: 0;
+}
+
+.btn-callout-action {
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 800;
+  border-radius: 12px;
+}
+
+/* Active Published Workout Plan Banner */
+.active-plan-banner {
+  background: linear-gradient(135deg, rgba(30, 33, 44, 0.95) 0%, rgba(18, 19, 26, 0.95) 100%);
+  border: 1.5px solid rgba(255, 87, 34, 0.5);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  box-shadow: 0 8px 28px rgba(255, 87, 34, 0.15);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.active-plan-banner.collapsed {
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.active-plan-banner.collapsed:hover {
+  border-color: rgba(255, 87, 34, 0.75);
+}
+
+.active-plan-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.active-plan-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--color-kor);
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.active-plan-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.active-plan-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 6px;
+}
+
+.active-plan-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.active-plan-note {
+  font-size: 11.5px;
+  color: #9BA0B2;
+  font-style: italic;
+  margin-top: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 6px 10px;
+  border-radius: 8px;
+  border-left: 2px solid var(--color-kor);
+}
+
+/* Clean Empty State Card */
+.empty-athletes-card {
+  text-align: center;
+  padding: 44px 20px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  margin-top: 10px;
+}
+
+

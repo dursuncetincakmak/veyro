@@ -1,0 +1,139 @@
+/* Veyro - Profil Detay ve Eylem Sayfası (Action Sheet) Stilleri */
+
+.profile-modal-content {
+  text-align: center;
+  padding: 10px 0 20px;
+}
+
+.profile-large-avatar {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: var(--color-kor-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 26px;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0 auto 16px;
+  box-shadow: var(--shadow-kor);
+}
+
+.profile-name-title {
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.profile-sub-gym {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.verification-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--color-emerald);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  margin-bottom: 20px;
+}
+
+/* User Goals & Active Slot inside Profile Modal */
+.profile-section-box {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  text-align: left;
+  margin-bottom: 16px;
+}
+
+.profile-section-box h5 {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+}
+
+.profile-active-schedule {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-surface-card);
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-glass-bright);
+}
+
+.schedule-icon-wrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--color-kor-subtle);
+  color: var(--color-kor);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Action Sheet Actions (Engelle / Şikayet Et) from PDF page 6 */
+.action-sheet-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.action-sheet-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.action-sheet-item:hover {
+  background: var(--bg-surface-card);
+  border-color: var(--border-glass-bright);
+}
+
+.action-icon {
+  width: 22px;
+  height: 22px;
+  color: var(--text-secondary);
+}
+
+.action-item-text strong {
+  display: block;
+  font-size: 14px;
+  color: var(--text-main);
+}
+
+.action-item-text span {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.action-sheet-item.danger .action-icon {
+  color: var(--color-rose);
+}
+
+.action-sheet-item.danger strong {
+  color: var(--color-rose);
+}

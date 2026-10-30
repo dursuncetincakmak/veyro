@@ -1,0 +1,214 @@
+/* Veyro - Hareketler (Workouts & Routine Library) Styles */
+
+.routines-page {
+  padding: 16px 20px 24px;
+}
+
+/* Workout Routine Header Card */
+.routine-hero-card {
+  background: linear-gradient(135deg, #1C1E26 0%, #0E1015 100%);
+  border: 1px solid var(--border-glass-bright);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.routine-hero-title {
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.routine-hero-sub {
+  font-size: 13px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+/* Rest & Set Timer Widget */
+.timer-widget {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.timer-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.timer-clock {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--color-kor);
+  letter-spacing: 0.04em;
+}
+
+.btn-timer-toggle {
+  background: var(--color-kor);
+  color: #FFFFFF;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px var(--color-kor-glow);
+  transition: transform 0.2s ease;
+}
+
+.btn-timer-toggle:hover {
+  transform: scale(1.08);
+}
+
+/* Routine Nav Tabs (Video / Görsel / İpuçları) */
+.routine-subtabs {
+  display: flex;
+  background: var(--bg-surface-elevated);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  margin-bottom: 18px;
+  border: 1px solid var(--border-glass);
+}
+
+.routine-subtab-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.routine-subtab-btn.active {
+  background: var(--bg-surface-card);
+  color: var(--text-main);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Exercise Item Cards */
+.exercises-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.exercise-item-card {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.exercise-item-card:hover {
+  border-color: var(--border-glass-bright);
+  transform: translateY(-1px);
+}
+
+.exercise-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.exercise-info-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.exercise-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 87, 34, 0.1);
+  color: var(--color-kor);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 87, 34, 0.2);
+}
+
+.exercise-titles h4 {
+  font-size: 15px;
+  margin-bottom: 3px;
+  color: var(--text-main);
+}
+
+.exercise-titles p {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Interactive Sets & Reps Checklist */
+.exercise-sets-tracker {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-glass);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.set-row-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-surface-card);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+}
+
+.set-tag {
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.set-reps-weight {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.set-check-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  border: 2px solid var(--border-glass-bright);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.set-check-btn.checked {
+  background: var(--color-emerald);
+  border-color: var(--color-emerald);
+  color: #FFFFFF;
+}

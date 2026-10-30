@@ -1,0 +1,403 @@
+/* Veyro - Randevularım (Appointments & Scheduling) Styles */
+
+.appointments-page {
+  padding: 16px 20px 24px;
+}
+
+/* Appointment Tabs (Yaklaşan, İstekler, Geçmiş) */
+.appointments-nav-tabs {
+  display: flex;
+  background: var(--bg-surface-elevated);
+  padding: 4px;
+  border-radius: var(--radius-md);
+  margin-bottom: 20px;
+  border: 1px solid var(--border-glass);
+}
+
+.appointment-tab-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 13px;
+  padding: 10px 8px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.appointment-tab-btn.active {
+  background: var(--bg-surface-card);
+  color: var(--text-main);
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-glass-bright);
+}
+
+.tab-counter-badge {
+  background: var(--color-kor);
+  color: #FFFFFF;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+  font-weight: 800;
+}
+
+/* Appointment Cards */
+.appointments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.appointment-card {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.appointment-card:hover {
+  border-color: var(--border-glass-bright);
+}
+
+.appointment-card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+/* Calendar Date Badge */
+.date-calendar-badge {
+  width: 58px;
+  background: #0E1015;
+  border: 1px solid var(--border-glass-bright);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.date-badge-month {
+  background: var(--color-kor);
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 4px 0;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.date-badge-day {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-main);
+  padding: 6px 0;
+}
+
+.appointment-main-info {
+  flex: 1;
+}
+
+.workout-title {
+  font-size: 17px;
+  font-weight: 800;
+  margin-bottom: 4px;
+  color: var(--text-main);
+}
+
+.workout-meta-line {
+  font-size: 13px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.status-chip.confirmed {
+  background: var(--color-emerald-subtle);
+  color: var(--color-emerald);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.status-chip.pending {
+  background: var(--color-amber-subtle);
+  color: var(--color-amber);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+/* Card Action Buttons */
+.appointment-actions-row {
+  display: flex;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-glass);
+}
+
+.btn-card-action {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-card-action.primary {
+  background: var(--bg-surface-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-glass-bright);
+}
+
+.btn-card-action.primary:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-card-action.kor {
+  background: var(--color-kor);
+  color: #FFFFFF;
+  border: none;
+  box-shadow: 0 4px 12px var(--color-kor-glow);
+}
+
+.btn-card-action.kor:hover {
+  background: var(--color-kor-hover);
+}
+
+.btn-card-action.danger {
+  background: var(--color-rose-subtle);
+  color: var(--color-rose);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+.btn-card-action.danger:hover {
+  background: rgba(239, 68, 68, 0.25);
+}
+
+/* Incoming Invitation Card Styling (From PDF) */
+.incoming-invite-card {
+  background: linear-gradient(135deg, #1C1E28 0%, #121319 100%);
+  border: 1px solid rgba(255, 87, 34, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  box-shadow: 0 8px 30px rgba(255, 87, 34, 0.12);
+}
+
+.incoming-invite-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+/* Create Appointment Modal Controls */
+.partner-badge-selected {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-glass-bright);
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  margin-bottom: 20px;
+}
+
+/* Workout Categories Grid */
+.workout-types-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.workout-type-btn {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-glass);
+  color: var(--text-secondary);
+  padding: 12px 8px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.workout-type-btn:hover {
+  border-color: var(--border-glass-bright);
+  color: var(--text-main);
+}
+
+.workout-type-btn.active {
+  background: var(--color-kor);
+  color: #FFFFFF;
+  border-color: var(--color-kor);
+  box-shadow: 0 4px 14px var(--color-kor-glow);
+}
+
+/* Horizontal Date Strip */
+.date-strip-scroll {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  scrollbar-width: none;
+}
+
+.date-strip-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.date-strip-day {
+  flex: 0 0 62px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 12px 6px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.date-strip-day:hover {
+  border-color: var(--border-glass-bright);
+}
+
+.date-strip-day.active {
+  background: #FFFFFF;
+  color: #0E1015;
+  border-color: #FFFFFF;
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
+}
+
+.date-strip-day .day-name {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.date-strip-day .day-number {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 800;
+}
+
+/* Hours Grid */
+.hours-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.hour-slot-btn {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-glass);
+  color: var(--text-main);
+  padding: 12px 10px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.hour-slot-btn:hover {
+  border-color: var(--border-glass-bright);
+}
+
+.hour-slot-btn.active {
+  background: var(--color-kor);
+  color: #FFFFFF;
+  border-color: var(--color-kor);
+  box-shadow: 0 4px 14px var(--color-kor-glow);
+}
+
+/* Calendar Switch & Reminder Row */
+.form-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-glass);
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  margin-bottom: 12px;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 26px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--bg-surface-card);
+  transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 26px;
+  border: 1px solid var(--border-glass-bright);
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 50%;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background-color: var(--color-kor);
+  border-color: var(--color-kor);
+}
+
+.toggle-switch input:checked + .toggle-slider:before {
+  transform: translateX(22px);
+}

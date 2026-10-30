@@ -1,0 +1,97 @@
+/* Veyro - Fırsatlar (Deals & Partner Perks) Styles */
+
+.deals-page {
+  padding: 16px 20px 24px;
+}
+
+.deals-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.deal-card {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.deal-card:hover {
+  border-color: var(--border-glass-bright);
+  transform: translateY(-2px);
+}
+
+.deal-badge-pill {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: var(--color-kor);
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.04em;
+}
+
+.deal-brand {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-kor);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.deal-title {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: var(--text-main);
+}
+
+.deal-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin-bottom: 16px;
+}
+
+.deal-code-box {
+  background: var(--bg-surface-card);
+  border: 1px dashed var(--border-glass-bright);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.code-text {
+  font-family: monospace;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-paper);
+  letter-spacing: 0.08em;
+}
+
+.btn-copy-code {
+  background: var(--color-kor-subtle);
+  color: var(--color-kor);
+  border: 1px solid rgba(255, 87, 34, 0.3);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-copy-code:hover {
+  background: var(--color-kor);
+  color: #FFFFFF;
+}

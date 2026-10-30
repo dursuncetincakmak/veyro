@@ -1,0 +1,18 @@
+{
+  "name": "Veyro - Spor ve Antrenman Arkadaşı",
+  "short_name": "Veyro",
+  "description": "Salonda aynı saatte çalışan antrenman arkadaşını bul, randevunu kur, takvimine ekle.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0C0E",
+  "theme_color": "#0B0C0E",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512",
+      "purpose": "any maskable"
+    }
+  ]
+}

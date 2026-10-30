@@ -1,0 +1,25 @@
+{
+  "name": "veyro",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Veyro - Spor ve Antrenman Arkadaşı Platformu",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node test/phase_tests.js",
+    "expo:start": "npm --prefix expo-client/test-expo start",
+    "expo:tunnel": "npm --prefix expo-client/test-expo start -- --tunnel"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.2.3",
+    "@capacitor/core": "^6.1.2",
+    "@capacitor/ios": "^6.2.3",
+    "leaflet": "^1.9.4"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.1.2",
+    "vite": "^6.0.7"
+  }
+}
