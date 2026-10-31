@@ -2,27 +2,51 @@
  * Veyro - Standalone PC / Web Admin Portal Application
  * Sadece PC/Masaüstü tarayıcılardan erişilen tam ekran müstakil yönetici masası.
  * Kullanıcı İstatistikleri, Moderasyon Masası (Şikayet Takibi), Fırsatlar CMS ve Sistem Yapılandırması.
+ * Mobil uygulamadan tamamen bağımsızdır; oturum ve çıkış işlemleri bu panel içinde kalır.
  */
 
 import './styles/main.css';
 import './styles/admin.css';
 
-import { auth } from './services/auth.js';
 import { db } from './services/db.js';
 import { notify } from './services/notification.js';
 import { renderAdminPortal } from './components/AdminPortal.js';
 import { icons } from './components/icons.js';
 
+const ADMIN_SESSION_KEY = "veyro_admin_desk_session_v1";
+
 class StandaloneAdminApp {
   constructor() {
     this.root = document.getElementById("admin-app");
+    this.adminSession = this.loadSession();
     this.init();
+  }
+
+  loadSession() {
+    try {
+      const raw = localStorage.getItem(ADMIN_SESSION_KEY);
+      if (raw) return JSON.parse(raw);
+    } catch (e) {}
+    return null;
+  }
+
+  saveSession(session) {
+    this.adminSession = session;
+    if (session) {
+      localStorage.setItem(ADMIN_SESSION_KEY, JSON.stringify(session));
+    } else {
+      localStorage.removeItem(ADMIN_SESSION_KEY);
+    }
+  }
+
+  isAdminLoggedIn() {
+    return Boolean(this.adminSession && this.adminSession.role === "admin");
   }
 
   async init() {
     if (!this.root) return;
 
-    // Fast initial sync with server
+    // Fast initial sync with server / Firestore
     try {
       await db.syncWithServer();
     } catch (e) {}
@@ -38,7 +62,7 @@ class StandaloneAdminApp {
   render() {
     if (!this.root) return;
 
-    if (!auth.isAdmin()) {
+    if (!this.isAdminLoggedIn()) {
       this.renderLoginScreen();
     } else {
       this.renderDashboard();
@@ -55,7 +79,7 @@ class StandaloneAdminApp {
           <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 16px; margin-bottom: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
             <div style="display: inline-flex; align-items: center; gap: 8px;">
               <span style="width: 8px; height: 8px; border-radius: 50%; background: #10B981; box-shadow: 0 0 10px #10B981; display: inline-block;"></span>
-              <span style="font-family: monospace; font-size: 11px; font-weight: 700; color: #10B981; letter-spacing: 0.08em;">ROOT CONSOLE // ACTIVE</span>
+              <span style="font-family: monospace; font-size: 11px; font-weight: 700; color: #10B981; letter-spacing: 0.08em;">ROOT CONSOLE // SECURE DESK</span>
             </div>
             <span style="font-family: monospace; font-size: 11px; color: var(--text-muted); background: rgba(255,255,255,0.04); padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.06);">
               AES-256 SSL
@@ -64,7 +88,7 @@ class StandaloneAdminApp {
 
           <!-- Brand & Terminal Header -->
           <div style="text-align: center; margin-bottom: 24px;">
-            <div style="width: 56px; height: 56px; border-radius: 16px; background: linear-gradient(135deg, #FF5722 0%, #D84315 100%); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; box-shadow: 0 8px 24px rgba(255, 87, 34, 0.45);">
+            <div style="width: 56px; height: 56px; border-radius: 16px; background: linear-gradient(135deg, #FF5722 0%, #D84315 100%); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; box-shadow: 0 8px 24px rgba(255, 87, 34, 0.45); color: #FFF;">
               ${icons.shield(26)}
             </div>
             <h1 style="font-size: 22px; font-weight: 900; color: #FFFFFF; margin: 0 0 6px; letter-spacing: -0.02em;">
@@ -134,7 +158,7 @@ class StandaloneAdminApp {
           <!-- Quick Fill Helper -->
           <div style="margin-bottom: 20px; text-align: center;">
             <button id="btn-quick-fill-admin-pc" type="button" style="padding: 7px 14px; font-size: 12px; font-weight: 700; color: var(--color-kor); background: rgba(255, 87, 34, 0.12); border: 1px solid rgba(255, 87, 34, 0.35); border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: background 0.15s ease;">
-              ${icons.key(14)} Tek Tıkla Yetkili Girişini Doldur (admin@veyro.fit)
+              ${icons.key(14)} Tek Tıkla Doldur (admin@veyro.fit)
             </button>
           </div>
 
@@ -147,7 +171,7 @@ class StandaloneAdminApp {
           <div style="margin: 24px 0 16px; height: 1px; background: rgba(255,255,255,0.08);"></div>
 
           <!-- Link to Business & Advertiser Portal -->
-          <div style="background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 14px; padding: 12px 14px; text-align: left; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between;">
+          <div style="background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 14px; padding: 12px 14px; text-align: left; display: flex; align-items: center; justify-content: space-between;">
             <div>
               <div style="font-size: 12.5px; font-weight: 800; color: #60A5FA;">
                 🏢 Reklam Veren / Kurumsal Müşteri
@@ -156,15 +180,8 @@ class StandaloneAdminApp {
                 Marka, salon ve sponsorluk kampanyaları masası
               </div>
             </div>
-            <a href="/business" style="padding: 7px 12px; font-size: 11.5px; font-weight: 800; background: rgba(59, 130, 246, 0.2); color: #93C5FD; border: 1px solid rgba(59, 130, 246, 0.4); border-radius: 8px; text-decoration: none; white-space: nowrap;">
+            <a href="business.html" style="padding: 7px 12px; font-size: 11.5px; font-weight: 800; background: rgba(59, 130, 246, 0.2); color: #93C5FD; border: 1px solid rgba(59, 130, 246, 0.4); border-radius: 8px; text-decoration: none; white-space: nowrap;">
               Portala Git →
-            </a>
-          </div>
-
-          <!-- Back to Mobile App -->
-          <div style="text-align: center;">
-            <a href="/" style="font-size: 12px; color: var(--text-muted); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; font-weight: 600;">
-              ← Sporcu Mobil Uygulamasına Dön
             </a>
           </div>
 
@@ -190,8 +207,14 @@ class StandaloneAdminApp {
         pwdInput?.focus();
         return;
       }
-      const res = auth.loginAdmin(pwd);
-      if (res.success) {
+      if (pwd === "veyro2026admin" || pwd === "admin123") {
+        this.saveSession({
+          id: "admin_super",
+          name: "Veyro Sistem Yöneticisi",
+          email: usrInput?.value.trim() || "admin@veyro.fit",
+          role: "admin",
+          loggedInAt: Date.now()
+        });
         notify.success("✓ Yetkili yönetici oturumu doğrulandı. Hoş geldiniz!");
         this.renderDashboard();
       } else {
@@ -213,7 +236,7 @@ class StandaloneAdminApp {
           <!-- Top Desktop Admin Navbar -->
           <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 20px; margin-bottom: 24px; border-bottom: 1px solid var(--border-glass); flex-wrap: wrap; gap: 14px;">
             <div style="display: flex; align-items: center; gap: 14px;">
-              <div style="width: 44px; height: 44px; border-radius: 12px; background: var(--color-kor-gradient); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-kor);">
+              <div style="width: 44px; height: 44px; border-radius: 12px; background: var(--color-kor-gradient); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-kor); color: #FFF;">
                 ${icons.shield(22)}
               </div>
               <div>
@@ -226,11 +249,11 @@ class StandaloneAdminApp {
             </div>
 
             <div style="display: flex; align-items: center; gap: 10px;">
-              <a href="/" target="_blank" class="btn-secondary" style="padding: 9px 16px; font-size: 12.5px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; color: var(--color-kor); border-color: rgba(255, 87, 34, 0.4);">
-                ${icons.dumbbell(14)} Mobil Uygulamayı Aç (Önizleme)
+              <a href="business.html" class="btn-secondary" style="padding: 9px 16px; font-size: 12.5px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; color: #60A5FA; border-color: rgba(96, 165, 250, 0.3);">
+                ${icons.award(14)} Reklam Portalı
               </a>
-              <button id="btn-admin-logout" class="btn-secondary" style="padding: 9px 16px; font-size: 12.5px; display: inline-flex; align-items: center; gap: 6px; color: var(--color-rose); border-color: rgba(239, 68, 68, 0.3);">
-                ${icons.logout(14)} Çıkış
+              <button id="btn-admin-logout" class="btn-secondary" style="padding: 9px 16px; font-size: 12.5px; display: inline-flex; align-items: center; gap: 6px; color: var(--color-rose); border-color: rgba(239, 68, 68, 0.3); cursor: pointer;">
+                ${icons.logout(14)} Güvenli Çıkış
               </button>
             </div>
           </div>
@@ -241,16 +264,18 @@ class StandaloneAdminApp {
       </div>
     `;
 
-    document.getElementById("btn-admin-logout")?.addEventListener("click", () => {
-      auth.signOut();
+    const handleLogout = () => {
+      this.saveSession(null);
       notify.info("Yönetici oturumu kapatıldı.");
       this.render();
-    });
+    };
+
+    document.getElementById("btn-admin-logout")?.addEventListener("click", handleLogout);
 
     const mount = document.getElementById("admin-portal-desktop-mount");
     if (mount) {
       renderAdminPortal(mount, () => {
-        window.location.href = "./";
+        handleLogout();
       });
     }
   }

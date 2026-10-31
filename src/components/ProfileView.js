@@ -192,23 +192,6 @@ export function renderProfileView(container, {
           </svg>
         </button>
 
-        <!-- Web Yönetim Masası (Admin - PC) -->
-        <a class="profile-menu-item" href="admin.html" target="_blank" id="btn-pv-admin-link">
-          <div style="display: flex; align-items: center; gap: 12px;">
-            <div style="color: var(--color-cyan);">${icons.shield(18)}</div>
-            <span>Web Yönetim Masası (Admin)</span>
-          </div>
-          <span style="font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 6px; background: rgba(6, 182, 212, 0.12); color: var(--color-cyan);">PC GİRİŞİ ↗</span>
-        </a>
-
-        <!-- Müşteri & Reklam Veren Portalı -->
-        <a class="profile-menu-item" href="business.html" target="_blank" id="btn-pv-business-link">
-          <div style="display: flex; align-items: center; gap: 12px;">
-            <div style="color: var(--color-indigo);">${icons.award(18)}</div>
-            <span>Müşteri & Reklam Portalı</span>
-          </div>
-          <span style="font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 6px; background: rgba(99, 102, 241, 0.12); color: var(--color-indigo);">B2B SAAS ↗</span>
-        </a>
 
         <!-- ÇIKIŞ YAP (Oturumu Kapat) -->
         <button class="profile-menu-item profile-menu-item-danger" id="btn-pv-signout">

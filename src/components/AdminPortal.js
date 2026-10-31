@@ -45,8 +45,8 @@ export function renderAdminPortal(container, onClose) {
             <span class="admin-tag">YÖNETİM</span>
           </div>
           <div>
-            <button class="btn-secondary" id="btn-exit-admin" style="padding: 8px 14px; font-size: 13px; width: auto;">
-              Çıkış
+            <button class="btn-secondary" id="btn-exit-admin" style="padding: 8px 14px; font-size: 13px; width: auto; color: var(--color-rose); border-color: rgba(239, 68, 68, 0.3); cursor: pointer;">
+              ${icons.logout(14)} Güvenli Çıkış
             </button>
           </div>
         </div>
