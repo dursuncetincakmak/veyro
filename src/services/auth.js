@@ -52,7 +52,7 @@ class AuthService {
   /**
    * Real Google Authentication Flow
    */
-  async signInWithGoogle(customEmail = "", customName = "", gymId = "all") {
+  async signInWithGoogle(customEmail = "", customName = "", gymId = "all", photoUrl = "") {
     const email = customEmail ? customEmail.trim().toLowerCase() : "";
     const name = customName ? customName.trim() : "Sporcu";
 
@@ -73,6 +73,7 @@ class AuthService {
       email: email,
       phone: "",
       gymId: gymId,
+      photos: photoUrl ? [photoUrl] : [],
       goals: ["Kas", "Kondisyon"],
       level: "Orta",
       preferredTimes: ["Akşam"],
@@ -88,7 +89,7 @@ class AuthService {
   /**
    * Real Apple Authentication Flow (Apple ile Giriş Yap)
    */
-  async signInWithApple(customEmail = "", customName = "", gymId = "all") {
+  async signInWithApple(customEmail = "", customName = "", gymId = "all", photoUrl = "") {
     const email = customEmail ? customEmail.trim().toLowerCase() : "";
     const name = customName ? customName.trim() : "Apple Sporcusu";
 
@@ -108,6 +109,7 @@ class AuthService {
       email: email,
       phone: "",
       gymId: gymId,
+      photos: photoUrl ? [photoUrl] : [],
       goals: ["Kas", "Kondisyon"],
       level: "Orta",
       preferredTimes: ["Akşam"],
@@ -126,11 +128,14 @@ class AuthService {
   findUserByPhone(phone) {
     if (!phone) return null;
     const clean = phone.replace(/\D/g, '');
+    const last10 = clean.slice(-10);
+    if (!last10 || last10.length < 10) return null;
+
     const users = db.getCollection("users") || [];
     return users.find(u => {
       if (!u.phone) return false;
       const uClean = u.phone.replace(/\D/g, '');
-      return uClean === clean || (clean.length >= 10 && uClean.endsWith(clean.slice(-10)));
+      return uClean === clean || uClean.endsWith(last10);
     }) || null;
   }
 

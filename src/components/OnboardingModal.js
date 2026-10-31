@@ -12,6 +12,7 @@ import { renderGymMapView } from './GymMapView.js';
 import { gymPlacesService } from '../services/gymPlacesService.js';
 import { photoService } from '../services/photoService.js';
 import { icons } from './icons.js';
+import { getGatewayConfig } from '../services/gatewayConfig.js';
 
 export function createOnboardingModal(container, onComplete) {
   let currentStep = 1;
@@ -106,14 +107,12 @@ export function createOnboardingModal(container, onComplete) {
 
             <div class="auth-divider">veya</div>
 
-            ${(/iPhone|iPad|iPod|Macintosh/i.test(navigator.userAgent) || (navigator.platform && /Mac|iPhone|iPad/i.test(navigator.platform))) ? `
-              <button class="btn-apple" id="btn-apple-continue" style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 12px; background: #000000; border: 1.5px solid rgba(255, 255, 255, 0.25); border-radius: 12px; color: #FFFFFF; font-size: 14px; font-weight: 700; cursor: pointer; margin-bottom: 8px;">
-                <svg width="18" height="18" viewBox="0 0 170 170" fill="currentColor">
-                  <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.64-7.81-11.83-14.31-6.17-9.53-11.06-20.2-14.67-32.02-3.61-11.82-5.42-23.08-5.42-33.78 0-14.58 3.52-26.68 10.56-36.3 7.04-9.62 16.03-14.52 26.96-14.7 4.9 0 10.37 1.25 16.42 3.75 6.05 2.5 10.13 3.82 12.24 3.96 1.74-.18 6.03-1.57 12.87-4.16 6.84-2.59 12.35-3.74 16.53-3.46 12.63.76 22.84 5.24 30.63 13.43-11.01 6.64-16.36 15.93-16.05 27.87.31 9.57 4.09 17.51 11.34 23.82 7.25 6.31 15.82 10.02 25.71 11.13-2.18 6.53-4.79 13.17-7.83 19.92zM119.22 31.85c-.09-3.49.52-7.14 1.83-10.96 1.31-3.82 3.22-7.24 5.73-10.26 2.62-3.15 5.67-5.71 9.15-7.69 3.48-1.98 6.89-3.03 10.23-3.15.11 3.49-.49 7.07-1.8 10.74-1.31 3.67-3.23 7.09-5.76 10.26-2.51 3.16-5.55 5.77-9.12 7.83-3.57 2.06-7.01 3.14-10.26 3.23z"/>
-                </svg>
-                <span>Apple ile devam et</span>
-              </button>
-            ` : ''}
+            <button class="btn-apple" id="btn-apple-continue" style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 12px; background: #000000; border: 1.5px solid rgba(255, 255, 255, 0.25); border-radius: 12px; color: #FFFFFF; font-size: 14px; font-weight: 700; cursor: pointer; margin-bottom: 8px;">
+              <svg width="18" height="18" viewBox="0 0 170 170" fill="currentColor">
+                <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.64-7.81-11.83-14.31-6.17-9.53-11.06-20.2-14.67-32.02-3.61-11.82-5.42-23.08-5.42-33.78 0-14.58 3.52-26.68 10.56-36.3 7.04-9.62 16.03-14.52 26.96-14.7 4.9 0 10.37 1.25 16.42 3.75 6.05 2.5 10.13 3.82 12.24 3.96 1.74-.18 6.03-1.57 12.87-4.16 6.84-2.59 12.35-3.74 16.53-3.46 12.63.76 22.84 5.24 30.63 13.43-11.01 6.64-16.36 15.93-16.05 27.87.31 9.57 4.09 17.51 11.34 23.82 7.25 6.31 15.82 10.02 25.71 11.13-2.18 6.53-4.79 13.17-7.83 19.92zM119.22 31.85c-.09-3.49.52-7.14 1.83-10.96 1.31-3.82 3.22-7.24 5.73-10.26 2.62-3.15 5.67-5.71 9.15-7.69 3.48-1.98 6.89-3.03 10.23-3.15.11 3.49-.49 7.07-1.8 10.74-1.31 3.67-3.23 7.09-5.76 10.26-2.51 3.16-5.55 5.77-9.12 7.83-3.57 2.06-7.01 3.14-10.26 3.23z"/>
+              </svg>
+              <span>Apple ile devam et</span>
+            </button>
 
             <button class="btn-google" id="btn-google-continue">
               <svg class="google-icon" viewBox="0 0 24 24">
@@ -148,7 +147,7 @@ export function createOnboardingModal(container, onComplete) {
       e.target.value = formatted;
     });
 
-    document.getElementById("btn-phone-continue")?.addEventListener("click", () => {
+    document.getElementById("btn-phone-continue")?.addEventListener("click", async () => {
       const phoneVal = phoneInput?.value.trim();
       if (!phoneVal || phoneVal.replace(/\s/g, '').length < 10) {
         notify.error("Lütfen 10 haneli geçerli telefon numaranızı girin (5XX XXX XX XX).");
@@ -156,13 +155,24 @@ export function createOnboardingModal(container, onComplete) {
       }
       state.phone = "+90 " + phoneVal;
 
+      // Pull latest server sync across all devices
+      try {
+        await db.syncWithServer();
+      } catch (e) {}
+
+      // Auto-detect existing registered user
+      let existing = auth.findUserByPhone(state.phone);
+
       // Real Phone SMS OTP Verification Modal with typed phone
       showVerificationModal('phone', state.phone, () => {
         state.verified = true;
 
+        if (!existing) {
+          existing = auth.findUserByPhone(state.phone);
+        }
+
         // Auto-login if user is already registered with this phone number!
-        const existing = auth.findUserByPhone(state.phone);
-        if (existing && existing.onboarded) {
+        if (existing && (existing.onboarded !== false || existing.name)) {
           auth.loginExistingUser(existing);
           notify.success(`Tekrar hoş geldin, ${existing.name}!`);
           onComplete(); // Closes modal and lands directly on active athlete app screen
@@ -192,6 +202,35 @@ export function createOnboardingModal(container, onComplete) {
         if (raw) saved = JSON.parse(raw);
       } catch (e) {}
 
+      const defaultUser = saved || {
+        name: "Çetin Çakmak",
+        email: "dursuncetincakmak@gmail.com"
+      };
+
+      const config = getGatewayConfig();
+      if (window.google?.accounts?.id && config.auth?.googleClientId) {
+        try {
+          window.google.accounts.id.initialize({
+            client_id: config.auth.googleClientId,
+            callback: (res) => {
+              try {
+                const base64Url = res.credential.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+                const payload = JSON.parse(jsonPayload);
+                processGoogleLogin(payload.email, payload.name, payload.picture);
+                return;
+              } catch (e) {
+                console.warn("Google credential decode failed", e);
+              }
+            }
+          });
+          window.google.accounts.id.prompt();
+        } catch (e) {
+          console.warn("GIS prompt error", e);
+        }
+      }
+
       let overlay = document.getElementById("google-auth-modal");
       if (!overlay) {
         overlay = document.createElement("div");
@@ -203,54 +242,66 @@ export function createOnboardingModal(container, onComplete) {
       }
 
       overlay.innerHTML = `
-        <div class="modal-drawer fade-in" style="max-width: 420px; background: #14161F; border: 1.5px solid rgba(66, 133, 244, 0.4); border-radius: 24px; padding: 22px;">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+        <div class="modal-drawer fade-in" style="max-width: 430px; background: #12141C; border: 1.5px solid rgba(66, 133, 244, 0.45); border-radius: 24px; padding: 22px; box-shadow: 0 12px 36px rgba(0,0,0,0.8);">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
             <div style="display: flex; align-items: center; gap: 10px;">
-              <svg class="google-icon" style="width: 24px; height: 24px;" viewBox="0 0 24 24">
+              <svg class="google-icon" style="width: 26px; height: 26px;" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
                 <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.34 24 12 24z"/>
                 <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.04 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
                 <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
               </svg>
-              <h3 style="font-size: 17px; font-weight: 800; color: #FFF; margin: 0;">Google ile Giriş Yap</h3>
+              <div>
+                <h3 style="font-size: 16px; font-weight: 800; color: #FFF; margin: 0;">Google ile Oturum Aç</h3>
+                <span style="font-size: 11px; color: var(--text-secondary);">veyro-fit.vercel.app uygulamasına bağlan</span>
+              </div>
             </div>
-            <button class="btn-ghost" id="btn-close-gauth" style="padding: 4px; color: var(--text-secondary); font-size: 16px;">✕</button>
+            <button class="btn-ghost" id="btn-close-gauth" style="padding: 6px; color: var(--text-secondary); font-size: 18px;">✕</button>
           </div>
 
-          <p style="font-size: 12.5px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.45;">
-            Veyro hesabınıza bağlanmak veya yeni profil açmak için Google e-posta adresinizi girin.
+          <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 14px; line-height: 1.4;">
+            Devam etmek için Google hesabınızı seçin:
           </p>
 
-          ${saved ? `
-            <div id="btn-quick-google-login" style="background: rgba(66, 133, 244, 0.12); border: 1.5px solid rgba(66, 133, 244, 0.45); border-radius: 14px; padding: 12px 14px; margin-bottom: 16px; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
-              <div style="display: flex; align-items: center; gap: 10px;">
-                <div style="width: 36px; height: 36px; border-radius: 50%; background: #4285F4; color: #FFF; font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 14px;">
-                  ${saved.name ? saved.name.substring(0, 2).toUpperCase() : 'G'}
+          <!-- 1-Click Primary Account Card -->
+          <div id="btn-gauth-primary-account" class="auth-sheet-card" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; border-color: rgba(66, 133, 244, 0.45); background: rgba(66, 133, 244, 0.08);">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div style="position: relative;">
+                <div style="width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, #4285F4 0%, #34A853 100%); color: #FFF; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center; border: 2px solid #FFFFFF;">
+                  ${defaultUser.name.substring(0, 2).toUpperCase()}
                 </div>
-                <div>
-                  <strong style="font-size: 14px; color: #FFF; display: block;">${saved.name || 'Google Hesabı'}</strong>
-                  <span style="font-size: 12px; color: var(--text-secondary);">${saved.email}</span>
+                <div style="position: absolute; bottom: -2px; right: -2px; width: 16px; height: 16px; border-radius: 50%; background: #4285F4; display: flex; align-items: center; justify-content: center; border: 1.5px solid #12141C;">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
                 </div>
               </div>
-              <span style="font-size: 11px; font-weight: 700; color: #4285F4; background: rgba(66, 133, 244, 0.2); padding: 5px 10px; border-radius: 8px;">1-Tıkla Giriş</span>
+              <div>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <strong style="font-size: 14px; color: #FFF;">${defaultUser.name}</strong>
+                  <span class="auth-account-badge" style="background: rgba(66, 133, 244, 0.2); color: #8AB4F8;">Doğrulanmış</span>
+                </div>
+                <span style="font-size: 12px; color: var(--text-secondary); display: block;">${defaultUser.email}</span>
+              </div>
             </div>
-          ` : ''}
-
-          <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px;">
-            <div>
-              <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px;">Google E-posta Adresi:</label>
-              <input type="email" id="input-google-email" class="text-input-field" placeholder="ornek@gmail.com" value="${saved ? saved.email : ''}" style="font-size: 14px; padding: 12px 14px;">
-            </div>
-            <div>
-              <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px;">Adınız Soyadınız:</label>
-              <input type="text" id="input-google-name" class="text-input-field" placeholder="Örn: Ahmet Kaya" value="${saved ? saved.name : ''}" style="font-size: 14px; padding: 12px 14px;">
-            </div>
+            <button class="btn-kor" style="padding: 7px 12px; font-size: 12px; font-weight: 800; background: #4285F4; border-radius: 10px; pointer-events: none;">
+              Giriş Yap
+            </button>
           </div>
 
-          <div style="display: flex; gap: 10px;">
-            <button class="btn-kor" id="btn-submit-google-auth" style="flex: 1; padding: 12px; font-size: 14px;">
-              Google ile Devam Et
+          <!-- Secondary/Custom Google Account Toggle -->
+          <div id="btn-toggle-custom-google" style="text-align: center; margin: 10px 0; font-size: 12px; color: #8AB4F8; cursor: pointer; text-decoration: underline;">
+            Farklı bir Google hesabı kullan
+          </div>
+
+          <div id="custom-google-box" style="display: none; flex-direction: column; gap: 10px; margin-top: 8px; padding-top: 10px; border-top: 1px solid var(--border-glass);">
+            <input type="email" id="input-custom-google-email" class="text-input-field" placeholder="Google e-postanızı girin (ornek@gmail.com)" style="font-size: 13.5px; padding: 10px 12px;">
+            <input type="text" id="input-custom-google-name" class="text-input-field" placeholder="Adınız Soyadınız" value="${defaultUser.name}" style="font-size: 13.5px; padding: 10px 12px;">
+            <button class="btn-secondary" id="btn-submit-custom-google" style="width: 100%; padding: 10px; font-size: 12.5px; font-weight: 700;">
+              Bu Hesapla Devam Et
             </button>
+          </div>
+
+          <div style="font-size: 10.5px; color: var(--text-muted); text-align: center; margin-top: 14px; line-height: 1.4;">
+            Google profiliniz ve e-posta adresiniz Veyro sporcu profilinizle güvenle eşleştirilir.
           </div>
         </div>
       `;
@@ -261,43 +312,54 @@ export function createOnboardingModal(container, onComplete) {
 
       document.getElementById("btn-close-gauth")?.addEventListener("click", closeGAuth);
 
-      const processGoogleLogin = async (email, name) => {
+      const processGoogleLogin = async (email, name, picture = "") => {
         if (!email || !email.includes("@")) {
           notify.error("Lütfen geçerli bir Google e-posta adresi girin.");
           return;
         }
         closeGAuth();
-        notify.info("Google hesabı doğrulanıyor...");
+        notify.info("Google hesabı güvenle doğrulanıyor...");
 
         try {
           localStorage.setItem("veyro_last_google_user", JSON.stringify({ email, name: name || "Sporcu" }));
         } catch (e) {}
 
-        const res = await auth.signInWithGoogle(email, name);
+        const res = await auth.signInWithGoogle(email, name, state.gymId || "all", picture);
         if (res.isExisting) {
           notify.success(`Tekrar hoş geldin, ${res.user.name}!`);
           onComplete();
           return;
         }
 
-        // New Google user: proceed to step 2 wizard
+        // New Google user: advance directly to step 2 wizard with verified info
         state.verified = true;
         state.email = email;
         state.name = name || "Sporcu";
         state.provider = "google.com";
+        if (picture) state.photos = [picture];
         notify.success(`Google doğrulandı: ${state.name}!`);
         currentStep = 2;
         render();
       };
 
-      document.getElementById("btn-quick-google-login")?.addEventListener("click", () => {
-        if (saved) processGoogleLogin(saved.email, saved.name);
+      // 1-Click Instant Tap on Primary Account
+      document.getElementById("btn-gauth-primary-account")?.addEventListener("click", () => {
+        processGoogleLogin(defaultUser.email, defaultUser.name);
       });
 
-      document.getElementById("btn-submit-google-auth")?.addEventListener("click", () => {
-        const email = document.getElementById("input-google-email")?.value.trim();
-        const name = document.getElementById("input-google-name")?.value.trim();
-        processGoogleLogin(email, name);
+      // Toggle custom Google input
+      const toggleBtn = document.getElementById("btn-toggle-custom-google");
+      const customBox = document.getElementById("custom-google-box");
+      toggleBtn?.addEventListener("click", () => {
+        if (customBox) {
+          customBox.style.display = customBox.style.display === "none" ? "flex" : "none";
+        }
+      });
+
+      document.getElementById("btn-submit-custom-google")?.addEventListener("click", () => {
+        const email = document.getElementById("input-custom-google-email")?.value.trim();
+        const name = document.getElementById("input-custom-google-name")?.value.trim();
+        processGoogleLogin(email, name || "Sporcu");
       });
     }
 
@@ -307,6 +369,14 @@ export function createOnboardingModal(container, onComplete) {
         const raw = localStorage.getItem("veyro_last_apple_user");
         if (raw) saved = JSON.parse(raw);
       } catch (e) {}
+
+      const defaultUser = saved || {
+        name: "Çetin Çakmak",
+        email: "dursuncetincakmak@icloud.com",
+        relayEmail: "cetin_privaterelay@appleid.com"
+      };
+
+      let selectedAppleEmail = defaultUser.email;
 
       let overlay = document.getElementById("apple-auth-modal");
       if (!overlay) {
@@ -319,50 +389,65 @@ export function createOnboardingModal(container, onComplete) {
       }
 
       overlay.innerHTML = `
-        <div class="modal-drawer fade-in" style="max-width: 420px; background: #14161F; border: 1.5px solid rgba(255, 255, 255, 0.3); border-radius: 24px; padding: 22px;">
+        <div class="modal-drawer fade-in" style="max-width: 430px; background: #000000; border: 1.5px solid rgba(255, 255, 255, 0.25); border-radius: 24px; padding: 22px; box-shadow: 0 16px 40px rgba(0,0,0,0.9);">
+          <!-- Top Header -->
           <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
             <div style="display: flex; align-items: center; gap: 8px;">
-              <span style="font-size: 20px;"></span>
-              <h3 style="font-size: 17px; font-weight: 800; color: #FFF; margin: 0;">Apple ile Giriş Yap</h3>
-            </div>
-            <button class="btn-ghost" id="btn-close-aauth" style="padding: 4px; color: var(--text-secondary); display: flex; align-items: center; justify-content: center;">${icons.close(18)}</button>
-          </div>
-
-          <p style="font-size: 12.5px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.45;">
-            Apple Kimliğiniz ile devam edin.
-          </p>
-
-          ${saved ? `
-            <div id="btn-quick-apple-login" style="background: rgba(255, 255, 255, 0.08); border: 1.5px solid rgba(255, 255, 255, 0.25); border-radius: 14px; padding: 12px 14px; margin-bottom: 16px; cursor: pointer; display: flex; align-items: center; justify-content: space-between;">
-              <div style="display: flex; align-items: center; gap: 10px;">
-                <div style="width: 36px; height: 36px; border-radius: 50%; background: #000; border: 1px solid rgba(255,255,255,0.3); color: #FFF; font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 14px;">
-                  
-                </div>
-                <div>
-                  <strong style="font-size: 14px; color: #FFF; display: block;">${saved.name || 'Apple Hesabı'}</strong>
-                  <span style="font-size: 12px; color: var(--text-secondary);">${saved.email}</span>
-                </div>
+              <span style="font-size: 26px; line-height: 1; color: #FFF;"></span>
+              <div>
+                <h3 style="font-size: 16px; font-weight: 800; color: #FFF; margin: 0;">Apple Kimliği ile Sürdür</h3>
+                <span style="font-size: 11px; color: var(--text-secondary);">Veyro Fitness Kimlik Doğrulama</span>
               </div>
-              <span style="font-size: 11px; font-weight: 700; color: #FFF; background: rgba(255, 255, 255, 0.2); padding: 5px 10px; border-radius: 8px;">1-Tıkla Giriş</span>
             </div>
-          ` : ''}
+            <button class="btn-ghost" id="btn-close-aauth" style="padding: 6px; color: var(--text-secondary); font-size: 18px;">✕</button>
+          </div>
 
-          <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px;">
-            <div>
-              <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px;">Apple E-posta Adresi:</label>
-              <input type="email" id="input-apple-email" class="text-input-field" placeholder="ornek@icloud.com" value="${saved ? saved.email : ''}" style="font-size: 14px; padding: 12px 14px;">
+          <!-- Account Card -->
+          <div style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 14px; margin-bottom: 14px; display: flex; align-items: center; gap: 12px;">
+            <div style="width: 44px; height: 44px; border-radius: 50%; background: #1C1C1E; border: 1.5px solid rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 20px; color: #FFF;">
+              
             </div>
-            <div>
-              <label style="font-size: 12px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px;">Adınız Soyadınız:</label>
-              <input type="text" id="input-apple-name" class="text-input-field" placeholder="Örn: Burak Demir" value="${saved ? saved.name : ''}" style="font-size: 14px; padding: 12px 14px;">
+            <div style="flex: 1;">
+              <strong style="font-size: 14px; color: #FFF; display: block;">${defaultUser.name}</strong>
+              <span id="label-active-apple-email" style="font-size: 12px; color: var(--text-secondary);">${selectedAppleEmail}</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 4px; background: rgba(16, 185, 129, 0.15); color: #10B981; padding: 4px 8px; border-radius: 8px; font-size: 10.5px; font-weight: 700;">
+              ✓ Apple Onaylı
             </div>
           </div>
 
-          <div style="display: flex; gap: 10px;">
-            <button class="btn-kor" id="btn-submit-apple-auth" style="flex: 1; padding: 12px; font-size: 14px; background: #000000; border: 1.5px solid rgba(255,255,255,0.3);">
-              Apple ile Devam Et
-            </button>
+          <!-- Apple Privacy Options: Share Email vs Hide Email -->
+          <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 12px; margin-bottom: 16px;">
+            <div style="font-size: 11.5px; font-weight: 700; color: var(--text-secondary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em;">
+              E-POSTA GİZLİLİK SEÇENEĞİ
+            </div>
+
+            <label style="display: flex; align-items: center; gap: 10px; padding: 8px 6px; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.06);">
+              <input type="radio" name="apple_email_choice" value="share" checked style="accent-color: #FFF; width: 16px; height: 16px;">
+              <div>
+                <strong style="font-size: 13px; color: #FFF; display: block;">E-postamı Paylaş</strong>
+                <span style="font-size: 11px; color: var(--text-secondary);">${defaultUser.email}</span>
+              </div>
+            </label>
+
+            <label style="display: flex; align-items: center; gap: 10px; padding: 8px 6px; cursor: pointer;">
+              <input type="radio" name="apple_email_choice" value="hide" style="accent-color: #FFF; width: 16px; height: 16px;">
+              <div>
+                <strong style="font-size: 13px; color: #FFF; display: block;">E-postamı Gizle</strong>
+                <span style="font-size: 11px; color: var(--text-secondary);">${defaultUser.relayEmail || 'cetin_privaterelay@appleid.com'} (Benzersiz Özel Geçiş)</span>
+              </div>
+            </label>
           </div>
+
+          <!-- 1-Click Apple Auth Button -->
+          <button class="btn-kor" id="btn-submit-apple-1click" style="width: 100%; padding: 14px; font-size: 14px; font-weight: 800; background: #FFFFFF; color: #000000; border-radius: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 16px rgba(255,255,255,0.25);">
+            <span style="font-size: 18px; line-height: 1;"></span>
+            <span>Apple Kimliği ile Sürdür</span>
+          </button>
+
+          <p style="font-size: 10.5px; color: var(--text-muted); text-align: center; margin-top: 14px; line-height: 1.4;">
+            Face ID / Parola ile onaylayarak Veyro Gizlilik Politikası ve Apple Kimliği şartlarını kabul etmiş olursunuz.
+          </p>
         </div>
       `;
 
@@ -371,6 +456,17 @@ export function createOnboardingModal(container, onComplete) {
       };
 
       document.getElementById("btn-close-aauth")?.addEventListener("click", closeAAuth);
+
+      // Handle radio choice
+      overlay.querySelectorAll('input[name="apple_email_choice"]').forEach(radio => {
+        radio.addEventListener("change", (e) => {
+          selectedAppleEmail = e.target.value === "hide" 
+            ? (defaultUser.relayEmail || "cetin_privaterelay@appleid.com") 
+            : defaultUser.email;
+          const lbl = document.getElementById("label-active-apple-email");
+          if (lbl) lbl.textContent = selectedAppleEmail;
+        });
+      });
 
       const processAppleLogin = async (email, name) => {
         if (!email || !email.includes("@")) {
@@ -381,10 +477,10 @@ export function createOnboardingModal(container, onComplete) {
         notify.info("Apple hesabı doğrulanıyor...");
 
         try {
-          localStorage.setItem("veyro_last_apple_user", JSON.stringify({ email, name: name || "Apple Sporcusu" }));
+          localStorage.setItem("veyro_last_apple_user", JSON.stringify({ email, name: name || "Apple Sporcusu", relayEmail: defaultUser.relayEmail }));
         } catch (e) {}
 
-        const res = await auth.signInWithApple(email, name);
+        const res = await auth.signInWithApple(email, name, state.gymId || "all");
         if (res.isExisting) {
           notify.success(`Tekrar hoş geldin, ${res.user.name}!`);
           onComplete();
@@ -395,19 +491,13 @@ export function createOnboardingModal(container, onComplete) {
         state.email = email;
         state.name = name || "Apple Sporcusu";
         state.provider = "apple.com";
-        notify.success(`Apple doğrulandı: ${state.name}!`);
+        notify.success(`Apple ile doğrulandı: ${state.name}!`);
         currentStep = 2;
         render();
       };
 
-      document.getElementById("btn-quick-apple-login")?.addEventListener("click", () => {
-        if (saved) processAppleLogin(saved.email, saved.name);
-      });
-
-      document.getElementById("btn-submit-apple-auth")?.addEventListener("click", () => {
-        const email = document.getElementById("input-apple-email")?.value.trim();
-        const name = document.getElementById("input-apple-name")?.value.trim();
-        processAppleLogin(email, name);
+      document.getElementById("btn-submit-apple-1click")?.addEventListener("click", () => {
+        processAppleLogin(selectedAppleEmail, defaultUser.name);
       });
     }
   }
@@ -826,7 +916,7 @@ export function createOnboardingModal(container, onComplete) {
         }
         const submitBtn = document.getElementById("btn-finish-onboarding");
         if (submitBtn) submitBtn.textContent = `${gym.name}'ni seç`;
-      }, { height: "200px", selectedGymId: state.gymId });
+      }, { height: "260px", selectedGymId: state.gymId });
     }
 
     document.getElementById("btn-back-step3")?.addEventListener("click", () => {

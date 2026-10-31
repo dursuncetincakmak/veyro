@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veyro - Canlı Tanıtım ve Mobil Giriş</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0B0C0E;
+      color: #FFFFFF;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      text-align: center;
+    }
+    .card {
+      background: #141720;
+      border: 1px solid rgba(255, 87, 34, 0.35);
+      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.85), 0 0 30px rgba(255, 87, 34, 0.2);
+      border-radius: 28px;
+      padding: 36px 28px;
+      max-width: 460px;
+      width: 100%;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 87, 34, 0.15);
+      border: 1px solid rgba(255, 87, 34, 0.4);
+      color: #FF5722;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    p.sub {
+      color: #9CA3AF;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+    .qr-frame {
+      background: #FFFFFF;
+      padding: 16px;
+      border-radius: 20px;
+      display: inline-block;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
+      margin-bottom: 22px;
+    }
+    .qr-frame img {
+      display: block;
+      width: 240px;
+      height: 240px;
+      border-radius: 8px;
+    }
+    .url-box {
+      background: #0B0C0E;
+      border: 1px solid rgba(255, 87, 34, 0.3);
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+    }
+    .url-text {
+      font-family: monospace;
+      font-size: 15px;
+      font-weight: 800;
+      color: #FF5722;
+      text-decoration: none;
+      word-break: break-all;
+    }
+    .btn-copy {
+      background: linear-gradient(135deg, #FF5722 0%, #E64A19 100%);
+      border: none;
+      color: #FFF;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-left: 10px;
+      flex-shrink: 0;
+      transition: transform 0.15s ease;
+    }
+    .btn-copy:active {
+      transform: scale(0.95);
+    }
+    .btn-open {
+      display: block;
+      width: 100%;
+      background: linear-gradient(135deg, #FF5722 0%, #FF7043 100%);
+      color: #FFFFFF;
+      font-size: 16px;
+      font-weight: 800;
+      padding: 14px;
+      border-radius: 14px;
+      text-decoration: none;
+      box-shadow: 0 6px 20px rgba(255, 87, 34, 0.4);
+      margin-bottom: 20px;
+      transition: transform 0.15s ease;
+    }
+    .btn-open:hover {
+      transform: translateY(-2px);
+    }
+    .instructions {
+      text-align: left;
+      background: #1B1E29;
+      border-radius: 16px;
+      padding: 16px 18px;
+      font-size: 13px;
+      color: #D1D5DB;
+      line-height: 1.6;
+    }
+    .instructions strong {
+      color: #FFFFFF;
+    }
+    .instructions ol {
+      padding-left: 18px;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="badge">🔥 VEYRO CANLI YAYINDA</div>
+    <h1>Veyro Tanıtım Ekranı</h1>
+    <p class="sub">Telefonunuzun kamerasıyla QR kodu taratarak veya aşağıdaki bağlantıya tıklayarak anında giriş yapın.</p>
+
+    <div class="qr-frame">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fveyro-fit.vercel.app&color=0B0C0E" alt="Veyro QR Kod" />
+    </div>
+
+    <div class="url-box">
+      <a class="url-text" href="https://veyro-fit.vercel.app" target="_blank">https://veyro-fit.vercel.app</a>
+      <button class="btn-copy" onclick="navigator.clipboard.writeText('https://veyro-fit.vercel.app'); this.textContent = 'Kopyalandı!'; setTimeout(() => this.textContent = 'Kopyala', 2000);">Kopyala</button>
+    </div>
+
+    <a class="btn-open" href="https://veyro-fit.vercel.app" target="_blank">Uygulamayı Aç 🚀</a>
+
+    <div class="instructions">
+      <strong>📱 Telefonda Mobil Uygulama Olarak Kullanma:</strong>
+      <ol>
+        <li>Bağlantıyı Safari (iPhone) veya Chrome (Android) ile açın.</li>
+        <li><strong>Paylaş / Menü</strong> butonuna basıp <strong>"Ana Ekrana Ekle"</strong> seçeneğini seçin.</li>
+        <li>Veyro, telefonunuza uygulama mağazasından indirilmiş gibi tam ekran mobil ikonla kurulacaktır!</li>
+      </ol>
+    </div>
+  </div>
+
+</body>
+</html>

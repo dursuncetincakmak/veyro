@@ -120,6 +120,7 @@ function veyroSyncPlugin() {
 }
 
 export default defineConfig({
+  base: './',
   root: './',
   publicDir: 'public',
   plugins: [veyroSyncPlugin()],
@@ -127,13 +128,26 @@ export default defineConfig({
     port: 3000,
     open: false,
     host: true,
+    allowedHosts: true,
     watch: {
       ignored: ['**/android/**', '**/ios/**', '**/dist/**', '**/.veyro_sync_store.json']
     }
   },
+  preview: {
+    port: 3000,
+    host: true,
+    allowedHosts: true
+  },
   build: {
     outDir: 'dist',
     emptyOutDir: true,
-    sourcemap: false
+    sourcemap: false,
+    rollupOptions: {
+      input: {
+        main: path.resolve('./index.html'),
+        admin: path.resolve('./admin.html'),
+        business: path.resolve('./business.html')
+      }
+    }
   }
 });

@@ -41,6 +41,8 @@ export const icons = {
   plus: (size = 18, cls = "") => svg('<line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>', size, cls),
   bulb: (size = 18, cls = "") => svg('<path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2v1"></path><path d="M12 7a5 5 0 1 0-3 9h6a5 5 0 0 0-3-9z"></path>', size, cls),
   bell: (size = 18, cls = "") => svg('<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path>', size, cls),
+  flag: (size = 18, cls = "") => svg('<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line>', size, cls),
+  award: (size = 18, cls = "") => svg('<circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>', size, cls),
   handshake: (size = 18, cls = "") => svg('<path d="m11 17 2 2a1 1 0 0 0 1.4 0l4.3-4.3a1 1 0 0 0 0-1.4l-2-2"></path><path d="m18 10 1.4-1.4a2 2 0 0 0 0-2.8l-1.2-1.2a2 2 0 0 0-2.8 0L14 6"></path><path d="M2 13.5V20a2 2 0 0 0 2 2h3.5a2 2 0 0 0 1.4-.6L14 16.3"></path><path d="M22 10.5V4a2 2 0 0 0-2-2h-3.5a2 2 0 0 0-1.4.6L10 7.7"></path>', size, cls),
 
   // Account & Auth

@@ -38,3 +38,8 @@ android/.idea/
 ios/App/build/
 ios/App/Pods/
 ios/App/DerivedData/
+
+.vercel
+
+cloudflared.exe
+

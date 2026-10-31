@@ -31,6 +31,8 @@ export function renderAdminPortal(container, onClose) {
     const reports = db.getCollection("reports");
     const exercises = db.getCollection("exercises");
     const deals = db.getCollection("deals");
+    const campaigns = db.getCampaigns();
+    const advertisers = db.getAdvertisers();
     const fbConfig = getFirebaseConfig();
     const gateways = getGatewayConfig();
 
@@ -51,11 +53,13 @@ export function renderAdminPortal(container, onClose) {
 
         <!-- Navigation Tabs -->
         <div class="admin-tabs-nav" style="overflow-x: auto; padding-bottom: 6px;">
-          <button class="admin-tab-btn ${activeTab === 'kpis' ? 'active' : ''}" data-tab="kpis">Genel Bakış</button>
-          <button class="admin-tab-btn ${activeTab === 'gyms' ? 'active' : ''}" data-tab="gyms">Salonlar (${gyms.length})</button>
-          <button class="admin-tab-btn ${activeTab === 'moderation' ? 'active' : ''}" data-tab="moderation">Moderasyon (${reports.length})</button>
-          <button class="admin-tab-btn ${activeTab === 'exercises' ? 'active' : ''}" data-tab="exercises">Egzersizler (${exercises.length})</button>
+          <button class="admin-tab-btn ${activeTab === 'kpis' ? 'active' : ''}" data-tab="kpis">İstatistikler & Analiz</button>
+          <button class="admin-tab-btn ${activeTab === 'users' ? 'active' : ''}" data-tab="users">Sporcular (${users.length})</button>
+          <button class="admin-tab-btn ${activeTab === 'moderation' ? 'active' : ''}" data-tab="moderation">Şikayet & Moderasyon (${reports.length})</button>
+          <button class="admin-tab-btn ${activeTab === 'campaigns' ? 'active' : ''}" data-tab="campaigns">Reklam Masası (${campaigns.length})</button>
           <button class="admin-tab-btn ${activeTab === 'deals' ? 'active' : ''}" data-tab="deals">Fırsatlar (${deals.length})</button>
+          <button class="admin-tab-btn ${activeTab === 'gyms' ? 'active' : ''}" data-tab="gyms">Salonlar (${gyms.length})</button>
+          <button class="admin-tab-btn ${activeTab === 'exercises' ? 'active' : ''}" data-tab="exercises">Egzersizler (${exercises.length})</button>
           <button class="admin-tab-btn ${activeTab === 'gateways' ? 'active' : ''}" data-tab="gateways">SMS & Mail API</button>
           <button class="admin-tab-btn ${activeTab === 'maps' ? 'active' : ''}" data-tab="maps">Harita API</button>
           <button class="admin-tab-btn ${activeTab === 'firebase' ? 'active' : ''}" data-tab="firebase">Google Firebase</button>
@@ -63,7 +67,7 @@ export function renderAdminPortal(container, onClose) {
 
         <!-- TAB CONTENT -->
         <div id="admin-tab-body">
-          ${renderTabContent(activeTab, { gyms, users, appointments, reports, exercises, deals, fbConfig, gateways })}
+          ${renderTabContent(activeTab, { gyms, users, appointments, reports, exercises, deals, campaigns, advertisers, fbConfig, gateways })}
         </div>
       </div>
     `;
@@ -181,6 +185,71 @@ export function renderAdminPortal(container, onClose) {
       `;
     }
 
+    if (tab === "users") {
+      const verifiedCount = data.users.filter(u => u.verified).length;
+      const bannedCount = data.users.filter(u => u.isBanned).length;
+
+      return `
+        <div style="margin-bottom: 16px;">
+          <h4 style="font-size: 16px;">Kayıtlı Sporcular & Kullanıcı İstatistikleri (${data.users.length})</h4>
+          <p style="font-size: 12px; color: var(--text-secondary);">
+            Veritabanındaki tüm sporcuların durumunu inceleyin, askıya alın veya yasağını kaldırın.
+          </p>
+          <div style="display: flex; gap: 10px; margin-top: 10px;">
+            <div class="admin-kpi-card" style="padding: 10px 14px; flex: 1;">
+              <span class="kpi-label">Toplam Sporcu</span>
+              <span class="kpi-value" style="font-size: 20px;">${data.users.length}</span>
+            </div>
+            <div class="admin-kpi-card" style="padding: 10px 14px; flex: 1;">
+              <span class="kpi-label">SMS Onaylı</span>
+              <span class="kpi-value" style="font-size: 20px; color: #10B981;">${verifiedCount}</span>
+            </div>
+            <div class="admin-kpi-card" style="padding: 10px 14px; flex: 1;">
+              <span class="kpi-label">Askıya Alınan</span>
+              <span class="kpi-value" style="font-size: 20px; color: #EF4444;">${bannedCount}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-table-list">
+          ${data.users.map(u => {
+            const isBanned = u.isBanned;
+            return `
+              <div class="admin-item-row" style="${isBanned ? 'border-color: rgba(239, 68, 68, 0.4); background: rgba(239, 68, 68, 0.05);' : ''}">
+                <div class="admin-item-meta">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 32px; height: 32px; border-radius: 50%; background: #222; overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                      ${(u.photos && u.photos[0]) || u.avatar ? `
+                        <img src="${(u.photos && u.photos[0]) || u.avatar}" style="width: 100%; height: 100%; object-fit: cover;" />
+                      ` : `
+                        <span style="font-size: 11px; font-weight: 700; color: #FFF;">${u.initials || 'SP'}</span>
+                      `}
+                    </div>
+                    <div>
+                      <h4 style="margin: 0; font-size: 14px;">${u.name}</h4>
+                      <p style="margin: 0; font-size: 11.5px; color: var(--text-secondary);">${u.phone || u.email || 'Telefon belirtilmedi'}</p>
+                    </div>
+                  </div>
+                  <div style="margin-top: 6px; font-size: 11.5px; color: var(--text-muted); display: flex; gap: 8px; flex-wrap: wrap;">
+                    <span>Salon: <strong>${u.gymName || 'Tüm Salonlar'}</strong></span>
+                    <span>Seviye: <strong>${u.level || 'Orta'}</strong></span>
+                    <span>Durum: <strong style="color: ${isBanned ? '#EF4444' : '#10B981'};">${isBanned ? 'Askıya Alındı' : 'Aktif'}</strong></span>
+                  </div>
+                </div>
+                <div class="admin-actions-btns">
+                  ${isBanned ? `
+                    <button class="btn-admin-action approve" data-action="admin-unban-user" data-uid="${u.id}">Yasağı Kaldır</button>
+                  ` : `
+                    <button class="btn-admin-action delete" data-action="admin-ban-user" data-uid="${u.id}">Askıya Al</button>
+                  `}
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+
     if (tab === "moderation") {
       return `
         <div style="margin-bottom: 14px;">
@@ -193,13 +262,17 @@ export function renderAdminPortal(container, onClose) {
           ` : data.reports.map(rep => `
             <div class="admin-item-row">
               <div class="admin-item-meta">
-                <h4>Şikayet: ${rep.reason}</h4>
-                <p>Hedef: ${rep.reportedUserId} · Durum: <span style="color: var(--color-kor);">${rep.status}</span></p>
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                  <span style="font-family: monospace; font-size: 11px; background: rgba(255, 87, 34, 0.15); color: var(--color-kor); padding: 2px 6px; border-radius: 4px;">${rep.ticketId || '#REP-XXXX'}</span>
+                  <h4>Şikayet: ${rep.reason}</h4>
+                </div>
+                <p>Bildiren: <strong>${rep.reporterName || rep.reporterId}</strong> · Hedef: <strong>${rep.reportedUserName || rep.reportedUserId}</strong></p>
                 <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">"${rep.details || 'Uygunsuz davranış'}"</p>
+                <p style="font-size: 11.5px; color: var(--color-kor); margin-top: 4px;">Durum: <strong>${rep.status || 'İnceleniyor'}</strong> ${rep.actionTaken ? `(${rep.actionTaken})` : ''}</p>
               </div>
               <div class="admin-actions-btns">
                 <button class="btn-admin-action approve" data-action="resolve-report" data-id="${rep.id}">Çözüldü</button>
-                <button class="btn-admin-action delete" data-action="ban-user" data-target="${rep.reportedUserId}">Yasakla</button>
+                <button class="btn-admin-action delete" data-action="ban-user" data-target="${rep.reportedUserId}" data-rep-id="${rep.id}">Yasakla</button>
               </div>
             </div>
           `).join('')}
@@ -225,6 +298,88 @@ export function renderAdminPortal(container, onClose) {
               </div>
             </div>
           `).join('')}
+        </div>
+      `;
+    }
+
+    if (tab === "campaigns") {
+      const totalRev = data.advertisers.reduce((acc, a) => acc + (a.balance || 0), 0) + data.campaigns.reduce((acc, c) => acc + (c.spent || 0), 0);
+      return `
+        <div style="margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+          <div>
+            <h4 style="font-size: 18px; font-weight: 800; color: #FFF; margin: 0 0 4px;">Kurumsal Reklam & Müşteri Masası</h4>
+            <p style="font-size: 12.5px; color: var(--text-secondary); margin: 0;">Supplement markaları, salon zincirleri ve kurumsal sponsorluk yönetimi.</p>
+          </div>
+          <a href="/business" target="_blank" style="padding: 8px 16px; font-size: 12.5px; font-weight: 800; background: rgba(59, 130, 246, 0.2); color: #60A5FA; border: 1px solid rgba(59, 130, 246, 0.4); border-radius: 10px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+            🏢 Müşteri Portalını Aç (/business) →
+          </a>
+        </div>
+
+        <!-- Metric Snapshot -->
+        <div class="admin-kpis-grid" style="margin-bottom: 20px;">
+          <div class="admin-kpi-card">
+            <span class="kpi-label">Toplam Reklam Portföy Hacmi</span>
+            <span class="kpi-value">${Number(totalRev).toLocaleString("tr-TR")} ₺</span>
+            <span class="kpi-trend">Kurumsal B2B Geliri</span>
+          </div>
+          <div class="admin-kpi-card">
+            <span class="kpi-label">Kayıtlı Reklam Veren</span>
+            <span class="kpi-value">${data.advertisers.length} Marka</span>
+            <span class="kpi-trend" style="color: #60A5FA;">Aktif Sponsorluklar</span>
+          </div>
+        </div>
+
+        <!-- Campaigns List -->
+        <div style="margin-bottom: 24px;">
+          <h5 style="font-size: 14.5px; font-weight: 800; color: #FFF; margin-bottom: 12px;">Yayınlanan Kampanyalar:</h5>
+          <div class="admin-table-list">
+            ${data.campaigns.map(c => `
+              <div class="admin-item-row">
+                <div class="admin-item-meta">
+                  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                    <span style="font-size: 10.5px; font-weight: 800; padding: 2px 7px; border-radius: 4px; ${c.status === 'active' ? 'background: rgba(16,185,129,0.15); color: #10B981;' : 'background: rgba(239,68,68,0.15); color: #EF4444;'}">
+                      ${c.status === 'active' ? '● YAYINDA' : '⏸ DURAKLATILDI'}
+                    </span>
+                    <h4>${c.brandName}: ${c.title}</h4>
+                  </div>
+                  <p>Kupon Kodu: <strong style="color: var(--color-kor); font-family: monospace;">${c.code}</strong> · Hedef: ${c.targetAudience} · Bütçe: ${Number(c.totalBudget).toLocaleString("tr-TR")} ₺</p>
+                  <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 4px;">
+                    Gösterim: <strong>${(c.impressions || 0).toLocaleString("tr-TR")}</strong> · Tıklama: <strong>${(c.clicks || 0).toLocaleString("tr-TR")}</strong> · Harcanan: <strong>${Number(c.spent || 0).toLocaleString("tr-TR")} ₺</strong>
+                  </p>
+                </div>
+                <div class="admin-actions-btns">
+                  ${c.status === 'active' ? `
+                    <button class="btn-admin-action delete" data-action="admin-pause-camp" data-id="${c.id}">Duraklat</button>
+                  ` : `
+                    <button class="btn-admin-action approve" data-action="admin-approve-camp" data-id="${c.id}">Yayına Al</button>
+                  `}
+                  <button class="btn-admin-action delete" data-action="admin-delete-camp" data-id="${c.id}">Sil</button>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <!-- Advertisers List -->
+        <div>
+          <h5 style="font-size: 14.5px; font-weight: 800; color: #FFF; margin-bottom: 12px;">Kayıtlı Kurumsal Markalar:</h5>
+          <div class="admin-table-list">
+            ${data.advertisers.map(a => `
+              <div class="admin-item-row">
+                <div class="admin-item-meta">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <h4>${a.brandName}</h4>
+                    <span style="font-size: 10px; font-weight: 700; color: #60A5FA; background: rgba(59,130,246,0.12); padding: 2px 6px; border-radius: 4px;">${a.sector}</span>
+                  </div>
+                  <p>Yetkili: <strong>${a.contactName}</strong> · E-Posta: <strong>${a.email}</strong> · Tel: ${a.phone}</p>
+                </div>
+                <div style="text-align: right;">
+                  <span style="font-size: 11px; color: var(--text-secondary); display: block;">Reklam Bakiyesi</span>
+                  <strong style="font-size: 15px; color: #10B981;">${Number(a.balance || 0).toLocaleString("tr-TR")} ₺</strong>
+                </div>
+              </div>
+            `).join('')}
+          </div>
         </div>
       `;
     }
@@ -436,6 +591,22 @@ export function renderAdminPortal(container, onClose) {
               <input type="text" id="fb-input-storagebucket" class="text-input-field" value="${data.fbConfig.storageBucket}">
             </div>
 
+            <div style="margin-top: 10px; padding-top: 12px; border-top: 1px solid var(--border-glass);">
+              <h5 style="font-size: 13.5px; color: #FFF; margin-bottom: 8px;">Google & Apple 1-Click Giriş API</h5>
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                <div>
+                  <label class="form-label" style="font-size: 11.5px;">Google OAuth 2.0 Web Client ID</label>
+                  <input type="text" id="auth-google-client-id" class="text-input-field" placeholder="xxxx.apps.googleusercontent.com" value="${data.gateways.auth?.googleClientId || ''}">
+                  <span style="font-size: 10.5px; color: var(--text-muted);">Google Cloud Console > Credentials > OAuth 2.0 Client ID</span>
+                </div>
+                <div>
+                  <label class="form-label" style="font-size: 11.5px;">Apple Services ID</label>
+                  <input type="text" id="auth-apple-client-id" class="text-input-field" placeholder="com.veyro.fitness.web" value="${data.gateways.auth?.appleClientId || ''}">
+                  <span style="font-size: 10.5px; color: var(--text-muted);">Apple Developer > Certificates, Identifiers & Profiles > Services ID</span>
+                </div>
+              </div>
+            </div>
+
             <button class="btn-kor" id="btn-save-firebase" style="margin-top: 10px;">
               Bağlantı Ayarlarını Kaydet ve Senkronize Et
             </button>
@@ -508,11 +679,34 @@ export function renderAdminPortal(container, onClose) {
       });
     }
 
+    if (tab === "users") {
+      container.querySelectorAll("[data-action='admin-ban-user']").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const uid = btn.dataset.uid;
+          db.banUser(uid);
+          notify.error("Kullanıcı hesabı askıya alındı.");
+          render();
+        });
+      });
+
+      container.querySelectorAll("[data-action='admin-unban-user']").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const uid = btn.dataset.uid;
+          db.unbanUser(uid);
+          notify.success("Kullanıcının hesabı tekrar aktif edildi.");
+          render();
+        });
+      });
+    }
+
     if (tab === "moderation") {
       container.querySelectorAll("[data-action='resolve-report']").forEach(btn => {
         btn.addEventListener("click", () => {
           const id = btn.dataset.id;
-          db.deleteItem("reports", id);
+          db.updateItem("reports", id, {
+            status: "Çözüldü",
+            actionTaken: "Şikayet moderasyon ekibi tarafından incelendi ve sonuçlandırıldı."
+          });
           notify.success("Şikayet çözüldü olarak arşive alındı.");
           render();
         });
@@ -521,6 +715,14 @@ export function renderAdminPortal(container, onClose) {
       container.querySelectorAll("[data-action='ban-user']").forEach(btn => {
         btn.addEventListener("click", () => {
           const target = btn.dataset.target;
+          const repId = btn.dataset.repId;
+          db.banUser(target);
+          if (repId) {
+            db.updateItem("reports", repId, {
+              status: "İşlem Yapıldı",
+              actionTaken: "Şikayet edilen hesap askıya alındı ve engellendi."
+            });
+          }
           notify.error(`Kullanıcı (${target}) kalıcı olarak yasaklandı.`);
           render();
         });
@@ -552,6 +754,34 @@ export function renderAdminPortal(container, onClose) {
           db.deleteItem("exercises", id);
           notify.info("Egzersiz silindi.");
           render();
+        });
+      });
+    }
+
+    if (tab === "campaigns") {
+      container.querySelectorAll("[data-action='admin-approve-camp']").forEach(btn => {
+        btn.addEventListener("click", () => {
+          db.updateCampaignStatus(btn.dataset.id, 'active');
+          notify.success("Kampanya onaylandı ve mobil uygulamada yayına alındı!");
+          render();
+        });
+      });
+
+      container.querySelectorAll("[data-action='admin-pause-camp']").forEach(btn => {
+        btn.addEventListener("click", () => {
+          db.updateCampaignStatus(btn.dataset.id, 'paused');
+          notify.info("Kampanya yayından kaldırıldı (duraklatıldı).");
+          render();
+        });
+      });
+
+      container.querySelectorAll("[data-action='admin-delete-camp']").forEach(btn => {
+        btn.addEventListener("click", () => {
+          if (confirm("Bu kampanyayı silmek istediğinizden emin misiniz?")) {
+            db.deleteCampaign(btn.dataset.id);
+            notify.info("Kampanya silindi.");
+            render();
+          }
         });
       });
     }
@@ -666,9 +896,12 @@ export function renderAdminPortal(container, onClose) {
         const projectId = document.getElementById("fb-input-projectid")?.value.trim();
         const authDomain = document.getElementById("fb-input-authdomain")?.value.trim();
         const storageBucket = document.getElementById("fb-input-storagebucket")?.value.trim();
+        const googleClientId = document.getElementById("auth-google-client-id")?.value.trim();
+        const appleClientId = document.getElementById("auth-apple-client-id")?.value.trim();
 
         saveFirebaseConfig({ apiKey, projectId, authDomain, storageBucket });
-        notify.success("Google Firebase kimlik bilgileri başarıyla güncellendi!");
+        saveGatewayConfig({ auth: { googleClientId, appleClientId } });
+        notify.success("Google Firebase ve OAuth kimlik bilgileri başarıyla güncellendi!");
       });
     }
   }

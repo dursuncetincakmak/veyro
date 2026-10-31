@@ -1,0 +1,262 @@
+/* Veyro - Tam Ekran Profil Görünümü Stilleri (ProfileView) */
+
+.profile-view-container {
+  padding: 16px 18px calc(40px + var(--safe-area-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.profile-hero-card {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-glass-bright);
+  border-radius: 22px;
+  padding: 22px 18px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.profile-hero-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: linear-gradient(180deg, rgba(255, 87, 34, 0.15) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.profile-avatar-wrapper {
+  position: relative;
+  width: 92px;
+  height: 92px;
+  margin: 0 auto 14px;
+}
+
+.profile-avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3.5px solid var(--color-kor);
+  box-shadow: 0 0 20px rgba(255, 87, 34, 0.35);
+  background: var(--bg-surface-card);
+}
+
+.profile-avatar-fallback {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--color-kor-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 800;
+  color: #FFFFFF;
+  border: 3.5px solid var(--border-glass-bright);
+  box-shadow: 0 0 20px rgba(255, 87, 34, 0.35);
+}
+
+.profile-avatar-online-badge {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 18px;
+  height: 18px;
+  background: var(--color-emerald);
+  border: 3px solid var(--bg-surface-elevated);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+}
+
+.profile-title-name {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.profile-phone-text {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.profile-bio-box {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-glass);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 13.5px;
+  color: var(--text-main);
+  line-height: 1.5;
+  margin-top: 14px;
+  text-align: left;
+  font-style: italic;
+}
+
+/* Quick Action Row (Edit & Preview) */
+.profile-actions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.btn-profile-primary {
+  background: var(--color-kor-gradient);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 13.5px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(255, 87, 34, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-profile-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-profile-secondary {
+  background: var(--bg-surface-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-glass-bright);
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 13.5px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-profile-secondary:active {
+  background: var(--bg-surface-elevated);
+}
+
+/* Photo Gallery Strip */
+.profile-photos-strip {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 0 8px;
+  scrollbar-width: none;
+}
+.profile-photos-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.profile-thumb-card {
+  width: 72px;
+  height: 96px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 1.5px solid var(--border-glass-bright);
+  flex-shrink: 0;
+}
+
+/* Info Cards */
+.profile-section-card {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-glass);
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.profile-section-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.profile-pills-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.profile-pill-item {
+  padding: 6px 12px;
+  background: var(--bg-surface-card);
+  border: 1px solid var(--border-glass-bright);
+  border-radius: var(--radius-full);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-main);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.profile-pill-item.active {
+  background: rgba(255, 87, 34, 0.12);
+  border-color: rgba(255, 87, 34, 0.35);
+  color: var(--color-kor);
+}
+
+/* Profile Menu List */
+.profile-menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.profile-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-glass);
+  border-radius: 14px;
+  color: var(--text-main);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.profile-menu-item:hover, .profile-menu-item:active {
+  background: var(--bg-surface-card);
+  border-color: var(--border-glass-bright);
+  transform: translateX(2px);
+}
+
+.profile-menu-item-danger {
+  color: var(--color-rose);
+  border-color: rgba(244, 63, 94, 0.25);
+  background: rgba(244, 63, 94, 0.05);
+}
+
+.profile-menu-item-danger:hover, .profile-menu-item-danger:active {
+  background: rgba(244, 63, 94, 0.12);
+  border-color: rgba(244, 63, 94, 0.45);
+}

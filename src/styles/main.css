@@ -520,9 +520,67 @@ h1, h2, h3, h4, h5, h6 {
   border-top-color: #14161F !important;
 }
 
+.leaflet-div-icon {
+  background: transparent !important;
+  border: none !important;
+}
+
 .leaflet-container {
+  width: 100% !important;
+  height: 100% !important;
   background-color: #0A0C12 !important;
   font-family: var(--font-body) !important;
+  outline: none;
+}
+
+.leaflet-container img {
+  max-width: none !important;
+  max-height: none !important;
+}
+
+.leaflet-tile {
+  visibility: inherit !important;
+  max-width: none !important;
+  max-height: none !important;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.leaflet-tile-container {
+  pointer-events: none;
+}
+
+.leaflet-pane {
+  z-index: 400 !important;
+}
+
+.leaflet-top, .leaflet-bottom {
+  z-index: 1000 !important;
+}
+
+/* Authentic Google & Apple 1-Click Auth Sheets */
+.auth-sheet-card {
+  background: rgba(25, 28, 38, 0.95);
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  padding: 16px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.auth-sheet-card:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(32, 36, 48, 0.98);
+  transform: translateY(-1px);
+}
+
+.auth-account-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
 }
 
 /* Sleek Segmented Switcher & Filter Toolbar */
@@ -915,3 +973,38 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   gap: 8px;
 }
+
+/* Mobile Ultra-Smooth Tab Panes & Native Performance */
+.view-tab-pane {
+  display: none;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+  touch-action: manipulation;
+  will-change: opacity, transform;
+}
+
+.view-tab-pane.active {
+  display: block;
+  animation: tabSwitchSmooth 0.14s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes tabSwitchSmooth {
+  0% {
+    opacity: 0.88;
+    transform: translate3d(0, 2px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Global Mobile Touch Optimization */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, a, .tab-item {
+  touch-action: manipulation;
+}
+

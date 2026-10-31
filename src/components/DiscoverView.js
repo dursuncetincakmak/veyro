@@ -76,6 +76,10 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
       // Don't show current logged in user in their own discovery deck
       if (user.id === currentUser.id) return false;
 
+      // Never show athletes who have been blocked or banned
+      if (db.isBlocked(currentUser.id, user.id)) return false;
+      if (user.isBanned) return false;
+
       // Never show athletes who have already been matched or invited
       if (matchedPartnerIds.has(user.id)) return false;
 

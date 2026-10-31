@@ -10,6 +10,23 @@ export function renderTabBar(container, currentTab, onTabSelect) {
   const appointments = db.getCollection("appointments");
   const pendingIncoming = appointments.filter(a => a.status === "incoming_request").length;
 
+  const nav = container.querySelector("#bottom-navigation");
+  if (nav) {
+    nav.querySelectorAll(".tab-item").forEach(button => {
+      button.classList.toggle("active", button.dataset.tab === currentTab);
+    });
+    const aptBtn = nav.querySelector("[data-tab='appointments']");
+    if (aptBtn) {
+      const existingDot = aptBtn.querySelector(".badge-dot");
+      if (pendingIncoming > 0 && !existingDot) {
+        aptBtn.insertAdjacentHTML("beforeend", '<span class="badge-dot"></span>');
+      } else if (pendingIncoming === 0 && existingDot) {
+        existingDot.remove();
+      }
+    }
+    return;
+  }
+
   container.innerHTML = `
     <nav class="tab-bar safe-bottom" id="bottom-navigation">
       <button class="tab-item ${currentTab === 'discover' ? 'active' : ''}" data-tab="discover" aria-label="Keşfet">

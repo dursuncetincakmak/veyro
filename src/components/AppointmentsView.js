@@ -22,8 +22,14 @@ export function renderAppointmentsView(container, onOpenRoutines, onOpenChat, on
 
   function getFilteredAppointments() {
     const all = db.getCollection("appointments") || [];
-    // Only return appointments involving this logged in user
-    const myApts = all.filter(a => !currentUser.id || a.userId === currentUser.id || a.partnerId === currentUser.id || a.userId === 'current-user' || a.partnerId === 'current-user');
+    // Only return appointments involving this logged in user, excluding blocked users
+    const myApts = all.filter(a => {
+      const isMine = !currentUser.id || a.userId === currentUser.id || a.partnerId === currentUser.id || a.userId === 'current-user' || a.partnerId === 'current-user';
+      if (!isMine) return false;
+      const otherId = a.userId === currentUser.id ? a.partnerId : a.userId;
+      if (otherId && db.isBlocked(currentUser.id, otherId)) return false;
+      return true;
+    });
     if (activeTab === "upcoming") {
       return myApts.filter(a => a.status === "accepted");
     } else if (activeTab === "requests") {

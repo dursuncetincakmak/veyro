@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veyro - Web Yönetim Masası (Admin Paneli)</title>
+  <meta name="description" content="Veyro Spor ve Antrenman Platformu Yönetici Masası, Kullanıcı İstatistikleri, Moderasyon ve Fırsatlar Yönetimi.">
+  <meta name="theme-color" content="#0B0C0E">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #090A0D;
+      color: #EDEDED;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    #admin-app {
+      flex: 1;
+      width: 100%;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <div id="admin-app"></div>
+  <script type="module" src="/src/admin.js"></script>
+</body>
+</html>

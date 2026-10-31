@@ -6,7 +6,31 @@ import { db } from '../services/db.js';
 import { notify } from '../services/notification.js';
 
 export function renderDealsView(container) {
-  const deals = db.getCollection("deals");
+  const deals = db.getCollection("deals") || [];
+  const campaigns = (db.getCampaigns ? db.getCampaigns() : []).filter(c => c.status === 'active');
+
+  // Convert active advertiser campaigns to deals
+  const activeCampDeals = campaigns.map(c => ({
+    id: c.id,
+    brand: c.brandName,
+    title: c.title,
+    description: c.description,
+    badge: "SPONSORLU",
+    code: c.code,
+    validUntil: c.validUntil || "31 Aralık 2026",
+    isCampaign: true,
+    campaignId: c.id
+  }));
+
+  // Record impression for active campaigns
+  campaigns.forEach(c => {
+    try {
+      db.recordCampaignImpression(c.id);
+    } catch (e) {}
+  });
+
+  // Combine and avoid duplicate promo codes
+  const combinedDeals = [...activeCampDeals, ...deals.filter(d => !activeCampDeals.some(ac => ac.code === d.code))];
 
   container.innerHTML = `
     <div class="deals-page fade-in">
@@ -18,16 +42,16 @@ export function renderDealsView(container) {
       </div>
 
       <div class="deals-grid">
-        ${deals.map(deal => `
+        ${combinedDeals.map(deal => `
           <div class="deal-card" data-deal-id="${deal.id}">
-            <span class="deal-badge-pill">${deal.badge}</span>
+            <span class="deal-badge-pill" style="${deal.isCampaign ? 'background: rgba(59,130,246,0.18); color: #60A5FA; border: 1px solid rgba(59,130,246,0.35);' : ''}">${deal.badge}</span>
             <div class="deal-brand">${deal.brand}</div>
             <h3 class="deal-title">${deal.title}</h3>
             <p class="deal-desc">${deal.description}</p>
 
             <div class="deal-code-box">
               <span class="code-text" id="code-${deal.id}">${deal.code}</span>
-              <button class="btn-copy-code" data-code="${deal.code}">
+              <button class="btn-copy-code" data-code="${deal.code}" data-campaign-id="${deal.campaignId || ''}">
                 Kodu Kopyala
               </button>
             </div>
@@ -43,6 +67,12 @@ export function renderDealsView(container) {
   container.querySelectorAll(".btn-copy-code").forEach(btn => {
     btn.addEventListener("click", () => {
       const code = btn.dataset.code;
+      const campId = btn.dataset.campaignId;
+      if (campId) {
+        try {
+          db.recordCampaignClick(campId);
+        } catch (e) {}
+      }
       navigator.clipboard?.writeText(code);
       btn.textContent = "Kopyalandı!";
       notify.success(`${code} kupon kodu panoya kopyalandı!`);

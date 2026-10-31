@@ -5,8 +5,10 @@
  */
 
 import { db } from '../services/db.js';
+import { auth } from '../services/auth.js';
 import { notify } from '../services/notification.js';
 import { showChatModal } from './ChatModal.js';
+import { showReportModal } from './ReportModal.js';
 import { icons } from './icons.js';
 
 export function showProfileDetailModal(user, onSendRequest, onClose) {
@@ -231,23 +233,16 @@ export function showProfileDetailModal(user, onSendRequest, onClose) {
 
   // Block user
   document.getElementById("btn-block-user")?.addEventListener("click", () => {
-    notify.info(`${user.name} engellendi.`);
+    const currentUser = auth.getCurrentUser() || { id: "current-user" };
+    db.blockUser(currentUser.id, user.id);
+    notify.info(`${user.name} engellendi. Artık sizi göremez ve size ulaşamaz.`);
     close();
   });
 
   // Report user
   document.getElementById("btn-report-user")?.addEventListener("click", () => {
-    const reason = prompt(`${user.name} kullanıcısını şikayet etme nedeniniz:`, "Uygunsuz davranış / Sahte profil");
-    if (reason) {
-      db.addItem("reports", {
-        reportedUserId: user.id,
-        reporterId: "current-user",
-        reason: reason,
-        status: "open"
-      });
-      notify.success("Şikayetiniz moderasyon ekibimize iletildi.");
-      close();
-    }
+    close();
+    showReportModal(user, () => {});
   });
 
   modalOverlay.addEventListener("click", (e) => {

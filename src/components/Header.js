@@ -42,30 +42,29 @@ export function renderHeader(container, onGymClick, onProfileClick, onAdminClick
           ` : ''}
         </button>
 
-        ${auth.isAdmin() ? `
-          <button class="btn-ghost" id="btn-header-admin" title="Yönetici Masası (Admin)" style="padding: 5px 10px; font-size: 11px; font-weight: 800; color: #FFF; background: var(--color-kor); border-radius: 8px; display: flex; align-items: center; gap: 4px; cursor: pointer;">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-            </svg>
-            <span>Admin</span>
-          </button>
-        ` : ''}
-
-        <button class="avatar-badge-btn" id="btn-user-profile" aria-label="Kullanıcı Profili" style="overflow: hidden; padding: 0;">
+        <button type="button" role="button" class="avatar-badge-btn" id="btn-user-profile" aria-label="Kullanıcı Profili" style="overflow: hidden; padding: 0; cursor: pointer; position: relative; z-index: 50; touch-action: manipulation; user-select: none; -webkit-tap-highlight-color: transparent;">
           ${(user.photos && user.photos[0]) || user.avatar ? `
-            <img src="${(user.photos && user.photos[0]) || user.avatar}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;" alt="${user.name}" />
+            <img src="${(user.photos && user.photos[0]) || user.avatar}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; pointer-events: none;" alt="${user.name}" />
           ` : `
-            <span id="header-avatar-initials">${user.initials || "SP"}</span>
+            <span id="header-avatar-initials" style="pointer-events: none;">${user.initials || "SP"}</span>
           `}
-          <span class="avatar-online-dot"></span>
+          <span class="avatar-online-dot" style="pointer-events: none;"></span>
         </button>
       </div>
     </header>
   `;
 
-  document.getElementById("btn-gym-select")?.addEventListener("click", onGymClick);
-  document.getElementById("btn-header-chats")?.addEventListener("click", onChatsClick);
-  document.getElementById("btn-header-admin")?.addEventListener("click", onAdminClick);
-  document.getElementById("btn-user-profile")?.addEventListener("click", onProfileClick);
+  const gymBtn = container.querySelector("#btn-gym-select");
+  if (gymBtn) gymBtn.onclick = onGymClick;
+
+  const chatBtn = container.querySelector("#btn-header-chats");
+  if (chatBtn) chatBtn.onclick = onChatsClick;
+
+  const profBtn = container.querySelector("#btn-user-profile");
+  if (profBtn) {
+    profBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      onProfileClick?.();
+    });
+  }
 }

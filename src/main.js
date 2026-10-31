@@ -11,6 +11,7 @@ import './styles/chat.css';
 import './styles/deals.css';
 import './styles/admin.css';
 import './styles/modal.css';
+import './styles/profile.css';
 
 import { auth } from './services/auth.js';
 import { db } from './services/db.js';
@@ -24,6 +25,7 @@ import { renderDiscoverView } from './components/DiscoverView.js';
 import { renderAppointmentsView } from './components/AppointmentsView.js';
 import { renderRoutinesView } from './components/RoutinesView.js';
 import { renderDealsView } from './components/DealsView.js';
+import { renderProfileView } from './components/ProfileView.js';
 
 import { createOnboardingModal } from './components/OnboardingModal.js';
 import { showProfileDetailModal } from './components/ProfileDetailModal.js';
@@ -35,12 +37,14 @@ import { showVerificationModal } from './components/VerificationModal.js';
 import { showLiveWorkoutRoom } from './components/LiveWorkoutRoom.js';
 import { showAttendanceModal } from './components/AttendanceModal.js';
 import { showCreateAppointmentModal } from './components/CreateAppointmentModal.js';
+import { showReportTrackingModal } from './components/ReportTrackingModal.js';
 import { icons } from './components/icons.js';
 
 class VeyroApp {
   constructor() {
     this.currentTab = 'discover'; // 'discover' | 'appointments' | 'routines' | 'deals'
     this.isAdminOpen = false;
+    this.renderedTabs = new Set();
     this.init();
   }
 
@@ -79,38 +83,45 @@ class VeyroApp {
       this.updateHeader();
     });
 
+    // Bulletproof click listener for top avatar profile button
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest("#btn-user-profile");
+      if (btn) {
+        e.preventDefault();
+        this.switchToTab('profile');
+      }
+    });
+
     // Secure Admin Route listener (#admin)
     window.addEventListener("hashchange", () => this.checkHashRoute());
     this.checkHashRoute();
   }
 
   checkHashRoute() {
-    if (window.location.hash === "#admin" || window.location.hash === "#veyro-admin") {
-      if (auth.isAdmin()) {
-        this.openAdminPortal();
-      } else {
-        const pwd = prompt("Veyro Yönetici Girişi: Lütfen yönetici şifresini girin (Test şifresi: veyro2026admin):");
-        if (pwd) {
-          const res = auth.loginAdmin(pwd);
-          if (res.success) {
-            notify.success("Yönetici girişi başarılı!");
-            this.updateHeader();
-            this.openAdminPortal();
-          } else {
-            notify.error("Hatalı yönetici şifresi!");
-            window.location.hash = "";
-          }
-        } else {
-          window.location.hash = "";
-        }
-      }
+    if (window.location.hash === "#admin" || window.location.hash === "#veyro-admin" || window.location.pathname.endsWith("/admin")) {
+      window.location.href = "admin.html";
+    }
+  }
+
+  switchToTab(tab) {
+    this.currentTab = tab;
+    this.updateTabBar();
+    this.renderCurrentView();
+    if (this.viewContainer) {
+      this.viewContainer.scrollTop = 0;
     }
   }
 
   renderShell() {
     this.appRoot.innerHTML = `
       <div id="header-container"></div>
-      <main class="main-content" id="view-container"></main>
+      <main class="main-content" id="view-container">
+        <div id="pane-discover" class="view-tab-pane"></div>
+        <div id="pane-appointments" class="view-tab-pane"></div>
+        <div id="pane-routines" class="view-tab-pane"></div>
+        <div id="pane-deals" class="view-tab-pane"></div>
+        <div id="pane-profile" class="view-tab-pane"></div>
+      </main>
       <div id="tabbar-container"></div>
       <div id="modal-container"></div>
       <div id="admin-container"></div>
@@ -122,16 +133,18 @@ class VeyroApp {
     this.modalContainer = document.getElementById("modal-container");
     this.adminContainer = document.getElementById("admin-container");
 
+    this.renderedTabs = new Set();
+
     this.updateHeader();
     this.updateTabBar();
+    this.renderCurrentView();
   }
-
 
   updateHeader() {
     renderHeader(
       this.headerContainer,
       () => this.openGymSwitcher(),
-      () => this.openUserProfileMenu(),
+      () => this.switchToTab('profile'),
       () => this.handleAdminAccess(),
       () => this.openChatInbox()
     );
@@ -143,43 +156,127 @@ class VeyroApp {
 
   updateTabBar() {
     renderTabBar(this.tabbarContainer, this.currentTab, (tab) => {
-      this.currentTab = tab;
-      this.updateTabBar();
-      this.renderCurrentView();
+      this.switchToTab(tab);
     });
   }
 
-  renderCurrentView() {
+  renderCurrentView(forceRefresh = false) {
     if (!this.viewContainer) return;
 
-    if (this.currentTab === 'discover') {
+    const tabs = ['discover', 'appointments', 'routines', 'deals', 'profile'];
+    tabs.forEach(t => {
+      const pane = document.getElementById(`pane-${t}`);
+      if (pane) {
+        pane.classList.toggle('active', t === this.currentTab);
+      }
+    });
+
+    const activePane = document.getElementById(`pane-${this.currentTab}`);
+    if (!activePane) return;
+
+    if (!this.renderedTabs.has(this.currentTab) || forceRefresh) {
+      this.renderedTabs.add(this.currentTab);
+      if (this.currentTab === 'discover') {
+        renderDiscoverView(
+          activePane,
+          (selectedUser) => this.openUserProfile(selectedUser),
+          (targetUser) => this.openCreateAppointment(targetUser),
+          (partnerId) => this.openChat(partnerId)
+        );
+      } else if (this.currentTab === 'appointments') {
+        renderAppointmentsView(
+          activePane,
+          () => {
+            this.switchToTab('routines');
+          },
+          (partnerId) => this.openChat(partnerId),
+          (appointment, partner) => this.openLiveSession(appointment, partner),
+          (appointment, partner) => this.openAttendance(appointment, partner)
+        );
+      } else if (this.currentTab === 'routines') {
+        renderRoutinesView(activePane, () => {
+          this.switchToTab('appointments');
+        });
+      } else if (this.currentTab === 'deals') {
+        renderDealsView(activePane);
+      } else if (this.currentTab === 'profile') {
+        renderProfileView(activePane, {
+          onEditProfile: () => {
+            showEditProfileModal(() => {
+              this.updateHeader();
+              this.renderCurrentView(true);
+            });
+          },
+          onViewCard: (user) => this.openUserProfile(user),
+          onReportTracking: () => showReportTrackingModal(),
+          onGymSwitch: () => this.openGymSwitcher(),
+          onVerify: () => {
+            const user = auth.getCurrentUser();
+            showVerificationModal('phone', user?.phone || '', () => {
+              this.updateHeader();
+              this.renderCurrentView(true);
+            });
+          },
+          onSignOut: () => {
+            auth.signOut();
+            notify.info("Oturum kapatıldı.");
+            this.openOnboarding();
+          },
+          onBack: () => this.switchToTab('discover')
+        });
+      }
+    }
+  }
+
+  refreshTab(tab) {
+    if (!this.renderedTabs.has(tab)) return;
+    const pane = document.getElementById(`pane-${tab}`);
+    if (!pane) return;
+
+    if (tab === 'discover') {
       renderDiscoverView(
-        this.viewContainer,
+        pane,
         (selectedUser) => this.openUserProfile(selectedUser),
         (targetUser) => this.openCreateAppointment(targetUser),
         (partnerId) => this.openChat(partnerId)
       );
-    }
- else if (this.currentTab === 'appointments') {
+    } else if (tab === 'appointments') {
       renderAppointmentsView(
-        this.viewContainer,
+        pane,
         () => {
-          this.currentTab = 'routines';
-          this.updateTabBar();
-          this.renderCurrentView();
+          this.switchToTab('routines');
         },
         (partnerId) => this.openChat(partnerId),
         (appointment, partner) => this.openLiveSession(appointment, partner),
         (appointment, partner) => this.openAttendance(appointment, partner)
       );
-    } else if (this.currentTab === 'routines') {
-      renderRoutinesView(this.viewContainer, () => {
-        this.currentTab = 'appointments';
-        this.updateTabBar();
-        this.renderCurrentView();
+    } else if (tab === 'deals') {
+      renderDealsView(pane);
+    } else if (tab === 'profile') {
+      renderProfileView(pane, {
+        onEditProfile: () => {
+          showEditProfileModal(() => {
+            this.updateHeader();
+            this.renderCurrentView(true);
+          });
+        },
+        onViewCard: (user) => this.openUserProfile(user),
+        onReportTracking: () => showReportTrackingModal(),
+        onGymSwitch: () => this.openGymSwitcher(),
+        onVerify: () => {
+          const user = auth.getCurrentUser();
+          showVerificationModal('phone', user?.phone || '', () => {
+            this.updateHeader();
+            this.renderCurrentView(true);
+          });
+        },
+        onSignOut: () => {
+          auth.signOut();
+          notify.info("Oturum kapatıldı.");
+          this.openOnboarding();
+        },
+        onBack: () => this.switchToTab('discover')
       });
-    } else if (this.currentTab === 'deals') {
-      renderDealsView(this.viewContainer);
     }
   }
 
@@ -423,103 +520,9 @@ class VeyroApp {
   }
 
   openUserProfileMenu() {
-    const user = auth.getCurrentUser() || { name: "Sporcu", initials: "SP", phone: "", verified: false };
-
-    let menuOverlay = document.getElementById("user-menu-overlay");
-    if (!menuOverlay) {
-      menuOverlay = document.createElement("div");
-      menuOverlay.id = "user-menu-overlay";
-      menuOverlay.className = "modal-overlay";
-      document.body.appendChild(menuOverlay);
-    }
-
-    menuOverlay.innerHTML = `
-      <div class="modal-drawer fade-in">
-        <div class="drawer-pill-bar"></div>
-        <div style="text-align: center; margin-bottom: 20px;">
-          <div class="profile-large-avatar" style="width: 64px; height: 64px; font-size: 22px;">
-            ${user.initials || (user.name ? user.name.substring(0, 2).toUpperCase() : "SP")}
-          </div>
-          <h3 style="font-size: 20px; font-weight: 800; color: var(--text-main); margin-top: 8px;">${user.name}</h3>
-          <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">${user.phone || user.email || ''}</p>
-          
-          ${user.verified ? `
-            <div style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 6px 14px; background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.28); border-radius: var(--radius-full);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="#10B981">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-              </svg>
-              <span style="font-size: 12px; font-weight: 700; color: var(--color-emerald);">Telefon Onaylandı (SMS Doğrulandı)</span>
-            </div>
-          ` : `
-            <span class="badge badge-paper" style="font-size: 11px; color: var(--color-amber); display: inline-flex; align-items: center; gap: 4px;">
-              ${icons.alert(12)} Telefon Doğrulaması Bekliyor
-            </span>
-          `}
-        </div>
-
-        <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;">
-          <button class="btn-secondary" id="btn-menu-edit-profile" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
-            ${icons.edit(14)} Profili & Hedefleri Düzenle
-          </button>
-          
-          ${!user.verified ? `
-            <button class="btn-secondary" id="btn-menu-verify" style="border-color: var(--color-amber); color: var(--color-amber); display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
-              ${icons.phone(14)} Telefon / SMS Doğrulaması Yap
-            </button>
-          ` : ''}
-
-          <button class="btn-secondary" id="btn-menu-open-admin" style="border-color: var(--color-kor); color: var(--color-kor); font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
-            ${icons.settings(14)} Yönetici Masası (Admin Paneli)
-          </button>
-
-          <button class="btn-secondary" id="btn-menu-signout" style="color: var(--color-rose); display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
-            ${icons.logout(14)} Çıkış Yap
-          </button>
-        </div>
-
-        <button class="btn-secondary" id="btn-close-user-menu" style="width: 100%;">
-          Kapat
-        </button>
-      </div>
-    `;
-
-    menuOverlay.classList.add("open");
-
-    const close = () => menuOverlay.classList.remove("open");
-    document.getElementById("btn-close-user-menu")?.addEventListener("click", close);
-
-    // Edit Profile
-    document.getElementById("btn-menu-edit-profile")?.addEventListener("click", () => {
-      close();
-      showEditProfileModal(() => {
-        this.updateHeader();
-        this.renderCurrentView();
-      });
-    });
-
-    // Verification (only if unverified)
-    document.getElementById("btn-menu-verify")?.addEventListener("click", () => {
-      close();
-      showVerificationModal('phone', user.phone, () => {
-        this.updateHeader();
-        this.renderCurrentView();
-      });
-    });
-
-    // Admin Portal
-    document.getElementById("btn-menu-open-admin")?.addEventListener("click", () => {
-      close();
-      this.handleAdminAccess();
-    });
-
-    // Sign out
-    document.getElementById("btn-menu-signout")?.addEventListener("click", () => {
-      close();
-      auth.signOut();
-      notify.info("Oturum kapatıldı.");
-      this.openOnboarding();
-    });
+    this.switchToTab('profile');
   }
+
 
   handleAdminAccess() {
     if (auth.isAdmin()) {

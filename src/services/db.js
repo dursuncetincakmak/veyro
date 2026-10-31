@@ -5,6 +5,8 @@
  */
 
 import { notify } from './notification.js';
+import { REAL_REGISTERED_USERS } from './seedUsers.js';
+import { REAL_CHATS, REAL_APPOINTMENTS } from './seedChats.js';
 
 const STORAGE_PREFIX = "veyro_live_db_v3_";
 
@@ -106,6 +108,113 @@ const INITIAL_DEALS = [
   }
 ];
 
+// Corporate Advertisers & Business Partners
+const INITIAL_ADVERTISERS = [
+  {
+    id: "adv-1",
+    brandName: "Hardline Nutrition",
+    contactName: "Kemal Doğan",
+    email: "reklam@hardline.com.tr",
+    phone: "0532 100 20 30",
+    companyTaxNo: "4560128930",
+    sector: "Supplement & Besin Takviyesi",
+    balance: 28500,
+    status: "approved",
+    createdAt: "2026-10-15"
+  },
+  {
+    id: "adv-2",
+    brandName: "MacFit Fitness Club",
+    contactName: "Selin Öztürk",
+    email: "partner@macfit.com.tr",
+    phone: "0544 200 40 50",
+    companyTaxNo: "9870123456",
+    sector: "Spor Salonu Zinciri",
+    balance: 45000,
+    status: "approved",
+    createdAt: "2026-10-18"
+  },
+  {
+    id: "adv-3",
+    brandName: "Under Armour TR",
+    contactName: "Bora Aksoy",
+    email: "sponsor@underarmour.com.tr",
+    phone: "0555 300 60 70",
+    companyTaxNo: "6540987123",
+    sector: "Spor Giyim & Ekipman",
+    balance: 19800,
+    status: "approved",
+    createdAt: "2026-10-20"
+  }
+];
+
+// Active & Submitted Ad Campaigns
+const INITIAL_CAMPAIGNS = [
+  {
+    id: "camp-1",
+    advertiserId: "adv-1",
+    brandName: "Hardline Nutrition",
+    title: "%20 Protein & BCAA İndirimi",
+    description: "Tüm izole protein tozu ve amino asit siparişlerinizde geçerli Veyro sporcularına özel anında %20 indirim.",
+    adType: "deals_card",
+    targetAudience: "Kas & Güç",
+    targetGym: "all",
+    code: "VEYROFIT20",
+    ctaLink: "https://www.hardlinenutrition.com",
+    bannerUrl: "https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?w=600&auto=format&fit=crop&q=80",
+    dailyBudget: 500,
+    totalBudget: 15000,
+    spent: 4200,
+    impressions: 24500,
+    clicks: 1820,
+    status: "active",
+    validUntil: "15 Aralık 2026",
+    createdAt: "2026-10-25"
+  },
+  {
+    id: "camp-2",
+    advertiserId: "adv-2",
+    brandName: "MacFit",
+    title: "1 Aylık Ücretsiz Deneme Üyeliği",
+    description: "Veyro partnerinle birlikte en yakın MacFit kulübüne gel, 1 ay boyunca tüm stüdyo derslerinden ücretsiz faydalan.",
+    adType: "deals_card",
+    targetAudience: "Tüm Sporcular",
+    targetGym: "all",
+    code: "MACFITVEYRO",
+    ctaLink: "https://www.macfit.com.tr",
+    bannerUrl: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&auto=format&fit=crop&q=80",
+    dailyBudget: 1000,
+    totalBudget: 30000,
+    spent: 12400,
+    impressions: 48900,
+    clicks: 3410,
+    status: "active",
+    validUntil: "31 Aralık 2026",
+    createdAt: "2026-10-22"
+  },
+  {
+    id: "camp-3",
+    advertiserId: "adv-3",
+    brandName: "Under Armour TR",
+    title: "1500 TL Üzeri 350 TL İndirim",
+    description: "Tüm antrenman ayakkabısı ve kompresyon kıyafetlerinde geçerli özel kupon.",
+    adType: "deals_card",
+    targetAudience: "Tüm Sporcular",
+    targetGym: "all",
+    code: "VEYROUA350",
+    ctaLink: "https://www.underarmour.com.tr",
+    bannerUrl: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&auto=format&fit=crop&q=80",
+    dailyBudget: 750,
+    totalBudget: 20000,
+    spent: 8900,
+    impressions: 36200,
+    clicks: 2150,
+    status: "active",
+    validUntil: "31 Aralık 2026",
+    createdAt: "2026-10-23"
+  }
+];
+
 // Zero Mock Data Policy - No preloaded fake athletes
 const INITIAL_USERS = [];
 
@@ -139,14 +248,37 @@ class DatabaseEngine {
     const currentUsers = this.getCollection("users") || [];
     // Purge any legacy mock users (user-mert, user-zeynep, etc.)
     const realUsersOnly = currentUsers.filter(u => u && !u.id?.startsWith("user-"));
+    
+    // Cross-device sync: ensure verified registered community accounts are seeded across all devices
+    if (Array.isArray(REAL_REGISTERED_USERS)) {
+      REAL_REGISTERED_USERS.forEach(ru => {
+        const cleanRPhone = ru.phone ? ru.phone.replace(/\D/g, '') : '';
+        const exists = realUsersOnly.some(u => {
+          if (u.id === ru.id) return true;
+          if (cleanRPhone && u.phone) {
+            const uClean = u.phone.replace(/\D/g, '');
+            return uClean.endsWith(cleanRPhone.slice(-10));
+          }
+          return false;
+        });
+        if (!exists) {
+          realUsersOnly.push(ru);
+        }
+      });
+    }
+
     this.setCollection("users", realUsersOnly);
 
     this.ensureCollection("appointments", []);
     this.ensureCollection("reports", []);
     this.ensureCollection("likes", []);
+    this.ensureCollection("blocked_users", []);
+    this.ensureCollection("banned_users", []);
+    this.ensureCollection("advertisers", INITIAL_ADVERTISERS);
+    this.ensureCollection("campaigns", INITIAL_CAMPAIGNS);
 
     if (!localStorage.getItem(STORAGE_PREFIX + "chats")) {
-      localStorage.setItem(STORAGE_PREFIX + "chats", JSON.stringify({}));
+      localStorage.setItem(STORAGE_PREFIX + "chats", JSON.stringify(REAL_CHATS || {}));
     }
   }
 
@@ -220,7 +352,107 @@ class DatabaseEngine {
       }).catch(() => {});
     }
 
+    // Sync reports to server
+    if (collection === "reports" && typeof window !== "undefined") {
+      fetch("/api/sync/reports", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newItem)
+      }).catch(() => {});
+    }
+
+    // Sync deals to server
+    if (collection === "deals" && typeof window !== "undefined") {
+      fetch("/api/sync/deals", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newItem)
+      }).catch(() => {});
+    }
+
     return newItem;
+  }
+
+  // Safety & Moderation Engine (Engelle, Şikayet Et, Takip)
+  blockUser(fromUserId, toUserId) {
+    if (!fromUserId || !toUserId || fromUserId === toUserId) return;
+    const blocked = this.getCollection("blocked_users") || [];
+    if (!blocked.some(b => b.fromUserId === fromUserId && b.toUserId === toUserId)) {
+      blocked.push({
+        id: `blk_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
+        fromUserId,
+        toUserId,
+        createdAt: Date.now()
+      });
+      this.setCollection("blocked_users", blocked);
+      this.notifySubscribers("blocked_users", blocked);
+    }
+  }
+
+  unblockUser(fromUserId, toUserId) {
+    if (!fromUserId || !toUserId) return;
+    const blocked = this.getCollection("blocked_users") || [];
+    const filtered = blocked.filter(b => !(b.fromUserId === fromUserId && b.toUserId === toUserId));
+    this.setCollection("blocked_users", filtered);
+    this.notifySubscribers("blocked_users", filtered);
+  }
+
+  isBlocked(userAId, userBId) {
+    if (!userAId || !userBId) return false;
+    const blocked = this.getCollection("blocked_users") || [];
+    return blocked.some(b => 
+      (b.fromUserId === userAId && b.toUserId === userBId) || 
+      (b.fromUserId === userBId && b.toUserId === userAId)
+    );
+  }
+
+  getBlockedUsers(fromUserId) {
+    if (!fromUserId) return [];
+    const blocked = this.getCollection("blocked_users") || [];
+    return blocked.filter(b => b.fromUserId === fromUserId);
+  }
+
+  banUser(userId, reason = "Topluluk kurallarına aykırı davranış") {
+    if (!userId) return;
+    const users = this.getCollection("users") || [];
+    const idx = users.findIndex(u => u.id === userId);
+    if (idx >= 0) {
+      users[idx] = { ...users[idx], isBanned: true, banReason: reason, bannedAt: Date.now() };
+      this.setCollection("users", users);
+      if (typeof window !== "undefined") {
+        fetch("/api/sync/users", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(users[idx])
+        }).catch(() => {});
+      }
+    }
+  }
+
+  unbanUser(userId) {
+    if (!userId) return;
+    const users = this.getCollection("users") || [];
+    const idx = users.findIndex(u => u.id === userId);
+    if (idx >= 0) {
+      users[idx] = { ...users[idx], isBanned: false };
+      delete users[idx].banReason;
+      delete users[idx].bannedAt;
+      this.setCollection("users", users);
+      if (typeof window !== "undefined") {
+        fetch("/api/sync/users", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(users[idx])
+        }).catch(() => {});
+      }
+    }
+  }
+
+  isBanned(userId) {
+    if (!userId) return false;
+    const users = this.getCollection("users") || [];
+    const u = users.find(user => user.id === userId);
+    return !!(u && u.isBanned);
   }
 
   recordLike(fromUserId, toUserId) {
@@ -261,6 +493,22 @@ class DatabaseEngine {
 
       if (collection === "appointments" && typeof window !== "undefined") {
         fetch("/api/sync/appointments", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(items[index])
+        }).catch(() => {});
+      }
+
+      if (collection === "reports" && typeof window !== "undefined") {
+        fetch("/api/sync/reports", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(items[index])
+        }).catch(() => {});
+      }
+
+      if (collection === "deals" && typeof window !== "undefined") {
+        fetch("/api/sync/deals", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(items[index])
@@ -384,6 +632,58 @@ class DatabaseEngine {
         if (updatedApts) {
           this.setCollection("appointments", localApts);
           this.notifySubscribers("appointments", localApts);
+        }
+      }
+
+      // 4. Sync Reports
+      const repRes = await fetch("/api/sync/reports").catch(() => null);
+      if (repRes && repRes.ok) {
+        const serverReps = await repRes.json();
+        const localReps = this.getCollection("reports") || [];
+        let updatedReps = false;
+
+        for (const sRep of serverReps) {
+          const idx = localReps.findIndex(r => r.id === sRep.id || (r.ticketId && r.ticketId === sRep.ticketId));
+          if (idx >= 0) {
+            if (JSON.stringify(localReps[idx]) !== JSON.stringify(sRep)) {
+              localReps[idx] = { ...localReps[idx], ...sRep };
+              updatedReps = true;
+            }
+          } else {
+            localReps.unshift(sRep);
+            updatedReps = true;
+          }
+        }
+
+        if (updatedReps) {
+          this.setCollection("reports", localReps);
+          this.notifySubscribers("reports", localReps);
+        }
+      }
+
+      // 5. Sync Deals
+      const dealRes = await fetch("/api/sync/deals").catch(() => null);
+      if (dealRes && dealRes.ok) {
+        const serverDeals = await dealRes.json();
+        const localDeals = this.getCollection("deals") || [];
+        let updatedDeals = false;
+
+        for (const sDeal of serverDeals) {
+          const idx = localDeals.findIndex(d => d.id === sDeal.id);
+          if (idx >= 0) {
+            if (JSON.stringify(localDeals[idx]) !== JSON.stringify(sDeal)) {
+              localDeals[idx] = { ...localDeals[idx], ...sDeal };
+              updatedDeals = true;
+            }
+          } else {
+            localDeals.push(sDeal);
+            updatedDeals = true;
+          }
+        }
+
+        if (updatedDeals) {
+          this.setCollection("deals", localDeals);
+          this.notifySubscribers("deals", localDeals);
         }
       }
     } catch (e) {}
@@ -616,6 +916,100 @@ class DatabaseEngine {
         this.subscribers.get(collectionOrEvent).delete(callback);
       }
     };
+  }
+
+  // ==========================================
+  // ADVERTISER & CAMPAIGN MANAGEMENT (B2B PORTAL)
+  // ==========================================
+  getAdvertisers() {
+    return this.getCollection("advertisers") || [];
+  }
+
+  getAdvertiserById(id) {
+    const list = this.getAdvertisers();
+    return list.find(a => a.id === id) || null;
+  }
+
+  saveAdvertiser(advertiser) {
+    const list = this.getAdvertisers();
+    const idx = list.findIndex(a => a.id === advertiser.id);
+    if (idx >= 0) {
+      list[idx] = { ...list[idx], ...advertiser };
+    } else {
+      list.push(advertiser);
+    }
+    this.setCollection("advertisers", list);
+    return advertiser;
+  }
+
+  getCampaigns(advertiserId = null) {
+    const list = this.getCollection("campaigns") || [];
+    if (advertiserId) {
+      return list.filter(c => c.advertiserId === advertiserId);
+    }
+    return list;
+  }
+
+  saveCampaign(campaign) {
+    const list = this.getCollection("campaigns") || [];
+    const idx = list.findIndex(c => c.id === campaign.id);
+    if (idx >= 0) {
+      list[idx] = { ...list[idx], ...campaign };
+    } else {
+      list.unshift(campaign);
+    }
+    this.setCollection("campaigns", list);
+    return campaign;
+  }
+
+  deleteCampaign(id) {
+    let list = this.getCollection("campaigns") || [];
+    list = list.filter(c => c.id !== id);
+    this.setCollection("campaigns", list);
+    return true;
+  }
+
+  updateCampaignStatus(id, status, notes = "") {
+    const list = this.getCollection("campaigns") || [];
+    const item = list.find(c => c.id === id);
+    if (item) {
+      item.status = status;
+      if (notes) item.moderatorNotes = notes;
+      this.setCollection("campaigns", list);
+      return item;
+    }
+    return null;
+  }
+
+  topUpAdvertiserBalance(advertiserId, amount) {
+    const list = this.getAdvertisers();
+    const adv = list.find(a => a.id === advertiserId);
+    if (adv) {
+      adv.balance = (adv.balance || 0) + Number(amount);
+      this.setCollection("advertisers", list);
+      return adv.balance;
+    }
+    return 0;
+  }
+
+  recordCampaignImpression(campaignId) {
+    const list = this.getCollection("campaigns") || [];
+    const c = list.find(item => item.id === campaignId);
+    if (c) {
+      c.impressions = (c.impressions || 0) + 1;
+      this.setCollection("campaigns", list);
+    }
+  }
+
+  recordCampaignClick(campaignId) {
+    const list = this.getCollection("campaigns") || [];
+    const c = list.find(item => item.id === campaignId);
+    if (c) {
+      c.clicks = (c.clicks || 0) + 1;
+      // Subtract small CPC deduction from spent
+      c.spent = (c.spent || 0) + 2.5; // 2.5 ₺ per click simulation
+      this.setCollection("campaigns", list);
+    }
   }
 
   notifySubscribers(collectionOrEvent, data) {

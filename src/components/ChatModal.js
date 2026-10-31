@@ -8,6 +8,7 @@ import { db, getChatRoomKey } from '../services/db.js';
 import { auth } from '../services/auth.js';
 import { notify } from '../services/notification.js';
 import { soundService } from '../services/soundService.js';
+import { showReportModal } from './ReportModal.js';
 import { icons } from './icons.js';
 
 export function showChatModal(partnerId, onClose) {
@@ -177,6 +178,8 @@ export function showChatModal(partnerId, onClose) {
     });
   }
 
+  const isBlocked = db.isBlocked(currentUser.id, partner.id);
+
   modalOverlay.innerHTML = `
     <div class="modal-drawer fade-in">
       <div class="drawer-pill-bar"></div>
@@ -193,35 +196,59 @@ export function showChatModal(partnerId, onClose) {
               <span style="font-size: 11px; color: var(--color-emerald); font-weight: 600;">● Çevrimiçi</span>
             </div>
           </div>
-          <button class="btn-ghost" id="btn-close-chat" style="padding: 6px;">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </button>
+          <div style="display: flex; align-items: center; gap: 4px;">
+            <button class="btn-ghost" id="btn-chat-safety" title="Güvenlik ve Şikayet" style="padding: 6px; color: var(--text-secondary);">
+              ${icons.flag(18)}
+            </button>
+            <button class="btn-ghost" id="btn-close-chat" style="padding: 6px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Chat Safety Drawer -->
+        <div id="chat-safety-drawer" style="display: none; background: rgba(18, 20, 28, 0.95); border-bottom: 1px solid var(--border-glass); padding: 12px 16px; margin: 0 -16px 10px; animation: slideDown 0.2s ease;">
+          <div style="font-size: 12px; font-weight: 700; color: #FFF; margin-bottom: 8px;">${partner.name} ile İletişim Güvenliği</div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn-secondary" id="btn-chat-report" style="flex: 1; padding: 8px; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; color: #EF4444; border-color: rgba(239, 68, 68, 0.3);">
+              ${icons.flag(14)} Şikayet Et
+            </button>
+            <button class="btn-secondary" id="btn-chat-block" style="flex: 1; padding: 8px; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; color: #F59E0B; border-color: rgba(245, 158, 11, 0.3);">
+              ${icons.close(14)} Engelle
+            </button>
+          </div>
         </div>
 
         <!-- Messages Area -->
         <div class="chat-messages-area" id="chat-messages-scroll"></div>
 
-        <!-- Input Bar with Photo Button -->
-        <div class="chat-input-bar" style="display: flex; align-items: center; gap: 8px;">
-          <!-- Hidden File Input for Photos -->
-          <input type="file" id="chat-photo-file-input" accept="image/*" style="display: none;">
+        <!-- Input Bar with Photo Button or Blocked Notice -->
+        ${isBlocked ? `
+          <div style="padding: 14px 16px; text-align: center; color: #EF4444; font-size: 13px; font-weight: 600; background: rgba(239, 68, 68, 0.08); border-radius: 12px; border: 1px solid rgba(239, 68, 68, 0.25);">
+            Bu kullanıcı ile iletişim engellenmiştir. Mesaj gönderilemez.
+          </div>
+        ` : `
+          <div class="chat-input-bar" style="display: flex; align-items: center; gap: 8px;">
+            <!-- Hidden File Input for Photos -->
+            <input type="file" id="chat-photo-file-input" accept="image/*" style="display: none;">
 
-          <button class="btn-ghost" id="btn-pick-chat-photo" type="button" title="Fotoğraf Paylaş" style="width: 40px; height: 40px; border-radius: 12px; background: rgba(255,255,255,0.06); border: 1px solid var(--border-glass); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; color: #FFF;">
-            ${icons.camera(18)}
-          </button>
+            <button class="btn-ghost" id="btn-pick-chat-photo" type="button" title="Fotoğraf Paylaş" style="width: 40px; height: 40px; border-radius: 12px; background: rgba(255,255,255,0.06); border: 1px solid var(--border-glass); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; color: #FFF;">
+              ${icons.camera(18)}
+            </button>
 
-          <input type="text" id="chat-msg-input" class="chat-input-field" placeholder="${partner.name} kullanıcısına mesaj yaz..." autocomplete="off" style="flex: 1;">
+            <input type="text" id="chat-msg-input" class="chat-input-field" placeholder="${partner.name} kullanıcısına mesaj yaz..." autocomplete="off" style="flex: 1;">
 
-          <button class="btn-send-message" id="btn-send-chat" aria-label="Gönder" style="flex-shrink: 0;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <line x1="22" y1="2" x2="11" y2="13"></line>
-              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-            </svg>
-          </button>
-        </div>
+            <button class="btn-send-message" id="btn-send-chat" aria-label="Gönder" style="flex-shrink: 0;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </div>
+        `}
       </div>
     </div>
   `;
@@ -315,6 +342,27 @@ export function showChatModal(partnerId, onClose) {
   document.getElementById("btn-send-chat")?.addEventListener("click", sendMessage);
   document.getElementById("chat-msg-input")?.addEventListener("keydown", (e) => {
     if (e.key === "Enter") sendMessage();
+  });
+
+  // Safety toggle & actions
+  const safetyDrawer = document.getElementById("chat-safety-drawer");
+  document.getElementById("btn-chat-safety")?.addEventListener("click", () => {
+    if (safetyDrawer) {
+      safetyDrawer.style.display = safetyDrawer.style.display === "none" ? "block" : "none";
+    }
+  });
+
+  document.getElementById("btn-chat-report")?.addEventListener("click", () => {
+    if (safetyDrawer) safetyDrawer.style.display = "none";
+    showReportModal(partner, () => {
+      renderMessages();
+    });
+  });
+
+  document.getElementById("btn-chat-block")?.addEventListener("click", () => {
+    db.blockUser(currentUser.id, partner.id);
+    notify.info(`${partner.name} engellendi.`);
+    close();
   });
 
   const close = () => {

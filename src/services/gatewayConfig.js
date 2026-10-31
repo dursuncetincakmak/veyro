@@ -39,6 +39,12 @@ const DEFAULT_GATEWAYS = {
     provider: "carto_dark", // 'carto_dark' | 'google_maps'
     enabled: true,
     lastTested: null
+  },
+  // Google & Apple OAuth
+  auth: {
+    googleClientId: "", // Google OAuth 2.0 Client ID (apps.googleusercontent.com)
+    appleClientId: "", // Apple Service ID
+    enabled: true
   }
 };
 
@@ -62,7 +68,8 @@ export function saveGatewayConfig(updates) {
       ...updates,
       sms: { ...current.sms, ...(updates.sms || {}) },
       email: { ...current.email, ...(updates.email || {}) },
-      maps: { ...current.maps, ...(updates.maps || {}) }
+      maps: { ...current.maps, ...(updates.maps || {}) },
+      auth: { ...current.auth, ...(updates.auth || {}) }
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
     return merged;

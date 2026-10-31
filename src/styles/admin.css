@@ -184,3 +184,20 @@
 .fb-row:last-child {
   border-bottom: none;
 }
+
+@media (min-width: 768px) {
+  .admin-portal {
+    max-width: 1080px;
+    margin: 0 auto;
+    border-left: 1px solid var(--border-glass);
+    border-right: 1px solid var(--border-glass);
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.85);
+    border-radius: 16px;
+    top: 16px;
+    bottom: 16px;
+  }
+  .admin-kpis-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
