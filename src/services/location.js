@@ -62,6 +62,13 @@ class LocationService {
   }
 
   /**
+   * Alias for getCurrentPosition to prevent method name confusion
+   */
+  async getCurrentCoords() {
+    return this.getCurrentPosition();
+  }
+
+  /**
    * Sorts gym list by real proximity to user coordinates
    */
   sortGymsByDistance(gyms, userCoords = this.currentCoords) {

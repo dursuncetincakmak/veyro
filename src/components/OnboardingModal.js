@@ -1052,8 +1052,20 @@ export function createOnboardingModal(container, onComplete) {
       render();
     });
 
-    const coords = await locationService.getCurrentCoords();
-    let gymList = await gymPlacesService.fetchNearbyGymsFromMaps(coords);
+    let coords;
+    try {
+      const getPos = locationService.getCurrentPosition || locationService.getCurrentCoords;
+      coords = getPos ? await getPos.call(locationService) : locationService.currentCoords;
+    } catch (e) {
+      coords = locationService.currentCoords || { latitude: 40.9875, longitude: 29.0280 };
+    }
+
+    let gymList = [];
+    try {
+      gymList = await gymPlacesService.fetchNearbyGymsFromMaps(coords);
+    } catch (e) {
+      gymList = [];
+    }
     let selectedGym = gymList[0] || null;
     if (selectedGym) state.gymId = selectedGym.id;
 
