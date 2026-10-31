@@ -72,5 +72,14 @@ export const icons = {
   chevronLeft: (size = 18, cls = "") => svg('<polyline points="15 18 9 12 15 6"></polyline>', size, cls),
   chevronRight: (size = 18, cls = "") => svg('<polyline points="9 18 15 12 9 6"></polyline>', size, cls),
   chevronDown: (size = 18, cls = "") => svg('<polyline points="6 9 12 15 18 9"></polyline>', size, cls),
-  chevronUp: (size = 18, cls = "") => svg('<polyline points="18 15 12 9 6 15"></polyline>', size, cls)
+  chevronUp: (size = 18, cls = "") => svg('<polyline points="18 15 12 9 6 15"></polyline>', size, cls),
+
+  // Data, Map & Admin
+  chart: (size = 18, cls = "") => svg('<line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line>', size, cls),
+  database: (size = 18, cls = "") => svg('<ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>', size, cls),
+  map: (size = 18, cls = "") => svg('<polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line>', size, cls),
+  tag: (size = 18, cls = "") => svg('<path d="m20.59 13.41-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line>', size, cls),
+  creditCard: (size = 18, cls = "") => svg('<rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line>', size, cls),
+  globe: (size = 18, cls = "") => svg('<circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>', size, cls)
 };
+

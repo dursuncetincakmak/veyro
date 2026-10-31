@@ -173,10 +173,10 @@ class StandaloneAdminApp {
           <!-- Link to Business & Advertiser Portal -->
           <div style="background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: 14px; padding: 12px 14px; text-align: left; display: flex; align-items: center; justify-content: space-between;">
             <div>
-              <div style="font-size: 12.5px; font-weight: 800; color: #60A5FA;">
-                🏢 Reklam Veren / Kurumsal Müşteri
+              <div style="font-size: 12.5px; font-weight: 800; color: #60A5FA; display: flex; align-items: center; gap: 6px;">
+                ${icons.award(15)} Kurumsal Reklam & Sponsor Portalı
               </div>
-              <div style="font-size: 11.5px; color: var(--text-secondary);">
+              <div style="font-size: 11.5px; color: var(--text-secondary); margin-top: 2px;">
                 Marka, salon ve sponsorluk kampanyaları masası
               </div>
             </div>
@@ -231,29 +231,54 @@ class StandaloneAdminApp {
 
   renderDashboard() {
     this.root.innerHTML = `
-      <div style="min-height: 100vh; background: #090A0D; padding: 24px 20px; box-sizing: border-box;">
-        <div style="max-width: 1200px; margin: 0 auto;">
+      <div style="min-height: 100vh; background: radial-gradient(circle at 50% 0%, rgba(255, 87, 34, 0.05), transparent 40%), #08090C; padding: 24px 32px; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif;">
+        <div style="max-width: 1480px; margin: 0 auto; width: 100%;">
+          
           <!-- Top Desktop Admin Navbar -->
-          <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 20px; margin-bottom: 24px; border-bottom: 1px solid var(--border-glass); flex-wrap: wrap; gap: 14px;">
-            <div style="display: flex; align-items: center; gap: 14px;">
-              <div style="width: 44px; height: 44px; border-radius: 12px; background: var(--color-kor-gradient); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-kor); color: #FFF;">
-                ${icons.shield(22)}
+          <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 22px; margin-bottom: 28px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); flex-wrap: wrap; gap: 16px;">
+            
+            <!-- Left: Brand & Status -->
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <div style="width: 46px; height: 46px; border-radius: 14px; background: linear-gradient(135deg, #FF5722 0%, #E64A19 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(255, 87, 34, 0.35); color: #FFF;">
+                ${icons.shield(24)}
               </div>
               <div>
-                <h1 style="font-size: 22px; font-weight: 900; color: #FFF; margin: 0; display: flex; align-items: center; gap: 10px;">
-                  Veyro Web Yönetim Masası
-                  <span style="font-size: 11px; font-weight: 800; background: rgba(255, 87, 34, 0.18); color: var(--color-kor); border: 1px solid rgba(255, 87, 34, 0.35); padding: 3px 8px; border-radius: 6px;">PC WEB DESK</span>
-                </h1>
-                <span style="font-size: 12px; color: var(--text-secondary);">Kullanıcı İstatistikleri · Şikayet Takibi & Moderasyon · Fırsatlar CMS · Salonlar</span>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <h1 style="font-size: 22px; font-weight: 900; color: #FFF; margin: 0; letter-spacing: -0.02em;">
+                    Veyro Web Yönetim Masası
+                  </h1>
+                  <span style="font-size: 11px; font-weight: 800; background: rgba(255, 87, 34, 0.15); color: var(--color-kor, #FF5722); border: 1px solid rgba(255, 87, 34, 0.35); padding: 3px 8px; border-radius: 6px; letter-spacing: 0.05em;">
+                    PC CONSOLE
+                  </span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px; margin-top: 3px;">
+                  <span style="font-size: 12px; color: #94A3B8;">Kullanıcı İstatistikleri · Şikayet Takibi · Reklam & Fırsatlar CMS · Salon Radarı</span>
+                  <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 700; color: #10B981; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.25); padding: 2px 8px; border-radius: 12px;">
+                    <span style="width: 6px; height: 6px; border-radius: 50%; background: #10B981; box-shadow: 0 0 8px #10B981;"></span>
+                    Canlı Firestore Aktif
+                  </span>
+                </div>
               </div>
             </div>
 
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <a href="business.html" class="btn-secondary" style="padding: 9px 16px; font-size: 12.5px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; color: #60A5FA; border-color: rgba(96, 165, 250, 0.3);">
-                ${icons.award(14)} Reklam Portalı
+            <!-- Right: Admin Profile, Switch to Business & Single Logout -->
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div style="display: flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); padding: 6px 12px; border-radius: 10px;">
+                <div style="width: 26px; height: 26px; border-radius: 50%; background: rgba(255, 87, 34, 0.2); display: flex; align-items: center; justify-content: center; color: #FF5722; font-size: 11px; font-weight: 800;">
+                  AD
+                </div>
+                <div style="font-size: 12px;">
+                  <span style="color: #FFF; font-weight: 700; display: block; line-height: 1.2;">admin@veyro.fit</span>
+                  <span style="color: #64748B; font-size: 10.5px;">Süper Yönetici</span>
+                </div>
+              </div>
+
+              <a href="business.html" style="padding: 9px 16px; font-size: 12.5px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; color: #60A5FA; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 10px; transition: all 0.2s ease;">
+                ${icons.award(15)} Reklam Portalı (B2B)
               </a>
-              <button id="btn-admin-logout" class="btn-secondary" style="padding: 9px 16px; font-size: 12.5px; display: inline-flex; align-items: center; gap: 6px; color: var(--color-rose); border-color: rgba(239, 68, 68, 0.3); cursor: pointer;">
-                ${icons.logout(14)} Güvenli Çıkış
+
+              <button id="btn-admin-logout" style="padding: 9px 16px; font-size: 12.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; color: #EF4444; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 10px; cursor: pointer; transition: all 0.2s ease;">
+                ${icons.logout(15)} Güvenli Çıkış
               </button>
             </div>
           </div>
@@ -276,7 +301,7 @@ class StandaloneAdminApp {
     if (mount) {
       renderAdminPortal(mount, () => {
         handleLogout();
-      });
+      }, { hideHeader: true });
     }
   }
 }

@@ -1,11 +1,11 @@
-/* Veyro Business - Reklam Veren & Müşteri Portalı Stilleri */
+/* Veyro Business - Reklam Veren & Müşteri Portalı Stilleri (Enterprise SaaS) */
 
 :root {
   --biz-primary: #3B82F6;
   --biz-primary-glow: rgba(59, 130, 246, 0.35);
   --biz-accent: #60A5FA;
   --biz-dark: #08090D;
-  --biz-surface: #0E111A;
+  --biz-surface: rgba(14, 17, 26, 0.85);
   --biz-surface-elevated: #141824;
   --biz-border: rgba(255, 255, 255, 0.08);
   --biz-border-bright: rgba(59, 130, 246, 0.35);
@@ -16,27 +16,28 @@
 
 .biz-shell {
   min-height: 100vh;
-  background: var(--biz-dark);
+  background: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.05), transparent 45%), var(--biz-dark);
   color: #EDEDED;
   display: flex;
   flex-direction: column;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .biz-container {
-  max-width: 1280px;
+  max-width: 1480px;
   margin: 0 auto;
-  padding: 24px 20px;
+  padding: 28px 32px;
   width: 100%;
   box-sizing: border-box;
 }
 
 /* Header Navbar */
 .biz-navbar {
-  background: rgba(14, 17, 26, 0.85);
+  background: rgba(11, 14, 22, 0.9);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--biz-border);
-  padding: 14px 24px;
+  padding: 16px 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -44,18 +45,18 @@
   top: 0;
   z-index: 50;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 16px;
 }
 
 .biz-brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 
 .biz-logo-box {
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   border-radius: 12px;
   background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
   display: flex;
@@ -75,7 +76,7 @@
   background: rgba(16, 185, 129, 0.12);
   border: 1px solid rgba(16, 185, 129, 0.3);
   color: #10B981;
-  padding: 7px 14px;
+  padding: 8px 14px;
   border-radius: 10px;
   font-size: 13px;
   font-weight: 800;
@@ -87,44 +88,56 @@
 /* Tabs Navigation */
 .biz-tabs {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
-  border-bottom: 1px solid var(--biz-border);
-  margin-bottom: 24px;
-  overflow-x: auto;
-  padding-bottom: 4px;
+  background: rgba(14, 17, 26, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 14px;
+  padding: 6px;
+  margin-bottom: 26px;
+  border: 1px solid var(--biz-border);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.biz-tabs::-webkit-scrollbar {
+  display: none;
 }
 
 .biz-tab-btn {
   background: transparent;
-  border: none;
-  color: var(--text-secondary);
-  font-size: 13.5px;
+  border: 1px solid transparent;
+  color: #94A3B8;
+  font-size: 13px;
   font-weight: 700;
-  padding: 12px 18px;
+  padding: 10px 18px;
   border-radius: 10px;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
+  font-family: inherit;
 }
 
 .biz-tab-btn:hover {
   color: #FFF;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .biz-tab-btn.active {
-  color: #60A5FA;
-  background: rgba(59, 130, 246, 0.12);
-  border-bottom: 2px solid var(--biz-primary);
+  color: #FFFFFF;
+  background: rgba(59, 130, 246, 0.15);
+  border-color: rgba(59, 130, 246, 0.45);
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.18);
 }
 
 /* KPI Cards Grid */
 .biz-kpi-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
   margin-bottom: 28px;
 }
@@ -133,32 +146,36 @@
   background: var(--biz-surface);
   border: 1px solid var(--biz-border);
   border-radius: 18px;
-  padding: 20px;
+  padding: 22px 24px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .biz-kpi-card:hover {
   border-color: var(--biz-border-bright);
   transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .biz-kpi-title {
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 700;
-  color: var(--text-secondary);
+  color: #94A3B8;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
 
 .biz-kpi-value {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 900;
   color: #FFF;
   font-family: 'Outfit', sans-serif;
   letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
 .biz-kpi-trend {
@@ -166,7 +183,7 @@
   font-weight: 700;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
 }
 
 /* Campaign Table & Cards */
@@ -174,8 +191,15 @@
   background: var(--biz-surface);
   border: 1px solid var(--biz-border);
   border-radius: 20px;
-  padding: 24px;
+  padding: 24px 28px;
   margin-bottom: 24px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: border-color 0.2s ease;
+}
+
+.biz-card:hover {
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
 .biz-status-badge {
@@ -228,3 +252,22 @@
   border-radius: 0 0 14px 14px;
   margin: 0 auto;
 }
+
+@media (max-width: 1100px) {
+  .biz-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .biz-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+  .biz-navbar {
+    padding: 14px 16px;
+  }
+  .biz-container {
+    padding: 20px 16px;
+  }
+}
+

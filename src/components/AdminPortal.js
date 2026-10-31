@@ -20,7 +20,7 @@ import { gymPlacesService } from '../services/gymPlacesService.js';
 import { renderGymMapView } from './GymMapView.js';
 import { icons } from './icons.js';
 
-export function renderAdminPortal(container, onClose) {
+export function renderAdminPortal(container, onClose, options = {}) {
 
   let activeTab = "kpis"; // 'kpis' | 'gyms' | 'moderation' | 'exercises' | 'deals' | 'gateways' | 'maps' | 'firebase'
 
@@ -36,33 +36,57 @@ export function renderAdminPortal(container, onClose) {
     const fbConfig = getFirebaseConfig();
     const gateways = getGatewayConfig();
 
+    const showHeader = !options.hideHeader;
+
     container.innerHTML = `
       <div class="admin-portal fade-in">
-        <!-- Admin Header -->
-        <div class="admin-header-row">
-          <div class="admin-badge-title">
-            <h2>Veyro Admin</h2>
-            <span class="admin-tag">YÖNETİM</span>
+        ${showHeader ? `
+          <!-- Admin Header -->
+          <div class="admin-header-row">
+            <div class="admin-badge-title">
+              <h2>Veyro Admin</h2>
+              <span class="admin-tag">YÖNETİM</span>
+            </div>
+            <div>
+              <button class="btn-secondary" id="btn-exit-admin" style="padding: 8px 14px; font-size: 13px; width: auto; color: var(--color-rose); border-color: rgba(239, 68, 68, 0.3); cursor: pointer;">
+                ${icons.logout(14)} Güvenli Çıkış
+              </button>
+            </div>
           </div>
-          <div>
-            <button class="btn-secondary" id="btn-exit-admin" style="padding: 8px 14px; font-size: 13px; width: auto; color: var(--color-rose); border-color: rgba(239, 68, 68, 0.3); cursor: pointer;">
-              ${icons.logout(14)} Güvenli Çıkış
-            </button>
-          </div>
-        </div>
+        ` : ''}
 
         <!-- Navigation Tabs -->
-        <div class="admin-tabs-nav" style="overflow-x: auto; padding-bottom: 6px;">
-          <button class="admin-tab-btn ${activeTab === 'kpis' ? 'active' : ''}" data-tab="kpis">İstatistikler & Analiz</button>
-          <button class="admin-tab-btn ${activeTab === 'users' ? 'active' : ''}" data-tab="users">Sporcular (${users.length})</button>
-          <button class="admin-tab-btn ${activeTab === 'moderation' ? 'active' : ''}" data-tab="moderation">Şikayet & Moderasyon (${reports.length})</button>
-          <button class="admin-tab-btn ${activeTab === 'campaigns' ? 'active' : ''}" data-tab="campaigns">Reklam Masası (${campaigns.length})</button>
-          <button class="admin-tab-btn ${activeTab === 'deals' ? 'active' : ''}" data-tab="deals">Fırsatlar (${deals.length})</button>
-          <button class="admin-tab-btn ${activeTab === 'gyms' ? 'active' : ''}" data-tab="gyms">Salonlar (${gyms.length})</button>
-          <button class="admin-tab-btn ${activeTab === 'exercises' ? 'active' : ''}" data-tab="exercises">Egzersizler (${exercises.length})</button>
-          <button class="admin-tab-btn ${activeTab === 'gateways' ? 'active' : ''}" data-tab="gateways">SMS & Mail API</button>
-          <button class="admin-tab-btn ${activeTab === 'maps' ? 'active' : ''}" data-tab="maps">Harita API</button>
-          <button class="admin-tab-btn ${activeTab === 'firebase' ? 'active' : ''}" data-tab="firebase">Google Firebase</button>
+        <div class="admin-tabs-nav">
+          <button class="admin-tab-btn ${activeTab === 'kpis' ? 'active' : ''}" data-tab="kpis">
+            ${icons.chart(14)} İstatistikler & Analiz
+          </button>
+          <button class="admin-tab-btn ${activeTab === 'users' ? 'active' : ''}" data-tab="users">
+            ${icons.users(14)} Sporcular <span class="admin-tab-count">${users.length}</span>
+          </button>
+          <button class="admin-tab-btn ${activeTab === 'moderation' ? 'active' : ''}" data-tab="moderation">
+            ${icons.shield(14)} Şikayet & Moderasyon <span class="admin-tab-count">${reports.length}</span>
+          </button>
+          <button class="admin-tab-btn ${activeTab === 'campaigns' ? 'active' : ''}" data-tab="campaigns">
+            ${icons.award(14)} Reklam Masası <span class="admin-tab-count">${campaigns.length}</span>
+          </button>
+          <button class="admin-tab-btn ${activeTab === 'deals' ? 'active' : ''}" data-tab="deals">
+            ${icons.tag(14)} Fırsatlar <span class="admin-tab-count">${deals.length}</span>
+          </button>
+          <button class="admin-tab-btn ${activeTab === 'gyms' ? 'active' : ''}" data-tab="gyms">
+            ${icons.pin(14)} Salonlar <span class="admin-tab-count">${gyms.length}</span>
+          </button>
+          <button class="admin-tab-btn ${activeTab === 'exercises' ? 'active' : ''}" data-tab="exercises">
+            ${icons.dumbbell(14)} Egzersizler <span class="admin-tab-count">${exercises.length}</span>
+          </button>
+          <button class="admin-tab-btn ${activeTab === 'gateways' ? 'active' : ''}" data-tab="gateways">
+            ${icons.mail(14)} SMS & Mail API
+          </button>
+          <button class="admin-tab-btn ${activeTab === 'maps' ? 'active' : ''}" data-tab="maps">
+            ${icons.map(14)} Harita API
+          </button>
+          <button class="admin-tab-btn ${activeTab === 'firebase' ? 'active' : ''}" data-tab="firebase">
+            ${icons.database(14)} Google Firebase
+          </button>
         </div>
 
         <!-- TAB CONTENT -->
@@ -72,7 +96,7 @@ export function renderAdminPortal(container, onClose) {
       </div>
     `;
 
-    // Exit Admin
+    // Exit Admin (if header is visible)
     document.getElementById("btn-exit-admin")?.addEventListener("click", () => {
       window.location.hash = "";
       onClose();
