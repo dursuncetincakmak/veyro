@@ -7,6 +7,7 @@
 
 import { db } from './db.js';
 import { REAL_REGISTERED_USERS } from './seedUsers.js';
+import { saveFirestoreDoc } from './firestoreSync.js';
 
 const AUTH_USER_KEY = "veyro_prod_session_user";
 
@@ -208,6 +209,7 @@ class AuthService {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updated)
       }).catch(() => {});
+      saveFirestoreDoc("users", updated.id, updated).catch(() => {});
     }
 
     return updated;
@@ -258,13 +260,14 @@ class AuthService {
     db.addItem("users", newUser);
     this.saveSession(newUser);
 
-    // Sync with local network server
+    // Sync with local network server and Firestore Cloud
     if (typeof window !== "undefined") {
       fetch("/api/sync/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUser)
       }).catch(() => {});
+      saveFirestoreDoc("users", newUser.id, newUser).catch(() => {});
     }
 
     return newUser;

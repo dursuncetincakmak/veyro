@@ -7,6 +7,7 @@
 import { notify } from './notification.js';
 import { REAL_REGISTERED_USERS } from './seedUsers.js';
 import { REAL_CHATS, REAL_APPOINTMENTS } from './seedChats.js';
+import { saveFirestoreDoc, getFirestoreCollection, deleteFirestoreDoc } from './firestoreSync.js';
 
 const STORAGE_PREFIX = "veyro_live_db_v3_";
 
@@ -353,31 +354,35 @@ class DatabaseEngine {
       this.incrementGymMembers(item.gymId);
     }
 
-    // Sync appointment to server
-    if (collection === "appointments" && typeof window !== "undefined") {
-      fetch("/api/sync/appointments", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newItem)
-      }).catch(() => {});
-    }
-
-    // Sync reports to server
-    if (collection === "reports" && typeof window !== "undefined") {
-      fetch("/api/sync/reports", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newItem)
-      }).catch(() => {});
-    }
-
-    // Sync deals to server
-    if (collection === "deals" && typeof window !== "undefined") {
-      fetch("/api/sync/deals", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newItem)
-      }).catch(() => {});
+    // Sync to Google Cloud Firestore and server
+    if (typeof window !== "undefined") {
+      if (collection === "users") {
+        saveFirestoreDoc("users", newItem.id, newItem).catch(() => {});
+      }
+      if (collection === "appointments") {
+        fetch("/api/sync/appointments", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newItem)
+        }).catch(() => {});
+        saveFirestoreDoc("appointments", newItem.id, newItem).catch(() => {});
+      }
+      if (collection === "reports") {
+        fetch("/api/sync/reports", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newItem)
+        }).catch(() => {});
+        saveFirestoreDoc("reports", newItem.id, newItem).catch(() => {});
+      }
+      if (collection === "deals") {
+        fetch("/api/sync/deals", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newItem)
+        }).catch(() => {});
+        saveFirestoreDoc("deals", newItem.id, newItem).catch(() => {});
+      }
     }
 
     return newItem;
@@ -501,12 +506,17 @@ class DatabaseEngine {
       items[index] = { ...items[index], ...updates, updatedAt: Date.now() };
       this.setCollection(collection, items);
 
+      if (collection === "users" && typeof window !== "undefined") {
+        saveFirestoreDoc("users", id, items[index]).catch(() => {});
+      }
+
       if (collection === "appointments" && typeof window !== "undefined") {
         fetch("/api/sync/appointments", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(items[index])
         }).catch(() => {});
+        saveFirestoreDoc("appointments", id, items[index]).catch(() => {});
       }
 
       if (collection === "reports" && typeof window !== "undefined") {
@@ -515,6 +525,7 @@ class DatabaseEngine {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(items[index])
         }).catch(() => {});
+        saveFirestoreDoc("reports", id, items[index]).catch(() => {});
       }
 
       if (collection === "deals" && typeof window !== "undefined") {
@@ -523,6 +534,7 @@ class DatabaseEngine {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(items[index])
         }).catch(() => {});
+        saveFirestoreDoc("deals", id, items[index]).catch(() => {});
       }
 
       return items[index];
@@ -534,11 +546,21 @@ class DatabaseEngine {
     const items = this.getCollection(collection);
     const filtered = items.filter(item => item.id !== id);
     this.setCollection(collection, filtered);
+    if (typeof window !== "undefined") {
+      deleteFirestoreDoc(collection, id).catch(() => {});
+    }
     return true;
   }
 
   async syncWithServer() {
-    // 1. Sync Chats
+    // 0. Primary Cloud Sync with Google Cloud Firestore
+    try {
+      await this.syncWithFirestore();
+    } catch (e) {
+      console.warn("Firestore sync warning:", e?.message);
+    }
+
+    // 1. Sync Chats (Local Server / Dev Fallback)
     try {
       const chatRes = await fetch("/api/sync/chats").catch(() => null);
       if (chatRes && chatRes.ok && chatRes.headers.get("content-type")?.includes("json")) {
@@ -720,6 +742,184 @@ class DatabaseEngine {
     } catch (e) {}
   }
 
+  async syncWithFirestore() {
+    // 1. Users Sync
+    try {
+      const remoteUsers = await getFirestoreCollection("users");
+      const localUsers = this.getCollection("users") || [];
+      let updatedUsers = false;
+
+      // Merge remote users into local database
+      for (const rUser of remoteUsers) {
+        if (!rUser || (!rUser.id && !rUser.phone && !rUser.email)) continue;
+        const rPhoneClean = rUser.phone ? String(rUser.phone).replace(/\D/g, '') : '';
+        const rLast10 = rPhoneClean.slice(-10);
+
+        const idx = localUsers.findIndex(u => {
+          if (u.id === rUser.id) return true;
+          if (rLast10 && rLast10.length === 10 && u.phone) {
+            const uClean = String(u.phone).replace(/\D/g, '');
+            if (uClean.slice(-10) === rLast10) return true;
+          }
+          if (rUser.email && u.email && rUser.email.trim().toLowerCase() === u.email.trim().toLowerCase()) return true;
+          return false;
+        });
+
+        if (idx >= 0) {
+          if (JSON.stringify(localUsers[idx]) !== JSON.stringify(rUser)) {
+            localUsers[idx] = { ...localUsers[idx], ...rUser };
+            updatedUsers = true;
+          }
+        } else {
+          localUsers.push(rUser);
+          updatedUsers = true;
+        }
+      }
+
+      if (updatedUsers) {
+        this.setCollection("users", localUsers);
+      }
+
+      // Seed local registered users to Firestore Cloud if not yet present
+      for (const lUser of localUsers) {
+        if (!lUser || !lUser.id) continue;
+        const existsInRemote = remoteUsers.some(ru => {
+          if (ru.id === lUser.id) return true;
+          if (ru.phone && lUser.phone) {
+            const ru10 = String(ru.phone).replace(/\D/g, '').slice(-10);
+            const lu10 = String(lUser.phone).replace(/\D/g, '').slice(-10);
+            if (ru10 && lu10 && ru10.length === 10 && ru10 === lu10) return true;
+          }
+          return false;
+        });
+        if (!existsInRemote) {
+          saveFirestoreDoc("users", lUser.id, lUser).catch(() => {});
+        }
+      }
+    } catch (e) {
+      console.warn("Firestore users sync error:", e?.message);
+    }
+
+    // 2. Chat Messages Sync
+    try {
+      const remoteMessages = await getFirestoreCollection("chat_messages");
+      if (remoteMessages && remoteMessages.length > 0) {
+        const raw = localStorage.getItem(STORAGE_PREFIX + "chats");
+        const localChats = raw ? JSON.parse(raw) : {};
+        let updatedChats = false;
+        let newIncomingCount = 0;
+        let lastIncoming = null;
+
+        const rawCurrent = localStorage.getItem(STORAGE_PREFIX + "current_user");
+        const currentU = rawCurrent ? JSON.parse(rawCurrent) : null;
+
+        for (const rMsg of remoteMessages) {
+          const chatKey = rMsg.chatKey || getChatRoomKey(rMsg.senderId, rMsg.receiverId);
+          if (!chatKey) continue;
+          if (!localChats[chatKey]) localChats[chatKey] = [];
+
+          const idx = localChats[chatKey].findIndex(m => m.id === rMsg.id);
+          if (idx >= 0) {
+            if (JSON.stringify(localChats[chatKey][idx]) !== JSON.stringify(rMsg)) {
+              localChats[chatKey][idx] = { ...localChats[chatKey][idx], ...rMsg };
+              updatedChats = true;
+            }
+          } else {
+            localChats[chatKey].push(rMsg);
+            updatedChats = true;
+            if (currentU && rMsg.receiverId === currentU.id && !rMsg.read) {
+              newIncomingCount++;
+              lastIncoming = rMsg;
+            }
+          }
+        }
+
+        if (updatedChats) {
+          for (const k of Object.keys(localChats)) {
+            if (Array.isArray(localChats[k])) {
+              localChats[k].sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+            }
+          }
+          localStorage.setItem(STORAGE_PREFIX + "chats", JSON.stringify(localChats));
+          this.notifySubscribers("chats_updated", localChats);
+          for (const k of Object.keys(localChats)) {
+            this.notifySubscribers(k, localChats[k]);
+            this.notifySubscribers(`chat_${k}`, localChats[k]);
+          }
+
+          if (newIncomingCount > 0 && lastIncoming) {
+            notify.showIncomingMessageBanner({
+              senderName: lastIncoming.senderName,
+              senderInitials: lastIncoming.senderName?.substring(0, 2).toUpperCase() || 'SP',
+              text: lastIncoming.text || (lastIncoming.image ? '📷 Fotoğraf' : 'Yeni mesaj'),
+              onOpen: () => {
+                if (window.veyro && window.veyro.openChat) {
+                  window.veyro.openChat(lastIncoming.senderId);
+                }
+              }
+            });
+          }
+        }
+      }
+    } catch (e) {
+      console.warn("Firestore chats sync error:", e?.message);
+    }
+
+    // 3. Appointments Sync
+    try {
+      const remoteApts = await getFirestoreCollection("appointments");
+      const localApts = this.getCollection("appointments") || [];
+      let updatedApts = false;
+
+      for (const rApt of remoteApts) {
+        const idx = localApts.findIndex(a => a.id === rApt.id);
+        if (idx >= 0) {
+          if (JSON.stringify(localApts[idx]) !== JSON.stringify(rApt)) {
+            localApts[idx] = { ...localApts[idx], ...rApt };
+            updatedApts = true;
+          }
+        } else {
+          localApts.push(rApt);
+          updatedApts = true;
+        }
+      }
+
+      if (updatedApts) {
+        this.setCollection("appointments", localApts);
+        this.notifySubscribers("appointments", localApts);
+      }
+    } catch (e) {
+      console.warn("Firestore appointments sync error:", e?.message);
+    }
+
+    // 4. Reports Sync
+    try {
+      const remoteReps = await getFirestoreCollection("reports");
+      const localReps = this.getCollection("reports") || [];
+      let updatedReps = false;
+
+      for (const rRep of remoteReps) {
+        const idx = localReps.findIndex(r => r.id === rRep.id);
+        if (idx >= 0) {
+          if (JSON.stringify(localReps[idx]) !== JSON.stringify(rRep)) {
+            localReps[idx] = { ...localReps[idx], ...rRep };
+            updatedReps = true;
+          }
+        } else {
+          localReps.unshift(rRep);
+          updatedReps = true;
+        }
+      }
+
+      if (updatedReps) {
+        this.setCollection("reports", localReps);
+        this.notifySubscribers("reports", localReps);
+      }
+    } catch (e) {
+      console.warn("Firestore reports sync error:", e?.message);
+    }
+  }
+
   handleBroadcast(data) {
     if (!data) return;
     if (data.type === "new_chat_message") {
@@ -815,6 +1015,8 @@ class DatabaseEngine {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ chatKey, message: newMsg })
         }).catch(() => {});
+        // 4. Save to Google Cloud Firestore
+        saveFirestoreDoc("chat_messages", newMsg.id, { ...newMsg, chatKey }).catch(() => {});
       }
 
       return newMsg;
@@ -854,6 +1056,7 @@ class DatabaseEngine {
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ chatKey, message: msg, action: "update_status" })
             }).catch(() => {});
+            saveFirestoreDoc("chat_messages", messageId, { ...msg, chatKey }).catch(() => {});
           }
           return msg;
         }
