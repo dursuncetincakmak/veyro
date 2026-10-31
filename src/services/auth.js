@@ -54,11 +54,11 @@ class AuthService {
   /**
    * Real Google Authentication Flow
    */
-  async signInWithGoogle(customEmail = "", customName = "", gymId = "all", photoUrl = "") {
+  async signInWithGoogle(customEmail = "", customName = "", gymId = "all", photoUrl = "", uid = "") {
     const email = customEmail ? customEmail.trim().toLowerCase() : "";
     const name = customName ? customName.trim() : "Sporcu";
 
-    // Auto-detect existing registered Google user
+    // Auto-detect existing registered Google user by EMAIL ONLY
     if (email) {
       const existing = this.findUserByEmail(email);
       if (existing && existing.onboarded) {
@@ -67,23 +67,7 @@ class AuthService {
       }
     }
 
-    // Also match by known user names
-    if (name) {
-      const cleanN = name.toLowerCase().replace(/[^a-z0-9]/g, '');
-      const users = db.getCollection("users") || [];
-      const existingName = users.find(u => {
-        if (!u.name) return false;
-        const uN = u.name.toLowerCase().replace(/[^a-z0-9]/g, '');
-        return (uN.includes("dursun") && cleanN.includes("dursun")) || (uN.includes("cakmak") && cleanN.includes("cakmak"));
-      });
-      if (existingName && existingName.onboarded) {
-        const updated = { ...existingName, email: email || existingName.email };
-        const loggedIn = this.loginExistingUser(updated);
-        return { success: true, isExisting: true, user: loggedIn };
-      }
-    }
-
-    const id = "usr_g_" + Date.now();
+    const id = uid || ("usr_g_" + Date.now() + "_" + Math.random().toString(36).substr(2, 5));
     const googleUser = {
       id: id,
       name: name,
@@ -92,6 +76,7 @@ class AuthService {
       phone: "",
       gymId: gymId,
       photos: photoUrl ? [photoUrl] : [],
+      avatar: photoUrl || "",
       goals: ["Kas", "Kondisyon"],
       level: "Orta",
       preferredTimes: ["Akşam"],
@@ -227,25 +212,15 @@ class AuthService {
       }
     }
 
-    // 2. Check if user already exists by email (Google / Apple OAuth)
+    // 2. Check if user already exists by email (Google OAuth)
     if (userData.email) {
       const existingEmail = this.findUserByEmail(userData.email);
       if (existingEmail) {
-        return this.loginExistingUser({ ...existingEmail, ...userData });
+        return this.loginExistingUser({ ...existingEmail, ...userData, onboarded: true });
       }
     }
 
-    // 3. Check if user already exists by exact name match
-    if (userData.name) {
-      const cleanName = String(userData.name).trim().toLowerCase();
-      const users = db.getCollection("users") || [];
-      const existingName = users.find(u => u && u.name && String(u.name).trim().toLowerCase() === cleanName);
-      if (existingName) {
-        return this.loginExistingUser({ ...existingName, ...userData });
-      }
-    }
-
-    const id = userData.id || ("usr_" + Date.now());
+    const id = userData.id || ("usr_" + Date.now() + "_" + Math.random().toString(36).substr(2, 5));
     const newUser = {
       ...userData,
       id: id,
@@ -253,7 +228,7 @@ class AuthService {
       role: userData.role || "user",
       verified: Boolean(userData.verified),
       onboarded: true,
-      createdAt: Date.now()
+      createdAt: userData.createdAt || Date.now()
     };
 
     // Save to users collection in DB so other athletes can see them

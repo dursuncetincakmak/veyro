@@ -197,10 +197,14 @@ export function createOnboardingModal(container, onComplete) {
           return;
         }
 
-        const { email, displayName, photoURL } = res.user;
-        notify.success(`Google ile doğrulandı: ${displayName}!`);
+        const { email, displayName, photoURL, uid } = res.user;
+        state.uid = uid;
+        state.email = email;
+        state.name = displayName;
+        state.provider = "google.com";
+        if (photoURL) state.photos = [photoURL];
 
-        const authRes = await auth.signInWithGoogle(email, displayName, state.gymId || "all", photoURL);
+        const authRes = await auth.signInWithGoogle(email, displayName, state.gymId || "all", photoURL, uid);
         if (authRes.isExisting) {
           notify.success(`Tekrar hoş geldin, ${authRes.user.name}!`);
           onComplete();
@@ -209,10 +213,6 @@ export function createOnboardingModal(container, onComplete) {
 
         // Yeni sporcu: adım 2 profil tamamlama sihirbazına aktar
         state.verified = true;
-        state.email = email;
-        state.name = displayName;
-        state.provider = "google.com";
-        if (photoURL) state.photos = [photoURL];
         currentStep = 2;
         render();
       } catch (err) {
@@ -883,13 +883,14 @@ export function createOnboardingModal(container, onComplete) {
         state.gymId = selectedGym.id;
       }
       const userPayload = {
+        id: state.uid || ("usr_" + Date.now() + "_" + Math.random().toString(36).substr(2, 5)),
         name: state.name || "Sporcu",
         initials: (state.name || "SP").substring(0, 2).toUpperCase(),
         phone: state.phone || "",
         email: state.email || "",
         provider: state.provider || "phone",
-        photos: state.photos,
-        avatar: state.photos[0] || "",
+        photos: state.photos || [],
+        avatar: (state.photos && state.photos[0]) || "",
         goals: state.goals,
         level: state.level,
         preferredTimes: state.preferredTimes,
@@ -899,11 +900,8 @@ export function createOnboardingModal(container, onComplete) {
         verified: true // Fully verified
       };
 
-      if (auth.getCurrentUser()) {
-        auth.updateProfile(userPayload);
-      } else {
-        auth.registerUser(userPayload);
-      }
+      // Always register freshly onboarded user as their own independent profile
+      auth.registerUser(userPayload);
 
       notify.success("Profiliniz başarıyla kaydedildi ve doğrulandı!");
       onComplete();
