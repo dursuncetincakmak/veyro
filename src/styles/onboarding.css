@@ -261,19 +261,107 @@
 
 .auth-input-native {
   flex: 1;
-  background: transparent;
-  border: none;
+  width: 100%;
+  min-width: 0;
+  background: transparent !important;
+  border: none !important;
   font-family: var(--font-body);
-  font-size: 14.5px;
+  font-size: 15px;
   font-weight: 600;
-  color: #FFFFFF;
-  outline: none;
+  color: #FFFFFF !important;
+  outline: none !important;
   padding: 0;
+  margin: 0;
+  box-shadow: none !important;
 }
 
 .auth-input-native::placeholder {
   color: rgba(255, 255, 255, 0.35);
   font-weight: 500;
+}
+
+/* Eradicate Chrome / Safari / Edge Light-Cyan Autofill Box */
+.auth-input-native:-webkit-autofill,
+.auth-input-native:-webkit-autofill:hover,
+.auth-input-native:-webkit-autofill:focus,
+.auth-input-native:-webkit-autofill:active,
+.text-input-field:-webkit-autofill,
+.text-input-field:-webkit-autofill:hover,
+.text-input-field:-webkit-autofill:focus,
+.text-input-field:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #12141C inset !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  box-shadow: 0 0 0 1000px #12141C inset !important;
+  background-color: transparent !important;
+  transition: background-color 5000s ease-in-out 0s;
+  caret-color: #FFFFFF !important;
+  border-radius: 8px;
+}
+
+.auth-input-pill:focus-within .auth-input-native:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #161822 inset !important;
+  box-shadow: 0 0 0 1000px #161822 inset !important;
+}
+
+/* Method Switcher Pills (Telefon ile / E-posta ile) */
+.auth-method-switcher {
+  display: flex;
+  background: rgba(18, 20, 28, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 4px;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+.auth-method-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.auth-method-btn.active {
+  background: #FF5722;
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(255, 87, 34, 0.35);
+}
+
+/* Phone Input Pill with Country Chip */
+.auth-phone-pill {
+  padding-left: 6px;
+}
+
+.auth-country-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 700;
+  margin-right: 12px;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.auth-country-code {
+  color: #FFFFFF;
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 .auth-eye-toggle {

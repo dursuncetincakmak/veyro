@@ -1,7 +1,7 @@
 /**
  * Veyro - Ultra Premium Mobile Onboarding & Authentication
  * Faithful 1:1 Implementation of Mobile Design (Splash, Login, Register, Forgot Password)
- * Integrated with Real Firebase Auth (Google OAuth & Email/Password) & GPS Live Gyms
+ * Supports Both Phone (SMS OTP Verification) and Email/Password & Google Sign-In
  */
 
 import { auth } from '../services/auth.js';
@@ -11,6 +11,7 @@ import { locationService } from '../services/location.js';
 import { gymPlacesService } from '../services/gymPlacesService.js';
 import { photoService } from '../services/photoService.js';
 import { icons } from './icons.js';
+import { showVerificationModal } from './VerificationModal.js';
 import {
   triggerFirebaseGoogleSignIn,
   signInWithFirebaseEmail,
@@ -21,6 +22,8 @@ import {
 export function createOnboardingModal(container, onComplete) {
   // Navigation states: 'splash' | 'login' | 'register' | 'forgot' | 'wizard_step2' | 'wizard_step3' | 'wizard_step4'
   let currentScreen = 'splash';
+  // Auth method preference: 'phone' (default) | 'email'
+  let authMethod = 'phone';
 
   // Working athlete registration state
   const state = {
@@ -28,14 +31,15 @@ export function createOnboardingModal(container, onComplete) {
     name: "",
     email: "",
     phone: "",
-    provider: "email",
+    phoneDisplay: "",
+    provider: "phone",
     photos: [],
     goals: ["Kas", "Güç"],
     level: "Orta",
     preferredTimes: ["Akşam"],
     genderPref: "Herkes",
     gymId: "",
-    verified: true
+    verified: false
   };
 
   function renderLogoBadge() {
@@ -56,6 +60,19 @@ export function createOnboardingModal(container, onComplete) {
         <div class="auth-logo-text">VEYRO</div>
       </div>
     `;
+  }
+
+  function formatPhone(val) {
+    let digits = val.replace(/\D/g, '');
+    if (digits.startsWith("90")) digits = digits.substring(2);
+    if (digits.startsWith("0")) digits = digits.substring(1);
+    digits = digits.substring(0, 10);
+    let res = "";
+    if (digits.length > 0) res += digits.substring(0, 3);
+    if (digits.length >= 4) res += " " + digits.substring(3, 6);
+    if (digits.length >= 7) res += " " + digits.substring(6, 8);
+    if (digits.length >= 9) res += " " + digits.substring(8, 10);
+    return res;
   }
 
   function render() {
@@ -145,38 +162,62 @@ export function createOnboardingModal(container, onComplete) {
 
             <!-- Form Card -->
             <div class="auth-form-card">
-              <!-- Email Input -->
-              <div class="auth-input-pill">
-                <div class="auth-input-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                </div>
-                <input type="email" id="login-input-email" class="auth-input-native" placeholder="E-posta adresin" autocomplete="email" value="${state.email}">
-              </div>
-
-              <!-- Password Input -->
-              <div class="auth-input-pill">
-                <div class="auth-input-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                </div>
-                <input type="password" id="login-input-password" class="auth-input-native" placeholder="Şifre" autocomplete="current-password">
-                <button type="button" class="auth-eye-toggle" id="btn-toggle-login-pwd" aria-label="Şifreyi Göster">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              <!-- Method Switcher: Phone vs Email -->
+              <div class="auth-method-switcher">
+                <button type="button" class="auth-method-btn ${authMethod === 'phone' ? 'active' : ''}" id="btn-login-method-phone">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                  <span>Telefon Numarası</span>
+                </button>
+                <button type="button" class="auth-method-btn ${authMethod === 'email' ? 'active' : ''}" id="btn-login-method-email">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                  <span>E-posta</span>
                 </button>
               </div>
 
-              <!-- Options Bar: Remember Me & Forgot Password -->
-              <div class="auth-options-bar">
-                <label class="auth-checkbox-label">
-                  <input type="checkbox" id="chk-remember-me" class="auth-checkbox-native" checked>
-                  <span>Beni hatırla</span>
-                </label>
-                <span class="auth-link-kor" id="link-forgot-password">Şifremi Unuttum?</span>
-              </div>
+              ${authMethod === 'phone' ? `
+                <!-- Phone Number Login -->
+                <div class="auth-input-pill auth-phone-pill">
+                  <div class="auth-country-chip">
+                    <span>🇹🇷</span>
+                    <span class="auth-country-code">+90</span>
+                  </div>
+                  <input type="tel" id="login-input-phone" class="auth-input-native" placeholder="5XX XXX XX XX" maxlength="13" autocomplete="tel" value="${state.phoneDisplay}">
+                </div>
 
-              <!-- Primary Submit Button -->
-              <button class="btn-auth-vibrant" id="btn-submit-login">
-                <span>→ Giriş Yap</span>
-              </button>
+                <button class="btn-auth-vibrant" id="btn-submit-phone-login">
+                  <span>→ SMS Kodu ile Giriş Yap</span>
+                </button>
+              ` : `
+                <!-- Email & Password Login -->
+                <div class="auth-input-pill">
+                  <div class="auth-input-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                  </div>
+                  <input type="email" id="login-input-email" class="auth-input-native" placeholder="E-posta adresin" autocomplete="email" value="${state.email}">
+                </div>
+
+                <div class="auth-input-pill">
+                  <div class="auth-input-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                  </div>
+                  <input type="password" id="login-input-password" class="auth-input-native" placeholder="Şifre" autocomplete="current-password">
+                  <button type="button" class="auth-eye-toggle" id="btn-toggle-login-pwd" aria-label="Şifreyi Göster">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                  </button>
+                </div>
+
+                <div class="auth-options-bar">
+                  <label class="auth-checkbox-label">
+                    <input type="checkbox" id="chk-remember-me" class="auth-checkbox-native" checked>
+                    <span>Beni hatırla</span>
+                  </label>
+                  <span class="auth-link-kor" id="link-forgot-password">Şifremi Unuttum?</span>
+                </div>
+
+                <button class="btn-auth-vibrant" id="btn-submit-email-login">
+                  <span>→ Giriş Yap</span>
+                </button>
+              `}
 
               <!-- Line Divider -->
               <div class="auth-line-divider">
@@ -205,6 +246,61 @@ export function createOnboardingModal(container, onComplete) {
       </div>
     `;
 
+    // Method Switchers
+    document.getElementById("btn-login-method-phone")?.addEventListener("click", () => {
+      authMethod = 'phone';
+      renderLoginScreen();
+    });
+    document.getElementById("btn-login-method-email")?.addEventListener("click", () => {
+      authMethod = 'email';
+      renderLoginScreen();
+    });
+
+    // Phone Input Formatting
+    const phoneInput = document.getElementById("login-input-phone");
+    phoneInput?.addEventListener("input", (e) => {
+      const formatted = formatPhone(e.target.value);
+      e.target.value = formatted;
+      state.phoneDisplay = formatted;
+    });
+
+    // Phone SMS Login Trigger
+    document.getElementById("btn-submit-phone-login")?.addEventListener("click", async () => {
+      const rawDigits = phoneInput?.value ? phoneInput.value.replace(/\D/g, '') : '';
+      const last10 = rawDigits.slice(-10);
+      if (!last10 || last10.length !== 10) {
+        notify.error("Lütfen 10 haneli geçerli telefon numaranızı girin (5XX XXX XX XX).");
+        return;
+      }
+
+      const fullPhone = `+90 ${last10.substring(0, 3)} ${last10.substring(3, 6)} ${last10.substring(6, 8)} ${last10.substring(8, 10)}`;
+      state.phone = fullPhone;
+      state.phoneDisplay = phoneInput.value;
+
+      try {
+        await db.syncWithServer();
+      } catch (e) {}
+
+      // Open SMS OTP Verification Modal
+      showVerificationModal('phone', fullPhone, () => {
+        state.verified = true;
+        const existing = auth.findUserByPhone(last10);
+
+        if (existing && existing.onboarded) {
+          auth.loginExistingUser(existing);
+          notify.success(`Tekrar hoş geldin, ${existing.name}!`);
+          onComplete();
+          return;
+        }
+
+        // New user: proceed to complete fitness profile
+        state.provider = "phone";
+        notify.success("Telefon numaranız doğrulandı! Lütfen profilinizi oluşturun.");
+        currentScreen = 'wizard_step2';
+        render();
+      });
+    });
+
     // Eye toggle for password
     const pwdInput = document.getElementById("login-input-password");
     document.getElementById("btn-toggle-login-pwd")?.addEventListener("click", () => {
@@ -226,7 +322,7 @@ export function createOnboardingModal(container, onComplete) {
     });
 
     // Email/Password Submit
-    document.getElementById("btn-submit-login")?.addEventListener("click", async () => {
+    document.getElementById("btn-submit-email-login")?.addEventListener("click", async () => {
       const email = document.getElementById("login-input-email")?.value.trim();
       const password = pwdInput?.value.trim();
 
@@ -260,7 +356,6 @@ export function createOnboardingModal(container, onComplete) {
         return;
       }
 
-      // If athlete hasn't completed their fitness profile yet, proceed to wizard
       notify.success("Giriş başarılı! Lütfen sporcu profilini tamamla.");
       currentScreen = 'wizard_step2';
       render();
@@ -315,6 +410,18 @@ export function createOnboardingModal(container, onComplete) {
 
             <!-- Form Card -->
             <div class="auth-form-card">
+              <!-- Method Switcher: Phone vs Email -->
+              <div class="auth-method-switcher">
+                <button type="button" class="auth-method-btn ${authMethod === 'phone' ? 'active' : ''}" id="btn-reg-method-phone">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                  <span>Telefon ile Kayıt</span>
+                </button>
+                <button type="button" class="auth-method-btn ${authMethod === 'email' ? 'active' : ''}" id="btn-reg-method-email">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                  <span>E-posta ile Kayıt</span>
+                </button>
+              </div>
+
               <!-- Name Input -->
               <div class="auth-input-pill">
                 <div class="auth-input-icon">
@@ -323,35 +430,44 @@ export function createOnboardingModal(container, onComplete) {
                 <input type="text" id="reg-input-name" class="auth-input-native" placeholder="Adın Soyadın" value="${state.name}">
               </div>
 
-              <!-- Email Input -->
-              <div class="auth-input-pill">
-                <div class="auth-input-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              ${authMethod === 'phone' ? `
+                <!-- Phone Registration -->
+                <div class="auth-input-pill auth-phone-pill">
+                  <div class="auth-country-chip">
+                    <span>🇹🇷</span>
+                    <span class="auth-country-code">+90</span>
+                  </div>
+                  <input type="tel" id="reg-input-phone" class="auth-input-native" placeholder="5XX XXX XX XX" maxlength="13" autocomplete="tel" value="${state.phoneDisplay}">
                 </div>
-                <input type="email" id="reg-input-email" class="auth-input-native" placeholder="E-posta adresin" autocomplete="email" value="${state.email}">
-              </div>
+              ` : `
+                <!-- Email Registration -->
+                <div class="auth-input-pill">
+                  <div class="auth-input-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                  </div>
+                  <input type="email" id="reg-input-email" class="auth-input-native" placeholder="E-posta adresin" autocomplete="email" value="${state.email}">
+                </div>
 
-              <!-- Password Input -->
-              <div class="auth-input-pill">
-                <div class="auth-input-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <div class="auth-input-pill">
+                  <div class="auth-input-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                  </div>
+                  <input type="password" id="reg-input-password" class="auth-input-native" placeholder="Şifre" autocomplete="new-password">
+                  <button type="button" class="auth-eye-toggle" id="btn-toggle-reg-pwd" aria-label="Şifreyi Göster">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                  </button>
                 </div>
-                <input type="password" id="reg-input-password" class="auth-input-native" placeholder="Şifre" autocomplete="new-password">
-                <button type="button" class="auth-eye-toggle" id="btn-toggle-reg-pwd" aria-label="Şifreyi Göster">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                </button>
-              </div>
 
-              <!-- Password Repeat Input -->
-              <div class="auth-input-pill">
-                <div class="auth-input-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <div class="auth-input-pill">
+                  <div class="auth-input-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                  </div>
+                  <input type="password" id="reg-input-password-repeat" class="auth-input-native" placeholder="Şifreyi Tekrarla" autocomplete="new-password">
+                  <button type="button" class="auth-eye-toggle" id="btn-toggle-reg-pwd-rep" aria-label="Şifreyi Göster">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                  </button>
                 </div>
-                <input type="password" id="reg-input-password-repeat" class="auth-input-native" placeholder="Şifreyi Tekrarla" autocomplete="new-password">
-                <button type="button" class="auth-eye-toggle" id="btn-toggle-reg-pwd-rep" aria-label="Şifreyi Göster">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                </button>
-              </div>
+              `}
 
               <!-- Terms Checkbox -->
               <div style="margin: 4px 2px 8px;">
@@ -365,7 +481,7 @@ export function createOnboardingModal(container, onComplete) {
 
               <!-- Submit Button -->
               <button class="btn-auth-vibrant" id="btn-submit-register">
-                <span>Kayıt Ol ></span>
+                <span>${authMethod === 'phone' ? 'Kayıt Ol ve SMS ile Doğrula >' : 'Kayıt Ol >'}</span>
               </button>
 
               <!-- Line Divider -->
@@ -395,7 +511,17 @@ export function createOnboardingModal(container, onComplete) {
       </div>
     `;
 
-    // Eye toggles
+    // Method Switchers
+    document.getElementById("btn-reg-method-phone")?.addEventListener("click", () => {
+      authMethod = 'phone';
+      renderRegisterScreen();
+    });
+    document.getElementById("btn-reg-method-email")?.addEventListener("click", () => {
+      authMethod = 'email';
+      renderRegisterScreen();
+    });
+
+    // Eye toggles for email registration
     const pwdInput = document.getElementById("reg-input-password");
     const pwdRepInput = document.getElementById("reg-input-password-repeat");
     document.getElementById("btn-toggle-reg-pwd")?.addEventListener("click", () => {
@@ -405,34 +531,27 @@ export function createOnboardingModal(container, onComplete) {
       if (pwdRepInput) pwdRepInput.type = pwdRepInput.type === "password" ? "text" : "password";
     });
 
+    // Phone Input Formatting for registration
+    const regPhoneInput = document.getElementById("reg-input-phone");
+    regPhoneInput?.addEventListener("input", (e) => {
+      const formatted = formatPhone(e.target.value);
+      e.target.value = formatted;
+      state.phoneDisplay = formatted;
+    });
+
     // Switch to Login
     document.getElementById("link-to-login")?.addEventListener("click", () => {
       currentScreen = 'login';
       render();
     });
 
-    // Submit Register
+    // Submit Registration (Phone or Email)
     document.getElementById("btn-submit-register")?.addEventListener("click", async () => {
       const name = document.getElementById("reg-input-name")?.value.trim();
-      const email = document.getElementById("reg-input-email")?.value.trim();
-      const password = pwdInput?.value.trim();
-      const passwordRepeat = pwdRepInput?.value.trim();
       const termsAccepted = document.getElementById("chk-terms")?.checked;
 
       if (!name) {
         notify.error("Lütfen adınızı ve soyadınızı girin.");
-        return;
-      }
-      if (!email || !email.includes("@")) {
-        notify.error("Lütfen geçerli bir e-posta adresi girin.");
-        return;
-      }
-      if (!password || password.length < 6) {
-        notify.error("Şifre en az 6 karakter olmalıdır.");
-        return;
-      }
-      if (password !== passwordRepeat) {
-        notify.error("Girdiğiniz şifreler birbiriyle uyuşmuyor.");
         return;
       }
       if (!termsAccepted) {
@@ -440,21 +559,62 @@ export function createOnboardingModal(container, onComplete) {
         return;
       }
 
-      notify.info("Hesabınız oluşturuluyor...");
-      const res = await registerWithFirebaseEmail(email, password, name);
-      if (!res.success) {
-        notify.error(res.message);
-        return;
-      }
-
-      state.uid = res.user.uid;
-      state.email = res.user.email;
       state.name = name;
-      state.provider = "email";
 
-      notify.success(`Hesabın oluşturuldu, ${name}! Şimdi profilini özelleştirelim.`);
-      currentScreen = 'wizard_step2';
-      render();
+      if (authMethod === 'phone') {
+        const rawDigits = regPhoneInput?.value ? regPhoneInput.value.replace(/\D/g, '') : '';
+        const last10 = rawDigits.slice(-10);
+        if (!last10 || last10.length !== 10) {
+          notify.error("Lütfen 10 haneli geçerli telefon numaranızı girin (5XX XXX XX XX).");
+          return;
+        }
+
+        const fullPhone = `+90 ${last10.substring(0, 3)} ${last10.substring(3, 6)} ${last10.substring(6, 8)} ${last10.substring(8, 10)}`;
+        state.phone = fullPhone;
+        state.phoneDisplay = regPhoneInput.value;
+        state.provider = "phone";
+
+        // Open SMS OTP Verification Modal
+        showVerificationModal('phone', fullPhone, () => {
+          state.verified = true;
+          notify.success(`Telefonun doğrulandı, ${name}! Şimdi profilini özelleştirelim.`);
+          currentScreen = 'wizard_step2';
+          render();
+        });
+
+      } else {
+        const email = document.getElementById("reg-input-email")?.value.trim();
+        const password = pwdInput?.value.trim();
+        const passwordRepeat = pwdRepInput?.value.trim();
+
+        if (!email || !email.includes("@")) {
+          notify.error("Lütfen geçerli bir e-posta adresi girin.");
+          return;
+        }
+        if (!password || password.length < 6) {
+          notify.error("Şifre en az 6 karakter olmalıdır.");
+          return;
+        }
+        if (password !== passwordRepeat) {
+          notify.error("Girdiğiniz şifreler birbiriyle uyuşmuyor.");
+          return;
+        }
+
+        notify.info("Hesabınız oluşturuluyor...");
+        const res = await registerWithFirebaseEmail(email, password, name);
+        if (!res.success) {
+          notify.error(res.message);
+          return;
+        }
+
+        state.uid = res.user.uid;
+        state.email = res.user.email;
+        state.provider = "email";
+
+        notify.success(`Hesabın oluşturuldu, ${name}! Şimdi profilini özelleştirelim.`);
+        currentScreen = 'wizard_step2';
+        render();
+      }
     });
 
     // Google Register
@@ -966,7 +1126,7 @@ export function createOnboardingModal(container, onComplete) {
         initials: (state.name || "SP").substring(0, 2).toUpperCase(),
         phone: state.phone || "",
         email: state.email || "",
-        provider: state.provider || "email",
+        provider: state.provider || "phone",
         photos: state.photos || [],
         avatar: (state.photos && state.photos[0]) || "",
         goals: state.goals,
