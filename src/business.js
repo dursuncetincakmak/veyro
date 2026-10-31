@@ -79,145 +79,231 @@ class VeyroBusinessApp {
   // ==========================================
   renderAuthScreen() {
     this.root.innerHTML = `
-      <div class="biz-shell" style="display: flex; align-items: center; justify-content: center; padding: 40px 16px; min-height: 100vh; background: radial-gradient(circle at 50% 10%, rgba(59, 130, 246, 0.12), transparent 55%), radial-gradient(circle at 85% 85%, rgba(18, 22, 36, 0.8), transparent 50%), #08090D; font-family: 'Plus Jakarta Sans', sans-serif;">
-        <div style="width: 100%; max-width: 500px; background: rgba(14, 17, 26, 0.96); border: 1.5px solid rgba(59, 130, 246, 0.3); border-radius: 24px; padding: 36px 32px; box-shadow: 0 25px 80px rgba(0,0,0,0.9), 0 0 50px rgba(59, 130, 246, 0.08); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); position: relative; overflow: hidden;">
-          
-          <!-- Top Badge -->
-          <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 16px; margin-bottom: 22px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-            <div style="display: inline-flex; align-items: center; gap: 8px;">
-              <span style="width: 8px; height: 8px; border-radius: 50%; background: #3B82F6; box-shadow: 0 0 10px #3B82F6; display: inline-block;"></span>
-              <span style="font-family: monospace; font-size: 11px; font-weight: 700; color: #60A5FA; letter-spacing: 0.08em;">B2B REKLAM VE SPONSORLUK MASASI</span>
+      <div class="biz-split-auth-shell">
+        
+        <!-- Left Hero Branding Pane -->
+        <div class="biz-split-hero-pane">
+          <div>
+            <!-- Monogram Brand Header -->
+            <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 48px;">
+              <div style="width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4); color: #FFF;">
+                ${icons.award(24)}
+              </div>
+              <div>
+                <div style="font-size: 20px; font-weight: 900; color: #FFFFFF; letter-spacing: -0.02em; display: flex; align-items: center; gap: 8px;">
+                  Veyro Business
+                  <span style="font-size: 10px; font-weight: 800; background: rgba(59, 130, 246, 0.18); color: #60A5FA; border: 1px solid rgba(59, 130, 246, 0.35); padding: 2px 7px; border-radius: 6px;">
+                    ENTERPRISE
+                  </span>
+                </div>
+                <div style="font-size: 11.5px; color: #94A3B8; font-weight: 600;">Reklam Veren, Spor Salonu & Sponsor Portalı</div>
+              </div>
             </div>
-            <span style="font-family: monospace; font-size: 11px; color: #94A3B8; background: rgba(255,255,255,0.04); padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.06);">
-              ENTERPRISE
-            </span>
-          </div>
 
-          <!-- Brand Header -->
-          <div style="text-align: center; margin-bottom: 24px;">
-            <div style="width: 56px; height: 56px; border-radius: 16px; background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; box-shadow: 0 8px 24px rgba(59,130,246,0.35); color: #FFF;">
-              ${icons.award(26)}
-            </div>
-            <h1 style="font-size: 24px; font-weight: 900; color: #FFF; margin: 0 0 6px; letter-spacing: -0.02em;">
-              Veyro Business
+            <!-- Big Narrative Headline -->
+            <h1 style="font-size: 38px; font-weight: 900; color: #FFFFFF; line-height: 1.15; margin: 0 0 16px; letter-spacing: -0.03em;">
+              Markanızı ve Salonunuzu <br>
+              <span style="background: linear-gradient(135deg, #3B82F6 0%, #93C5FD 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Aktif Sporcularla</span> Buluşturun
             </h1>
-            <p style="font-size: 13px; color: #94A3B8; margin: 0; line-height: 1.5;">
-              Spor salonları, takviye markaları ve kurumsal reklam yönetimi
+            <p style="font-size: 14.5px; color: #94A3B8; line-height: 1.6; margin: 0 0 36px; max-width: 520px;">
+              Veyro sporcu topluluğuna özel indirim kuponları, salon üyelikleri ve sponsorluk kampanyaları yayınlayarak yüksek dönüşümlü müşteriler kazanın.
             </p>
-          </div>
 
-          <!-- Auth Mode Tabs (Giriş Yap vs Yeni Marka) -->
-          <div style="display: flex; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 4px; margin-bottom: 22px;">
-            <button id="tab-btn-biz-login" style="flex: 1; padding: 9px; font-size: 12.5px; font-weight: 800; border-radius: 8px; border: none; cursor: pointer; transition: all 0.2s ease; ${this.authTab === 'login' ? 'background: #3B82F6; color: #FFF; box-shadow: 0 2px 8px rgba(59,130,246,0.3);' : 'background: transparent; color: #94A3B8;'}">
-              Kurumsal Giriş
-            </button>
-            <button id="tab-btn-biz-register" style="flex: 1; padding: 9px; font-size: 12.5px; font-weight: 800; border-radius: 8px; border: none; cursor: pointer; transition: all 0.2s ease; ${this.authTab === 'register' ? 'background: #3B82F6; color: #FFF; box-shadow: 0 2px 8px rgba(59,130,246,0.3);' : 'background: transparent; color: #94A3B8;'}">
-              Yeni Marka Kaydı
-            </button>
-          </div>
-
-          <!-- Form Area -->
-          ${this.authTab === 'login' ? `
-            <!-- LOGIN FORM -->
-            <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px;">
-              <div>
-                <label style="font-size: 11.5px; font-weight: 700; color: #94A3B8; display: block; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em;">
-                  Kurumsal E-Posta
-                </label>
-                <div style="position: relative;">
-                  <input type="email" id="input-login-email" value="reklam@hardline.com.tr" placeholder="reklam@sirketiniz.com" style="width: 100%; border-radius: 12px; padding: 12px 14px 12px 38px; font-size: 13.5px; background: #0A0D14; color: #FFF; border: 1.5px solid rgba(255,255,255,0.1); box-sizing: border-box; outline: none; transition: border-color 0.2s ease;">
-                  <div style="position: absolute; left: 12px; top: 12px; color: #64748B;">
-                    ${icons.mail(16)}
-                  </div>
+            <!-- Feature Showcase Cards -->
+            <div style="display: flex; flex-direction: column; gap: 14px; max-width: 560px;">
+              <div class="biz-hero-card">
+                <div style="width: 38px; height: 38px; border-radius: 10px; background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); display: flex; align-items: center; justify-content: center; color: #60A5FA; flex-shrink: 0;">
+                  ${icons.chart(18)}
+                </div>
+                <div>
+                  <h4 style="font-size: 14px; font-weight: 800; color: #FFFFFF; margin: 0 0 3px;">Tıklama Başına (CPC) Maliyet Modeli</h4>
+                  <p style="font-size: 12.5px; color: #94A3B8; margin: 0; line-height: 1.45;">Reklam bütçeniz yalnızca sporcular kupon kodunuza veya mağazanıza tıkladığında harcanır. Sıfır boş gösterim maliyeti.</p>
                 </div>
               </div>
 
-              <div>
-                <label style="font-size: 11.5px; font-weight: 700; color: #94A3B8; display: block; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em;">
-                  Portal Şifresi
-                </label>
-                <div style="position: relative;">
-                  <input type="password" id="input-login-password" value="veyro2026" placeholder="••••••••••••" style="width: 100%; border-radius: 12px; padding: 12px 14px 12px 38px; font-size: 13.5px; background: #0A0D14; color: #FFF; border: 1.5px solid rgba(255,255,255,0.1); box-sizing: border-box; outline: none; transition: border-color 0.2s ease;">
-                  <div style="position: absolute; left: 12px; top: 12px; color: #64748B;">
-                    ${icons.lock(16)}
-                  </div>
+              <div class="biz-hero-card">
+                <div style="width: 38px; height: 38px; border-radius: 10px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); display: flex; align-items: center; justify-content: center; color: #10B981; flex-shrink: 0;">
+                  ${icons.phone(18)}
+                </div>
+                <div>
+                  <h4 style="font-size: 14px; font-weight: 800; color: #FFFFFF; margin: 0 0 3px;">Canlı Mobil Fırsat Vitrini</h4>
+                  <p style="font-size: 12.5px; color: #94A3B8; margin: 0; line-height: 1.45;">Kampanyanız sporcuların cep telefonundaki Fırsatlar sekmesinde ve spor salonu detaylarında anında yayına girer.</p>
                 </div>
               </div>
 
-              <!-- Quick Demo Fill -->
-              <div style="text-align: center; margin: 4px 0;">
-                <button id="btn-quick-fill-biz" type="button" style="background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; padding: 6px 12px; font-size: 11.5px; font-weight: 700; color: #60A5FA; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
-                  ${icons.key(13)} Demo Giriş Bilgilerini Doldur (Hardline Nutrition)
-                </button>
+              <div class="biz-hero-card">
+                <div style="width: 38px; height: 38px; border-radius: 10px; background: rgba(255, 87, 34, 0.15); border: 1px solid rgba(255, 87, 34, 0.3); display: flex; align-items: center; justify-content: center; color: #FF5722; flex-shrink: 0;">
+                  ${icons.target(18)}
+                </div>
+                <div>
+                  <h4 style="font-size: 14px; font-weight: 800; color: #FFFFFF; margin: 0 0 3px;">Hedef Kitle ve Sporcu Demografisi</h4>
+                  <p style="font-size: 12.5px; color: #94A3B8; margin: 0; line-height: 1.45;">Ağırlık çalışanlar, kardiyo yapanlar veya CrossFit sporcularına doğrudan ilgi alanlarına göre optimize edilmiş gösterim.</p>
+                </div>
               </div>
-
-              <button id="btn-submit-login-adv" style="width: 100%; padding: 14px; font-size: 14px; font-weight: 800; background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%); color: #FFF; border: none; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 8px 24px rgba(59,130,246,0.35); transition: transform 0.15s ease;">
-                ${icons.lock(16)} Portala Giriş Yap
-              </button>
             </div>
-          ` : `
-            <!-- REGISTER FORM -->
-            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
-              <div>
-                <label style="font-size: 11.5px; font-weight: 700; color: #94A3B8; display: block; margin-bottom: 5px; text-transform: uppercase;">
-                  Marka / Şirket Adı
-                </label>
-                <input type="text" id="input-reg-brand" placeholder="Örn: BigJoy Nutrition veya Kadıköy Gym" style="width: 100%; border-radius: 10px; padding: 11px 14px; font-size: 13.5px; background: #0A0D14; color: #FFF; border: 1px solid rgba(255,255,255,0.12); box-sizing: border-box; outline: none;">
-              </div>
-
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                <div>
-                  <label style="font-size: 11.5px; font-weight: 700; color: #94A3B8; display: block; margin-bottom: 5px; text-transform: uppercase;">
-                    Yetkili İsim Soyisim
-                  </label>
-                  <input type="text" id="input-reg-contact" placeholder="Adınız Soyadınız" style="width: 100%; border-radius: 10px; padding: 11px 14px; font-size: 13.5px; background: #0A0D14; color: #FFF; border: 1px solid rgba(255,255,255,0.12); box-sizing: border-box; outline: none;">
-                </div>
-                <div>
-                  <label style="font-size: 11.5px; font-weight: 700; color: #94A3B8; display: block; margin-bottom: 5px; text-transform: uppercase;">
-                    Sektör
-                  </label>
-                  <select id="input-reg-sector" style="width: 100%; border-radius: 10px; padding: 11px 14px; font-size: 13.5px; background: #0A0D14; color: #FFF; border: 1px solid rgba(255,255,255,0.12); box-sizing: border-box; outline: none;">
-                    <option value="Supplement & Besin Takviyesi">Supplement & Takviye</option>
-                    <option value="Spor Salonu Zinciri">Spor Salonu / Kulüp</option>
-                    <option value="Spor Giyim & Ekipman">Spor Giyim / Ayakkabı</option>
-                    <option value="Sağlıklı Beslenme & Diyet">Sağlıklı Yemek / Diyet</option>
-                    <option value="Personal Coaching">Personal Trainer / Antrenör</option>
-                  </select>
-                </div>
-              </div>
-
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                <div>
-                  <label style="font-size: 11.5px; font-weight: 700; color: #94A3B8; display: block; margin-bottom: 5px; text-transform: uppercase;">
-                    Kurumsal E-Posta
-                  </label>
-                  <input type="email" id="input-reg-email" placeholder="reklam@sirketiniz.com" style="width: 100%; border-radius: 10px; padding: 11px 14px; font-size: 13.5px; background: #0A0D14; color: #FFF; border: 1px solid rgba(255,255,255,0.12); box-sizing: border-box; outline: none;">
-                </div>
-                <div>
-                  <label style="font-size: 11.5px; font-weight: 700; color: #94A3B8; display: block; margin-bottom: 5px; text-transform: uppercase;">
-                    Kurumsal Telefon
-                  </label>
-                  <input type="tel" id="input-reg-phone" placeholder="05XX XXX XX XX" style="width: 100%; border-radius: 10px; padding: 11px 14px; font-size: 13.5px; background: #0A0D14; color: #FFF; border: 1px solid rgba(255,255,255,0.12); box-sizing: border-box; outline: none;">
-                </div>
-              </div>
-
-              <button id="btn-submit-reg-adv" style="width: 100%; padding: 14px; font-size: 14px; font-weight: 800; background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%); color: #FFF; border: none; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 8px 24px rgba(59,130,246,0.35); margin-top: 6px;">
-                ${icons.rocket(16)} Kurumsal Hesap Aç (10.000 ₺ Hoş Geldin Kredisi)
-              </button>
-            </div>
-          `}
-
-          <!-- Bottom Navigation Links -->
-          <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, 0.08); font-size: 12px;">
-            <a href="admin.html" style="color: var(--color-kor, #FF5722); text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">
-              ${icons.shield(14)} Sistem Yöneticisi Girişi →
-            </a>
-            <a href="index.html" style="color: #64748B; text-decoration: none; font-weight: 600;">
-              ← Sporcu Uygulamasına Dön
-            </a>
           </div>
 
+          <!-- Bottom Performance & Trust Badges -->
+          <div style="padding-top: 36px; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;">
+            <div style="display: flex; align-items: center; gap: 10px; font-size: 11.5px; color: #64748B;">
+              <span>35.000+ Sporcu Etkileşimi</span>
+              <span>·</span>
+              <span>%4.2 Ortalama TO</span>
+              <span>·</span>
+              <span>Kurumsal E-Fatura</span>
+            </div>
+            <div style="font-size: 11.5px; color: #64748B;">
+              © 2026 Veyro Business Technologies A.Ş.
+            </div>
+          </div>
         </div>
+
+        <!-- Right Form Pane -->
+        <div class="biz-split-form-pane">
+          <!-- Top Right Action -->
+          <div style="display: flex; justify-content: flex-end;">
+            <a href="admin.html" style="padding: 8px 16px; font-size: 12px; font-weight: 700; color: var(--color-kor, #FF5722); background: rgba(255, 87, 34, 0.1); border: 1px solid rgba(255, 87, 34, 0.25); border-radius: 10px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s ease;">
+              ${icons.shield(14)} Sistem Yönetim Masası →
+            </a>
+          </div>
+
+          <!-- Centered Auth Form Box -->
+          <div style="margin: auto 0; padding: 24px 0;">
+            
+            <!-- Auth Mode Segmented Control Tabs -->
+            <div style="display: flex; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 4px; margin-bottom: 24px;">
+              <button id="tab-btn-biz-login" style="flex: 1; padding: 10px; font-size: 13px; font-weight: 800; border-radius: 9px; border: none; cursor: pointer; transition: all 0.2s ease; ${this.authTab === 'login' ? 'background: #3B82F6; color: #FFF; box-shadow: 0 2px 10px rgba(59,130,246,0.35);' : 'background: transparent; color: #94A3B8;'}">
+                Kurumsal Giriş
+              </button>
+              <button id="tab-btn-biz-register" style="flex: 1; padding: 10px; font-size: 13px; font-weight: 800; border-radius: 9px; border: none; cursor: pointer; transition: all 0.2s ease; ${this.authTab === 'register' ? 'background: #3B82F6; color: #FFF; box-shadow: 0 2px 10px rgba(59,130,246,0.35);' : 'background: transparent; color: #94A3B8;'}">
+                Yeni Marka Kaydı
+              </button>
+            </div>
+
+            <!-- Form Content based on tab -->
+            ${this.authTab === 'login' ? `
+              <!-- LOGIN FORM -->
+              <div>
+                <div style="margin-bottom: 22px;">
+                  <h2 style="font-size: 24px; font-weight: 900; color: #FFFFFF; margin: 0 0 6px; letter-spacing: -0.02em;">
+                    Portala Giriş Yap
+                  </h2>
+                  <p style="font-size: 13px; color: #94A3B8; margin: 0; line-height: 1.5;">
+                    Kayıtlı reklam veren veya spor kulübü hesabınızla oturum açın.
+                  </p>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 22px;">
+                  <div>
+                    <label style="font-size: 11.5px; font-weight: 700; color: #94A3B8; display: block; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em;">
+                      Kurumsal E-Posta
+                    </label>
+                    <div style="position: relative;">
+                      <input type="email" id="input-login-email" value="reklam@hardline.com.tr" placeholder="reklam@sirketiniz.com" style="width: 100%; border-radius: 12px; padding: 13px 14px 13px 40px; font-size: 14px; background: #07080B; color: #FFF; border: 1.5px solid rgba(255,255,255,0.1); box-sizing: border-box; outline: none; transition: border-color 0.2s ease;">
+                      <div style="position: absolute; left: 14px; top: 14px; color: #64748B;">
+                        ${icons.mail(16)}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                      <label style="font-size: 11.5px; font-weight: 700; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.04em;">
+                        Portal Şifresi
+                      </label>
+                      <span style="font-size: 11px; color: #64748B;">256-Bit SSL</span>
+                    </div>
+                    <div style="position: relative;">
+                      <input type="password" id="input-login-password" value="veyro2026" placeholder="••••••••••••" style="width: 100%; border-radius: 12px; padding: 13px 14px 13px 40px; font-size: 14px; background: #07080B; color: #FFF; border: 1.5px solid rgba(255,255,255,0.1); box-sizing: border-box; outline: none; transition: border-color 0.2s ease;">
+                      <div style="position: absolute; left: 14px; top: 14px; color: #64748B;">
+                        ${icons.lock(16)}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <button id="btn-submit-login-adv" style="width: 100%; padding: 14px; font-size: 14px; font-weight: 800; background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%); color: #FFF; border: none; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 8px 24px rgba(59,130,246,0.35); transition: transform 0.15s ease;">
+                  ${icons.lock(16)} Portala Giriş Yap
+                </button>
+
+                <!-- Subtle Demo Quick Fill Chip -->
+                <div id="btn-quick-fill-biz" style="margin-top: 14px; text-align: center; font-size: 11.5px; color: #64748B; cursor: pointer; padding: 6px; transition: color 0.2s ease;">
+                  Kayıtlı Demo: <strong style="color: #94A3B8;">reklam@hardline.com.tr</strong> · <strong style="color: #94A3B8;">veyro2026</strong>
+                </div>
+              </div>
+            ` : `
+              <!-- REGISTER FORM -->
+              <div>
+                <div style="margin-bottom: 20px;">
+                  <h2 style="font-size: 24px; font-weight: 900; color: #FFFFFF; margin: 0 0 6px; letter-spacing: -0.02em;">
+                    Yeni Marka / Salon Kaydı
+                  </h2>
+                  <p style="font-size: 13px; color: #94A3B8; margin: 0; line-height: 1.5;">
+                    30 saniyede hesabınızı oluşturun, 10.000 ₺ test kredisi kazanın.
+                  </p>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px;">
+                  <div>
+                    <label style="font-size: 11.5px; font-weight: 700; color: #94A3B8; display: block; margin-bottom: 5px; text-transform: uppercase;">
+                      Marka / Şirket Adı
+                    </label>
+                    <input type="text" id="input-reg-brand" placeholder="Örn: BigJoy Nutrition veya Kadıköy Gym" style="width: 100%; border-radius: 10px; padding: 12px 14px; font-size: 13.5px; background: #07080B; color: #FFF; border: 1px solid rgba(255,255,255,0.12); box-sizing: border-box; outline: none;">
+                  </div>
+
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div>
+                      <label style="font-size: 11.5px; font-weight: 700; color: #94A3B8; display: block; margin-bottom: 5px; text-transform: uppercase;">
+                        Yetkili İsim Soyisim
+                      </label>
+                      <input type="text" id="input-reg-contact" placeholder="Adınız Soyadınız" style="width: 100%; border-radius: 10px; padding: 12px 14px; font-size: 13.5px; background: #07080B; color: #FFF; border: 1px solid rgba(255,255,255,0.12); box-sizing: border-box; outline: none;">
+                    </div>
+                    <div>
+                      <label style="font-size: 11.5px; font-weight: 700; color: #94A3B8; display: block; margin-bottom: 5px; text-transform: uppercase;">
+                        Sektör
+                      </label>
+                      <select id="input-reg-sector" style="width: 100%; border-radius: 10px; padding: 12px 14px; font-size: 13.5px; background: #07080B; color: #FFF; border: 1px solid rgba(255,255,255,0.12); box-sizing: border-box; outline: none;">
+                        <option value="Supplement & Besin Takviyesi">Supplement & Takviye</option>
+                        <option value="Spor Salonu Zinciri">Spor Salonu / Kulüp</option>
+                        <option value="Spor Giyim & Ekipman">Spor Giyim / Ayakkabı</option>
+                        <option value="Sağlıklı Beslenme & Diyet">Sağlıklı Yemek / Diyet</option>
+                        <option value="Personal Coaching">Personal Trainer / Antrenör</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div>
+                      <label style="font-size: 11.5px; font-weight: 700; color: #94A3B8; display: block; margin-bottom: 5px; text-transform: uppercase;">
+                        Kurumsal E-Posta
+                      </label>
+                      <input type="email" id="input-reg-email" placeholder="reklam@sirketiniz.com" style="width: 100%; border-radius: 10px; padding: 12px 14px; font-size: 13.5px; background: #07080B; color: #FFF; border: 1px solid rgba(255,255,255,0.12); box-sizing: border-box; outline: none;">
+                    </div>
+                    <div>
+                      <label style="font-size: 11.5px; font-weight: 700; color: #94A3B8; display: block; margin-bottom: 5px; text-transform: uppercase;">
+                        Kurumsal Telefon
+                      </label>
+                      <input type="tel" id="input-reg-phone" placeholder="05XX XXX XX XX" style="width: 100%; border-radius: 10px; padding: 12px 14px; font-size: 13.5px; background: #07080B; color: #FFF; border: 1px solid rgba(255,255,255,0.12); box-sizing: border-box; outline: none;">
+                    </div>
+                  </div>
+
+                  <button id="btn-submit-reg-adv" style="width: 100%; padding: 14px; font-size: 14px; font-weight: 800; background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%); color: #FFF; border: none; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 8px 24px rgba(59,130,246,0.35); margin-top: 6px;">
+                    ${icons.rocket(16)} Kurumsal Hesap Aç (10.000 ₺ Hoş Geldin Kredisi)
+                  </button>
+                </div>
+              </div>
+            `}
+
+          </div>
+
+          <!-- Bottom Back Link -->
+          <div style="padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.08); text-align: center;">
+            <a href="index.html" style="font-size: 12px; color: #64748B; text-decoration: none; font-weight: 600;">
+              ← Sporcu Mobil Uygulamasına Dön
+            </a>
+          </div>
+        </div>
+
       </div>
     `;
 
