@@ -81,5 +81,40 @@ export const REAL_REGISTERED_USERS = [
     "id": "usr_1793285472092",
     "role": "user",
     "createdAt": 1793285472092
+  },
+  {
+    "updatedAt": 1793471849828,
+    "provider": "phone",
+    "name": "Çeetin Çakmak",
+    "genderPref": "Herkes",
+    "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=700&q=80",
+    "phone": "+90 541 970 61 19",
+    "photos": [
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=700&q=80",
+      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=700&q=80",
+      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=700&q=80",
+      "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=700&q=80"
+    ],
+    "role": "user",
+    "level": "Yeni başladım",
+    "goals": [
+      "Kas",
+      "Güç",
+      "Genel form"
+    ],
+    "gymId": "all",
+    "onboarded": true,
+    "preferredTimes": [
+      "Akşam",
+      "Hafta sonu",
+      "Sabah"
+    ],
+    "initials": "ÇE",
+    "createdAt": 1793471842494,
+    "email": "",
+    "verified": true,
+    "id": "usr_1793471842494",
+    "_docId": "usr_1793471842494",
+    "lastLoginAt": 1793472167311
   }
 ];

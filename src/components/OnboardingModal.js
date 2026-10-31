@@ -49,85 +49,77 @@ export function createOnboardingModal(container, onComplete) {
   function renderStep1() {
     container.innerHTML = `
       <div class="onboarding-screen fade-in">
-        <div class="splash-container">
-          <div class="splash-brand-hero">
-            <div class="splash-logo-row">
-              <div class="brand-monogram">V</div>
-              <div class="brand-title">veyro</div>
+        <div class="auth-stage-container">
+          
+          <!-- Top Hero Section -->
+          <div class="auth-hero-section">
+            <div class="auth-brand-emblem-wrap">
+              <div class="auth-brand-glow"></div>
+              <svg class="auth-brand-svg" viewBox="0 0 512 512" width="68" height="68">
+                <defs>
+                  <linearGradient id="veyroHeroGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#FF5722"/>
+                    <stop offset="100%" stop-color="#FF7043"/>
+                  </linearGradient>
+                </defs>
+                <rect width="512" height="512" rx="128" fill="#14161F"/>
+                <rect width="504" height="504" x="4" y="4" rx="124" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"/>
+                <path d="M120 130 L220 380 Q256 420 292 380 L392 130 L315 130 L256 310 L197 130 Z" fill="url(#veyroHeroGrad)"/>
+                <circle cx="390" cy="130" r="28" fill="#10B981"/>
+              </svg>
             </div>
-
-            <!-- Live Workout Teasers -->
-            <div class="splash-activity-card">
-              <div class="activity-badge-time">
-                <span class="dot-indicator"></span>
-                <span>Bugün 19:00 · Bacak günü</span>
-              </div>
-              <span class="badge badge-kor">Canlı</span>
-            </div>
-
-            <div class="splash-activity-card">
-              <div class="activity-badge-time">
-                <span class="dot-indicator emerald"></span>
-                <span>Cuma 07:30 · Kardiyo</span>
-              </div>
-              <span class="badge badge-emerald">Planlandı</span>
-            </div>
-
-            <div class="splash-avatars-row">
-              <div class="stacked-avatars">
-                <div class="stacked-avatar">EC</div>
-                <div class="stacked-avatar">MR</div>
-                <div class="stacked-avatar">ZY</div>
-              </div>
-              <span style="font-size: 13px; font-weight: 600; color: var(--text-secondary);">
-                Aynı salonda 3 kişi partner arıyor
-              </span>
-            </div>
+            <div class="auth-brand-name">VEYRO</div>
+            <h1 class="auth-headline">Asla Yalnız<br><span class="gradient-kor">Antrenman Yapma</span></h1>
+            <p class="auth-subhead">Salondaki seviyene ve hedeflerine uygun antrenman partnerini bul, birlikte geliş.</p>
           </div>
 
-          <div class="splash-lead-text">
-            <h1 class="splash-lead-title">Salonda antrenman<br>arkadaşını bul.</h1>
-            <p class="splash-lead-desc">
-              Aynı salonda, aynı saatlerde çalışanlarla eşleş, randevunu kur, takvimine ekle.
+          <!-- Bottom Auth Action Sheet -->
+          <div class="auth-sheet-card">
+            <!-- Native Social Logins -->
+            <div class="auth-social-stack">
+              <button class="btn-native-apple" id="btn-apple-continue">
+                <svg width="18" height="18" viewBox="0 0 170 170" fill="currentColor">
+                  <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.64-7.81-11.83-14.31-6.17-9.53-11.06-20.2-14.67-32.02-3.61-11.82-5.42-23.08-5.42-33.78 0-14.58 3.52-26.68 10.56-36.3 7.04-9.62 16.03-14.52 26.96-14.7 4.9 0 10.37 1.25 16.42 3.75 6.05 2.5 10.13 3.82 12.24 3.96 1.74-.18 6.03-1.57 12.87-4.16 6.84-2.59 12.35-3.74 16.53-3.46 12.63.76 22.84 5.24 30.63 13.43-11.01 6.64-16.36 15.93-16.05 27.87.31 9.57 4.09 17.51 11.34 23.82 7.25 6.31 15.82 10.02 25.71 11.13-2.18 6.53-4.79 13.17-7.83 19.92zM119.22 31.85c-.09-3.49.52-7.14 1.83-10.96 1.31-3.82 3.22-7.24 5.73-10.26 2.62-3.15 5.67-5.71 9.15-7.69 3.48-1.98 6.89-3.03 10.23-3.15.11 3.49-.49 7.07-1.8 10.74-1.31 3.67-3.23 7.09-5.76 10.26-2.51 3.16-5.55 5.77-9.12 7.83-3.57 2.06-7.01 3.14-10.26 3.23z"/>
+                </svg>
+                <span>Apple ile Giriş Yap</span>
+              </button>
+
+              <button class="btn-native-google" id="btn-google-continue">
+                <svg width="18" height="18" viewBox="0 0 24 24">
+                  <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
+                  <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.34 24 12 24z"/>
+                  <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.04 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+                  <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+                </svg>
+                <span>Google ile Giriş Yap</span>
+              </button>
+            </div>
+
+            <div class="auth-or-divider">
+              <span>veya telefon numarası ile</span>
+            </div>
+
+            <!-- Phone Input Box -->
+            <div class="auth-phone-box">
+              <div class="phone-input-premium">
+                <div class="phone-country-chip">
+                  <span>🇹🇷</span>
+                  <span style="letter-spacing: -0.02em;">+90</span>
+                </div>
+                <input type="tel" id="input-phone" class="phone-number-field" placeholder="5XX XXX XX XX" maxlength="13" autocomplete="tel">
+              </div>
+
+              <button class="btn-auth-submit" id="btn-phone-continue">
+                <span>Devam Et</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+
+            <p class="auth-legal-notice">
+              Devam ederek <a href="#" class="legal-link">Kullanım Koşulları</a> ve <a href="#" class="legal-link">Gizlilik Politikası</a>'nı kabul etmiş sayılırsınız.
             </p>
           </div>
 
-          <div class="auth-box">
-            <div class="auth-input-group">
-              <label class="form-label">Telefon numarası</label>
-              <div class="phone-input-wrap">
-                <span class="phone-prefix">+90</span>
-                <input type="tel" id="input-phone" class="phone-field" placeholder="5XX XXX XX XX" maxlength="13">
-              </div>
-            </div>
-
-            <button class="btn-kor" id="btn-phone-continue">
-              Devam et
-            </button>
-
-            <div class="auth-divider">veya</div>
-
-            <button class="btn-apple" id="btn-apple-continue" style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 12px; background: #000000; border: 1.5px solid rgba(255, 255, 255, 0.25); border-radius: 12px; color: #FFFFFF; font-size: 14px; font-weight: 700; cursor: pointer; margin-bottom: 8px;">
-              <svg width="18" height="18" viewBox="0 0 170 170" fill="currentColor">
-                <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.64-7.81-11.83-14.31-6.17-9.53-11.06-20.2-14.67-32.02-3.61-11.82-5.42-23.08-5.42-33.78 0-14.58 3.52-26.68 10.56-36.3 7.04-9.62 16.03-14.52 26.96-14.7 4.9 0 10.37 1.25 16.42 3.75 6.05 2.5 10.13 3.82 12.24 3.96 1.74-.18 6.03-1.57 12.87-4.16 6.84-2.59 12.35-3.74 16.53-3.46 12.63.76 22.84 5.24 30.63 13.43-11.01 6.64-16.36 15.93-16.05 27.87.31 9.57 4.09 17.51 11.34 23.82 7.25 6.31 15.82 10.02 25.71 11.13-2.18 6.53-4.79 13.17-7.83 19.92zM119.22 31.85c-.09-3.49.52-7.14 1.83-10.96 1.31-3.82 3.22-7.24 5.73-10.26 2.62-3.15 5.67-5.71 9.15-7.69 3.48-1.98 6.89-3.03 10.23-3.15.11 3.49-.49 7.07-1.8 10.74-1.31 3.67-3.23 7.09-5.76 10.26-2.51 3.16-5.55 5.77-9.12 7.83-3.57 2.06-7.01 3.14-10.26 3.23z"/>
-              </svg>
-              <span>Apple ile devam et</span>
-            </button>
-
-            <button class="btn-google" id="btn-google-continue">
-              <svg class="google-icon" viewBox="0 0 24 24">
-                <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
-                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.34 24 12 24z"/>
-                <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.04 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
-                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
-              </svg>
-              Google ile devam et
-            </button>
-
-            <p style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 14px; line-height: 1.4;">
-              Devam ederek Kullanım Şartları'nı ve Gizlilik Politikası'nı kabul etmiş olursun.
-            </p>
-          </div>
         </div>
       </div>
     `;
@@ -146,6 +138,12 @@ export function createOnboardingModal(container, onComplete) {
       if (val.length >= 7) formatted += " " + val.substring(6, 8);
       if (val.length >= 9) formatted += " " + val.substring(8, 10);
       e.target.value = formatted;
+    });
+
+    phoneInput?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        document.getElementById("btn-phone-continue")?.click();
+      }
     });
 
     document.getElementById("btn-phone-continue")?.addEventListener("click", async () => {
