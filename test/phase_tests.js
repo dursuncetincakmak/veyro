@@ -71,6 +71,11 @@ assert(fs.existsSync(authPath), "src/services/auth.js kimlik doğrulama servisi 
 const authContent = fs.readFileSync(authPath, 'utf-8');
 assert(authContent.includes("loginAdmin"), "Yetkisiz erişimi engelleyen şifreli güvenli admin doğrulama sistemi aktif");
 assert(authContent.includes("registerUser"), "Gerçek kullanıcı dinamik kayıt sistemi aktif");
+assert(authContent.includes("signOutFromFirebase") && authContent.includes("STORAGE_CURRENT_USER_KEY"), "Çoklu hesap geçişinde oturum ve Firebase sıfırlama motoru aktif");
+
+const mainPath = path.join(ROOT, 'src', 'main.js');
+const mainContent = fs.readFileSync(mainPath, 'utf-8');
+assert(mainContent.includes("handleSignOut") && mainContent.includes("this.renderedTabs.clear()"), "Çıkışta sekme DOM önbellekleri ve görünüm sıfırlama aktif (hesaplar arası profil sızıntısı engellendi)");
 
 const locationPath = path.join(ROOT, 'src', 'services', 'location.js');
 assert(fs.existsSync(locationPath), "GPS Geolocation ve Haversine mesafe hesaplayıcı mevcut");

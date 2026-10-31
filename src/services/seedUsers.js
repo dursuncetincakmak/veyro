@@ -45,7 +45,7 @@ export const REAL_REGISTERED_USERS = [
     "id": "usr_1793279618857",
     "role": "user",
     "createdAt": 1793279618857,
-    "lastLoginAt": 1793479089529,
+    "lastLoginAt": 1793479148717,
     "updatedAt": 1793478992978,
     "bio": "",
     "photos": [
@@ -152,14 +152,15 @@ export const REAL_REGISTERED_USERS = [
       "Akşam"
     ],
     "genderPref": "Herkes",
-    "gymId": "map_gym_59538924",
+    "gymId": "all",
     "onboarded": true,
     "verified": true,
     "id": "usr_1793475786655",
     "role": "user",
     "createdAt": 1793475786655,
     "_docId": "usr_1793475786655",
-    "lastLoginAt": 1793478717141
+    "lastLoginAt": 1793479131356,
+    "updatedAt": 1793478861941
   },
   {
     "id": "usr_1793478577047_rs6uy",
@@ -187,6 +188,9 @@ export const REAL_REGISTERED_USERS = [
     "onboarded": true,
     "verified": true,
     "createdAt": 1793478577047,
-    "role": "user"
+    "role": "user",
+    "updatedAt": 1793478847393,
+    "_docId": "usr_1793478577047_rs6uy",
+    "lastLoginAt": 1793479246768
   }
 ];

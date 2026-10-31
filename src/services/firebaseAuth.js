@@ -197,3 +197,17 @@ export async function sendFirebasePasswordReset(email) {
     };
   }
 }
+
+/**
+ * Clean Sign Out from Firebase Auth
+ */
+export async function signOutFromFirebase() {
+  try {
+    const auth = getFirebaseAuth();
+    if (auth) {
+      await fbSignOut(auth);
+    }
+  } catch (e) {
+    // Ignore error if Firebase is not initialized or user already signed out
+  }
+}

@@ -8,8 +8,10 @@
 import { db } from './db.js';
 import { REAL_REGISTERED_USERS } from './seedUsers.js';
 import { saveFirestoreDoc } from './firestoreSync.js';
+import { signOutFromFirebase } from './firebaseAuth.js';
 
 const AUTH_USER_KEY = "veyro_prod_session_user";
+const STORAGE_CURRENT_USER_KEY = "veyro_current_user";
 
 class AuthService {
   constructor() {
@@ -33,8 +35,10 @@ class AuthService {
     this.currentUser = user;
     if (user) {
       localStorage.setItem(AUTH_USER_KEY, JSON.stringify(user));
+      localStorage.setItem(STORAGE_CURRENT_USER_KEY, JSON.stringify(user));
     } else {
       localStorage.removeItem(AUTH_USER_KEY);
+      localStorage.removeItem(STORAGE_CURRENT_USER_KEY);
     }
     db.notifySubscribers("auth_state_changed", user);
   }
@@ -283,6 +287,14 @@ class AuthService {
 
   signOut() {
     this.saveSession(null);
+    try {
+      if (typeof sessionStorage !== "undefined") {
+        sessionStorage.clear();
+      }
+    } catch (e) {}
+    try {
+      signOutFromFirebase();
+    } catch (e) {}
   }
 }
 

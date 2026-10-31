@@ -146,6 +146,7 @@ export function showVerificationModal(type = 'phone', targetContact = null, onSu
     const close = () => {
       clearInterval(timerInterval);
       modalOverlay.classList.remove("open");
+      modalOverlay.remove();
       onClose?.();
     };
 
@@ -180,6 +181,7 @@ export function showVerificationModal(type = 'phone', targetContact = null, onSu
         }
         notify.success("✓ Telefon numarası ve profil başarıyla doğrulandı!");
         modalOverlay.classList.remove("open");
+        modalOverlay.remove();
         onSuccess?.();
       } else {
         notify.error("Hatalı doğrulama kodu. Lütfen tekrar deneyin.");

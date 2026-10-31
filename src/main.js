@@ -42,9 +42,10 @@ import { icons } from './components/icons.js';
 
 class VeyroApp {
   constructor() {
-    this.currentTab = 'discover'; // 'discover' | 'appointments' | 'routines' | 'deals'
+    this.currentTab = 'discover'; // 'discover' | 'appointments' | 'routines' | 'deals' | 'profile'
     this.isAdminOpen = false;
     this.renderedTabs = new Set();
+    this.currentUserId = auth.getCurrentUser()?.id || null;
     this.init();
   }
 
@@ -75,8 +76,24 @@ class VeyroApp {
       if (this.currentTab === "deals") this.renderCurrentView();
     });
 
-    db.subscribe("auth_state_changed", () => {
-      this.updateHeader();
+    db.subscribe("auth_state_changed", (user) => {
+      const newUserId = user?.id || null;
+      if (this.currentUserId !== newUserId) {
+        this.currentUserId = newUserId;
+        this.renderedTabs.clear();
+        const tabs = ['discover', 'appointments', 'routines', 'deals', 'profile'];
+        tabs.forEach(t => {
+          const pane = document.getElementById(`pane-${t}`);
+          if (pane) pane.innerHTML = '';
+        });
+        this.updateHeader();
+        this.updateTabBar();
+        if (newUserId && user?.onboarded) {
+          this.renderCurrentView(true);
+        }
+      } else {
+        this.updateHeader();
+      }
     });
 
     db.subscribe("chats_updated", () => {
@@ -104,9 +121,10 @@ class VeyroApp {
   }
 
   switchToTab(tab) {
+    const isProfile = tab === 'profile';
     this.currentTab = tab;
     this.updateTabBar();
-    this.renderCurrentView();
+    this.renderCurrentView(isProfile);
     if (this.viewContainer) {
       this.viewContainer.scrollTop = 0;
     }
@@ -176,6 +194,9 @@ class VeyroApp {
 
     if (!this.renderedTabs.has(this.currentTab) || forceRefresh) {
       this.renderedTabs.add(this.currentTab);
+      if (forceRefresh) {
+        activePane.innerHTML = '';
+      }
       if (this.currentTab === 'discover') {
         renderDiscoverView(
           activePane,
@@ -217,11 +238,7 @@ class VeyroApp {
               this.renderCurrentView(true);
             });
           },
-          onSignOut: () => {
-            auth.signOut();
-            notify.info("Oturum kapatıldı.");
-            this.openOnboarding();
-          },
+          onSignOut: () => this.handleSignOut(),
           onBack: () => this.switchToTab('discover')
         });
       }
@@ -270,21 +287,53 @@ class VeyroApp {
             this.renderCurrentView(true);
           });
         },
-        onSignOut: () => {
-          auth.signOut();
-          notify.info("Oturum kapatıldı.");
-          this.openOnboarding();
-        },
+        onSignOut: () => this.handleSignOut(),
         onBack: () => this.switchToTab('discover')
       });
     }
   }
 
+  handleSignOut() {
+    auth.signOut();
+    this.currentUserId = null;
+    this.renderedTabs.clear();
+    const tabs = ['discover', 'appointments', 'routines', 'deals', 'profile'];
+    tabs.forEach(t => {
+      const pane = document.getElementById(`pane-${t}`);
+      if (pane) {
+        pane.innerHTML = '';
+        pane.classList.remove('active');
+      }
+    });
+    document.querySelectorAll('.modal-overlay').forEach(el => el.remove());
+    if (this.modalContainer) {
+      this.modalContainer.innerHTML = '';
+    }
+    this.currentTab = 'discover';
+    this.updateHeader();
+    this.updateTabBar();
+    notify.info("Oturum kapatıldı.");
+    this.openOnboarding();
+  }
+
   openOnboarding() {
     createOnboardingModal(this.modalContainer, () => {
       this.modalContainer.innerHTML = "";
+      this.currentUserId = auth.getCurrentUser()?.id || null;
+      // Complete reset of cached tabs and DOM to ensure clean slate for new user
+      this.renderedTabs.clear();
+      const tabs = ['discover', 'appointments', 'routines', 'deals', 'profile'];
+      tabs.forEach(t => {
+        const pane = document.getElementById(`pane-${t}`);
+        if (pane) {
+          pane.innerHTML = '';
+          pane.classList.toggle('active', t === 'discover');
+        }
+      });
+      this.currentTab = 'discover';
       this.updateHeader();
-      this.renderCurrentView();
+      this.updateTabBar();
+      this.renderCurrentView(true);
     });
   }
 
