@@ -11,8 +11,8 @@ import { showVerificationModal } from './VerificationModal.js';
 import { renderGymMapView } from './GymMapView.js';
 import { gymPlacesService } from '../services/gymPlacesService.js';
 import { photoService } from '../services/photoService.js';
-import { icons } from './icons.js';
 import { getGatewayConfig } from '../services/gatewayConfig.js';
+import { triggerFirebaseGoogleSignIn } from '../services/firebaseAuth.js';
 
 export function createOnboardingModal(container, onComplete) {
   let currentStep = 1;
@@ -184,178 +184,42 @@ export function createOnboardingModal(container, onComplete) {
       showAppleAuthDialog();
     });
 
-    // Google Authentication
-    document.getElementById("btn-google-continue")?.addEventListener("click", () => {
-      showGoogleAuthDialog();
-    });
-
-    function showGoogleAuthDialog() {
-      let saved = null;
+    // Real Firebase Google Authentication
+    document.getElementById("btn-google-continue")?.addEventListener("click", async () => {
+      notify.info("Google ile giriş penceresi açılıyor...");
       try {
-        const raw = localStorage.getItem("veyro_last_google_user");
-        if (raw) saved = JSON.parse(raw);
-      } catch (e) {}
-
-      const defaultUser = saved || {
-        name: "Çetin Çakmak",
-        email: "dursuncetincakmak@gmail.com"
-      };
-
-      const config = getGatewayConfig();
-      if (window.google?.accounts?.id && config.auth?.googleClientId) {
-        try {
-          window.google.accounts.id.initialize({
-            client_id: config.auth.googleClientId,
-            callback: (res) => {
-              try {
-                const base64Url = res.credential.split('.')[1];
-                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-                const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
-                const payload = JSON.parse(jsonPayload);
-                processGoogleLogin(payload.email, payload.name, payload.picture);
-                return;
-              } catch (e) {
-                console.warn("Google credential decode failed", e);
-              }
-            }
-          });
-          window.google.accounts.id.prompt();
-        } catch (e) {
-          console.warn("GIS prompt error", e);
-        }
-      }
-
-      let overlay = document.getElementById("google-auth-modal");
-      if (!overlay) {
-        overlay = document.createElement("div");
-        overlay.id = "google-auth-modal";
-        overlay.className = "modal-overlay open";
-        document.body.appendChild(overlay);
-      } else {
-        overlay.classList.add("open");
-      }
-
-      overlay.innerHTML = `
-        <div class="modal-drawer fade-in" style="max-width: 430px; background: #12141C; border: 1.5px solid rgba(66, 133, 244, 0.45); border-radius: 24px; padding: 22px; box-shadow: 0 12px 36px rgba(0,0,0,0.8);">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <svg class="google-icon" style="width: 26px; height: 26px;" viewBox="0 0 24 24">
-                <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
-                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.34 24 12 24z"/>
-                <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.04 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
-                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
-              </svg>
-              <div>
-                <h3 style="font-size: 16px; font-weight: 800; color: #FFF; margin: 0;">Google ile Oturum Aç</h3>
-                <span style="font-size: 11px; color: var(--text-secondary);">veyro-fit.vercel.app uygulamasına bağlan</span>
-              </div>
-            </div>
-            <button class="btn-ghost" id="btn-close-gauth" style="padding: 6px; color: var(--text-secondary); font-size: 18px;">✕</button>
-          </div>
-
-          <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 14px; line-height: 1.4;">
-            Devam etmek için Google hesabınızı seçin:
-          </p>
-
-          <!-- 1-Click Primary Account Card -->
-          <div id="btn-gauth-primary-account" class="auth-sheet-card" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; border-color: rgba(66, 133, 244, 0.45); background: rgba(66, 133, 244, 0.08);">
-            <div style="display: flex; align-items: center; gap: 12px;">
-              <div style="position: relative;">
-                <div style="width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, #4285F4 0%, #34A853 100%); color: #FFF; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center; border: 2px solid #FFFFFF;">
-                  ${defaultUser.name.substring(0, 2).toUpperCase()}
-                </div>
-                <div style="position: absolute; bottom: -2px; right: -2px; width: 16px; height: 16px; border-radius: 50%; background: #4285F4; display: flex; align-items: center; justify-content: center; border: 1.5px solid #12141C;">
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                </div>
-              </div>
-              <div>
-                <div style="display: flex; align-items: center; gap: 6px;">
-                  <strong style="font-size: 14px; color: #FFF;">${defaultUser.name}</strong>
-                  <span class="auth-account-badge" style="background: rgba(66, 133, 244, 0.2); color: #8AB4F8;">Doğrulanmış</span>
-                </div>
-                <span style="font-size: 12px; color: var(--text-secondary); display: block;">${defaultUser.email}</span>
-              </div>
-            </div>
-            <button class="btn-kor" style="padding: 7px 12px; font-size: 12px; font-weight: 800; background: #4285F4; border-radius: 10px; pointer-events: none;">
-              Giriş Yap
-            </button>
-          </div>
-
-          <!-- Secondary/Custom Google Account Toggle -->
-          <div id="btn-toggle-custom-google" style="text-align: center; margin: 10px 0; font-size: 12px; color: #8AB4F8; cursor: pointer; text-decoration: underline;">
-            Farklı bir Google hesabı kullan
-          </div>
-
-          <div id="custom-google-box" style="display: none; flex-direction: column; gap: 10px; margin-top: 8px; padding-top: 10px; border-top: 1px solid var(--border-glass);">
-            <input type="email" id="input-custom-google-email" class="text-input-field" placeholder="Google e-postanızı girin (ornek@gmail.com)" style="font-size: 13.5px; padding: 10px 12px;">
-            <input type="text" id="input-custom-google-name" class="text-input-field" placeholder="Adınız Soyadınız" value="${defaultUser.name}" style="font-size: 13.5px; padding: 10px 12px;">
-            <button class="btn-secondary" id="btn-submit-custom-google" style="width: 100%; padding: 10px; font-size: 12.5px; font-weight: 700;">
-              Bu Hesapla Devam Et
-            </button>
-          </div>
-
-          <div style="font-size: 10.5px; color: var(--text-muted); text-align: center; margin-top: 14px; line-height: 1.4;">
-            Google profiliniz ve e-posta adresiniz Veyro sporcu profilinizle güvenle eşleştirilir.
-          </div>
-        </div>
-      `;
-
-      const closeGAuth = () => {
-        overlay.classList.remove("open");
-      };
-
-      document.getElementById("btn-close-gauth")?.addEventListener("click", closeGAuth);
-
-      const processGoogleLogin = async (email, name, picture = "") => {
-        if (!email || !email.includes("@")) {
-          notify.error("Lütfen geçerli bir Google e-posta adresi girin.");
+        const res = await triggerFirebaseGoogleSignIn();
+        if (!res.success) {
+          if (res.error === "auth/popup-closed-by-user") {
+            return;
+          }
+          notify.error(res.message);
           return;
         }
-        closeGAuth();
-        notify.info("Google hesabı güvenle doğrulanıyor...");
 
-        try {
-          localStorage.setItem("veyro_last_google_user", JSON.stringify({ email, name: name || "Sporcu" }));
-        } catch (e) {}
+        const { email, displayName, photoURL } = res.user;
+        notify.success(`Google ile doğrulandı: ${displayName}!`);
 
-        const res = await auth.signInWithGoogle(email, name, state.gymId || "all", picture);
-        if (res.isExisting) {
-          notify.success(`Tekrar hoş geldin, ${res.user.name}!`);
+        const authRes = await auth.signInWithGoogle(email, displayName, state.gymId || "all", photoURL);
+        if (authRes.isExisting) {
+          notify.success(`Tekrar hoş geldin, ${authRes.user.name}!`);
           onComplete();
           return;
         }
 
-        // New Google user: advance directly to step 2 wizard with verified info
+        // Yeni sporcu: adım 2 profil tamamlama sihirbazına aktar
         state.verified = true;
         state.email = email;
-        state.name = name || "Sporcu";
+        state.name = displayName;
         state.provider = "google.com";
-        if (picture) state.photos = [picture];
-        notify.success(`Google doğrulandı: ${state.name}!`);
+        if (photoURL) state.photos = [photoURL];
         currentStep = 2;
         render();
-      };
-
-      // 1-Click Instant Tap on Primary Account
-      document.getElementById("btn-gauth-primary-account")?.addEventListener("click", () => {
-        processGoogleLogin(defaultUser.email, defaultUser.name);
-      });
-
-      // Toggle custom Google input
-      const toggleBtn = document.getElementById("btn-toggle-custom-google");
-      const customBox = document.getElementById("custom-google-box");
-      toggleBtn?.addEventListener("click", () => {
-        if (customBox) {
-          customBox.style.display = customBox.style.display === "none" ? "flex" : "none";
-        }
-      });
-
-      document.getElementById("btn-submit-custom-google")?.addEventListener("click", () => {
-        const email = document.getElementById("input-custom-google-email")?.value.trim();
-        const name = document.getElementById("input-custom-google-name")?.value.trim();
-        processGoogleLogin(email, name || "Sporcu");
-      });
-    }
+      } catch (err) {
+        console.error("Google Auth trigger failed:", err);
+        notify.error("Google girişi başlatılamadı: " + (err.message || err));
+      }
+    });
 
     function showAppleAuthDialog() {
       let saved = null;
