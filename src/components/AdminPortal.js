@@ -19,6 +19,7 @@ import { getGatewayConfig, saveGatewayConfig } from '../services/gatewayConfig.j
 import { gymPlacesService } from '../services/gymPlacesService.js';
 import { renderGymMapView } from './GymMapView.js';
 import { icons } from './icons.js';
+import { showConfirmModal, showPromptModal } from './ConfirmModal.js';
 
 export function renderAdminPortal(container, onClose, options = {}) {
 
@@ -750,21 +751,36 @@ export function renderAdminPortal(container, onClose, options = {}) {
 
     if (tab === "exercises") {
       document.getElementById("btn-add-exercise")?.addEventListener("click", () => {
-        const name = prompt("Egzersiz Adı:", "Incline Dumbbell Press");
-        const category = prompt("Kategori (Göğüs, Bacak, Sırt vb.):", "Göğüs");
-        if (name) {
-          db.addItem("exercises", {
-            name,
-            category: category || "Genel",
-            defaultSets: 4,
-            defaultReps: 10,
-            duration: "0:45",
-            tips: "Ağırlığı kontrollü indirin ve tepe noktada sıkıştırın.",
-            target: category || "Göğüs"
-          });
-          notify.success(`${name} egzersiz kütüphanesine eklendi!`);
-          render();
-        }
+        showPromptModal({
+          title: "Yeni Egzersiz Ekle",
+          message: "Kütüphaneye eklemek istediğiniz egzersizin adını girin:",
+          defaultValue: "Incline Dumbbell Press",
+          placeholder: "Egzersiz Adı",
+          confirmText: "Ekle",
+          onConfirm: (name) => {
+            if (!name) return;
+            showPromptModal({
+              title: "Egzersiz Kategorisi",
+              message: "Egzersizin kas grubunu / kategorisini girin:",
+              defaultValue: "Göğüs",
+              placeholder: "Kategori (Göğüs, Bacak, Sırt vb.)",
+              confirmText: "Kaydet",
+              onConfirm: (category) => {
+                db.addItem("exercises", {
+                  name,
+                  category: category || "Genel",
+                  defaultSets: 4,
+                  defaultReps: 10,
+                  duration: "0:45",
+                  tips: "Ağırlığı kontrollü indirin ve tepe noktada sıkıştırın.",
+                  target: category || "Göğüs"
+                });
+                notify.success(`${name} egzersiz kütüphanesine eklendi!`);
+                render();
+              }
+            });
+          }
+        });
       });
 
       container.querySelectorAll("[data-action='delete-exercise']").forEach(btn => {
@@ -796,33 +812,65 @@ export function renderAdminPortal(container, onClose, options = {}) {
 
       container.querySelectorAll("[data-action='admin-delete-camp']").forEach(btn => {
         btn.addEventListener("click", () => {
-          if (confirm("Bu kampanyayı silmek istediğinizden emin misiniz?")) {
-            db.deleteCampaign(btn.dataset.id);
-            notify.info("Kampanya silindi.");
-            render();
-          }
+          showConfirmModal({
+            title: "Kampanyayı Sil",
+            message: "Bu kampanyayı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.",
+            confirmText: "Sil",
+            cancelText: "Vazgeç",
+            isDanger: true,
+            icon: icons.trash(24),
+            onConfirm: () => {
+              db.deleteCampaign(btn.dataset.id);
+              notify.info("Kampanya silindi.");
+              render();
+            }
+          });
         });
       });
     }
 
     if (tab === "deals") {
       document.getElementById("btn-add-deal")?.addEventListener("click", () => {
-        const brand = prompt("Marka / Salon Adı:", "MACFit");
-        const title = prompt("Kampanya Başlığı:", "İlk Ay %50 İndirimli Üyelik");
-        const code = prompt("İndirim Kupon Kodu:", "VEYROMAC50");
-        const desc = prompt("Açıklama:", "Veyro partneriyle gelen üyeliklerde geçerli.");
-        if (brand && title && code) {
-          db.addItem("deals", {
-            brand,
-            title,
-            code,
-            description: desc || "Veyro üyelerine özel indirim.",
-            badge: "VEYRO ÖZEL",
-            validUntil: "31 Aralık 2026"
-          });
-          notify.success(`${title} fırsatı başarıyla yayınlandı!`);
-          render();
-        }
+        showPromptModal({
+          title: "Fırsat & Kampanya Ekle",
+          message: "Marka veya spor salonu adını girin:",
+          defaultValue: "MACFit",
+          placeholder: "Marka / Salon Adı",
+          confirmText: "Devam Et",
+          onConfirm: (brand) => {
+            if (!brand) return;
+            showPromptModal({
+              title: "Kampanya Başlığı",
+              message: "İndirim veya kampanya başlığını girin:",
+              defaultValue: "İlk Ay %50 İndirimli Üyelik",
+              placeholder: "Kampanya Başlığı",
+              confirmText: "Devam Et",
+              onConfirm: (title) => {
+                if (!title) return;
+                showPromptModal({
+                  title: "Kupon Kodu",
+                  message: "İndirim kupon kodunu belirleyin:",
+                  defaultValue: "VEYROMAC50",
+                  placeholder: "Kupon Kodu",
+                  confirmText: "Yayınla",
+                  onConfirm: (code) => {
+                    if (!code) return;
+                    db.addItem("deals", {
+                      brand,
+                      title,
+                      code,
+                      description: "Veyro üyelerine özel indirim.",
+                      badge: "VEYRO ÖZEL",
+                      validUntil: "31 Aralık 2026"
+                    });
+                    notify.success(`${title} fırsatı başarıyla yayınlandı!`);
+                    render();
+                  }
+                });
+              }
+            });
+          }
+        });
       });
 
       container.querySelectorAll("[data-action='delete-deal']").forEach(btn => {
@@ -849,13 +897,21 @@ export function renderAdminPortal(container, onClose, options = {}) {
       });
 
       document.getElementById("btn-test-sms")?.addEventListener("click", () => {
-        const testPhone = prompt("Test SMS'i gönderilecek telefon numarası (+90 5XX):", "+90 532 000 00 00");
-        if (testPhone) {
-          notify.info(`${testPhone} numarasına test OTP SMS'i gönderiliyor...`);
-          setTimeout(() => {
-            notify.success(`✓ SMS başarıyla iletildi: "Veyro dogrulama kodunuz: 849201"`);
-          }, 800);
-        }
+        showPromptModal({
+          title: "SMS Gateway Testi",
+          message: "Test SMS'i gönderilecek telefon numarasını girin (+90 5XX):",
+          defaultValue: "+90 532 000 00 00",
+          placeholder: "Telefon Numarası",
+          confirmText: "Test SMS Gönder",
+          onConfirm: (testPhone) => {
+            if (testPhone) {
+              notify.info(`${testPhone} numarasına test OTP SMS'i gönderiliyor...`);
+              setTimeout(() => {
+                notify.success(`✓ SMS başarıyla iletildi: "Veyro dogrulama kodunuz: 849201"`);
+              }, 800);
+            }
+          }
+        });
       });
 
       document.getElementById("btn-save-email-gateway")?.addEventListener("click", () => {
@@ -870,13 +926,21 @@ export function renderAdminPortal(container, onClose, options = {}) {
       });
 
       document.getElementById("btn-test-email")?.addEventListener("click", () => {
-        const testEmail = prompt("Test e-postası gönderilecek adres:", "test@veyro.app");
-        if (testEmail) {
-          notify.info(`${testEmail} adresine test e-postası gönderiliyor...`);
-          setTimeout(() => {
-            notify.success(`✓ E-posta şablonu başarıyla iletildi.`);
-          }, 800);
-        }
+        showPromptModal({
+          title: "E-Posta Gateway Testi",
+          message: "Test e-postası gönderilecek adresi girin:",
+          defaultValue: "test@veyro.app",
+          placeholder: "E-Posta Adresi",
+          confirmText: "Test Mail Gönder",
+          onConfirm: (testEmail) => {
+            if (testEmail) {
+              notify.info(`${testEmail} adresine test e-postası gönderiliyor...`);
+              setTimeout(() => {
+                notify.success(`✓ E-posta şablonu başarıyla iletildi.`);
+              }, 800);
+            }
+          }
+        });
       });
     }
 

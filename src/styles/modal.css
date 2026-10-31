@@ -137,3 +137,64 @@
 .action-sheet-item.danger strong {
   color: var(--color-rose);
 }
+
+/* Gym Search Bar and Input (Obsidian Glass Theme) */
+.gym-search-bar {
+  display: flex;
+  align-items: center;
+  background: rgba(18, 20, 28, 0.92);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 0 16px;
+  height: 52px;
+  box-sizing: border-box;
+  color: rgba(255, 255, 255, 0.45);
+  transition: all 0.2s ease;
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.gym-search-bar:focus-within {
+  border-color: #FF5722;
+  box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.18), 0 8px 24px rgba(0, 0, 0, 0.4);
+  background: rgba(22, 24, 34, 0.96);
+  color: #FF5722;
+}
+
+.gym-search-input {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  background: transparent !important;
+  border: none !important;
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #FFFFFF !important;
+  outline: none !important;
+  padding: 0 0 0 10px;
+  margin: 0;
+  box-shadow: none !important;
+}
+
+.gym-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+  font-weight: 500;
+}
+
+/* In-App Custom Confirm Dialog Animations */
+@keyframes fadeInModal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes popInCard {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

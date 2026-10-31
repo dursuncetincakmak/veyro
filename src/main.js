@@ -423,12 +423,14 @@ class VeyroApp {
           Haritadaki gerçek spor salonları GPS konumunuza göre listelendi:
         </p>
 
-        <div class="gym-search-bar" style="margin-bottom: 12px;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-          <input type="text" id="input-switcher-gym-search" class="gym-search-input" placeholder="Haritada salon ara (Örn: MacFit, Beşiktaş)">
+        <div class="auth-input-pill" style="margin-bottom: 14px;">
+          <div class="auth-input-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </div>
+          <input type="text" id="input-switcher-gym-search" class="auth-input-native" placeholder="Haritada salon ara (Örn: MacFit, Beşiktaş)">
         </div>
 
         <div class="gym-list-container" id="switcher-gym-list" style="max-height: 50vh; overflow-y: auto;">

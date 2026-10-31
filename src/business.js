@@ -9,6 +9,7 @@ import './styles/business.css';
 import { db } from './services/db.js';
 import { notify } from './services/notification.js';
 import { icons } from './components/icons.js';
+import { showConfirmModal } from './components/ConfirmModal.js';
 
 const BIZ_SESSION_KEY = "veyro_biz_session_adv";
 
@@ -1097,11 +1098,19 @@ class VeyroBusinessApp {
     this.root.querySelectorAll(".btn-delete-camp").forEach(btn => {
       btn.addEventListener("click", () => {
         const id = btn.dataset.id;
-        if (confirm("Bu kampanyayı silmek istediğinizden emin misiniz?")) {
-          db.deleteCampaign(id);
-          notify.info("Kampanya silindi.");
-          this.render();
-        }
+        showConfirmModal({
+          title: "Kampanyayı Sil",
+          message: "Bu kampanyayı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.",
+          confirmText: "Sil",
+          cancelText: "Vazgeç",
+          isDanger: true,
+          icon: icons.trash(24),
+          onConfirm: () => {
+            db.deleteCampaign(id);
+            notify.info("Kampanya silindi.");
+            this.render();
+          }
+        });
       });
     });
 

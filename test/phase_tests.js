@@ -112,6 +112,15 @@ const calendarPath = path.join(ROOT, 'src', 'services', 'calendar.js');
 assert(fs.existsSync(calendarPath), "Takvim servisi mevcut");
 const calendarContent = fs.readFileSync(calendarPath, 'utf-8');
 assert(calendarContent.includes("generateIcsFile") && calendarContent.includes("BEGIN:VCALENDAR"), "Apple/Outlook .ics iCalendar ihracı aktif");
+
+const confirmModalPath = path.join(ROOT, 'src', 'components', 'ConfirmModal.js');
+assert(fs.existsSync(confirmModalPath), "Özel uygulama içi onay modalı (ConfirmModal.js) mevcut");
+const confirmModalContent = fs.readFileSync(confirmModalPath, 'utf-8');
+assert(confirmModalContent.includes("showConfirmModal") && confirmModalContent.includes("showPromptModal"), "Tarayıcı native popup'ları yerine Veyro cam tasarımlı in-app dialog motoru aktif");
+
+const profileViewPath = path.join(ROOT, 'src', 'components', 'ProfileView.js');
+const profileViewContent = fs.readFileSync(profileViewPath, 'utf-8');
+assert(!profileViewContent.includes("confirm(") && profileViewContent.includes("showConfirmModal"), "Profil çıkışında tarayıcı native confirm() kaldırıldı, in-app modal entegre");
 const planWorkoutPath = path.join(ROOT, 'src', 'components', 'PlanWorkoutModal.js');
 assert(fs.existsSync(planWorkoutPath), "'Ne zaman nerede spor yapacaksın' antrenman planlama modalı mevcut");
 const planWorkoutContent = fs.readFileSync(planWorkoutPath, 'utf-8');

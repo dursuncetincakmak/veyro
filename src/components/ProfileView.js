@@ -6,6 +6,7 @@
 import { auth } from '../services/auth.js';
 import { db } from '../services/db.js';
 import { icons } from './icons.js';
+import { showConfirmModal } from './ConfirmModal.js';
 
 export function renderProfileView(container, {
   onEditProfile,
@@ -241,8 +242,16 @@ export function renderProfileView(container, {
   });
 
   container.querySelector("#btn-pv-signout")?.addEventListener("click", () => {
-    if (confirm("Veyro hesabınızdan çıkış yapmak istediğinize emin misiniz?")) {
-      onSignOut?.();
-    }
+    showConfirmModal({
+      title: "Oturumu Kapat",
+      message: "Veyro hesabınızdan çıkış yapmak istediğinize emin misiniz?",
+      confirmText: "Çıkış Yap",
+      cancelText: "Vazgeç",
+      isDanger: true,
+      icon: icons.logout(26),
+      onConfirm: () => {
+        onSignOut?.();
+      }
+    });
   });
 }
