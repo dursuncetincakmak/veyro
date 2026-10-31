@@ -616,17 +616,12 @@ export function renderAdminPortal(container, onClose, options = {}) {
             </div>
 
             <div style="margin-top: 10px; padding-top: 12px; border-top: 1px solid var(--border-glass);">
-              <h5 style="font-size: 13.5px; color: #FFF; margin-bottom: 8px;">Google & Apple 1-Click Giriş API</h5>
+              <h5 style="font-size: 13.5px; color: #FFF; margin-bottom: 8px;">Google 1-Click Giriş API (Firebase Auth)</h5>
               <div style="display: flex; flex-direction: column; gap: 10px;">
                 <div>
-                  <label class="form-label" style="font-size: 11.5px;">Google OAuth 2.0 Web Client ID</label>
+                  <label class="form-label" style="font-size: 11.5px;">Google OAuth 2.0 Web Client ID (Opsiyonel / Otomatik)</label>
                   <input type="text" id="auth-google-client-id" class="text-input-field" placeholder="xxxx.apps.googleusercontent.com" value="${data.gateways.auth?.googleClientId || ''}">
-                  <span style="font-size: 10.5px; color: var(--text-muted);">Google Cloud Console > Credentials > OAuth 2.0 Client ID</span>
-                </div>
-                <div>
-                  <label class="form-label" style="font-size: 11.5px;">Apple Services ID</label>
-                  <input type="text" id="auth-apple-client-id" class="text-input-field" placeholder="com.veyro.fitness.web" value="${data.gateways.auth?.appleClientId || ''}">
-                  <span style="font-size: 10.5px; color: var(--text-muted);">Apple Developer > Certificates, Identifiers & Profiles > Services ID</span>
+                  <span style="font-size: 10.5px; color: var(--text-muted);">Firebase Console > Authentication > Google aktif edildiğinde otomatik bağlanır</span>
                 </div>
               </div>
             </div>
@@ -920,12 +915,12 @@ export function renderAdminPortal(container, onClose, options = {}) {
         const projectId = document.getElementById("fb-input-projectid")?.value.trim();
         const authDomain = document.getElementById("fb-input-authdomain")?.value.trim();
         const storageBucket = document.getElementById("fb-input-storagebucket")?.value.trim();
-        const googleClientId = document.getElementById("auth-google-client-id")?.value.trim();
-        const appleClientId = document.getElementById("auth-apple-client-id")?.value.trim();
+        const googleClientId = document.getElementById("auth-google-client-id")?.value.trim() || "";
+        const appleClientId = document.getElementById("auth-apple-client-id")?.value.trim() || (data.gateways.auth?.appleClientId || "");
 
         saveFirebaseConfig({ apiKey, projectId, authDomain, storageBucket });
         saveGatewayConfig({ auth: { googleClientId, appleClientId } });
-        notify.success("Google Firebase ve OAuth kimlik bilgileri başarıyla güncellendi!");
+        notify.success("Firebase ve Google API ayarları başarıyla kaydedildi!");
       });
     }
   }
