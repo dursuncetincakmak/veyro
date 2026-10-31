@@ -223,7 +223,7 @@ export function showFilterModal(currentFilters = {}, onApply, onClose) {
           const select = document.getElementById("select-filter-gym");
           if (select) {
             select.innerHTML = `
-              <option value="all" ${state.gymId === 'all' ? 'selected' : ''}>📍 Yakınımdaki Tüm Salonlar</option>
+              <option value="all" ${state.gymId === 'all' ? 'selected' : ''}>Yakınımdaki Tüm Salonlar</option>
               ${allGyms.map(g => `
                 <option value="${g.id}" ${state.gymId === g.id ? 'selected' : ''}>${g.name} (${g.district} · ${g.distanceText || 'Maps'})</option>
               `).join('')}

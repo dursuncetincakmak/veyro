@@ -605,7 +605,7 @@ class DatabaseEngine {
             notify.showIncomingMessageBanner({
               senderName: lastIncoming.senderName,
               senderInitials: lastIncoming.senderName?.substring(0, 2).toUpperCase() || 'SP',
-              text: lastIncoming.text || (lastIncoming.image ? '📷 Fotoğraf' : 'Yeni mesaj'),
+              text: lastIncoming.text || (lastIncoming.image ? 'Fotoğraf' : 'Yeni mesaj'),
               onOpen: () => {
                 if (window.veyro && window.veyro.openChat) {
                   window.veyro.openChat(lastIncoming.senderId);
@@ -851,7 +851,7 @@ class DatabaseEngine {
             notify.showIncomingMessageBanner({
               senderName: lastIncoming.senderName,
               senderInitials: lastIncoming.senderName?.substring(0, 2).toUpperCase() || 'SP',
-              text: lastIncoming.text || (lastIncoming.image ? '📷 Fotoğraf' : 'Yeni mesaj'),
+              text: lastIncoming.text || (lastIncoming.image ? 'Fotoğraf' : 'Yeni mesaj'),
               onOpen: () => {
                 if (window.veyro && window.veyro.openChat) {
                   window.veyro.openChat(lastIncoming.senderId);
@@ -937,7 +937,7 @@ class DatabaseEngine {
           notify.showIncomingMessageBanner({
             senderName: data.message.senderName,
             senderInitials: data.message.senderName?.substring(0, 2).toUpperCase() || 'SP',
-            text: data.message.text || (data.message.image ? '📷 Fotoğraf' : 'Yeni mesaj'),
+            text: data.message.text || (data.message.image ? 'Fotoğraf' : 'Yeni mesaj'),
             onOpen: () => {
               if (window.veyro && window.veyro.openChat) {
                 window.veyro.openChat(data.message.senderId);

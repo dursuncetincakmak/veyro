@@ -74,7 +74,7 @@ export function renderProfileView(container, {
         </h2>
 
         <div class="profile-phone-text">
-          ${user.phone ? `📱 ${user.phone}` : (user.email ? `✉️ ${user.email}` : 'Sporcu Hesabı')}
+          ${user.phone ? `<span style="display:inline-flex;align-items:center;gap:6px;">${icons.phone(13)} ${user.phone}</span>` : (user.email ? `<span style="display:inline-flex;align-items:center;gap:6px;">${icons.mail(13)} ${user.email}</span>` : 'Sporcu Hesabı')}
         </div>
 
         ${user.verified ? `
@@ -165,16 +165,16 @@ export function renderProfileView(container, {
           </span>
           ${(user.goals || ['Kas']).map(goal => `
             <span class="profile-pill-item">
-              🎯 ${goal}
+              ${icons.target(13)} ${goal}
             </span>
           `).join('')}
           ${(user.preferredTimes || ['Akşam']).map(time => `
             <span class="profile-pill-item">
-              ⏰ ${time}
+              ${icons.clock(13)} ${time}
             </span>
           `).join('')}
           <span class="profile-pill-item">
-            👥 Tercih: ${user.genderPref || 'Herkes'}
+            ${icons.users(13)} Tercih: ${user.genderPref || 'Herkes'}
           </span>
         </div>
       </div>

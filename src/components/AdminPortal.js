@@ -335,7 +335,7 @@ export function renderAdminPortal(container, onClose, options = {}) {
             <p style="font-size: 12.5px; color: var(--text-secondary); margin: 0;">Supplement markaları, salon zincirleri ve kurumsal sponsorluk yönetimi.</p>
           </div>
           <a href="/business" target="_blank" style="padding: 8px 16px; font-size: 12.5px; font-weight: 800; background: rgba(59, 130, 246, 0.2); color: #60A5FA; border: 1px solid rgba(59, 130, 246, 0.4); border-radius: 10px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
-            🏢 Müşteri Portalını Aç (/business) →
+            Müşteri Portalını Aç (/business) →
           </a>
         </div>
 

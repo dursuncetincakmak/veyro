@@ -58,7 +58,7 @@ export function showChatModal(partnerId, onClose) {
               <div class="chat-photo-thumb" data-full-img="${msg.image}" style="cursor: pointer;">
                 <img src="${msg.image}" style="max-width: 220px; max-height: 200px; border-radius: 12px; display: block; object-fit: cover;">
               </div>
-              ${msg.text && msg.text !== '📷 Fotoğraf' && msg.text !== 'Fotoğraf' ? `<div style="margin-top: 4px; font-size: 13px;">${msg.text}</div>` : ''}
+              ${msg.text && msg.text !== 'Fotoğraf' ? `<div style="margin-top: 4px; font-size: 13px;">${msg.text}</div>` : ''}
               <div class="chat-bubble-time" style="margin-top: 4px; font-size: 10px; display: inline-flex; align-items: center; gap: 4px;">
                 ${timeStr} · <span>${icons.lock(10)} İzin Kontrollü</span>
               </div>
@@ -72,7 +72,7 @@ export function showChatModal(partnerId, onClose) {
                 <div class="chat-photo-thumb" data-full-img="${msg.image}" style="cursor: pointer;">
                   <img src="${msg.image}" style="max-width: 220px; max-height: 200px; border-radius: 12px; display: block; object-fit: cover;">
                 </div>
-                ${msg.text && msg.text !== '📷 Fotoğraf' && msg.text !== 'Fotoğraf' ? `<div style="margin-top: 4px; font-size: 13px;">${msg.text}</div>` : ''}
+                ${msg.text && msg.text !== 'Fotoğraf' ? `<div style="margin-top: 4px; font-size: 13px;">${msg.text}</div>` : ''}
                 <div class="chat-bubble-time" style="margin-top: 4px; font-size: 10px; color: var(--color-emerald); display: inline-flex; align-items: center; gap: 4px;">
                   ${icons.check(11)} İzin Verildi · ${timeStr}
                 </div>

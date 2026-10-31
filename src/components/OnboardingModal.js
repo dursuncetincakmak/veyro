@@ -183,8 +183,7 @@ export function createOnboardingModal(container, onComplete) {
                 <!-- Phone Number Login -->
                 <div class="auth-input-pill auth-phone-pill">
                   <div class="auth-country-chip">
-                    <span>🇹🇷</span>
-                    <span class="auth-country-code">+90</span>
+                    <span class="auth-country-code">TR +90</span>
                   </div>
                   <input type="tel" id="login-input-phone" class="auth-input-native" placeholder="5XX XXX XX XX" maxlength="13" autocomplete="tel" value="${state.phoneDisplay}">
                 </div>
@@ -439,8 +438,7 @@ export function createOnboardingModal(container, onComplete) {
                 <!-- Phone Registration -->
                 <div class="auth-input-pill auth-phone-pill">
                   <div class="auth-country-chip">
-                    <span>🇹🇷</span>
-                    <span class="auth-country-code">+90</span>
+                    <span class="auth-country-code">TR +90</span>
                   </div>
                   <input type="tel" id="reg-input-phone" class="auth-input-native" placeholder="5XX XXX XX XX" maxlength="13" autocomplete="tel" value="${state.phoneDisplay}">
                 </div>
@@ -1041,7 +1039,7 @@ export function createOnboardingModal(container, onComplete) {
 
         <div style="margin-top: auto; padding-top: 16px;">
           <button class="btn-auth-vibrant" id="btn-finish-onboarding">
-            <span>Aramıza Katıl 🚀</span>
+            <span>Aramıza Katıl</span>
           </button>
         </div>
       </div>

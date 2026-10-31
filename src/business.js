@@ -624,8 +624,8 @@ class VeyroBusinessApp {
 
         <div class="biz-card" style="display: flex; flex-direction: column; justify-content: space-between;">
           <div>
-            <h3 style="font-size: 16px; font-weight: 800; color: #FFF; margin: 0 0 12px;">
-              🚀 Hızlı Kampanya Aksiyonu
+            <h3 style="font-size: 16px; font-weight: 800; color: #FFF; margin: 0 0 12px; display: flex; align-items: center; gap: 8px;">
+              ${icons.rocket(16)} Hızlı Kampanya Aksiyonu
             </h3>
             <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 16px;">
               Veyro mobil uygulamasında <strong>Fırsatlar</strong> sekmesinde kupon kodunuzu yayınlayarak salon üyelerini anında web sitenize veya şubenize çekin.
@@ -656,7 +656,7 @@ class VeyroBusinessApp {
       <div style="display: flex; flex-direction: column; gap: 14px;">
         ${campaigns.length === 0 ? `
           <div class="biz-card" style="text-align: center; padding: 48px 20px;">
-            <div style="font-size: 32px; margin-bottom: 12px;">📢</div>
+            <div style="margin-bottom: 12px; color: #3B82F6;">${icons.tag(36)}</div>
             <h3 style="font-size: 18px; font-weight: 800; color: #FFF; margin: 0 0 8px;">Henüz aktif reklam kampanyanız bulunmuyor</h3>
             <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">İlk kampanyanızı oluşturarak Veyro sporcularına özel fırsat sunun.</p>
             <button id="btn-create-campaign-empty" style="padding: 11px 22px; font-size: 13.5px; font-weight: 800; background: #3B82F6; color: #FFF; border: none; border-radius: 10px; cursor: pointer;">

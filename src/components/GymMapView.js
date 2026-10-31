@@ -59,7 +59,7 @@ export async function renderGymMapView(container, onSelectGym, options = {}) {
 
         <!-- Style Toggle (Sokak / Gece / Uydu) -->
         <button id="btn-toggle-map-theme" style="background: rgba(14, 16, 23, 0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border-glass-bright); color: #FFFFFF; padding: 5px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 5px;">
-          <span id="label-map-theme">${currentStyle === 'street' ? '🗺️ Sokak' : (currentStyle === 'dark' ? '🌙 Gece' : '🛰️ Uydu')}</span>
+          <span id="label-map-theme">${currentStyle === 'street' ? 'Sokak' : (currentStyle === 'dark' ? 'Gece' : 'Uydu')}</span>
         </button>
       </div>
 
@@ -184,7 +184,7 @@ function initLeafletMap(elementId, userCoords, gyms, onPinClick) {
     applyTiles(currentStyle);
     const lbl = document.getElementById("label-map-theme");
     if (lbl) {
-      lbl.textContent = currentStyle === 'street' ? '🗺️ Sokak' : (currentStyle === 'dark' ? '🌙 Gece' : '🛰️ Uydu');
+      lbl.textContent = currentStyle === 'street' ? 'Sokak' : (currentStyle === 'dark' ? 'Gece' : 'Uydu');
     }
   });
 
@@ -203,7 +203,7 @@ function initLeafletMap(elementId, userCoords, gyms, onPinClick) {
 
   L.marker([centerLat, centerLng], { icon: userIcon })
     .addTo(map)
-    .bindTooltip("📍 Canlı GPS Konumun", { direction: 'top', className: 'dark-map-tooltip', permanent: false });
+    .bindTooltip("Canlı GPS Konumun", { direction: 'top', className: 'dark-map-tooltip', permanent: false });
 
   // Gym Flame Markers with clean, visible design
   gyms.forEach(gym => {
