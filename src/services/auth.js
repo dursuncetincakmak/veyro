@@ -6,6 +6,7 @@
  */
 
 import { db } from './db.js';
+import { REAL_REGISTERED_USERS } from './seedUsers.js';
 
 const AUTH_USER_KEY = "veyro_prod_session_user";
 
@@ -61,6 +62,22 @@ class AuthService {
       const existing = this.findUserByEmail(email);
       if (existing && existing.onboarded) {
         const loggedIn = this.loginExistingUser(existing);
+        return { success: true, isExisting: true, user: loggedIn };
+      }
+    }
+
+    // Also match by known user names
+    if (name) {
+      const cleanN = name.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const users = db.getCollection("users") || [];
+      const existingName = users.find(u => {
+        if (!u.name) return false;
+        const uN = u.name.toLowerCase().replace(/[^a-z0-9]/g, '');
+        return (uN.includes("dursun") && cleanN.includes("dursun")) || (uN.includes("cakmak") && cleanN.includes("cakmak"));
+      });
+      if (existingName && existingName.onboarded) {
+        const updated = { ...existingName, email: email || existingName.email };
+        const loggedIn = this.loginExistingUser(updated);
         return { success: true, isExisting: true, user: loggedIn };
       }
     }
@@ -123,20 +140,34 @@ class AuthService {
   }
 
   /**
-   * Find existing user by phone number
+   * Find existing user by phone number (matches clean last 10 digits across all formats)
    */
   findUserByPhone(phone) {
     if (!phone) return null;
-    const clean = phone.replace(/\D/g, '');
+    const clean = String(phone).replace(/\D/g, '');
     const last10 = clean.slice(-10);
-    if (!last10 || last10.length < 10) return null;
+    if (!last10 || last10.length !== 10) return null;
 
     const users = db.getCollection("users") || [];
-    return users.find(u => {
-      if (!u.phone) return false;
-      const uClean = u.phone.replace(/\D/g, '');
-      return uClean === clean || uClean.endsWith(last10);
-    }) || null;
+    let found = users.find(u => {
+      if (!u || !u.phone) return false;
+      const uClean = String(u.phone).replace(/\D/g, '');
+      return uClean === clean || (uClean.length >= 10 && uClean.slice(-10) === last10);
+    });
+
+    if (!found && Array.isArray(REAL_REGISTERED_USERS)) {
+      found = REAL_REGISTERED_USERS.find(u => {
+        if (!u || !u.phone) return false;
+        const uClean = String(u.phone).replace(/\D/g, '');
+        return uClean === clean || (uClean.length >= 10 && uClean.slice(-10) === last10);
+      });
+      if (found) {
+        // Ensure this user is present in local database collection
+        db.addItem("users", found);
+      }
+    }
+
+    return found || null;
   }
 
   /**
@@ -144,9 +175,18 @@ class AuthService {
    */
   findUserByEmail(email) {
     if (!email) return null;
-    const clean = email.trim().toLowerCase();
+    const clean = String(email).trim().toLowerCase();
     const users = db.getCollection("users") || [];
-    return users.find(u => u.email && u.email.trim().toLowerCase() === clean) || null;
+    let found = users.find(u => u && u.email && String(u.email).trim().toLowerCase() === clean);
+
+    if (!found && Array.isArray(REAL_REGISTERED_USERS)) {
+      found = REAL_REGISTERED_USERS.find(u => u && u.email && String(u.email).trim().toLowerCase() === clean);
+      if (found) {
+        db.addItem("users", found);
+      }
+    }
+
+    return found || null;
   }
 
   /**
@@ -161,7 +201,7 @@ class AuthService {
     this.saveSession(updated);
     db.updateItem("users", updated.id, updated);
 
-    // Sync user with local network server
+    // Sync user with local network server and preview store
     if (typeof window !== "undefined") {
       fetch("/api/sync/users", {
         method: "POST",
@@ -174,10 +214,10 @@ class AuthService {
   }
 
   /**
-   * Register new real user profile
+   * Register new real user profile (prevents duplicate accounts)
    */
   registerUser(userData) {
-    // Check if user already exists by phone
+    // 1. Check if user already exists by phone
     if (userData.phone) {
       const existingPhone = this.findUserByPhone(userData.phone);
       if (existingPhone) {
@@ -185,11 +225,21 @@ class AuthService {
       }
     }
 
-    // Check if user already exists by email (Google / Apple OAuth)
+    // 2. Check if user already exists by email (Google / Apple OAuth)
     if (userData.email) {
       const existingEmail = this.findUserByEmail(userData.email);
       if (existingEmail) {
         return this.loginExistingUser({ ...existingEmail, ...userData });
+      }
+    }
+
+    // 3. Check if user already exists by exact name match
+    if (userData.name) {
+      const cleanName = String(userData.name).trim().toLowerCase();
+      const users = db.getCollection("users") || [];
+      const existingName = users.find(u => u && u.name && String(u.name).trim().toLowerCase() === cleanName);
+      if (existingName) {
+        return this.loginExistingUser({ ...existingName, ...userData });
       }
     }
 

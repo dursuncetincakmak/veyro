@@ -99,6 +99,7 @@ export function createOnboardingModal(container, onComplete) {
                 <span class="phone-prefix">+90</span>
                 <input type="tel" id="input-phone" class="phone-field" placeholder="5XX XXX XX XX" maxlength="13">
               </div>
+              <div id="phone-detected-status" style="display: none; align-items: center; justify-content: center; font-size: 12px; color: #4CAF50; margin-top: 8px; font-weight: 700; background: rgba(76, 175, 80, 0.12); padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(76, 175, 80, 0.25);"></div>
             </div>
 
             <button class="btn-kor" id="btn-phone-continue">
@@ -124,6 +125,13 @@ export function createOnboardingModal(container, onComplete) {
               Google ile devam et
             </button>
 
+            <div id="fast-accounts-container" style="margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+              <div style="font-size: 11.5px; font-weight: 700; color: var(--text-secondary); margin-bottom: 8px; text-align: center;">
+                Kayıtlı Veyro Sporcuları (1-Tıkla Giriş)
+              </div>
+              <div id="fast-accounts-list" style="display: flex; flex-direction: column; gap: 6px;"></div>
+            </div>
+
             <p style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 14px; line-height: 1.4;">
               Devam ederek Kullanım Şartları'nı ve Gizlilik Politikası'nı kabul etmiş olursun.
             </p>
@@ -133,6 +141,49 @@ export function createOnboardingModal(container, onComplete) {
     `;
 
     const phoneInput = document.getElementById("input-phone");
+    const continueBtn = document.getElementById("btn-phone-continue");
+    const statusLabel = document.getElementById("phone-detected-status");
+
+    // Populate fast registered accounts list (e.g. Dursun, Emirhan, Magnetic)
+    const fastList = document.getElementById("fast-accounts-list");
+    if (fastList) {
+      const allCommunityUsers = db.getCollection("users") || [];
+      const validUsers = allCommunityUsers.filter(u => u && u.name && u.onboarded !== false).slice(0, 4);
+      if (validUsers.length > 0) {
+        fastList.innerHTML = validUsers.map(u => `
+          <div class="fast-user-row" data-user-id="${u.id}" style="display: flex; align-items: center; justify-content: space-between; padding: 7px 10px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; cursor: pointer;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div style="width: 28px; height: 28px; border-radius: 50%; background: var(--color-kor); color: #FFF; font-weight: 800; font-size: 11px; display: flex; align-items: center; justify-content: center;">
+                ${(u.name || "S").substring(0, 2).toUpperCase()}
+              </div>
+              <div>
+                <strong style="font-size: 12.5px; color: #FFF; display: block;">${u.name}</strong>
+                <span style="font-size: 10px; color: var(--text-secondary);">${u.phone || u.email || 'Sporcu'}</span>
+              </div>
+            </div>
+            <button class="btn-ghost" style="padding: 3px 8px; font-size: 11px; font-weight: 700; color: var(--color-kor); background: rgba(255, 87, 34, 0.12); border-radius: 6px; pointer-events: none;">
+              Giriş Yap →
+            </button>
+          </div>
+        `).join('');
+
+        fastList.querySelectorAll(".fast-user-row").forEach(row => {
+          row.addEventListener("click", () => {
+            const uId = row.getAttribute("data-user-id");
+            const target = validUsers.find(u => u.id === uId);
+            if (target) {
+              auth.loginExistingUser(target);
+              notify.success(`Hoş geldiniz, ${target.name}!`);
+              onComplete();
+            }
+          });
+        });
+      } else {
+        const fastContainer = document.getElementById("fast-accounts-container");
+        if (fastContainer) fastContainer.style.display = "none";
+      }
+    }
+
     phoneInput?.addEventListener("input", (e) => {
       // Auto-format phone input: 5XX XXX XX XX
       let val = e.target.value.replace(/\D/g, '');
@@ -145,30 +196,59 @@ export function createOnboardingModal(container, onComplete) {
       if (val.length >= 7) formatted += " " + val.substring(6, 8);
       if (val.length >= 9) formatted += " " + val.substring(8, 10);
       e.target.value = formatted;
+
+      // Real-time detection when 10 digits are typed
+      if (val.length === 10) {
+        const found = auth.findUserByPhone(val);
+        if (found) {
+          if (continueBtn) {
+            continueBtn.innerHTML = `✓ ${found.name} Olarak Giriş Yap`;
+            continueBtn.style.background = "linear-gradient(135deg, #FF5722 0%, #E64A19 100%)";
+          }
+          if (statusLabel) {
+            statusLabel.style.display = "flex";
+            statusLabel.innerHTML = `✓ Kayıtlı hesap bulundu: <strong style="color: #FFF; margin-left: 4px;">${found.name}</strong>`;
+          }
+        } else {
+          if (continueBtn) {
+            continueBtn.innerHTML = "Devam et (Kayıt Ol)";
+            continueBtn.style.background = "";
+          }
+          if (statusLabel) statusLabel.style.display = "none";
+        }
+      } else {
+        if (continueBtn) {
+          continueBtn.innerHTML = "Devam et";
+          continueBtn.style.background = "";
+        }
+        if (statusLabel) statusLabel.style.display = "none";
+      }
     });
 
     document.getElementById("btn-phone-continue")?.addEventListener("click", async () => {
       const phoneVal = phoneInput?.value.trim();
-      if (!phoneVal || phoneVal.replace(/\s/g, '').length < 10) {
+      const rawDigits = phoneVal ? phoneVal.replace(/\D/g, '') : '';
+      const last10 = rawDigits.slice(-10);
+      if (!last10 || last10.length !== 10) {
         notify.error("Lütfen 10 haneli geçerli telefon numaranızı girin (5XX XXX XX XX).");
         return;
       }
-      state.phone = "+90 " + phoneVal;
+      state.phone = `+90 ${last10.substring(0, 3)} ${last10.substring(3, 6)} ${last10.substring(6, 8)} ${last10.substring(8, 10)}`;
 
       // Pull latest server sync across all devices
       try {
         await db.syncWithServer();
       } catch (e) {}
 
-      // Auto-detect existing registered user
-      let existing = auth.findUserByPhone(state.phone);
+      // Auto-detect existing registered user by clean 10 digits
+      let existing = auth.findUserByPhone(last10);
 
       // Real Phone SMS OTP Verification Modal with typed phone
       showVerificationModal('phone', state.phone, () => {
         state.verified = true;
 
         if (!existing) {
-          existing = auth.findUserByPhone(state.phone);
+          existing = auth.findUserByPhone(last10);
         }
 
         // Auto-login if user is already registered with this phone number!

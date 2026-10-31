@@ -252,17 +252,27 @@ class DatabaseEngine {
     // Cross-device sync: ensure verified registered community accounts are seeded across all devices
     if (Array.isArray(REAL_REGISTERED_USERS)) {
       REAL_REGISTERED_USERS.forEach(ru => {
-        const cleanRPhone = ru.phone ? ru.phone.replace(/\D/g, '') : '';
-        const exists = realUsersOnly.some(u => {
+        const cleanRPhone = ru.phone ? String(ru.phone).replace(/\D/g, '') : '';
+        const last10 = cleanRPhone.slice(-10);
+        const idx = realUsersOnly.findIndex(u => {
           if (u.id === ru.id) return true;
-          if (cleanRPhone && u.phone) {
-            const uClean = u.phone.replace(/\D/g, '');
-            return uClean.endsWith(cleanRPhone.slice(-10));
+          if (last10 && last10.length === 10 && u.phone) {
+            const uClean = String(u.phone).replace(/\D/g, '');
+            return uClean.slice(-10) === last10;
           }
+          if (ru.email && u.email && ru.email.trim().toLowerCase() === u.email.trim().toLowerCase()) return true;
           return false;
         });
-        if (!exists) {
+
+        if (idx === -1) {
           realUsersOnly.push(ru);
+        } else {
+          // Merge in any missing fields from ru (such as email or photos)
+          realUsersOnly[idx] = { ...ru, ...realUsersOnly[idx] };
+          if (!realUsersOnly[idx].email && ru.email) realUsersOnly[idx].email = ru.email;
+          if ((!realUsersOnly[idx].photos || realUsersOnly[idx].photos.length === 0) && ru.photos && ru.photos.length > 0) {
+            realUsersOnly[idx].photos = ru.photos;
+          }
         }
       });
     }
@@ -528,10 +538,10 @@ class DatabaseEngine {
   }
 
   async syncWithServer() {
+    // 1. Sync Chats
     try {
-      // 1. Sync Chats
       const chatRes = await fetch("/api/sync/chats").catch(() => null);
-      if (chatRes && chatRes.ok) {
+      if (chatRes && chatRes.ok && chatRes.headers.get("content-type")?.includes("json")) {
         const serverChats = await chatRes.json();
         const raw = localStorage.getItem(STORAGE_PREFIX + "chats");
         const localChats = raw ? JSON.parse(raw) : {};
@@ -583,16 +593,31 @@ class DatabaseEngine {
           }
         }
       }
+    } catch (e) {}
 
-      // 2. Sync Users
+    // 2. Sync Users (Cross-Device Single Source of Truth)
+    try {
       const usersRes = await fetch("/api/sync/users").catch(() => null);
-      if (usersRes && usersRes.ok) {
+      if (usersRes && usersRes.ok && usersRes.headers.get("content-type")?.includes("json")) {
         const serverUsers = await usersRes.json();
         const localUsers = this.getCollection("users") || [];
         let updatedUsers = false;
 
         for (const sUser of serverUsers) {
-          const idx = localUsers.findIndex(u => u.id === sUser.id || (u.email && u.email === sUser.email) || (u.phone && u.phone === sUser.phone));
+          if (!sUser || (!sUser.id && !sUser.phone && !sUser.email)) continue;
+          const sPhoneClean = sUser.phone ? String(sUser.phone).replace(/\D/g, '') : '';
+          const sLast10 = sPhoneClean.slice(-10);
+
+          const idx = localUsers.findIndex(u => {
+            if (u.id === sUser.id) return true;
+            if (sLast10 && sLast10.length === 10 && u.phone) {
+              const uClean = String(u.phone).replace(/\D/g, '');
+              if (uClean.slice(-10) === sLast10) return true;
+            }
+            if (sUser.email && u.email && sUser.email.trim().toLowerCase() === u.email.trim().toLowerCase()) return true;
+            return false;
+          });
+
           if (idx >= 0) {
             if (JSON.stringify(localUsers[idx]) !== JSON.stringify(sUser)) {
               localUsers[idx] = { ...localUsers[idx], ...sUser };
@@ -608,10 +633,12 @@ class DatabaseEngine {
           this.setCollection("users", localUsers);
         }
       }
+    } catch (e) {}
 
-      // 3. Sync Appointments
+    // 3. Sync Appointments
+    try {
       const aptRes = await fetch("/api/sync/appointments").catch(() => null);
-      if (aptRes && aptRes.ok) {
+      if (aptRes && aptRes.ok && aptRes.headers.get("content-type")?.includes("json")) {
         const serverApts = await aptRes.json();
         const localApts = this.getCollection("appointments") || [];
         let updatedApts = false;
@@ -634,10 +661,12 @@ class DatabaseEngine {
           this.notifySubscribers("appointments", localApts);
         }
       }
+    } catch (e) {}
 
-      // 4. Sync Reports
+    // 4. Sync Reports
+    try {
       const repRes = await fetch("/api/sync/reports").catch(() => null);
-      if (repRes && repRes.ok) {
+      if (repRes && repRes.ok && repRes.headers.get("content-type")?.includes("json")) {
         const serverReps = await repRes.json();
         const localReps = this.getCollection("reports") || [];
         let updatedReps = false;
@@ -660,10 +689,12 @@ class DatabaseEngine {
           this.notifySubscribers("reports", localReps);
         }
       }
+    } catch (e) {}
 
-      // 5. Sync Deals
+    // 5. Sync Deals
+    try {
       const dealRes = await fetch("/api/sync/deals").catch(() => null);
-      if (dealRes && dealRes.ok) {
+      if (dealRes && dealRes.ok && dealRes.headers.get("content-type")?.includes("json")) {
         const serverDeals = await dealRes.json();
         const localDeals = this.getCollection("deals") || [];
         let updatedDeals = false;

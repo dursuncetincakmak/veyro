@@ -17,104 +17,193 @@ function veyroSyncPlugin() {
     } catch (e) {}
   }
 
+  function attachSyncMiddleware(server) {
+    const handleSync = (req, res, next) => {
+      if (req.url.startsWith('/api/sync/chats')) {
+        if (req.method === 'GET') {
+          const data = readData();
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify(data.chats || {}));
+          return;
+        } else if (req.method === 'POST') {
+          let body = '';
+          req.on('data', chunk => { body += chunk; });
+          req.on('end', () => {
+            try {
+              const { chatKey, message } = JSON.parse(body);
+              const data = readData();
+              if (!data.chats) data.chats = {};
+              if (!data.chats[chatKey]) data.chats[chatKey] = [];
+              const existingIdx = data.chats[chatKey].findIndex(m => m.id === message.id);
+              if (existingIdx >= 0) {
+                data.chats[chatKey][existingIdx] = { ...data.chats[chatKey][existingIdx], ...message };
+              } else {
+                data.chats[chatKey].push(message);
+              }
+              writeData(data);
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ success: true }));
+            } catch (err) {
+              res.statusCode = 500;
+              res.end(JSON.stringify({ error: err.message }));
+            }
+          });
+          return;
+        }
+      } else if (req.url.startsWith('/api/sync/users')) {
+        if (req.method === 'GET') {
+          const data = readData();
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify(data.users || []));
+          return;
+        } else if (req.method === 'POST') {
+          let body = '';
+          req.on('data', chunk => { body += chunk; });
+          req.on('end', () => {
+            try {
+              const user = JSON.parse(body);
+              const data = readData();
+              if (!data.users) data.users = [];
+              const userLast10 = user.phone ? user.phone.replace(/\D/g, '').slice(-10) : '';
+              const idx = data.users.findIndex(u => {
+                if (u.id === user.id) return true;
+                if (u.email && user.email && u.email.trim().toLowerCase() === user.email.trim().toLowerCase()) return true;
+                if (userLast10 && userLast10.length === 10 && u.phone) {
+                  const uLast10 = u.phone.replace(/\D/g, '').slice(-10);
+                  if (uLast10 === userLast10) return true;
+                }
+                return false;
+              });
+              if (idx >= 0) {
+                data.users[idx] = { ...data.users[idx], ...user };
+              } else {
+                data.users.push(user);
+              }
+              writeData(data);
+
+              // Keep seedUsers.js updated so all devices have access offline
+              try {
+                const seedFile = path.resolve('./src/services/seedUsers.js');
+                fs.writeFileSync(seedFile, 'export const REAL_REGISTERED_USERS = ' + JSON.stringify(data.users, null, 2) + ';\n', 'utf-8');
+              } catch (e) {}
+
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ success: true, user }));
+            } catch (err) {
+              res.statusCode = 500;
+              res.end(JSON.stringify({ error: err.message }));
+            }
+          });
+          return;
+        }
+      } else if (req.url.startsWith('/api/sync/appointments')) {
+        if (req.method === 'GET') {
+          const data = readData();
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify(data.appointments || []));
+          return;
+        } else if (req.method === 'POST') {
+          let body = '';
+          req.on('data', chunk => { body += chunk; });
+          req.on('end', () => {
+            try {
+              const appointment = JSON.parse(body);
+              const data = readData();
+              if (!data.appointments) data.appointments = [];
+              const idx = data.appointments.findIndex(a => a.id === appointment.id);
+              if (idx >= 0) {
+                data.appointments[idx] = { ...data.appointments[idx], ...appointment };
+              } else {
+                data.appointments.push(appointment);
+              }
+              writeData(data);
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ success: true, appointment }));
+            } catch (err) {
+              res.statusCode = 500;
+              res.end(JSON.stringify({ error: err.message }));
+            }
+          });
+          return;
+        }
+      } else if (req.url.startsWith('/api/sync/reports')) {
+        if (req.method === 'GET') {
+          const data = readData();
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify(data.reports || []));
+          return;
+        } else if (req.method === 'POST') {
+          let body = '';
+          req.on('data', chunk => { body += chunk; });
+          req.on('end', () => {
+            try {
+              const report = JSON.parse(body);
+              const data = readData();
+              if (!data.reports) data.reports = [];
+              const idx = data.reports.findIndex(r => r.id === report.id);
+              if (idx >= 0) {
+                data.reports[idx] = { ...data.reports[idx], ...report };
+              } else {
+                data.reports.push(report);
+              }
+              writeData(data);
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ success: true, report }));
+            } catch (err) {
+              res.statusCode = 500;
+              res.end(JSON.stringify({ error: err.message }));
+            }
+          });
+          return;
+        }
+      } else if (req.url.startsWith('/api/sync/deals')) {
+        if (req.method === 'GET') {
+          const data = readData();
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify(data.deals || []));
+          return;
+        } else if (req.method === 'POST') {
+          let body = '';
+          req.on('data', chunk => { body += chunk; });
+          req.on('end', () => {
+            try {
+              const deal = JSON.parse(body);
+              const data = readData();
+              if (!data.deals) data.deals = [];
+              const idx = data.deals.findIndex(d => d.id === deal.id);
+              if (idx >= 0) {
+                data.deals[idx] = { ...data.deals[idx], ...deal };
+              } else {
+                data.deals.push(deal);
+              }
+              writeData(data);
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ success: true, deal }));
+            } catch (err) {
+              res.statusCode = 500;
+              res.end(JSON.stringify({ error: err.message }));
+            }
+          });
+          return;
+        }
+      }
+      next();
+    };
+
+    if (server.middlewares && server.middlewares.stack) {
+      server.middlewares.stack.unshift({ route: '', handle: handleSync });
+    } else {
+      server.middlewares.use(handleSync);
+    }
+  }
+
   return {
     name: 'veyro-sync-plugin',
     configureServer(server) {
-      server.middlewares.use((req, res, next) => {
-        if (req.url.startsWith('/api/sync/chats')) {
-          if (req.method === 'GET') {
-            const data = readData();
-            res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify(data.chats || {}));
-            return;
-          } else if (req.method === 'POST') {
-            let body = '';
-            req.on('data', chunk => { body += chunk; });
-            req.on('end', () => {
-              try {
-                const { chatKey, message } = JSON.parse(body);
-                const data = readData();
-                if (!data.chats) data.chats = {};
-                if (!data.chats[chatKey]) data.chats[chatKey] = [];
-                const existingIdx = data.chats[chatKey].findIndex(m => m.id === message.id);
-                if (existingIdx >= 0) {
-                  data.chats[chatKey][existingIdx] = { ...data.chats[chatKey][existingIdx], ...message };
-                } else {
-                  data.chats[chatKey].push(message);
-                }
-                writeData(data);
-                res.setHeader('Content-Type', 'application/json');
-                res.end(JSON.stringify({ success: true }));
-              } catch (err) {
-                res.statusCode = 500;
-                res.end(JSON.stringify({ error: err.message }));
-              }
-            });
-            return;
-          }
-        } else if (req.url.startsWith('/api/sync/users')) {
-          if (req.method === 'GET') {
-            const data = readData();
-            res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify(data.users || []));
-            return;
-          } else if (req.method === 'POST') {
-            let body = '';
-            req.on('data', chunk => { body += chunk; });
-            req.on('end', () => {
-              try {
-                const user = JSON.parse(body);
-                const data = readData();
-                if (!data.users) data.users = [];
-                const idx = data.users.findIndex(u => u.id === user.id || (u.email && u.email === user.email) || (u.phone && u.phone === user.phone));
-                if (idx >= 0) {
-                  data.users[idx] = { ...data.users[idx], ...user };
-                } else {
-                  data.users.push(user);
-                }
-                writeData(data);
-                res.setHeader('Content-Type', 'application/json');
-                res.end(JSON.stringify({ success: true, user }));
-              } catch (err) {
-                res.statusCode = 500;
-                res.end(JSON.stringify({ error: err.message }));
-              }
-            });
-            return;
-          }
-        } else if (req.url.startsWith('/api/sync/appointments')) {
-          if (req.method === 'GET') {
-            const data = readData();
-            res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify(data.appointments || []));
-            return;
-          } else if (req.method === 'POST') {
-            let body = '';
-            req.on('data', chunk => { body += chunk; });
-            req.on('end', () => {
-              try {
-                const appointment = JSON.parse(body);
-                const data = readData();
-                if (!data.appointments) data.appointments = [];
-                const idx = data.appointments.findIndex(a => a.id === appointment.id);
-                if (idx >= 0) {
-                  data.appointments[idx] = { ...data.appointments[idx], ...appointment };
-                } else {
-                  data.appointments.push(appointment);
-                }
-                writeData(data);
-                res.setHeader('Content-Type', 'application/json');
-                res.end(JSON.stringify({ success: true, appointment }));
-              } catch (err) {
-                res.statusCode = 500;
-                res.end(JSON.stringify({ error: err.message }));
-              }
-            });
-            return;
-          }
-        }
-        next();
-      });
+      attachSyncMiddleware(server);
+    },
+    configurePreviewServer(server) {
+      attachSyncMiddleware(server);
     }
   };
 }
