@@ -14,7 +14,6 @@ import { notify } from '../services/notification.js';
 import { soundService } from '../services/soundService.js';
 import { locationService } from '../services/location.js';
 import { generateIcsFile, openGoogleCalendarIntent } from '../services/calendar.js';
-import { showCreateAppointmentModal } from './CreateAppointmentModal.js';
 import { icons } from './icons.js';
 
 export function renderAppointmentsView(container, onOpenRoutines, onOpenChat, onOpenLiveSession, onOpenAttendance) {
@@ -55,12 +54,7 @@ export function renderAppointmentsView(container, onOpenRoutines, onOpenChat, on
 
     container.innerHTML = `
       <div class="appointments-page fade-in">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;">
-          <h2 style="font-size: 26px; font-weight: 800; color: var(--text-main); margin: 0;">Randevularım</h2>
-          <button class="btn-kor" id="btn-create-appointment-top" style="padding: 7px 14px; font-size: 13px; font-weight: 700; border-radius: var(--radius-md); display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 14px var(--color-kor-glow);">
-            ${icons.plus(15)} <span>Yeni Randevu</span>
-          </button>
-        </div>
+        <h2 style="font-size: 26px; font-weight: 800; margin-bottom: 18px; color: var(--text-main);">Randevularım</h2>
 
         <!-- Tabs Navigation (Page 8) -->
         <div class="appointments-nav-tabs">
@@ -95,14 +89,11 @@ export function renderAppointmentsView(container, onOpenRoutines, onOpenChat, on
               </p>
               
               <div style="display: flex; flex-direction: column; gap: 8px; max-width: 260px; margin: 0 auto;">
-                <button class="btn-kor" id="btn-empty-go-discover" style="padding: 10px 16px; font-size: 13px; font-weight: 800; border-radius: var(--radius-md); display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
-                  ${icons.users(15)} <span>Sporcu Keşfet</span>
-                </button>
-                <button class="btn-outline-kor" id="btn-empty-create-apt" style="padding: 9px 14px; font-size: 12.5px; font-weight: 700; border-radius: var(--radius-md); display: inline-flex; align-items: center; justify-content: center; gap: 6px; background: rgba(255,255,255,0.04); border: 1px solid var(--border-glass); color: #FFF;">
-                  ${icons.plus(14)} <span>Yeni Randevu Planla</span>
+                <button class="btn-kor" id="btn-empty-go-discover" style="padding: 11px 18px; font-size: 13.5px; font-weight: 800; border-radius: var(--radius-md); display: inline-flex; align-items: center; justify-content: center; gap: 7px; box-shadow: 0 4px 14px var(--color-kor-glow);">
+                  ${icons.users(16)} <span>Keşfet'ten Partner Bul</span>
                 </button>
                 <button class="btn-ghost" id="btn-empty-seed-demo" style="padding: 6px 10px; font-size: 11.5px; font-weight: 600; color: var(--color-cyan, #00E5FF); display: inline-flex; align-items: center; justify-content: center; gap: 5px;">
-                  ${icons.bolt(13)} <span>Örnek Seans Ekle (Mert ile Bacak)</span>
+                  ${icons.bolt(13)} <span>Örnek Seans Yükle (Mert ile Bacak)</span>
                 </button>
               </div>
             </div>
@@ -385,23 +376,6 @@ export function renderAppointmentsView(container, onOpenRoutines, onOpenChat, on
         openGoogleCalendarIntent(apt, partner, gym);
       });
     });
-
-    // Top button & Empty state action handlers
-    const openNewAppointment = () => {
-      const defaultPartner = allUsers.find(u => u.id !== currentUser.id) || {
-        id: "usr_mert_partner",
-        name: "Mert Demir",
-        initials: "MD",
-        gymId: currentUser.gymId || "map_gym_59319781"
-      };
-      showCreateAppointmentModal(defaultPartner, () => {}, () => {
-        activeTab = "upcoming";
-        render();
-      });
-    };
-
-    container.querySelector("#btn-create-appointment-top")?.addEventListener("click", openNewAppointment);
-    container.querySelector("#btn-empty-create-apt")?.addEventListener("click", openNewAppointment);
 
     container.querySelector("#btn-empty-go-discover")?.addEventListener("click", () => {
       if (window.veyro && window.veyro.switchToTab) {

@@ -17,6 +17,7 @@ import { showPlanWorkoutModal } from './PlanWorkoutModal.js';
 import { showFilterModal } from './FilterModal.js';
 import { showStoryCreatorModal } from './StoryCreatorModal.js';
 import { showStoryViewerModal } from './StoryViewerModal.js';
+import { calculateDistanceMeters, locationService } from '../services/location.js';
 import { icons } from './icons.js';
 
 export function renderDiscoverView(container, onSelectUser, onRequestAppointment, onOpenChat) {
@@ -25,6 +26,11 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
   const isAllGyms = !currentUser.gymId || currentUser.gymId === "all";
   const allUsers = db.getCollection("users") || [];
   const allGyms = db.getCollection("gyms") || [];
+
+  // User reference coordinates (Kadıköy / Moda reference or device GPS)
+  const userCoords = (currentUser.lat && currentUser.lng)
+    ? { latitude: currentUser.lat, longitude: currentUser.lng }
+    : (locationService.currentCoords || { latitude: 40.9875, longitude: 29.0280 });
 
   // State
   let mode = "deck"; // 'deck' (Sporcu Kartları) | 'feed' (Liste Akışı)
@@ -121,6 +127,31 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
 
       return true;
     });
+
+    // Compute real GPS distances (km / m) and sort athletes nearest first
+    return filtered.map(ath => {
+      let athleteLat = ath.lat;
+      let athleteLng = ath.lng;
+      if (!athleteLat || !athleteLng) {
+        const matchedGym = allGyms.find(g => g.id === ath.gymId);
+        athleteLat = matchedGym?.lat || 40.9880;
+        athleteLng = matchedGym?.lng || 29.0290;
+      }
+      const distMeters = calculateDistanceMeters(
+        userCoords.latitude,
+        userCoords.longitude,
+        athleteLat,
+        athleteLng
+      );
+      const distKm = (distMeters / 1000).toFixed(1);
+      const distText = distMeters < 1000 ? `${distMeters} m` : `${distKm} km`;
+      return {
+        ...ath,
+        distanceMeters: distMeters,
+        distanceKm: parseFloat(distKm),
+        distanceText: distText
+      };
+    }).sort((a, b) => (a.distanceMeters || 0) - (b.distanceMeters || 0));
   }
 
   function render() {
@@ -178,7 +209,25 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
   }
 
   function renderStoriesTray() {
-    const stories = db.getStories();
+    const allStories = db.getStories();
+    const userGymId = currentUser.gymId;
+    const userDistrict = currentUser.district || "Kadıköy";
+
+    // Strictly show stories from athletes in user's gym or within close proximity (<= 5.0 km)
+    const localizedStories = allStories.filter(story => {
+      // Current user's own story always visible
+      if (story.userId === currentUser.id || story.userId === "current-user") return true;
+      // Match active gym
+      if (userGymId && userGymId !== "all" && story.gymId === userGymId) return true;
+      // Proximity distance check
+      if (typeof story.distanceKm === "number" && story.distanceKm <= 5.0) return true;
+      // District / Neighborhood match
+      if (story.gymName && (story.gymName.includes(userDistrict) || story.gymName.includes("Kadıköy") || story.gymName.includes("Moda"))) return true;
+      return false;
+    });
+
+    const displayStories = localizedStories.length > 0 ? localizedStories : allStories.slice(0, 8);
+
     return `
       <div class="stories-tray-container" style="margin-bottom: 12px; overflow-x: auto; scrollbar-width: none;">
         <div style="display: flex; gap: 12px; align-items: flex-start; padding: 2px 2px 4px 2px;">
@@ -195,10 +244,10 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
             <span style="font-size: 11px; font-weight: 700; color: #FFF;">Hikayen</span>
           </div>
 
-          <!-- Community Athlete Stories -->
-          ${stories.map(story => `
-            <div class="story-circle-item" data-story-id="${story.id}" style="display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; flex-shrink: 0;" title="${story.userName} - ${story.tag || 'Hikaye'}">
-              <div class="story-avatar-ring ${story.viewed ? 'viewed' : 'unviewed'}" style="width: 56px; height: 56px; border-radius: 50%; padding: 2.5px; background: ${story.viewed ? 'rgba(255,255,255,0.2)' : 'linear-gradient(135deg, #FF5722 0%, #FF9100 50%, #00E5FF 100%)'}; box-shadow: ${story.viewed ? 'none' : '0 2px 10px rgba(255, 87, 34, 0.35)'}; transition: all 0.2s ease;">
+          <!-- Community Athlete Stories (Nearby / In Same Location) -->
+          ${displayStories.map(story => `
+            <div class="story-circle-item" data-story-id="${story.id}" style="display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; flex-shrink: 0;" title="${story.userName} - ${story.tag || 'Hikaye'} (${story.distanceKm ? story.distanceKm + ' km' : story.gymName})">
+              <div class="story-avatar-ring ${story.viewed ? 'viewed' : 'unviewed'}" style="position: relative; width: 56px; height: 56px; border-radius: 50%; padding: 2.5px; background: ${story.viewed ? 'rgba(255,255,255,0.2)' : 'linear-gradient(135deg, #FF5722 0%, #FF9100 50%, #00E5FF 100%)'}; box-shadow: ${story.viewed ? 'none' : '0 2px 10px rgba(255, 87, 34, 0.35)'}; transition: all 0.2s ease;">
                 <div style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: #000; border: 2px solid #0B0C0E;">
                   ${story.userAvatar ? `<img src="${story.userAvatar}" style="width: 100%; height: 100%; object-fit: cover;">` : `<div class="member-avatar accent-kor" style="width: 100%; height: 100%; font-size: 15px;">${story.userInitials || "SP"}</div>`}
                 </div>
@@ -206,6 +255,11 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
               <span style="font-size: 11px; font-weight: ${story.viewed ? '500' : '700'}; color: ${story.viewed ? 'var(--text-secondary)' : '#FFF'}; max-width: 58px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                 ${story.userName.split(' ')[0]}
               </span>
+              ${story.distanceKm ? `
+                <span style="font-size: 9.5px; font-weight: 800; color: #00E5FF; line-height: 1; margin-top: -2px;">
+                  ${story.distanceKm} km
+                </span>
+              ` : ''}
             </div>
           `).join('')}
         </div>
@@ -335,8 +389,8 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
       `;
     }
 
-    const gym = allGyms.find(g => g.id === athlete.gymId) || { name: athlete.district || "Kadıköy", distanceMeters: 850 };
-    const distText = gym.distanceText || (gym.distanceMeters ? `${gym.distanceMeters} m` : '1.1 km');
+    const gym = allGyms.find(g => g.id === athlete.gymId) || { name: athlete.district || "Kadıköy", distanceMeters: athlete.distanceMeters || 850 };
+    const distText = athlete.distanceText || (gym.distanceText || (gym.distanceMeters ? `${gym.distanceMeters} m` : '1.1 km'));
     const athletePhotos = (Array.isArray(athlete.photos) && athlete.photos.length > 0)
       ? athlete.photos
       : (athlete.avatar ? [athlete.avatar] : []);
@@ -351,8 +405,8 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
               <span class="live-pulse" style="width: 7px; height: 7px;"></span>
               Şimdi Salonda
             </span>
-            <span class="tinder-distance-badge" style="display: inline-flex; align-items: center; gap: 4px;">
-              ${icons.pin(11)} ${distText} · ${gym.name.split(' ')[0]}
+            <span class="tinder-distance-badge" style="display: inline-flex; align-items: center; gap: 4px; font-weight: 700; color: #FFF; background: rgba(0, 229, 255, 0.14); border: 1px solid rgba(0, 229, 255, 0.35); padding: 3px 8px; border-radius: 6px;">
+              ${icons.pin(11)} <strong style="color: #00E5FF;">${distText}</strong> · ${gym.name.split(' ')[0]}
             </span>
           </div>
 
@@ -479,6 +533,7 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
       <div class="members-feed">
         ${athletes.map(member => {
           const gym = allGyms.find(g => g.id === member.gymId) || { name: member.district || "Kadıköy" };
+          const distText = member.distanceText || (member.distanceMeters ? `${member.distanceMeters} m` : '1.2 km');
           return `
             <div class="member-card" data-user-id="${member.id}">
               <div class="member-card-header">
@@ -497,9 +552,12 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
                         </svg>
                       ` : ''}
                     </h4>
-                    <p style="font-size: 11.5px; color: var(--text-secondary); margin-top: 1px; display: flex; align-items: center; gap: 4px;">
-                      ${icons.pin(11)} ${gym.name}
-                    </p>
+                    <div style="font-size: 11.5px; color: var(--text-secondary); margin-top: 2px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                      <span class="feed-dist-badge" style="font-size: 10.5px; font-weight: 800; color: #00E5FF; background: rgba(0, 229, 255, 0.12); border: 1px solid rgba(0, 229, 255, 0.28); padding: 1px 6px; border-radius: 4px; display: inline-flex; align-items: center; gap: 3px;">
+                        ${icons.pin(10)} ${distText}
+                      </span>
+                      <span>${gym.name}</span>
+                    </div>
                     <div class="member-tags">
                       <span class="member-tag-chip" style="color: var(--color-kor);">${member.level || 'Orta'}</span>
                       ${(member.goals || []).map(g => `<span class="member-tag-chip">${g}</span>`).join('')}

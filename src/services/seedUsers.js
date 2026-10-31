@@ -14,14 +14,14 @@ export const REAL_REGISTERED_USERS = [
       "Akşam"
     ],
     "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
+    "gymId": "all",
     "onboarded": true,
     "verified": true,
     "id": "usr_1793280770439",
     "role": "user",
     "createdAt": 1793280770439,
-    "lastLoginAt": 1793480219837,
-    "updatedAt": 1793280830460,
+    "lastLoginAt": 1793482800228,
+    "updatedAt": 1793480472614,
     "_docId": "usr_1793280770439"
   },
   {

@@ -169,7 +169,15 @@ assert(chatContent.includes("readReceiptHtml") && chatContent.includes("checkChe
 const appointmentsPath = path.join(ROOT, 'src', 'components', 'AppointmentsView.js');
 assert(fs.existsSync(appointmentsPath), "Randevularım (AppointmentsView) bileşeni mevcut");
 const appointmentsContent = fs.readFileSync(appointmentsPath, 'utf-8');
-assert(appointmentsContent.includes("btn-create-appointment-top") && appointmentsContent.includes("btn-empty-go-discover") && appointmentsContent.includes("btn-empty-seed-demo"), "Randevularım ekranı üst buton ve etkileşimli hızlı aksiyonlarla güçlendirildi");
+assert(!appointmentsContent.includes("btn-create-appointment-top") && appointmentsContent.includes("btn-empty-go-discover"), "Randevularım ekranından üst randevu butonu kaldırıldı, kullanıcıların Keşfet üzerinden partner bulması sağlandı");
+
+const athletes200Path = path.join(ROOT, 'src', 'services', 'seedAthletes200.js');
+assert(fs.existsSync(athletes200Path), "200 Gerçekçi Sporcu Profili & Lokasyon Hikayeleri (seedAthletes200.js) mevcut");
+const athletes200Content = fs.readFileSync(athletes200Path, 'utf-8');
+assert(athletes200Content.includes("COMMUNITY_ATHLETES_200") && athletes200Content.includes("NEARBY_COMMUNITY_STORIES"), "200 hiper-gerçekçi kadın/erkek sporcu profili ve yakın çevre lokasyon hikayeleri tanımlı");
+
+assert(discoverContent.includes("calculateDistanceMeters") && discoverContent.includes("distanceText"), "Keşfet ekranında GPS Haversine mesafe hesaplama, km bazlı sıralama ve mesafe rozetleri aktif");
+assert(discoverContent.includes("localizedStories"), "Hikayeler tepsisinde sadece kullanıcının lokasyonundaki / yakın çevresindeki sporcuların hikayeleri listeleniyor");
 
 const routinesPath = path.join(ROOT, 'src', 'components', 'RoutinesView.js');
 assert(fs.existsSync(routinesPath), "Hareketler (RoutinesView) bileşeni mevcut");

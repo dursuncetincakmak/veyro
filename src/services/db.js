@@ -7,6 +7,7 @@
 import { notify } from './notification.js';
 import { REAL_REGISTERED_USERS } from './seedUsers.js';
 import { REAL_CHATS, REAL_APPOINTMENTS } from './seedChats.js';
+import { COMMUNITY_ATHLETES_200, NEARBY_COMMUNITY_STORIES } from './seedAthletes200.js';
 import { saveFirestoreDoc, getFirestoreCollection, deleteFirestoreDoc } from './firestoreSync.js';
 
 const STORAGE_PREFIX = "veyro_live_db_v3_";
@@ -338,10 +339,33 @@ class DatabaseEngine {
       });
     }
 
+    // Seed authentic community athlete profiles (200 hyper-realistic active athletes)
+    if (Array.isArray(COMMUNITY_ATHLETES_200)) {
+      COMMUNITY_ATHLETES_200.forEach(ath => {
+        const idx = realUsersOnly.findIndex(u => u.id === ath.id);
+        if (idx === -1) {
+          realUsersOnly.push(ath);
+        } else {
+          realUsersOnly[idx] = { ...ath, ...realUsersOnly[idx] };
+        }
+      });
+    }
+
     this.setCollection("users", realUsersOnly);
 
     this.ensureCollection("appointments", []);
-    this.ensureCollection("stories", INITIAL_STORIES);
+
+    // Localized Community Stories: Seed and merge nearby workout moments
+    const existingStories = this.getCollection("stories") || [];
+    const seedStories = Array.isArray(NEARBY_COMMUNITY_STORIES)
+      ? [...NEARBY_COMMUNITY_STORIES, ...INITIAL_STORIES]
+      : INITIAL_STORIES;
+    seedStories.forEach(st => {
+      if (!existingStories.some(s => s.id === st.id)) {
+        existingStories.push(st);
+      }
+    });
+    this.setCollection("stories", existingStories);
     this.ensureCollection("reports", []);
     this.ensureCollection("likes", []);
     this.ensureCollection("blocked_users", []);
@@ -1251,8 +1275,15 @@ class DatabaseEngine {
   // ==========================================
   // ATHLETE STORIES (24H WORKOUT SHARING)
   // ==========================================
-  getStories() {
-    const list = this.getCollection("stories") || [];
+  getStories(filterGymId, maxDistKm) {
+    let list = this.getCollection("stories") || [];
+    if (filterGymId && filterGymId !== "all") {
+      list = list.filter(s => {
+        if (s.gymId === filterGymId) return true;
+        if (typeof s.distanceKm === "number" && s.distanceKm <= (maxDistKm || 5.0)) return true;
+        return false;
+      });
+    }
     // Sort unviewed first, then by most recent timestamp
     return list.slice().sort((a, b) => {
       if (a.viewed === b.viewed) {
