@@ -94,29 +94,29 @@ export function createOnboardingModal(container, onComplete) {
   }
 
   // =========================================================================
-  // SCREEN 1: SPLASH SCREEN (Karşılama Ekranı)
+  // SCREEN 1: SPLASH SCREEN (Karşılama Ekranı - "Never Train Alone.")
   // =========================================================================
   function renderSplashScreen() {
     container.innerHTML = `
-      <div class="onboarding-screen fade-in">
-        <div class="auth-stage-container">
-          <div class="splash-screen-wrap" id="splash-interactive-wrap">
+      <div class="onboarding-screen fade-in splash-screen-root">
+        <div class="auth-stage-container splash-stage-container">
+          <div class="splash-screen-wrap" id="splash-interactive-wrap" role="button" tabindex="0" aria-label="Veyro - Başlamak İçin Dokun">
             
-            <!-- Top Curved Header Frame -->
-            <div class="splash-top-frame">
-              ${renderLogoBadge()}
-              <div class="splash-headline-sub">Sporun En Güzel Yanı:</div>
-              <div class="splash-headline-main">Arkadaşlık!</div>
+            <!-- Full Cinema Splash Artwork Poster -->
+            <div class="splash-poster-frame">
+              <img 
+                src="./images/splash-never-train-alone.png" 
+                class="splash-cinematic-poster" 
+                alt="Veyro - Never Train Alone" 
+                loading="eager"
+                decoding="async"
+              />
             </div>
 
-            <!-- Bottom Curved Footer Frame -->
-            <div class="splash-bottom-frame">
-              <div class="splash-progress-track">
-                <div class="splash-progress-bar"></div>
-              </div>
-              <div class="splash-slogan-text">Daha Aktif, Daha Mutlu...</div>
-              <div class="splash-tap-hint">
-                <span>Başlamak için dokunun</span>
+            <!-- Subtle Interactive Floating Hint -->
+            <div class="splash-tap-overlay">
+              <div class="splash-tap-pill">
+                <span>Başlamak için dokun</span>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
               </div>
             </div>
@@ -133,13 +133,18 @@ export function createOnboardingModal(container, onComplete) {
 
     const wrap = document.getElementById("splash-interactive-wrap");
     wrap?.addEventListener("click", goToAuth);
+    wrap?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        goToAuth();
+      }
+    });
 
-    // Auto-advance after 2.8 seconds
+    // Auto-advance after 3.2 seconds
     const splashTimer = setTimeout(() => {
       if (currentScreen === 'splash') {
         goToAuth();
       }
-    }, 2800);
+    }, 3200);
 
     wrap?.addEventListener("click", () => clearTimeout(splashTimer));
   }

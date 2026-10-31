@@ -13,6 +13,9 @@ class SoundService {
   }
 
   getAudioContext() {
+    if (!this.unlocked && !this.ctx) {
+      return null;
+    }
     if (!this.ctx) {
       const AudioCtx = window.AudioContext || window.webkitAudioContext;
       if (AudioCtx) {
@@ -28,21 +31,23 @@ class SoundService {
   initAudioUnlock() {
     if (typeof window === 'undefined') return;
     const unlock = () => {
-      const ctx = this.getAudioContext();
-      if (ctx) {
-        if (ctx.state === 'suspended') {
-          ctx.resume().then(() => {
-            this.unlocked = true;
-          }).catch(() => {});
-        } else {
-          this.unlocked = true;
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (AudioCtx && !this.ctx) {
+          this.ctx = new AudioCtx();
         }
-      }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume().catch(() => {});
+        }
+        this.unlocked = true;
+      } catch (e) {}
+      window.removeEventListener('pointerdown', unlock);
       window.removeEventListener('click', unlock);
       window.removeEventListener('touchstart', unlock);
       window.removeEventListener('keydown', unlock);
     };
 
+    window.addEventListener('pointerdown', unlock, { once: true, passive: true });
     window.addEventListener('click', unlock, { once: true, passive: true });
     window.addEventListener('touchstart', unlock, { once: true, passive: true });
     window.addEventListener('keydown', unlock, { once: true, passive: true });
