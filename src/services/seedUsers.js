@@ -20,7 +20,7 @@ export const REAL_REGISTERED_USERS = [
     "id": "usr_1793280770439",
     "role": "user",
     "createdAt": 1793280770439,
-    "lastLoginAt": 1793477533850,
+    "lastLoginAt": 1793480219837,
     "updatedAt": 1793280830460,
     "_docId": "usr_1793280770439"
   },
@@ -184,13 +184,13 @@ export const REAL_REGISTERED_USERS = [
       "Akşam"
     ],
     "genderPref": "Herkes",
-    "gymId": "map_gym_59611576",
+    "gymId": "all",
     "onboarded": true,
     "verified": true,
     "createdAt": 1793478577047,
     "role": "user",
-    "updatedAt": 1793478847393,
+    "updatedAt": 1793479263055,
     "_docId": "usr_1793478577047_rs6uy",
-    "lastLoginAt": 1793479246768
+    "lastLoginAt": 1793480525103
   }
 ];
