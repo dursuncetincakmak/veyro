@@ -77,8 +77,9 @@ export function showChatInboxModal(onOpenChatPartner) {
                       <span style="font-size: 11px; color: var(--text-muted);">${timeStr}</span>
                     </div>
                     <div style="display: flex; align-items: center; justify-content: space-between;">
-                      <p style="font-size: 12.5px; color: ${item.unreadCount > 0 ? 'var(--text-main)' : 'var(--text-secondary)'}; font-weight: ${item.unreadCount > 0 ? '700' : '400'}; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                        ${isMe ? '<span style="color: var(--color-kor);">Sen: </span>' : ''}${item.lastMessage?.text || ''}
+                      <p style="font-size: 12.5px; color: ${item.unreadCount > 0 ? 'var(--text-main)' : 'var(--text-secondary)'}; font-weight: ${item.unreadCount > 0 ? '700' : '400'}; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 4px;">
+                        ${isMe ? (item.lastMessage?.read ? `<span style="color: #00E5FF; display: inline-flex; align-items: center;" title="Okundu">${icons.checkCheck(13)}</span>` : `<span style="color: rgba(255,255,255,0.45); display: inline-flex; align-items: center;" title="İletildi">${icons.check(12)}</span>`) : ''}
+                        <span style="overflow: hidden; text-overflow: ellipsis;">${item.lastMessage?.text || (item.lastMessage?.image ? 'Fotoğraf' : '')}</span>
                       </p>
                       ${item.unreadCount > 0 ? `
                         <span style="background: var(--color-kor); color: #FFF; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 10px; margin-left: 8px; flex-shrink: 0;">

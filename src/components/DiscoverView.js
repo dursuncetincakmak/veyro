@@ -15,6 +15,8 @@ import { notify } from '../services/notification.js';
 import { soundService } from '../services/soundService.js';
 import { showPlanWorkoutModal } from './PlanWorkoutModal.js';
 import { showFilterModal } from './FilterModal.js';
+import { showStoryCreatorModal } from './StoryCreatorModal.js';
+import { showStoryViewerModal } from './StoryViewerModal.js';
 import { icons } from './icons.js';
 
 export function renderDiscoverView(container, onSelectUser, onRequestAppointment, onOpenChat) {
@@ -132,6 +134,9 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
 
     container.innerHTML = `
       <div class="discover-page fade-in">
+        <!-- 0. ATHLETE STORIES TRAY (24H WORKOUT MOMENTS) -->
+        ${renderStoriesTray()}
+
         <!-- 1. USER'S OWN WORKOUT PLAN BANNER ("Ne zaman ve nerede spor yapacaksın?") -->
         ${renderMyWorkoutBanner(myPlan)}
 
@@ -170,6 +175,42 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
     `;
 
     attachEventHandlers(athletes);
+  }
+
+  function renderStoriesTray() {
+    const stories = db.getStories();
+    return `
+      <div class="stories-tray-container" style="margin-bottom: 12px; overflow-x: auto; scrollbar-width: none;">
+        <div style="display: flex; gap: 12px; align-items: flex-start; padding: 2px 2px 4px 2px;">
+          <!-- User Add Story Circle -->
+          <div id="btn-add-story-trigger" class="story-circle-item" style="display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; flex-shrink: 0;" title="Hikaye Paylaş">
+            <div style="position: relative; width: 56px; height: 56px;">
+              <div class="member-avatar accent-kor" style="width: 56px; height: 56px; font-size: 17px; border: 2px dashed rgba(255, 87, 34, 0.7); background: rgba(255, 87, 34, 0.12);">
+                ${currentUser.initials || "SP"}
+              </div>
+              <div style="position: absolute; bottom: -2px; right: -2px; width: 20px; height: 20px; border-radius: 50%; background: var(--color-kor); color: #FFF; display: flex; align-items: center; justify-content: center; border: 2px solid #000; box-shadow: 0 2px 6px rgba(0,0,0,0.5);">
+                ${icons.plus(11)}
+              </div>
+            </div>
+            <span style="font-size: 11px; font-weight: 700; color: #FFF;">Hikayen</span>
+          </div>
+
+          <!-- Community Athlete Stories -->
+          ${stories.map(story => `
+            <div class="story-circle-item" data-story-id="${story.id}" style="display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; flex-shrink: 0;" title="${story.userName} - ${story.tag || 'Hikaye'}">
+              <div class="story-avatar-ring ${story.viewed ? 'viewed' : 'unviewed'}" style="width: 56px; height: 56px; border-radius: 50%; padding: 2.5px; background: ${story.viewed ? 'rgba(255,255,255,0.2)' : 'linear-gradient(135deg, #FF5722 0%, #FF9100 50%, #00E5FF 100%)'}; box-shadow: ${story.viewed ? 'none' : '0 2px 10px rgba(255, 87, 34, 0.35)'}; transition: all 0.2s ease;">
+                <div style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: #000; border: 2px solid #0B0C0E;">
+                  ${story.userAvatar ? `<img src="${story.userAvatar}" style="width: 100%; height: 100%; object-fit: cover;">` : `<div class="member-avatar accent-kor" style="width: 100%; height: 100%; font-size: 15px;">${story.userInitials || "SP"}</div>`}
+                </div>
+              </div>
+              <span style="font-size: 11px; font-weight: ${story.viewed ? '500' : '700'}; color: ${story.viewed ? 'var(--text-secondary)' : '#FFF'}; max-width: 58px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                ${story.userName.split(' ')[0]}
+              </span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
   }
 
   function renderMyWorkoutBanner(plan) {
@@ -491,6 +532,20 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
 
   function attachEventHandlers(athletes) {
     const athlete = athletes[activeIndex] || null;
+
+    // Athlete Stories Handlers
+    container.querySelector("#btn-add-story-trigger")?.addEventListener("click", () => {
+      showStoryCreatorModal(() => {
+        render();
+      });
+    });
+
+    container.querySelectorAll(".story-circle-item[data-story-id]").forEach(item => {
+      item.addEventListener("click", () => {
+        const sId = item.dataset.storyId;
+        showStoryViewerModal(sId, onOpenChat);
+      });
+    });
 
     // Workout Planning Modals
     const openPlanModal = () => {

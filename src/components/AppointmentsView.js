@@ -14,11 +14,18 @@ import { notify } from '../services/notification.js';
 import { soundService } from '../services/soundService.js';
 import { locationService } from '../services/location.js';
 import { generateIcsFile, openGoogleCalendarIntent } from '../services/calendar.js';
+import { showCreateAppointmentModal } from './CreateAppointmentModal.js';
 import { icons } from './icons.js';
 
 export function renderAppointmentsView(container, onOpenRoutines, onOpenChat, onOpenLiveSession, onOpenAttendance) {
   let activeTab = "upcoming"; // 'upcoming' | 'requests' | 'history'
   const currentUser = auth.getCurrentUser() || {};
+
+  // Seed realistic starter appointments if empty so the user can immediately experience the interactive features
+  const existingApts = db.getCollection("appointments") || [];
+  if (existingApts.length === 0) {
+    db.ensureSampleAppointments(currentUser.id || "current-user", currentUser.name || "Sporcu");
+  }
 
   function getFilteredAppointments() {
     const all = db.getCollection("appointments") || [];
@@ -48,7 +55,12 @@ export function renderAppointmentsView(container, onOpenRoutines, onOpenChat, on
 
     container.innerHTML = `
       <div class="appointments-page fade-in">
-        <h2 style="font-size: 26px; font-weight: 800; margin-bottom: 18px; color: var(--text-main);">Randevularım</h2>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;">
+          <h2 style="font-size: 26px; font-weight: 800; color: var(--text-main); margin: 0;">Randevularım</h2>
+          <button class="btn-kor" id="btn-create-appointment-top" style="padding: 7px 14px; font-size: 13px; font-weight: 700; border-radius: var(--radius-md); display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 14px var(--color-kor-glow);">
+            ${icons.plus(15)} <span>Yeni Randevu</span>
+          </button>
+        </div>
 
         <!-- Tabs Navigation (Page 8) -->
         <div class="appointments-nav-tabs">
@@ -67,15 +79,32 @@ export function renderAppointmentsView(container, onOpenRoutines, onOpenChat, on
         <!-- Appointments List -->
         <div class="appointments-list">
           ${currentList.length === 0 ? `
-            <div style="text-align: center; padding: 48px 20px; color: var(--text-secondary);">
-              <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="opacity: 0.4; margin-bottom: 12px;">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="16" y1="2" x2="16" y2="6"></line>
-                <line x1="8" y1="2" x2="8" y2="6"></line>
-                <line x1="3" y1="10" x2="21" y2="10"></line>
-              </svg>
-              <p style="font-weight: 600;">Bu sekmede henüz bir randevun yok.</p>
-              <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Keşfet sayfasından salon arkadaşlarını davet edebilirsin.</p>
+            <div class="empty-appointments-card" style="text-align: center; padding: 36px 20px; background: var(--bg-surface-elevated); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); margin: 10px 0;">
+              <div style="width: 52px; height: 52px; border-radius: 16px; background: rgba(255, 87, 34, 0.12); border: 1px solid rgba(255, 87, 34, 0.25); display: inline-flex; align-items: center; justify-content: center; color: var(--color-kor); margin-bottom: 14px;">
+                ${icons.calendar(26)}
+              </div>
+              <h3 style="font-size: 17px; font-weight: 800; color: #FFF; margin: 0 0 6px 0;">
+                ${activeTab === 'upcoming' ? 'Henüz planlanmış bir randevun yok' : activeTab === 'requests' ? 'Bekleyen antrenman isteği yok' : 'Tamamlanan bir seansın yok'}
+              </h3>
+              <p style="font-size: 12.5px; color: var(--text-secondary); line-height: 1.45; max-width: 320px; margin: 0 auto 18px auto;">
+                ${activeTab === 'upcoming' 
+                  ? 'Salondaki sporcularla randevu planlayarak antrenman disiplinini zirveye çıkar.' 
+                  : activeTab === 'requests' 
+                  ? 'Salon arkadaşların seni antrenmana çağırdığında istekler burada listelenir.' 
+                  : 'Birlikte tamamladığın seanslar ve yoklama puanları burada arşivlenir.'}
+              </p>
+              
+              <div style="display: flex; flex-direction: column; gap: 8px; max-width: 260px; margin: 0 auto;">
+                <button class="btn-kor" id="btn-empty-go-discover" style="padding: 10px 16px; font-size: 13px; font-weight: 800; border-radius: var(--radius-md); display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
+                  ${icons.users(15)} <span>Sporcu Keşfet</span>
+                </button>
+                <button class="btn-outline-kor" id="btn-empty-create-apt" style="padding: 9px 14px; font-size: 12.5px; font-weight: 700; border-radius: var(--radius-md); display: inline-flex; align-items: center; justify-content: center; gap: 6px; background: rgba(255,255,255,0.04); border: 1px solid var(--border-glass); color: #FFF;">
+                  ${icons.plus(14)} <span>Yeni Randevu Planla</span>
+                </button>
+                <button class="btn-ghost" id="btn-empty-seed-demo" style="padding: 6px 10px; font-size: 11.5px; font-weight: 600; color: var(--color-cyan, #00E5FF); display: inline-flex; align-items: center; justify-content: center; gap: 5px;">
+                  ${icons.bolt(13)} <span>Örnek Seans Ekle (Mert ile Bacak)</span>
+                </button>
+              </div>
             </div>
           ` : currentList.map(item => {
             const isCreator = item.userId === currentUser.id;
@@ -355,6 +384,36 @@ export function renderAppointmentsView(container, onOpenRoutines, onOpenChat, on
         const gym = allGyms.find(g => g.id === apt.gymId);
         openGoogleCalendarIntent(apt, partner, gym);
       });
+    });
+
+    // Top button & Empty state action handlers
+    const openNewAppointment = () => {
+      const defaultPartner = allUsers.find(u => u.id !== currentUser.id) || {
+        id: "usr_mert_partner",
+        name: "Mert Demir",
+        initials: "MD",
+        gymId: currentUser.gymId || "map_gym_59319781"
+      };
+      showCreateAppointmentModal(defaultPartner, () => {}, () => {
+        activeTab = "upcoming";
+        render();
+      });
+    };
+
+    container.querySelector("#btn-create-appointment-top")?.addEventListener("click", openNewAppointment);
+    container.querySelector("#btn-empty-create-apt")?.addEventListener("click", openNewAppointment);
+
+    container.querySelector("#btn-empty-go-discover")?.addEventListener("click", () => {
+      if (window.veyro && window.veyro.switchToTab) {
+        window.veyro.switchToTab("discover");
+      }
+    });
+
+    container.querySelector("#btn-empty-seed-demo")?.addEventListener("click", () => {
+      db.ensureSampleAppointments(currentUser.id || "current-user", currentUser.name || "Sporcu");
+      notify.success("Örnek antrenman seansı eklendi!");
+      activeTab = "upcoming";
+      render();
     });
   }
 

@@ -34,7 +34,14 @@ export const icons = {
 
   // Status & Verification
   check: (size = 18, cls = "") => svg('<polyline points="20 6 9 17 4 12"></polyline>', size, cls),
+  checkCheck: (size = 18, cls = "") => svg('<path d="M18 6 7 17l-5-5"></path><path d="m22 10-7.5 7.5L13 16"></path>', size, cls),
   checkCircle: (size = 18, cls = "") => svg('<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>', size, cls),
+  play: (size = 18, cls = "") => svg('<polygon points="5 3 19 12 5 21 5 3"></polygon>', size, cls),
+  pause: (size = 18, cls = "") => svg('<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>', size, cls),
+  rotateCcw: (size = 18, cls = "") => svg('<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path>', size, cls),
+  image: (size = 18, cls = "") => svg('<rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline>', size, cls),
+  plusCircle: (size = 18, cls = "") => svg('<circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line>', size, cls),
+  heart: (size = 18, cls = "") => svg('<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>', size, cls),
   alert: (size = 18, cls = "") => svg('<circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line>', size, cls),
   alertTriangle: (size = 18, cls = "") => svg('<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line>', size, cls),
   close: (size = 18, cls = "") => svg('<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>', size, cls),

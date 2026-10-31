@@ -163,6 +163,32 @@ assert(attendanceContent.includes("opt-status-completed") && attendanceContent.i
 
 const chatPath = path.join(ROOT, 'src', 'components', 'ChatModal.js');
 assert(fs.existsSync(chatPath), "Canlı partner sohbet modülü mevcut");
+const chatContent = fs.readFileSync(chatPath, 'utf-8');
+assert(chatContent.includes("readReceiptHtml") && chatContent.includes("checkCheck") && chatContent.includes("Okundu"), "Mesajlaşmada okundu bilgisi (çift tık ✓✓ cyan ve tek tık ✓ iletildi) aktif");
+
+const appointmentsPath = path.join(ROOT, 'src', 'components', 'AppointmentsView.js');
+assert(fs.existsSync(appointmentsPath), "Randevularım (AppointmentsView) bileşeni mevcut");
+const appointmentsContent = fs.readFileSync(appointmentsPath, 'utf-8');
+assert(appointmentsContent.includes("btn-create-appointment-top") && appointmentsContent.includes("btn-empty-go-discover") && appointmentsContent.includes("btn-empty-seed-demo"), "Randevularım ekranı üst buton ve etkileşimli hızlı aksiyonlarla güçlendirildi");
+
+const routinesPath = path.join(ROOT, 'src', 'components', 'RoutinesView.js');
+assert(fs.existsSync(routinesPath), "Hareketler (RoutinesView) bileşeni mevcut");
+const routinesContent = fs.readFileSync(routinesPath, 'utf-8');
+assert(routinesContent.includes("exercise-video-card") && routinesContent.includes("exercise-visual-card") && routinesContent.includes("workout-tempo-box"), "Hareketler ekranı Video (kadans/tempo) ve Görsel (biyomekanik form adımları) ile eksiksiz çalışıyor");
+assert(routinesContent.includes("ROUTINE_PROGRAMS") && routinesContent.includes("routine-split-pill"), "Farklı kas grupları (Bacak, Göğüs, Sırt, Omuz) rutin seçici desteği aktif");
+assert(routinesContent.includes("btn-timer-plus") && routinesContent.includes("btn-timer-minus"), "Set arası dinlenme sayacı kontrol butonları (+15s, -15s, sıfırla) aktif");
+
+const storyCreatorPath = path.join(ROOT, 'src', 'components', 'StoryCreatorModal.js');
+assert(fs.existsSync(storyCreatorPath), "Hikaye Paylaşma (StoryCreatorModal) bileşeni mevcut");
+const storyCreatorContent = fs.readFileSync(storyCreatorPath, 'utf-8');
+assert(storyCreatorContent.includes("showStoryCreatorModal") && storyCreatorContent.includes("FITNESS_TAGS"), "Sporcu hikaye paylaşma, etiket ve fotoğraf seçimi aktif");
+
+const storyViewerPath = path.join(ROOT, 'src', 'components', 'StoryViewerModal.js');
+assert(fs.existsSync(storyViewerPath), "Tam Ekran Hikaye İzleyici (StoryViewerModal) bileşeni mevcut");
+const storyViewerContent = fs.readFileSync(storyViewerPath, 'utf-8');
+assert(storyViewerContent.includes("showStoryViewerModal") && storyViewerContent.includes("sendReaction"), "Hikaye otomatik ilerleme, emoji tepkileri ve doğrudan yanıt sistemi aktif");
+
+assert(dbContent.includes("INITIAL_STORIES") && dbContent.includes("getStories") && dbContent.includes("addStory"), "Veritabanı 24 saatlik sporcu hikayeleri motoru hazır");
 
 // ----------------------------------------------------
 // FAZ 5: VEYRO ADMIN YÖNETİM PANELİ & FIRSATLAR CMS

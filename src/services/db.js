@@ -216,6 +216,66 @@ const INITIAL_CAMPAIGNS = [
   }
 ];
 
+// Community Athlete Stories (24h Workout Moments)
+export const INITIAL_STORIES = [
+  {
+    id: "story_1",
+    userId: "usr_mert_partner",
+    userName: "Mert Demir",
+    userInitials: "MD",
+    userAvatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80",
+    tag: "💪 Bacak Günü PR",
+    caption: "Yeni Squat PR: 140kg! Mert ile bacak gününü yıktık 🔥 Salondayız!",
+    gymName: "MACFit Kadıköy",
+    timestamp: Date.now() - 2 * 3600 * 1000,
+    likesCount: 14,
+    viewed: false
+  },
+  {
+    id: "story_2",
+    userId: "usr_selin_partner",
+    userName: "Selin Öztürk",
+    userInitials: "SÖ",
+    userAvatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80",
+    tag: "🔥 Sabah Kardiyosu",
+    caption: "Güne 5km tempolu koşu ve core antrenmanı ile başladık ✨",
+    gymName: "FitCity Ataşehir",
+    timestamp: Date.now() - 4 * 3600 * 1000,
+    likesCount: 22,
+    viewed: false
+  },
+  {
+    id: "story_3",
+    userId: "usr_burak_partner",
+    userName: "Burak Kaya",
+    userInitials: "BK",
+    userAvatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80",
+    tag: "⚡ Bench Press 100kg",
+    caption: "Göğüs & Kol bitti! Akşam seansı için partner arayanlar DM atsın 🏋️",
+    gymName: "PowerGym Moda",
+    timestamp: Date.now() - 6 * 3600 * 1000,
+    likesCount: 19,
+    viewed: false
+  },
+  {
+    id: "story_4",
+    userId: "usr_melisa_partner",
+    userName: "Melisa Çetin",
+    userInitials: "MÇ",
+    userAvatar: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=150&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80",
+    tag: "🥗 Post-Workout",
+    caption: "Ağır bacak antrenmanı sonrası esneme ve protein shake vakti 🎯",
+    gymName: "MACFit Kadıköy",
+    timestamp: Date.now() - 8 * 3600 * 1000,
+    likesCount: 31,
+    viewed: false
+  }
+];
+
 // Zero Mock Data Policy - No preloaded fake athletes
 const INITIAL_USERS = [];
 
@@ -281,6 +341,7 @@ class DatabaseEngine {
     this.setCollection("users", realUsersOnly);
 
     this.ensureCollection("appointments", []);
+    this.ensureCollection("stories", INITIAL_STORIES);
     this.ensureCollection("reports", []);
     this.ensureCollection("likes", []);
     this.ensureCollection("blocked_users", []);
@@ -963,6 +1024,32 @@ class DatabaseEngine {
           this.notifySubscribers("chats_updated", chats);
         }
       }
+    } else if (data.type === "chat_messages_read") {
+      const raw = localStorage.getItem(STORAGE_PREFIX + "chats");
+      const chats = raw ? JSON.parse(raw) : {};
+      if (chats[data.chatKey]) {
+        let changed = false;
+        chats[data.chatKey].forEach(m => {
+          if (m.receiverId === data.userId && !m.read) {
+            m.read = true;
+            m.readAt = m.readAt || Date.now();
+            changed = true;
+          }
+        });
+        if (changed) {
+          localStorage.setItem(STORAGE_PREFIX + "chats", JSON.stringify(chats));
+          this.notifySubscribers(data.chatKey, chats[data.chatKey]);
+          this.notifySubscribers(`chat_${data.chatKey}`, chats[data.chatKey]);
+          this.notifySubscribers("chats_updated", chats);
+        }
+      }
+    } else if (data.type === "new_story") {
+      const stories = this.getCollection("stories") || [];
+      if (!stories.some(s => s.id === data.story.id)) {
+        stories.unshift(data.story);
+        this.setCollection("stories", stories);
+        this.notifySubscribers("stories", stories);
+      }
     }
   }
 
@@ -1127,15 +1214,154 @@ class DatabaseEngine {
         chats[chatKey].forEach(m => {
           if (m.receiverId === userId && !m.read) {
             m.read = true;
+            m.readAt = Date.now();
             changed = true;
           }
         });
         if (changed) {
           localStorage.setItem(STORAGE_PREFIX + "chats", JSON.stringify(chats));
+          this.notifySubscribers(chatKey, chats[chatKey]);
+          this.notifySubscribers(`chat_${chatKey}`, chats[chatKey]);
           this.notifySubscribers("chats_updated", chats);
+
+          if (this.broadcastChannel) {
+            try {
+              this.broadcastChannel.postMessage({
+                type: "chat_messages_read",
+                chatKey,
+                userId
+              });
+            } catch (e) {}
+          }
+
+          if (typeof window !== "undefined") {
+            fetch("/api/sync/chats", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ chatKey, action: "mark_read", userId })
+            }).catch(() => {});
+          }
         }
       }
+    } catch (e) {
+      console.warn("markChatAsRead error", e);
+    }
+  }
+
+  // ==========================================
+  // ATHLETE STORIES (24H WORKOUT SHARING)
+  // ==========================================
+  getStories() {
+    const list = this.getCollection("stories") || [];
+    // Sort unviewed first, then by most recent timestamp
+    return list.slice().sort((a, b) => {
+      if (a.viewed === b.viewed) {
+        return (b.timestamp || 0) - (a.timestamp || 0);
+      }
+      return a.viewed ? 1 : -1;
+    });
+  }
+
+  addStory(storyData) {
+    try {
+      const stories = this.getCollection("stories") || [];
+      const newStory = {
+        id: `story_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+        timestamp: Date.now(),
+        likesCount: 0,
+        viewed: false,
+        ...storyData
+      };
+      stories.unshift(newStory);
+      this.setCollection("stories", stories);
+      this.notifySubscribers("stories", stories);
+
+      if (this.broadcastChannel) {
+        try {
+          this.broadcastChannel.postMessage({ type: "new_story", story: newStory });
+        } catch (e) {}
+      }
+      return newStory;
+    } catch (e) {
+      console.error("addStory error", e);
+      return null;
+    }
+  }
+
+  markStoryViewed(storyId) {
+    try {
+      const stories = this.getCollection("stories") || [];
+      const story = stories.find(s => s.id === storyId);
+      if (story && !story.viewed) {
+        story.viewed = true;
+        this.setCollection("stories", stories);
+        this.notifySubscribers("stories", stories);
+      }
     } catch (e) {}
+  }
+
+  // ==========================================
+  // INITIAL APPOINTMENTS SEED (Interactive Demo)
+  // ==========================================
+  ensureSampleAppointments(currentUserId = "current-user", currentUserName = "Sporcu") {
+    const existing = this.getCollection("appointments") || [];
+    if (existing.length > 0) return existing;
+
+    const sampleApts = [
+      {
+        id: "apt_mert_bacak_today",
+        userId: "usr_mert_partner",
+        userName: "Mert Demir",
+        partnerId: currentUserId,
+        partnerName: currentUserName,
+        date: "Bugün 25 Ekim",
+        time: "19:00",
+        dayNum: "25",
+        workoutType: "Bacak günü (Squat & Kuadriseps)",
+        gymId: "map_gym_59319781",
+        gymName: "MACFit Kadıköy",
+        status: "accepted",
+        checkedIn: false,
+        reminder: "18:00'de hatırlat",
+        createdAt: Date.now() - 3600000
+      },
+      {
+        id: "apt_selin_invite_pending",
+        userId: "usr_selin_partner",
+        userName: "Selin Öztürk",
+        partnerId: currentUserId,
+        partnerName: currentUserName,
+        date: "Yarın 26 Ekim",
+        time: "18:30",
+        dayNum: "26",
+        workoutType: "Göğüs & Kol",
+        gymId: "map_gym_59319781",
+        gymName: "MACFit Kadıköy",
+        status: "incoming_request",
+        createdAt: Date.now() - 1800000
+      },
+      {
+        id: "apt_burak_past_history",
+        userId: currentUserId,
+        userName: currentUserName,
+        partnerId: "usr_burak_partner",
+        partnerName: "Burak Kaya",
+        date: "Dün 24 Ekim",
+        time: "19:00",
+        dayNum: "24",
+        workoutType: "Sırt & Biceps",
+        gymId: "map_gym_59319781",
+        gymName: "MACFit Kadıköy",
+        status: "completed",
+        rating: 5,
+        verifiedAttendance: true,
+        completedAt: Date.now() - 86400000
+      }
+    ];
+
+    this.setCollection("appointments", sampleApts);
+    this.notifySubscribers("appointments", sampleApts);
+    return sampleApts;
   }
 
   // Reactive Subscription

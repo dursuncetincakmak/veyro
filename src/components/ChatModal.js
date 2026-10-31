@@ -49,6 +49,13 @@ export function showChatModal(partnerId, onClose) {
       const isOutgoing = msg.senderId === currentUser.id;
       const timeStr = new Date(msg.timestamp || Date.now()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
+      // Read status indicator for outgoing messages
+      const readReceiptHtml = isOutgoing
+        ? (msg.read
+            ? `<span class="read-receipt read" title="Okundu" style="color: #00E5FF; display: inline-flex; align-items: center; gap: 3px; font-weight: 700;">${icons.checkCheck(13)} Okundu</span>`
+            : `<span class="read-receipt sent" title="İletildi" style="color: rgba(255,255,255,0.45); display: inline-flex; align-items: center; gap: 3px;">${icons.check(12)} İletildi</span>`)
+        : '';
+
       // PHOTO MESSAGE RENDERING
       if (msg.image) {
         if (isOutgoing) {
@@ -59,8 +66,9 @@ export function showChatModal(partnerId, onClose) {
                 <img src="${msg.image}" style="max-width: 220px; max-height: 200px; border-radius: 12px; display: block; object-fit: cover;">
               </div>
               ${msg.text && msg.text !== 'Fotoğraf' ? `<div style="margin-top: 4px; font-size: 13px;">${msg.text}</div>` : ''}
-              <div class="chat-bubble-time" style="margin-top: 4px; font-size: 10px; display: inline-flex; align-items: center; gap: 4px;">
-                ${timeStr} · <span>${icons.lock(10)} İzin Kontrollü</span>
+              <div class="chat-bubble-time" style="margin-top: 4px; font-size: 10px; display: inline-flex; align-items: center; gap: 6px; justify-content: flex-end; width: 100%;">
+                <span>${timeStr}</span> · <span>${icons.lock(10)} İzinli</span>
+                ${readReceiptHtml}
               </div>
             </div>
           `;
@@ -118,7 +126,10 @@ export function showChatModal(partnerId, onClose) {
       return `
         <div class="chat-bubble ${isOutgoing ? 'outgoing' : 'incoming'}">
           <div>${msg.text}</div>
-          <div class="chat-bubble-time">${timeStr}</div>
+          <div class="chat-bubble-time" style="display: flex; align-items: center; justify-content: ${isOutgoing ? 'flex-end' : 'flex-start'}; gap: 5px; margin-top: 4px; font-size: 10px;">
+            <span>${timeStr}</span>
+            ${readReceiptHtml}
+          </div>
         </div>
       `;
     }).join('');
