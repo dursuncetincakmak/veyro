@@ -18,7 +18,9 @@ const ATHLETIC_PHOTO_PRESETS = [
 
 export const photoService = {
   MIN_REQUIRED_PHOTOS: 3,
+  MIN_PHOTOS: 3,
   MAX_ALLOWED_PHOTOS: 8,
+  MAX_PHOTOS: 8,
 
   /**
    * Compresses user-uploaded image via an offscreen Canvas
@@ -67,6 +69,13 @@ export const photoService = {
       };
       reader.readAsDataURL(file);
     });
+  },
+  
+  /**
+   * Alias for compressPhoto to ensure universal compatibility
+   */
+  compressImage(file, maxDim = 800, quality = 0.76) {
+    return this.compressPhoto(file, maxDim, quality);
   },
 
   /**

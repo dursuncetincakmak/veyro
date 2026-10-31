@@ -974,13 +974,15 @@ export function createOnboardingModal(container, onComplete) {
 
       try {
         notify.info("Fotoğraf sıkıştırılıyor...");
-        const optimized = await photoService.compressImage(file);
-        if (state.photos.length < photoService.MAX_PHOTOS) {
+        const compressFn = photoService.compressPhoto || photoService.compressImage;
+        const optimized = await compressFn.call(photoService, file);
+        const maxAllowed = photoService.MAX_ALLOWED_PHOTOS || photoService.MAX_PHOTOS || 8;
+        if (state.photos.length < maxAllowed) {
           state.photos.push(optimized);
-          notify.success(`Fotoğraf eklendi (${state.photos.length}/${photoService.MAX_PHOTOS})`);
+          notify.success(`Fotoğraf eklendi (${state.photos.length}/${maxAllowed})`);
           renderWizardStep3();
         } else {
-          notify.error(`En fazla ${photoService.MAX_PHOTOS} fotoğraf yükleyebilirsiniz.`);
+          notify.error(`En fazla ${maxAllowed} fotoğraf yükleyebilirsiniz.`);
         }
       } catch (err) {
         notify.error("Fotoğraf yüklenemedi: " + (err.message || err));
