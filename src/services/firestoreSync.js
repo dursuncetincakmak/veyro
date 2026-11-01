@@ -1,10 +1,27 @@
 /**
  * Veyro - Google Cloud Firestore Realtime Sync Service
  * Pure REST API implementation: Zero bundle bloat, zero native dependencies.
+ * Includes intelligent Circuit Breaker to prevent 429 quota exhaustion or request spamming.
  * Works seamlessly across Web, PWA, Capacitor iOS/Android, and Node.js environments.
  */
 
 import { getFirebaseConfig } from './firebaseConfig.js';
+
+let rateLimitCooldownUntil = 0;
+
+export function isFirestoreRateLimited() {
+  return Date.now() < rateLimitCooldownUntil;
+}
+
+function handleFirestoreResponse(status) {
+  if (status === 429 || status === 403) {
+    // Cool down for 3 minutes on rate limit or project quota reached
+    rateLimitCooldownUntil = Date.now() + 180000;
+    console.warn(`[FirestoreSync] Cloud quota/rate limit reached (status ${status}). Cloud sync paused for 3 minutes. Local real-time sync active.`);
+    return false;
+  }
+  return true;
+}
 
 function getFirestoreBaseUrl() {
   const cfg = getFirebaseConfig();
@@ -87,6 +104,7 @@ export function fromFirestoreDoc(doc) {
  * Fetch all documents in a collection
  */
 export async function getFirestoreCollection(collectionName, pageSize = 300) {
+  if (isFirestoreRateLimited()) return [];
   const baseUrl = getFirestoreBaseUrl();
   const apiKey = getApiKey();
   if (!baseUrl || !apiKey) return [];
@@ -94,12 +112,14 @@ export async function getFirestoreCollection(collectionName, pageSize = 300) {
   try {
     const url = `${baseUrl}/${collectionName}?pageSize=${pageSize}&key=${apiKey}`;
     const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
-    if (!res.ok) return [];
+    if (!res.ok) {
+      handleFirestoreResponse(res.status);
+      return [];
+    }
     const data = await res.json();
     if (!data.documents || !Array.isArray(data.documents)) return [];
     return data.documents.map(fromFirestoreDoc).filter(Boolean);
   } catch (err) {
-    console.warn(`[FirestoreSync] Failed to fetch collection ${collectionName}:`, err?.message);
     return [];
   }
 }
@@ -108,6 +128,7 @@ export async function getFirestoreCollection(collectionName, pageSize = 300) {
  * Save or update a document in a collection
  */
 export async function saveFirestoreDoc(collectionName, docId, data) {
+  if (isFirestoreRateLimited()) return false;
   const baseUrl = getFirestoreBaseUrl();
   const apiKey = getApiKey();
   if (!baseUrl || !apiKey || !docId) return false;
@@ -124,9 +145,12 @@ export async function saveFirestoreDoc(collectionName, docId, data) {
       },
       body: JSON.stringify(docData)
     });
-    return res.ok;
+    if (!res.ok) {
+      handleFirestoreResponse(res.status);
+      return false;
+    }
+    return true;
   } catch (err) {
-    console.warn(`[FirestoreSync] Failed to save doc ${docId} to ${collectionName}:`, err?.message);
     return false;
   }
 }
@@ -135,6 +159,7 @@ export async function saveFirestoreDoc(collectionName, docId, data) {
  * Delete a document from a collection
  */
 export async function deleteFirestoreDoc(collectionName, docId) {
+  if (isFirestoreRateLimited()) return false;
   const baseUrl = getFirestoreBaseUrl();
   const apiKey = getApiKey();
   if (!baseUrl || !apiKey || !docId) return false;
@@ -143,9 +168,12 @@ export async function deleteFirestoreDoc(collectionName, docId) {
     const cleanId = encodeURIComponent(String(docId).replace(/[\/\\]/g, '_'));
     const url = `${baseUrl}/${collectionName}/${cleanId}?key=${apiKey}`;
     const res = await fetch(url, { method: 'DELETE' });
-    return res.ok;
+    if (!res.ok) {
+      handleFirestoreResponse(res.status);
+      return false;
+    }
+    return true;
   } catch (err) {
-    console.warn(`[FirestoreSync] Failed to delete doc ${docId} from ${collectionName}:`, err?.message);
     return false;
   }
 }

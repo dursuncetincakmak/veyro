@@ -329,12 +329,16 @@ class DatabaseEngine {
         if (idx === -1) {
           realUsersOnly.push(ru);
         } else {
-          // Merge in any missing fields from ru (such as email or photos)
+          // Merge in any missing fields from ru (such as email, photos, location coordinates)
           realUsersOnly[idx] = { ...ru, ...realUsersOnly[idx] };
           if (!realUsersOnly[idx].email && ru.email) realUsersOnly[idx].email = ru.email;
           if ((!realUsersOnly[idx].photos || realUsersOnly[idx].photos.length === 0) && ru.photos && ru.photos.length > 0) {
             realUsersOnly[idx].photos = ru.photos;
           }
+          if (ru.city && (!realUsersOnly[idx].city || realUsersOnly[idx].city === "all")) realUsersOnly[idx].city = ru.city;
+          if (ru.district && !realUsersOnly[idx].district) realUsersOnly[idx].district = ru.district;
+          if (ru.lat != null) realUsersOnly[idx].lat = realUsersOnly[idx].lat ?? ru.lat;
+          if (ru.lng != null) realUsersOnly[idx].lng = realUsersOnly[idx].lng ?? ru.lng;
         }
       });
     }
@@ -654,12 +658,14 @@ class DatabaseEngine {
     return true;
   }
 
-  async syncWithServer() {
-    // 0. Primary Cloud Sync with Google Cloud Firestore
-    try {
-      await this.syncWithFirestore();
-    } catch (e) {
-      console.warn("Firestore sync warning:", e?.message);
+  async syncWithServer(forceCloud = false) {
+    // 0. Primary Cloud Sync with Google Cloud Firestore (throttled to once every 60s)
+    const now = Date.now();
+    if (forceCloud || (!this._lastFirestoreSync || now - this._lastFirestoreSync > 60000)) {
+      this._lastFirestoreSync = now;
+      try {
+        await this.syncWithFirestore();
+      } catch (e) {}
     }
 
     // 1. Sync Chats (Local Server / Dev Fallback)

@@ -320,6 +320,40 @@ class LocationService {
   }
 
   /**
+   * Resolve realistic GPS coordinates for any Turkish district or city
+   */
+  getCoordsForDistrict(district = "", city = "") {
+    const cleanCity = (city || "").trim().toLowerCase();
+    const cleanDist = (district || "").trim().toLowerCase();
+
+    // 1. Try exact city + district match
+    if (cleanCity) {
+      const prov = TURKEY_PROVINCES.find(p => p.city.toLowerCase() === cleanCity);
+      if (prov) {
+        if (cleanDist) {
+          const dist = prov.districts?.find(d => d.name.toLowerCase() === cleanDist);
+          if (dist) return { lat: dist.lat, lng: dist.lng };
+        }
+        return { lat: prov.lat, lng: prov.lng };
+      }
+    }
+
+    // 2. Try district match across all provinces
+    if (cleanDist) {
+      for (const p of TURKEY_PROVINCES) {
+        const d = p.districts?.find(item => item.name.toLowerCase() === cleanDist);
+        if (d) return { lat: d.lat, lng: d.lng };
+      }
+    }
+
+    // 3. Sensible fallback: Istanbul Kadıköy if mention of Istanbul, else Çorlu Tekirdağ
+    if (cleanCity.includes("istanbul") || cleanDist.includes("kadıköy")) {
+      return { lat: 40.9902, lng: 29.0298 };
+    }
+    return { lat: 41.1603, lng: 27.7989 };
+  }
+
+  /**
    * Acquire real device GPS position via browser / device API
    */
   async getCurrentPosition() {

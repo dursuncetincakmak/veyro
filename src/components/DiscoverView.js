@@ -157,8 +157,17 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
       let athleteLng = ath.lng;
       if (!athleteLat || !athleteLng) {
         const matchedGym = allGyms.find(g => g.id === ath.gymId);
-        athleteLat = matchedGym?.lat || activeLocation.lat;
-        athleteLng = matchedGym?.lng || activeLocation.lng;
+        if (matchedGym?.lat && matchedGym?.lng) {
+          athleteLat = matchedGym.lat;
+          athleteLng = matchedGym.lng;
+        } else {
+          const resolved = locationService.getCoordsForDistrict(
+            ath.district || (ath.gymName && ath.gymName.includes("Çorlu") ? "Çorlu" : ""),
+            ath.city || (ath.gymName && ath.gymName.includes("Tekirdağ") ? "Tekirdağ" : "")
+          );
+          athleteLat = resolved.lat;
+          athleteLng = resolved.lng;
+        }
       }
       const distMeters = calculateDistanceMeters(
         userCoords.latitude,
@@ -274,8 +283,39 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
     const activeCity = activeLocation.city || "Tekirdağ";
     const activeDistrict = activeLocation.district || "Çorlu";
 
-    // Strictly show stories from athletes in user's active city or within close proximity
-    const localizedStories = allStories.filter(story => {
+    // 1. Calculate dynamic Haversine distance for each story from current viewer coordinates
+    const storiesWithDistance = allStories.map(story => {
+      const matchedGym = allGyms.find(g => g.id === story.gymId);
+      let sLat = story.lat;
+      let sLng = story.lng;
+      if (!sLat || !sLng) {
+        if (matchedGym?.lat && matchedGym?.lng) {
+          sLat = matchedGym.lat;
+          sLng = matchedGym.lng;
+        } else {
+          const coords = locationService.getCoordsForDistrict(story.district, story.city);
+          sLat = coords.lat;
+          sLng = coords.lng;
+        }
+      }
+      const distMeters = calculateDistanceMeters(
+        userCoords.latitude,
+        userCoords.longitude,
+        sLat,
+        sLng
+      );
+      const rawKm = distMeters / 1000;
+      const distText = distMeters < 1000 ? `${distMeters} m` : `${rawKm.toFixed(1)} km`;
+      return {
+        ...story,
+        calculatedDistanceMeters: distMeters,
+        calculatedDistanceKm: parseFloat(rawKm.toFixed(1)),
+        calculatedDistanceText: distText
+      };
+    });
+
+    // 2. Strictly filter stories for active city or real proximity (within 35 km)
+    const localizedStories = storiesWithDistance.filter(story => {
       // Current user's own story always visible
       if (story.userId === currentUser.id || story.userId === "current-user") return true;
       // Match active gym
@@ -283,13 +323,30 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
       // City match
       if (story.city && story.city.toLowerCase() === activeCity.toLowerCase()) return true;
       // District / Neighborhood match
+      if (story.district && story.district.toLowerCase() === activeDistrict.toLowerCase()) return true;
       if (story.gymName && (story.gymName.includes(activeDistrict) || story.gymName.includes(activeCity))) return true;
-      // Proximity distance check
-      if (typeof story.distanceKm === "number" && story.distanceKm <= 35.0) return true;
+      // Calculated proximity check (only if true physical distance <= 35 km)
+      if (typeof story.calculatedDistanceKm === "number" && story.calculatedDistanceKm <= 35.0) return true;
       return false;
     });
 
-    const displayStories = localizedStories.length > 0 ? localizedStories : allStories.slice(0, 8);
+    // 3. Deduplicate stories so each athlete appears at most ONCE in the tray!
+    const uniqueStoriesMap = new Map();
+    const storiesPool = localizedStories.length > 0 ? localizedStories : storiesWithDistance;
+    storiesPool.forEach(story => {
+      const key = story.userId || story.userName;
+      if (!uniqueStoriesMap.has(key)) {
+        uniqueStoriesMap.set(key, story);
+      } else {
+        const existing = uniqueStoriesMap.get(key);
+        // Prioritize unviewed stories
+        if (existing.viewed && !story.viewed) {
+          uniqueStoriesMap.set(key, story);
+        }
+      }
+    });
+
+    const displayStories = Array.from(uniqueStoriesMap.values()).slice(0, 10);
 
     return `
       <div class="stories-tray-container" style="margin-bottom: 12px; overflow-x: auto; scrollbar-width: none;">
@@ -309,7 +366,7 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
 
           <!-- Community Athlete Stories (Nearby / In Same Location) -->
           ${displayStories.map(story => `
-            <div class="story-circle-item" data-story-id="${story.id}" style="display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; flex-shrink: 0;" title="${story.userName} - ${story.tag || 'Hikaye'} (${story.distanceKm ? story.distanceKm + ' km' : story.gymName})">
+            <div class="story-circle-item" data-story-id="${story.id}" style="display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; flex-shrink: 0;" title="${story.userName} - ${story.tag || 'Hikaye'} (${story.calculatedDistanceText || story.gymName})">
               <div class="story-avatar-ring ${story.viewed ? 'viewed' : 'unviewed'}" style="position: relative; width: 56px; height: 56px; border-radius: 50%; padding: 2.5px; background: ${story.viewed ? 'rgba(255,255,255,0.2)' : 'linear-gradient(135deg, #FF5722 0%, #FF9100 50%, #00E5FF 100%)'}; box-shadow: ${story.viewed ? 'none' : '0 2px 10px rgba(255, 87, 34, 0.35)'}; transition: all 0.2s ease;">
                 <div style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: #000; border: 2px solid #0B0C0E;">
                   ${story.userAvatar ? `<img src="${story.userAvatar}" style="width: 100%; height: 100%; object-fit: cover;">` : `<div class="member-avatar accent-kor" style="width: 100%; height: 100%; font-size: 15px;">${story.userInitials || "SP"}</div>`}
@@ -318,9 +375,9 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
               <span style="font-size: 11px; font-weight: ${story.viewed ? '500' : '700'}; color: ${story.viewed ? 'var(--text-secondary)' : '#FFF'}; max-width: 58px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                 ${story.userName.split(' ')[0]}
               </span>
-              ${story.distanceKm ? `
+              ${story.calculatedDistanceText ? `
                 <span style="font-size: 9.5px; font-weight: 800; color: #00E5FF; line-height: 1; margin-top: -2px;">
-                  ${story.distanceKm} km
+                  ${story.calculatedDistanceText}
                 </span>
               ` : ''}
             </div>
@@ -464,7 +521,7 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
       `;
     }
 
-    const gym = allGyms.find(g => g.id === athlete.gymId) || { name: athlete.district || "Spor Salonu", distanceMeters: athlete.distanceMeters || 850 };
+    const gym = allGyms.find(g => g.id === athlete.gymId) || { name: athlete.district || athlete.gymName || "Spor Salonu", distanceMeters: athlete.distanceMeters || 850 };
     const distText = athlete.distanceText || (gym.distanceText || (gym.distanceMeters ? `${gym.distanceMeters} m` : '1.1 km'));
     const athletePhotos = (Array.isArray(athlete.photos) && athlete.photos.length > 0)
       ? athlete.photos
@@ -481,7 +538,7 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
               Şimdi Salonda
             </span>
             <span class="tinder-distance-badge" style="display: inline-flex; align-items: center; gap: 4px; font-weight: 700; color: #FFF; background: rgba(0, 229, 255, 0.14); border: 1px solid rgba(0, 229, 255, 0.35); padding: 3px 8px; border-radius: 6px;">
-              ${icons.pin(11)} <strong style="color: #00E5FF;">${distText}</strong> · ${athlete.district || gym.district || 'Çorlu'} (${athlete.city || gym.city || 'Tekirdağ'})
+              ${icons.pin(11)} <strong style="color: #00E5FF;">${distText}</strong> · ${athlete.district || gym.district || 'Çorlu'} (${athlete.city || gym.city || activeLocation.city || 'Tekirdağ'})
             </span>
           </div>
 
@@ -505,7 +562,7 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
                 </svg>
               ` : ''}
             </div>
-            <div class="tinder-athlete-gym">${gym.name} (${athlete.district ? `${athlete.district}, ` : ''}${athlete.city || gym.city || 'İstanbul'})</div>
+            <div class="tinder-athlete-gym">${gym.name} (${athlete.district ? `${athlete.district}, ` : ''}${athlete.city || gym.city || activeLocation.city || 'Tekirdağ'})</div>
           </div>
 
           <!-- Activity Spotlight Box -->
@@ -607,7 +664,9 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
     return `
       <div class="members-feed">
         ${athletes.map(member => {
-          const gym = allGyms.find(g => g.id === member.gymId) || { name: member.district || "Kadıköy" };
+          const gym = allGyms.find(g => g.id === member.gymId);
+          const gymName = gym ? gym.name : (member.district ? member.district : (member.gymName || "Spor Salonu"));
+          const locationCity = member.city || gym?.city || (activeLocation.city || 'Tekirdağ');
           const distText = member.distanceText || (member.distanceMeters ? `${member.distanceMeters} m` : '1.2 km');
           return `
             <div class="member-card" data-user-id="${member.id}">
@@ -631,7 +690,7 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
                       <span class="feed-dist-badge" style="font-size: 10.5px; font-weight: 800; color: #00E5FF; background: rgba(0, 229, 255, 0.12); border: 1px solid rgba(0, 229, 255, 0.28); padding: 1px 6px; border-radius: 4px; display: inline-flex; align-items: center; gap: 3px;">
                         ${icons.pin(10)} ${distText}
                       </span>
-                      <span>${gym.name} (${member.city || gym.city || 'İstanbul'})</span>
+                      <span>${gymName} (${locationCity})</span>
                     </div>
                     <div class="member-tags">
                       <span class="member-tag-chip" style="color: var(--color-kor);">${member.level || 'Orta'}</span>
