@@ -6,7 +6,7 @@
  */
 
 import { getGatewayConfig } from './gatewayConfig.js';
-import { calculateDistanceMeters } from './location.js';
+import { calculateDistanceMeters, locationService } from './location.js';
 
 class GymPlacesService {
   constructor() {
@@ -19,6 +19,7 @@ class GymPlacesService {
    */
   async getDistrictFromCoords(lat, lng) {
     if (this.reverseGeocodeCache) return this.reverseGeocodeCache;
+    const activeLoc = locationService.getActiveLocation() || { district: "Çorlu", city: "Tekirdağ" };
     try {
       const res = await fetch(
         `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=14&addressdetails=1`,
@@ -26,23 +27,28 @@ class GymPlacesService {
       );
       if (res.ok) {
         const data = await res.json();
-        const district = data.address?.suburb || data.address?.district || data.address?.town || data.address?.city || "Kadıköy";
-        const city = data.address?.city || data.address?.province || "İstanbul";
+        const district = data.address?.suburb || data.address?.district || data.address?.town || data.address?.city || activeLoc.district || "Çorlu";
+        const city = data.address?.city || data.address?.province || activeLoc.city || "Tekirdağ";
         this.reverseGeocodeCache = { district, city };
         return this.reverseGeocodeCache;
       }
     } catch (e) {
-      console.warn("Reverse geocode failed, using Kadıköy:", e.message);
+      console.warn("Reverse geocode failed, using active location:", e.message);
     }
-    return { district: "Kadıköy", city: "İstanbul" };
+    const nearest = locationService.findNearestDistrict(lat, lng);
+    return {
+      district: nearest?.district || activeLoc.district || "Çorlu",
+      city: nearest?.city || activeLoc.city || "Tekirdağ"
+    };
   }
 
   /**
    * Fetch gyms directly from Maps based on user's live GPS coordinates
    */
   async fetchNearbyGymsFromMaps(userCoords, radiusMeters = 5000) {
-    const lat = userCoords?.latitude || 40.9875;
-    const lng = userCoords?.longitude || 29.0280;
+    const activeLoc = locationService.getActiveLocation() || { lat: 41.1603, lng: 27.7989 };
+    const lat = userCoords?.latitude || activeLoc.lat;
+    const lng = userCoords?.longitude || activeLoc.lng;
     const cacheKey = `${lat.toFixed(3)}_${lng.toFixed(3)}`;
 
     if (this.cache.has(cacheKey)) {

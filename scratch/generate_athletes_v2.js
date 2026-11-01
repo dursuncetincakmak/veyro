@@ -335,6 +335,15 @@ console.log(`Pools: Female ${femalePortraitPool.length}, Male ${malePortraitPool
 
 // 2. Nationwide Turkey Gyms (Major fitness hubs across 30 cities and key districts)
 const TURKEY_GYMS = [
+  // Tekirdağ & Çorlu (Trakya Bölgesi Fitness Merkezleri)
+  { id: "gym_tek_corlu_trend", name: "Trend Arena MACFit", district: "Çorlu", city: "Tekirdağ", lat: 41.1620, lng: 27.8120 },
+  { id: "gym_tek_corlu_orion", name: "Orion Sports Center", district: "Çorlu", city: "Tekirdağ", lat: 41.1580, lng: 27.8050 },
+  { id: "gym_tek_corlu_fitlife", name: "Çorlu FitLife & Cross Club", district: "Çorlu", city: "Tekirdağ", lat: 41.1650, lng: 27.8200 },
+  { id: "gym_tek_corlu_atlantis", name: "Atlantis Sports Center", district: "Çorlu", city: "Tekirdağ", lat: 41.1510, lng: 27.7950 },
+  { id: "gym_tek_cerkezkoy", name: "Çerkezköy FitPark", district: "Çerkezköy", city: "Tekirdağ", lat: 41.2850, lng: 28.0010 },
+  { id: "gym_tek_suleymanpasa", name: "Tekira Sports Club", district: "Süleymanpaşa", city: "Tekirdağ", lat: 40.9780, lng: 27.5180 },
+  { id: "gym_tek_degirmenalti", name: "Değirmenaltı GymClub", district: "Süleymanpaşa", city: "Tekirdağ", lat: 40.9950, lng: 27.5750 },
+
   // İstanbul
   { id: "gym_ist_kadikoy", name: "MACFit Kadıköy", district: "Kadıköy", city: "İstanbul", lat: 40.9902, lng: 29.0298 },
   { id: "gym_ist_moda", name: "PowerGym Moda", district: "Moda", city: "İstanbul", lat: 40.9850, lng: 29.0250 },
@@ -407,7 +416,6 @@ const TURKEY_GYMS = [
   { id: "gym_sak_serdivan", name: "Agora Serdivan MACFit", district: "Serdivan", city: "Sakarya", lat: 40.7680, lng: 30.3680 },
   { id: "gym_den_pamukkale", name: "Forum Çamlık MACFit", district: "Pamukkale", city: "Denizli", lat: 37.7650, lng: 29.0980 },
   { id: "gym_bal_karesi", name: "Yaylada MACFit", district: "Karesi", city: "Balıkesir", lat: 39.6580, lng: 27.8920 },
-  { id: "gym_tek_corlu", name: "Trend Arena MACFit", district: "Çorlu", city: "Tekirdağ", lat: 41.1620, lng: 27.8120 },
   { id: "gym_diy_kayapinar", name: "Ceylan Karavil MACFit", district: "Kayapınar", city: "Diyarbakır", lat: 37.9380, lng: 40.1820 },
   { id: "gym_ayd_kusadasi", name: "Kuşadası Marina Fitness", district: "Kuşadası", city: "Aydın", lat: 37.8680, lng: 27.2620 },
   { id: "gym_can_merkez", name: "17 Burda MACFit", district: "Merkez", city: "Çanakkale", lat: 40.1380, lng: 26.4180 }
@@ -629,15 +637,69 @@ for (let k = 0; k < 100; k++) {
   communityAthletes200.push(maleAthletes[k]);
 }
 
-// 4. Localized Community Stories (Key fitness moments across Istanbul, Ankara, İzmir, Antalya, Bursa, Eskişehir)
+// 4. Localized Community Stories (Key fitness moments across Tekirdağ Çorlu, Istanbul, Ankara, İzmir, Antalya, Bursa, Eskişehir)
 const localizedCommunityStories = [
   {
-    id: "story_ist_1",
+    id: "story_cor_1",
     userId: femaleAthletes[0].id,
     userName: femaleAthletes[0].name,
     userInitials: femaleAthletes[0].initials,
     userAvatar: femaleAthletes[0].photos[0],
     image: femaleAthletes[0].photos[1],
+    tag: "💪 Çorlu Bacak Günü PR",
+    caption: "Trend Arena MACFit'te yeni Squat PR: 110kg! Salondayız 🔥",
+    city: "Tekirdağ",
+    district: "Çorlu",
+    gymId: "gym_tek_corlu_trend",
+    gymName: "Trend Arena MACFit (Çorlu)",
+    distanceKm: 0.5,
+    timestamp: Date.now() - 1 * 3600 * 1000,
+    likesCount: 32,
+    viewed: false
+  },
+  {
+    id: "story_cor_2",
+    userId: maleAthletes[0].id,
+    userName: maleAthletes[0].name,
+    userInitials: maleAthletes[0].initials,
+    userAvatar: maleAthletes[0].photos[0],
+    image: maleAthletes[0].photos[1],
+    tag: "⚡ Bench Press 115kg",
+    caption: "Orion Sports'ta göğüs & kol bitti! Akşam seansı için partner arayanlar DM atsın 🏋️",
+    city: "Tekirdağ",
+    district: "Çorlu",
+    gymId: "gym_tek_corlu_orion",
+    gymName: "Orion Sports Center (Çorlu)",
+    distanceKm: 1.1,
+    timestamp: Date.now() - 2 * 3600 * 1000,
+    likesCount: 29,
+    viewed: false
+  },
+  {
+    id: "story_cor_3",
+    userId: femaleAthletes[1].id,
+    userName: femaleAthletes[1].name,
+    userInitials: femaleAthletes[1].initials,
+    userAvatar: femaleAthletes[1].photos[0],
+    image: femaleAthletes[1].photos[2],
+    tag: "🔥 Sabah Kardiyosu",
+    caption: "FitLife Çorlu'da tempolu koşu ve core seansı ✨",
+    city: "Tekirdağ",
+    district: "Çorlu",
+    gymId: "gym_tek_corlu_fitlife",
+    gymName: "Çorlu FitLife & Cross Club",
+    distanceKm: 2.3,
+    timestamp: Date.now() - 3 * 3600 * 1000,
+    likesCount: 44,
+    viewed: false
+  },
+  {
+    id: "story_ist_1",
+    userId: femaleAthletes[7].id,
+    userName: femaleAthletes[7].name,
+    userInitials: femaleAthletes[7].initials,
+    userAvatar: femaleAthletes[7].photos[0],
+    image: femaleAthletes[7].photos[1],
     tag: "💪 Bacak Günü PR",
     caption: "Yeni Squat PR: 105kg! Salondayız kızlar 🔥",
     city: "İstanbul",

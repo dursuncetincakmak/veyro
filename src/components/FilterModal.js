@@ -23,6 +23,7 @@ export function showFilterModal(currentFilters = {}, onApply, onClose) {
   // Filter state
   const state = {
     city: currentFilters.city || "all",
+    maxDistanceKm: currentFilters.maxDistanceKm || "35",
     timeSlot: currentFilters.timeSlot || "all", // all | morning | noon | evening | night
     gymId: currentFilters.gymId || "all",
     workoutType: currentFilters.workoutType || "all",
@@ -31,10 +32,18 @@ export function showFilterModal(currentFilters = {}, onApply, onClose) {
     gender: currentFilters.gender || "all"
   };
 
+  const distanceRadii = [
+    { id: "10", label: "10 km" },
+    { id: "25", label: "25 km" },
+    { id: "35", label: "35 km (Önerilen)" },
+    { id: "75", label: "75 km" },
+    { id: "all", label: "Tüm Türkiye" }
+  ];
+
   const majorCities = [
-    "all", "İstanbul", "Ankara", "İzmir", "Antalya", "Bursa", "Eskişehir",
+    "all", "Tekirdağ", "İstanbul", "Ankara", "İzmir", "Antalya", "Bursa", "Eskişehir",
     "Adana", "Konya", "Gaziantep", "Mersin", "Trabzon", "Samsun", "Kayseri",
-    "Muğla", "Kocaeli", "Sakarya", "Denizli", "Balıkesir", "Tekirdağ", "Diyarbakır", "Aydın", "Çanakkale"
+    "Muğla", "Kocaeli", "Sakarya", "Denizli", "Balıkesir", "Diyarbakır", "Aydın", "Çanakkale"
   ];
 
   const timeSlots = [
@@ -93,6 +102,41 @@ export function showFilterModal(currentFilters = {}, onApply, onClose) {
         </div>
 
         <div style="overflow-y: auto; max-height: calc(88vh - 140px); padding-right: 4px;">
+          <!-- 0. ŞEHİR / İL (TÜM TÜRKİYE) -->
+          <div style="margin-bottom: 16px;">
+            <label style="font-size: 13px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+              ${icons.pin(15)} <span>Şehir / İl</span>
+            </label>
+            <select id="select-filter-city" style="width: 100%; padding: 10px 14px; background: var(--bg-surface-elevated); border: 1.5px solid var(--border-glass); border-radius: 12px; color: #FFF; font-size: 13px; font-weight: 600; outline: none;">
+              <option value="all" ${state.city === 'all' ? 'selected' : ''}>Tüm Şehirler (Mesafe Öncelikli)</option>
+              ${majorCities.filter(c => c !== 'all').map(c => `
+                <option value="${c}" ${state.city === c ? 'selected' : ''}>${c}</option>
+              `).join('')}
+            </select>
+          </div>
+
+          <!-- 0.5 ARAMA YARIÇAPI / MESAFE SINIRI -->
+          <div style="margin-bottom: 16px;">
+            <label style="font-size: 13px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="6"></circle>
+              </svg>
+              <span>Arama Yarıçapı (Maksimum Mesafe)</span>
+            </label>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+              ${distanceRadii.map(r => `
+                <button type="button" class="filter-chip ${state.maxDistanceKm === r.id ? 'active' : ''}" data-type="maxDistanceKm" data-val="${r.id}"
+                  style="padding: 8px 12px; border-radius: 10px; font-size: 12px; font-weight: 700; cursor: pointer; border: 1.5px solid ${state.maxDistanceKm === r.id ? '#00E5FF' : 'var(--border-glass)'}; background: ${state.maxDistanceKm === r.id ? 'rgba(0,229,255,0.18)' : 'var(--bg-surface-elevated)'}; color: ${state.maxDistanceKm === r.id ? '#00E5FF' : '#FFF'};">
+                  ${r.label}
+                </button>
+              `).join('')}
+            </div>
+            <p style="font-size: 11px; color: var(--text-secondary); margin: 6px 0 0 2px;">
+              Belirlediğin yarıçap dışındaki uzak şehirler (örn. İzmir, Bursa) filtrelenir.
+            </p>
+          </div>
+
           <!-- 1. ZAMAN DİLİMİ -->
           <div style="margin-bottom: 16px;">
             <label style="font-size: 13px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
@@ -108,20 +152,7 @@ export function showFilterModal(currentFilters = {}, onApply, onClose) {
             </div>
           </div>
 
-          <!-- 0. ŞEHİR / İL (TÜM TÜRKİYE) -->
-          <div style="margin-bottom: 16px;">
-            <label style="font-size: 13px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
-              ${icons.pin(15)} <span>Şehir / İl</span>
-            </label>
-            <select id="select-filter-city" style="width: 100%; padding: 10px 14px; background: var(--bg-surface-elevated); border: 1.5px solid var(--border-glass); border-radius: 12px; color: #FFF; font-size: 13px; font-weight: 600; outline: none;">
-              <option value="all" ${state.city === 'all' ? 'selected' : ''}>Tüm Türkiye (En Yakından Uzağa)</option>
-              ${majorCities.filter(c => c !== 'all').map(c => `
-                <option value="${c}" ${state.city === c ? 'selected' : ''}>${c}</option>
-              `).join('')}
-            </select>
-          </div>
-
-          <!-- 1. SPOR SALONU -->
+          <!-- 2. SPOR SALONU -->
           <div style="margin-bottom: 16px;">
             <label style="font-size: 13px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
               ${icons.pin(15)} <span>Spor Salonu</span>
@@ -261,6 +292,7 @@ export function showFilterModal(currentFilters = {}, onApply, onClose) {
     // Reset filters
     document.getElementById("btn-reset-filters")?.addEventListener("click", () => {
       state.city = "all";
+      state.maxDistanceKm = "35";
       state.timeSlot = "all";
       state.gymId = "all";
       state.workoutType = "all";

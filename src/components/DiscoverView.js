@@ -15,6 +15,7 @@ import { notify } from '../services/notification.js';
 import { soundService } from '../services/soundService.js';
 import { showPlanWorkoutModal } from './PlanWorkoutModal.js';
 import { showFilterModal } from './FilterModal.js';
+import { showLocationModal } from './LocationModal.js';
 import { showStoryCreatorModal } from './StoryCreatorModal.js';
 import { showStoryViewerModal } from './StoryViewerModal.js';
 import { calculateDistanceMeters, locationService } from '../services/location.js';
@@ -27,10 +28,12 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
   const allUsers = db.getCollection("users") || [];
   const allGyms = db.getCollection("gyms") || [];
 
-  // User reference coordinates (Kadıköy / Moda reference or device GPS)
-  const userCoords = (currentUser.lat && currentUser.lng)
-    ? { latitude: currentUser.lat, longitude: currentUser.lng }
-    : (locationService.currentCoords || { latitude: 40.9875, longitude: 29.0280 });
+  // Active Location state from LocationService (default: Çorlu, Tekirdağ)
+  let activeLocation = locationService.getActiveLocation();
+  let userCoords = {
+    latitude: activeLocation.lat,
+    longitude: activeLocation.lng
+  };
 
   // State
   let mode = "deck"; // 'deck' (Sporcu Kartları) | 'feed' (Liste Akışı)
@@ -39,9 +42,10 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
   // Collapsible workout planning banner (defaults to collapsed so athlete card fits on mobile screen)
   let isPlanBannerCollapsed = localStorage.getItem("veyro_plan_collapsed") !== "false";
 
-  // Multi-dimensional filters
+  // Multi-dimensional filters (Default radius: 35 km so Çorlu users see Çorlu, Süleymanpaşa, Çerkezköy)
   let filters = {
     city: "all",
+    maxDistanceKm: "35",
     timeSlot: "all",
     gymId: currentUser.gymId || "all",
     workoutType: "all",
@@ -50,9 +54,21 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
     gender: "all"
   };
 
+  // Subscribe to location updates
+  const unsubscribeLocation = locationService.subscribe((newLoc, newCoords) => {
+    activeLocation = newLoc;
+    userCoords = {
+      latitude: newLoc.lat,
+      longitude: newLoc.lng
+    };
+    activeIndex = 0;
+    render();
+  });
+
   function getActiveFilterCount() {
     let count = 0;
     if (filters.city && filters.city !== "all") count++;
+    if (filters.maxDistanceKm && filters.maxDistanceKm !== "35") count++;
     if (filters.timeSlot !== "all") count++;
     if (filters.gymId !== "all" && filters.gymId !== currentUser.gymId) count++;
     if (filters.workoutType !== "all") count++;
@@ -82,7 +98,8 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
       }
     });
 
-    return allUsers.filter(user => {
+    // 1. Initial attribute filtering
+    const filtered = allUsers.filter(user => {
       // Don't show current logged in user in their own discovery deck
       if (user.id === currentUser.id) return false;
 
@@ -134,14 +151,14 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
       return true;
     });
 
-    // Compute real GPS distances (km / m) and sort athletes nearest first
-    return filtered.map(ath => {
+    // 2. Compute exact Haversine distances based on active location coordinates
+    const mapped = filtered.map(ath => {
       let athleteLat = ath.lat;
       let athleteLng = ath.lng;
       if (!athleteLat || !athleteLng) {
         const matchedGym = allGyms.find(g => g.id === ath.gymId);
-        athleteLat = matchedGym?.lat || 40.9880;
-        athleteLng = matchedGym?.lng || 29.0290;
+        athleteLat = matchedGym?.lat || activeLocation.lat;
+        athleteLng = matchedGym?.lng || activeLocation.lng;
       }
       const distMeters = calculateDistanceMeters(
         userCoords.latitude,
@@ -161,7 +178,17 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
         distanceKm: parseFloat(rawKm.toFixed(1)),
         distanceText: distText
       };
-    }).sort((a, b) => (a.distanceMeters || 0) - (b.distanceMeters || 0));
+    });
+
+    // 3. Apply Proximity Radius Threshold (Yarıçap Sınırı: 10km, 25km, 35km, 75km, all)
+    let radiusFiltered = mapped;
+    if (filters.maxDistanceKm && filters.maxDistanceKm !== "all") {
+      const maxKm = parseFloat(filters.maxDistanceKm);
+      radiusFiltered = mapped.filter(ath => ath.distanceKm <= maxKm);
+    }
+
+    // 4. Sort strictly nearest first
+    return radiusFiltered.sort((a, b) => (a.distanceMeters || 0) - (b.distanceMeters || 0));
   }
 
   function render() {
@@ -175,13 +202,36 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
 
     container.innerHTML = `
       <div class="discover-page fade-in">
-        <!-- 0. ATHLETE STORIES TRAY (24H WORKOUT MOMENTS) -->
+        <!-- 0. ACTIVE LOCATION & PROXIMITY HEADER BAR (MAPS GEOLOCATION) -->
+        <div class="discover-location-strip" style="display: flex; align-items: center; justify-content: space-between; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border-glass); border-radius: 12px; padding: 7px 12px; margin-bottom: 12px;">
+          <button class="btn-ghost" id="btn-trigger-location-modal" style="padding: 0; display: inline-flex; align-items: center; gap: 7px; color: #FFF; font-size: 13px; font-weight: 800; cursor: pointer; text-align: left;" title="Konumu Değiştir veya GPS Konumunu Al">
+            <span class="live-pulse" style="width: 7px; height: 7px; background: #00E5FF; box-shadow: 0 0 8px #00E5FF; flex-shrink: 0;"></span>
+            <span style="color: #00E5FF; display: flex; flex-shrink: 0;">${icons.pin(13)}</span>
+            <span style="letter-spacing: -0.2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 170px;">
+              ${activeLocation.label || `${activeLocation.district}, ${activeLocation.city}`}
+            </span>
+            <span style="font-size: 10px; color: var(--text-secondary); margin-left: -2px;">▾</span>
+          </button>
+
+          <div style="display: flex; align-items: center; gap: 6px; flex-shrink: 0;">
+            <span style="font-size: 11px; color: var(--text-secondary); font-weight: 700;">Yarıçap:</span>
+            <select id="select-quick-radius-bar" style="background: rgba(0, 229, 255, 0.12); border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 8px; color: #00E5FF; font-size: 11px; font-weight: 800; padding: 3px 6px; outline: none; cursor: pointer;">
+              <option value="10" ${filters.maxDistanceKm === '10' ? 'selected' : ''}>10 km</option>
+              <option value="25" ${filters.maxDistanceKm === '25' ? 'selected' : ''}>25 km</option>
+              <option value="35" ${filters.maxDistanceKm === '35' ? 'selected' : ''}>35 km</option>
+              <option value="75" ${filters.maxDistanceKm === '75' ? 'selected' : ''}>75 km</option>
+              <option value="all" ${filters.maxDistanceKm === 'all' ? 'selected' : ''}>Tüm TR</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 1. ATHLETE STORIES TRAY (24H WORKOUT MOMENTS) -->
         ${renderStoriesTray()}
 
-        <!-- 1. USER'S OWN WORKOUT PLAN BANNER ("Ne zaman ve nerede spor yapacaksın?") -->
+        <!-- 2. USER'S OWN WORKOUT PLAN BANNER ("Ne zaman ve nerede spor yapacaksın?") -->
         ${renderMyWorkoutBanner(myPlan)}
 
-        <!-- 2. VIEW SWITCHER & FILTER BUTTON (SLEEK & SINGLE LINE) -->
+        <!-- 3. VIEW SWITCHER & FILTER BUTTON (SLEEK & SINGLE LINE) -->
         <div class="view-switcher-bar">
           <!-- Professional Terminology: Sporcu Kartları / Liste Akışı with Unified SVG Icons -->
           <div class="segmented-control">
@@ -210,7 +260,7 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
           </div>
         </div>
 
-        <!-- 3. CONTENT: CARDS OR FEED -->
+        <!-- 4. CONTENT: CARDS OR FEED -->
         ${mode === 'deck' ? renderAthleteDeck(athlete, athletes.length) : renderFeedList(athletes)}
       </div>
     `;
@@ -221,21 +271,21 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
   function renderStoriesTray() {
     const allStories = db.getStories();
     const userGymId = currentUser.gymId;
-    const userCity = currentUser.city || "İstanbul";
-    const userDistrict = currentUser.district || "Kadıköy";
+    const activeCity = activeLocation.city || "Tekirdağ";
+    const activeDistrict = activeLocation.district || "Çorlu";
 
-    // Strictly show stories from athletes in user's city/gym or within close proximity (<= 15.0 km)
+    // Strictly show stories from athletes in user's active city or within close proximity
     const localizedStories = allStories.filter(story => {
       // Current user's own story always visible
       if (story.userId === currentUser.id || story.userId === "current-user") return true;
       // Match active gym
       if (userGymId && userGymId !== "all" && story.gymId === userGymId) return true;
       // City match
-      if (story.city && story.city.toLowerCase() === userCity.toLowerCase()) return true;
-      // Proximity distance check
-      if (typeof story.distanceKm === "number" && story.distanceKm <= 15.0) return true;
+      if (story.city && story.city.toLowerCase() === activeCity.toLowerCase()) return true;
       // District / Neighborhood match
-      if (story.gymName && (story.gymName.includes(userDistrict) || story.gymName.includes("Kadıköy") || story.gymName.includes("Moda"))) return true;
+      if (story.gymName && (story.gymName.includes(activeDistrict) || story.gymName.includes(activeCity))) return true;
+      // Proximity distance check
+      if (typeof story.distanceKm === "number" && story.distanceKm <= 35.0) return true;
       return false;
     });
 
@@ -376,19 +426,31 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
 
   function renderAthleteDeck(athlete, totalCount) {
     if (!athlete || activeIndex >= totalCount) {
+      const locLabel = activeLocation.label || `${activeLocation.district}, ${activeLocation.city}`;
+      const radiusText = filters.maxDistanceKm !== 'all' ? `${filters.maxDistanceKm} km içinde` : 'tüm Türkiye’de';
+
       return `
         <div class="empty-athletes-card">
           <div style="color: var(--color-kor); margin-bottom: 12px; display: flex; justify-content: center;">${icons.dumbbell(48)}</div>
           <h3 style="font-size: 18px; font-weight: 800; color: #FFFFFF; margin-bottom: 6px;">
-            ${totalCount === 0 ? 'Bu Salonda Henüz Başka Sporcu Beklemiyor' : 'Çevrendeki Tüm Sporcuları İnceledin!'}
+            ${totalCount === 0 ? `${locLabel} Çevresinde Başka Sporcu Kalmadı` : 'Çevrendeki Tüm Sporcuları İnceledin!'}
           </h3>
           <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 22px;">
             ${totalCount === 0 
-              ? 'İlk antrenman çağrısını yukarıdan sen açabilirsin. Salondan arkadaşını davet et veya antrenman saatinde salondaki sporcularla eşleş.'
+              ? `${locLabel} konumunda ${radiusText} şu an bekleyen başka sporcu kalmadı. Yarıçapı genişleterek komşu ilçelerdeki sporcuları görebilir veya konumunu değiştirebilirsin.`
               : 'Yeni bir sporcu katıldığında veya salonda antrenman çağrısı açıldığında anında haberdar olacaksın.'}
           </p>
 
           <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+            ${filters.maxDistanceKm !== 'all' && totalCount === 0 ? `
+              <button class="btn-kor" id="btn-expand-radius" style="padding: 10px 18px; font-size: 13px; font-weight: 800; display: inline-flex; align-items: center; gap: 6px;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/></svg>
+                <span>Yarıçapı Genişlet (75 km)</span>
+              </button>
+            ` : ''}
+            <button class="btn-secondary" id="btn-open-location-empty" style="padding: 10px 18px; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px;">
+              ${icons.pin(14)} <span>Konumu Değiştir / GPS</span>
+            </button>
             ${totalCount > 0 ? `
               <button class="btn-kor" id="btn-deck-rewind" style="padding: 10px 18px; font-size: 13px; font-weight: 800; display: inline-flex; align-items: center; gap: 6px;">
                 ${icons.refresh(14)} <span>Kartları Baştan Gör</span>
@@ -402,7 +464,7 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
       `;
     }
 
-    const gym = allGyms.find(g => g.id === athlete.gymId) || { name: athlete.district || "Kadıköy", distanceMeters: athlete.distanceMeters || 850 };
+    const gym = allGyms.find(g => g.id === athlete.gymId) || { name: athlete.district || "Spor Salonu", distanceMeters: athlete.distanceMeters || 850 };
     const distText = athlete.distanceText || (gym.distanceText || (gym.distanceMeters ? `${gym.distanceMeters} m` : '1.1 km'));
     const athletePhotos = (Array.isArray(athlete.photos) && athlete.photos.length > 0)
       ? athlete.photos
@@ -419,7 +481,7 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
               Şimdi Salonda
             </span>
             <span class="tinder-distance-badge" style="display: inline-flex; align-items: center; gap: 4px; font-weight: 700; color: #FFF; background: rgba(0, 229, 255, 0.14); border: 1px solid rgba(0, 229, 255, 0.35); padding: 3px 8px; border-radius: 6px;">
-              ${icons.pin(11)} <strong style="color: #00E5FF;">${distText}</strong> · ${gym.name.split(' ')[0]} (${athlete.city || gym.city || 'TR'})
+              ${icons.pin(11)} <strong style="color: #00E5FF;">${distText}</strong> · ${athlete.district || gym.district || 'Çorlu'} (${athlete.city || gym.city || 'Tekirdağ'})
             </span>
           </div>
 
@@ -679,9 +741,43 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
       render();
     });
 
+    // Location Header Bar Trigger (Canlı Harita & İlçe Seçici)
+    document.getElementById("btn-trigger-location-modal")?.addEventListener("click", () => {
+      showLocationModal(filters.maxDistanceKm, (newRadius) => {
+        filters.maxDistanceKm = newRadius;
+        activeIndex = 0;
+        render();
+      });
+    });
+
+    // Empty state location button
+    document.getElementById("btn-open-location-empty")?.addEventListener("click", () => {
+      showLocationModal(filters.maxDistanceKm, (newRadius) => {
+        filters.maxDistanceKm = newRadius;
+        activeIndex = 0;
+        render();
+      });
+    });
+
+    // Quick Radius Selector Bar Change
+    document.getElementById("select-quick-radius-bar")?.addEventListener("change", (e) => {
+      filters.maxDistanceKm = e.target.value;
+      activeIndex = 0;
+      render();
+    });
+
+    // Expand Radius button from empty state
+    document.getElementById("btn-expand-radius")?.addEventListener("click", () => {
+      filters.maxDistanceKm = "75";
+      activeIndex = 0;
+      render();
+    });
+
     // Clear Filters
     document.getElementById("btn-clear-filters")?.addEventListener("click", () => {
       filters = {
+        city: "all",
+        maxDistanceKm: "35",
         timeSlot: "all",
         gymId: currentUser.gymId || "all",
         workoutType: "all",
