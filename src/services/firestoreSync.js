@@ -7,9 +7,16 @@
 
 import { getFirebaseConfig } from './firebaseConfig.js';
 
+const COOLDOWN_KEY = 'veyro_firestore_cooldown';
 let rateLimitCooldownUntil = 0;
 
 export function isFirestoreRateLimited() {
+  try {
+    if (typeof window !== 'undefined') {
+      const stored = sessionStorage.getItem(COOLDOWN_KEY);
+      if (stored && Number(stored) > Date.now()) return true;
+    }
+  } catch (e) {}
   return Date.now() < rateLimitCooldownUntil;
 }
 
@@ -17,6 +24,11 @@ function handleFirestoreResponse(status) {
   if (status === 429 || status === 403) {
     // Cool down for 3 minutes on rate limit or project quota reached
     rateLimitCooldownUntil = Date.now() + 180000;
+    try {
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem(COOLDOWN_KEY, String(rateLimitCooldownUntil));
+      }
+    } catch (e) {}
     console.warn(`[FirestoreSync] Cloud quota/rate limit reached (status ${status}). Cloud sync paused for 3 minutes. Local real-time sync active.`);
     return false;
   }

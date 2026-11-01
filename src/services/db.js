@@ -16,6 +16,12 @@ export function getChatRoomKey(user1Id, user2Id) {
   const ids = [user1Id || "u1", user2Id || "u2"].sort();
   return `chat_${ids[0]}--${ids[1]}`;
 }
+
+export function isLocalSyncServerAvailable() {
+  if (typeof window === "undefined") return false;
+  const host = window.location.hostname;
+  return host === "localhost" || host === "127.0.0.1" || host.startsWith("192.168.") || host.startsWith("10.");
+}
 // Zero Hardcoded Gyms Policy: Gyms are listed directly from Maps API based on user GPS
 const INITIAL_GYMS = [];
 
@@ -335,10 +341,11 @@ class DatabaseEngine {
           if ((!realUsersOnly[idx].photos || realUsersOnly[idx].photos.length === 0) && ru.photos && ru.photos.length > 0) {
             realUsersOnly[idx].photos = ru.photos;
           }
-          if (ru.city && (!realUsersOnly[idx].city || realUsersOnly[idx].city === "all")) realUsersOnly[idx].city = ru.city;
-          if (ru.district && !realUsersOnly[idx].district) realUsersOnly[idx].district = ru.district;
-          if (ru.lat != null) realUsersOnly[idx].lat = realUsersOnly[idx].lat ?? ru.lat;
-          if (ru.lng != null) realUsersOnly[idx].lng = realUsersOnly[idx].lng ?? ru.lng;
+          if (ru.city) realUsersOnly[idx].city = ru.city;
+          if (ru.district) realUsersOnly[idx].district = ru.district;
+          if (ru.gymName) realUsersOnly[idx].gymName = ru.gymName;
+          if (ru.lat != null) realUsersOnly[idx].lat = ru.lat;
+          if (ru.lng != null) realUsersOnly[idx].lng = ru.lng;
         }
       });
     }
@@ -466,27 +473,33 @@ class DatabaseEngine {
         saveFirestoreDoc("users", newItem.id, newItem).catch(() => {});
       }
       if (collection === "appointments") {
-        fetch("/api/sync/appointments", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(newItem)
-        }).catch(() => {});
+        if (isLocalSyncServerAvailable()) {
+          fetch("/api/sync/appointments", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newItem)
+          }).catch(() => {});
+        }
         saveFirestoreDoc("appointments", newItem.id, newItem).catch(() => {});
       }
       if (collection === "reports") {
-        fetch("/api/sync/reports", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(newItem)
-        }).catch(() => {});
+        if (isLocalSyncServerAvailable()) {
+          fetch("/api/sync/reports", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newItem)
+          }).catch(() => {});
+        }
         saveFirestoreDoc("reports", newItem.id, newItem).catch(() => {});
       }
       if (collection === "deals") {
-        fetch("/api/sync/deals", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(newItem)
-        }).catch(() => {});
+        if (isLocalSyncServerAvailable()) {
+          fetch("/api/sync/deals", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newItem)
+          }).catch(() => {});
+        }
         saveFirestoreDoc("deals", newItem.id, newItem).catch(() => {});
       }
     }
@@ -540,7 +553,7 @@ class DatabaseEngine {
     if (idx >= 0) {
       users[idx] = { ...users[idx], isBanned: true, banReason: reason, bannedAt: Date.now() };
       this.setCollection("users", users);
-      if (typeof window !== "undefined") {
+      if (typeof window !== "undefined" && isLocalSyncServerAvailable()) {
         fetch("/api/sync/users", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -559,7 +572,7 @@ class DatabaseEngine {
       delete users[idx].banReason;
       delete users[idx].bannedAt;
       this.setCollection("users", users);
-      if (typeof window !== "undefined") {
+      if (typeof window !== "undefined" && isLocalSyncServerAvailable()) {
         fetch("/api/sync/users", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -617,29 +630,35 @@ class DatabaseEngine {
       }
 
       if (collection === "appointments" && typeof window !== "undefined") {
-        fetch("/api/sync/appointments", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(items[index])
-        }).catch(() => {});
+        if (isLocalSyncServerAvailable()) {
+          fetch("/api/sync/appointments", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(items[index])
+          }).catch(() => {});
+        }
         saveFirestoreDoc("appointments", id, items[index]).catch(() => {});
       }
 
       if (collection === "reports" && typeof window !== "undefined") {
-        fetch("/api/sync/reports", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(items[index])
-        }).catch(() => {});
+        if (isLocalSyncServerAvailable()) {
+          fetch("/api/sync/reports", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(items[index])
+          }).catch(() => {});
+        }
         saveFirestoreDoc("reports", id, items[index]).catch(() => {});
       }
 
       if (collection === "deals" && typeof window !== "undefined") {
-        fetch("/api/sync/deals", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(items[index])
-        }).catch(() => {});
+        if (isLocalSyncServerAvailable()) {
+          fetch("/api/sync/deals", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(items[index])
+          }).catch(() => {});
+        }
         saveFirestoreDoc("deals", id, items[index]).catch(() => {});
       }
 
@@ -666,6 +685,11 @@ class DatabaseEngine {
       try {
         await this.syncWithFirestore();
       } catch (e) {}
+    }
+
+    // Only query local Vite middleware /api/sync/ if on a local dev environment (localhost / 127.0.0.1)
+    if (!isLocalSyncServerAvailable()) {
+      return;
     }
 
     // 1. Sync Chats (Local Server / Dev Fallback)
@@ -1144,11 +1168,13 @@ class DatabaseEngine {
 
       // 3. Post to local server for other phones on Wi-Fi
       if (typeof window !== "undefined") {
-        fetch("/api/sync/chats", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ chatKey, message: newMsg })
-        }).catch(() => {});
+        if (isLocalSyncServerAvailable()) {
+          fetch("/api/sync/chats", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ chatKey, message: newMsg })
+          }).catch(() => {});
+        }
         // 4. Save to Google Cloud Firestore
         saveFirestoreDoc("chat_messages", newMsg.id, { ...newMsg, chatKey }).catch(() => {});
       }
@@ -1185,11 +1211,13 @@ class DatabaseEngine {
           }
 
           if (typeof window !== "undefined") {
-            fetch("/api/sync/chats", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ chatKey, message: msg, action: "update_status" })
-            }).catch(() => {});
+            if (isLocalSyncServerAvailable()) {
+              fetch("/api/sync/chats", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ chatKey, message: msg, action: "update_status" })
+              }).catch(() => {});
+            }
             saveFirestoreDoc("chat_messages", messageId, { ...msg, chatKey }).catch(() => {});
           }
           return msg;
@@ -1281,7 +1309,7 @@ class DatabaseEngine {
             } catch (e) {}
           }
 
-          if (typeof window !== "undefined") {
+          if (typeof window !== "undefined" && isLocalSyncServerAvailable()) {
             fetch("/api/sync/chats", {
               method: "POST",
               headers: { "Content-Type": "application/json" },

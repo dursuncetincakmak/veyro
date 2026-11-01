@@ -5,7 +5,7 @@
  * Zero mock users: Starts in authentic unauthenticated state until user registers or signs in.
  */
 
-import { db } from './db.js';
+import { db, isLocalSyncServerAvailable } from './db.js';
 import { REAL_REGISTERED_USERS } from './seedUsers.js';
 import { saveFirestoreDoc } from './firestoreSync.js';
 import { signOutFromFirebase } from './firebaseAuth.js';
@@ -193,11 +193,13 @@ class AuthService {
 
     // Sync user with local network server and preview store
     if (typeof window !== "undefined") {
-      fetch("/api/sync/users", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updated)
-      }).catch(() => {});
+      if (isLocalSyncServerAvailable()) {
+        fetch("/api/sync/users", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updated)
+        }).catch(() => {});
+      }
       saveFirestoreDoc("users", updated.id, updated).catch(() => {});
     }
 
@@ -241,11 +243,13 @@ class AuthService {
 
     // Sync with local network server and Firestore Cloud
     if (typeof window !== "undefined") {
-      fetch("/api/sync/users", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newUser)
-      }).catch(() => {});
+      if (isLocalSyncServerAvailable()) {
+        fetch("/api/sync/users", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newUser)
+        }).catch(() => {});
+      }
       saveFirestoreDoc("users", newUser.id, newUser).catch(() => {});
     }
 

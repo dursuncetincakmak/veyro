@@ -521,8 +521,12 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
       `;
     }
 
-    const gym = allGyms.find(g => g.id === athlete.gymId) || { name: athlete.district || athlete.gymName || "Spor Salonu", distanceMeters: athlete.distanceMeters || 850 };
-    const distText = athlete.distanceText || (gym.distanceText || (gym.distanceMeters ? `${gym.distanceMeters} m` : '1.1 km'));
+    const matchedGym = allGyms.find(g => g.id === athlete.gymId);
+    const gymName = athlete.gymName || matchedGym?.name || athlete.nextWorkout?.gymName || "Spartan Fitness Center";
+    const gymDistrict = athlete.district || matchedGym?.district || activeLocation.district || "Çorlu";
+    const gymCity = athlete.city || matchedGym?.city || activeLocation.city || "Tekirdağ";
+    const distText = athlete.distanceText || (matchedGym?.distanceText || (athlete.distanceMeters ? `${athlete.distanceMeters} m` : '450 m'));
+    const gymLabel = `${gymName} (${gymDistrict ? `${gymDistrict}, ` : ''}${gymCity})`;
     const athletePhotos = (Array.isArray(athlete.photos) && athlete.photos.length > 0)
       ? athlete.photos
       : (athlete.avatar ? [athlete.avatar] : []);
@@ -538,7 +542,7 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
               Şimdi Salonda
             </span>
             <span class="tinder-distance-badge" style="display: inline-flex; align-items: center; gap: 4px; font-weight: 700; color: #FFF; background: rgba(0, 229, 255, 0.14); border: 1px solid rgba(0, 229, 255, 0.35); padding: 3px 8px; border-radius: 6px;">
-              ${icons.pin(11)} <strong style="color: #00E5FF;">${distText}</strong> · ${athlete.district || gym.district || 'Çorlu'} (${athlete.city || gym.city || activeLocation.city || 'Tekirdağ'})
+              ${icons.pin(11)} <strong style="color: #00E5FF;">${distText}</strong> · ${gymDistrict} (${gymCity})
             </span>
           </div>
 
@@ -562,7 +566,7 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
                 </svg>
               ` : ''}
             </div>
-            <div class="tinder-athlete-gym">${gym.name} (${athlete.district ? `${athlete.district}, ` : ''}${athlete.city || gym.city || activeLocation.city || 'Tekirdağ'})</div>
+            <div class="tinder-athlete-gym">${gymLabel}</div>
           </div>
 
           <!-- Activity Spotlight Box -->
@@ -664,10 +668,12 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
     return `
       <div class="members-feed">
         ${athletes.map(member => {
-          const gym = allGyms.find(g => g.id === member.gymId);
-          const gymName = gym ? gym.name : (member.district ? member.district : (member.gymName || "Spor Salonu"));
-          const locationCity = member.city || gym?.city || (activeLocation.city || 'Tekirdağ');
-          const distText = member.distanceText || (member.distanceMeters ? `${member.distanceMeters} m` : '1.2 km');
+          const matchedGym = allGyms.find(g => g.id === member.gymId);
+          const gymName = member.gymName || matchedGym?.name || member.nextWorkout?.gymName || "Spartan Fitness Center";
+          const gymDistrict = member.district || matchedGym?.district || "";
+          const locationCity = member.city || matchedGym?.city || (activeLocation.city || 'Tekirdağ');
+          const distText = member.distanceText || (member.distanceMeters ? `${member.distanceMeters} m` : '450 m');
+          const feedGymLabel = `${gymName} (${gymDistrict ? `${gymDistrict}, ` : ''}${locationCity})`;
           return `
             <div class="member-card" data-user-id="${member.id}">
               <div class="member-card-header">
@@ -690,7 +696,7 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
                       <span class="feed-dist-badge" style="font-size: 10.5px; font-weight: 800; color: #00E5FF; background: rgba(0, 229, 255, 0.12); border: 1px solid rgba(0, 229, 255, 0.28); padding: 1px 6px; border-radius: 4px; display: inline-flex; align-items: center; gap: 3px;">
                         ${icons.pin(10)} ${distText}
                       </span>
-                      <span>${gymName} (${locationCity})</span>
+                      <span>${feedGymLabel}</span>
                     </div>
                     <div class="member-tags">
                       <span class="member-tag-chip" style="color: var(--color-kor);">${member.level || 'Orta'}</span>
