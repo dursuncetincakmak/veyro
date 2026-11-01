@@ -129,7 +129,7 @@ assert(planWorkoutContent.includes("showPlanWorkoutModal") && planWorkoutContent
 const filterModalPath = path.join(ROOT, 'src', 'components', 'FilterModal.js');
 assert(fs.existsSync(filterModalPath), "Çok boyutlu antrenman ve sporcu filtreleme modalı mevcut");
 const filterModalContent = fs.readFileSync(filterModalPath, 'utf-8');
-assert(filterModalContent.includes("timeSlots") && filterModalContent.includes("showFilterModal"), "Zaman dilimi, salon, hedef ve seviye filtreleme motoru aktif");
+assert(filterModalContent.includes("timeSlots") && filterModalContent.includes("showFilterModal") && filterModalContent.includes("select-filter-city"), "Zaman dilimi, Türkiye geneli Şehir/İl seçici, salon, hedef ve seviye filtreleme motoru aktif");
 
 const discoverPath = path.join(ROOT, 'src', 'components', 'DiscoverView.js');
 const discoverContent = fs.readFileSync(discoverPath, 'utf-8');

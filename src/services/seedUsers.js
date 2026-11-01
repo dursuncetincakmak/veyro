@@ -45,7 +45,7 @@ export const REAL_REGISTERED_USERS = [
     "id": "usr_1793279618857",
     "role": "user",
     "createdAt": 1793279618857,
-    "lastLoginAt": 1793481149140,
+    "lastLoginAt": 1793522459661,
     "updatedAt": 1793480860288,
     "bio": "",
     "photos": [

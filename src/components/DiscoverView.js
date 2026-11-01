@@ -41,6 +41,7 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
 
   // Multi-dimensional filters
   let filters = {
+    city: "all",
     timeSlot: "all",
     gymId: currentUser.gymId || "all",
     workoutType: "all",
@@ -51,6 +52,7 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
 
   function getActiveFilterCount() {
     let count = 0;
+    if (filters.city && filters.city !== "all") count++;
     if (filters.timeSlot !== "all") count++;
     if (filters.gymId !== "all" && filters.gymId !== currentUser.gymId) count++;
     if (filters.workoutType !== "all") count++;
@@ -91,13 +93,17 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
       // Never show athletes who have already been matched or invited
       if (matchedPartnerIds.has(user.id)) return false;
 
+      // Filter by city / province if specified
+      if (filters.city && filters.city !== "all") {
+        if (user.city && user.city.toLowerCase() !== filters.city.toLowerCase()) return false;
+      }
+
       // Filter by gym if specified
       if (filters.gymId !== "all") {
         if (user.gymId !== filters.gymId) return false;
       } else if (!isAllGyms && user.gymId !== currentUser.gymId) {
         return false;
       }
-
 
       // Detailed filters
       if (filters.workoutType !== "all") {
@@ -143,12 +149,16 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
         athleteLat,
         athleteLng
       );
-      const distKm = (distMeters / 1000).toFixed(1);
-      const distText = distMeters < 1000 ? `${distMeters} m` : `${distKm} km`;
+      const rawKm = distMeters / 1000;
+      const distText = distMeters < 1000 
+        ? `${distMeters} m` 
+        : rawKm < 10 
+        ? `${rawKm.toFixed(1)} km` 
+        : `${Math.round(rawKm)} km`;
       return {
         ...ath,
         distanceMeters: distMeters,
-        distanceKm: parseFloat(distKm),
+        distanceKm: parseFloat(rawKm.toFixed(1)),
         distanceText: distText
       };
     }).sort((a, b) => (a.distanceMeters || 0) - (b.distanceMeters || 0));
@@ -211,16 +221,19 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
   function renderStoriesTray() {
     const allStories = db.getStories();
     const userGymId = currentUser.gymId;
+    const userCity = currentUser.city || "İstanbul";
     const userDistrict = currentUser.district || "Kadıköy";
 
-    // Strictly show stories from athletes in user's gym or within close proximity (<= 5.0 km)
+    // Strictly show stories from athletes in user's city/gym or within close proximity (<= 15.0 km)
     const localizedStories = allStories.filter(story => {
       // Current user's own story always visible
       if (story.userId === currentUser.id || story.userId === "current-user") return true;
       // Match active gym
       if (userGymId && userGymId !== "all" && story.gymId === userGymId) return true;
+      // City match
+      if (story.city && story.city.toLowerCase() === userCity.toLowerCase()) return true;
       // Proximity distance check
-      if (typeof story.distanceKm === "number" && story.distanceKm <= 5.0) return true;
+      if (typeof story.distanceKm === "number" && story.distanceKm <= 15.0) return true;
       // District / Neighborhood match
       if (story.gymName && (story.gymName.includes(userDistrict) || story.gymName.includes("Kadıköy") || story.gymName.includes("Moda"))) return true;
       return false;
@@ -406,7 +419,7 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
               Şimdi Salonda
             </span>
             <span class="tinder-distance-badge" style="display: inline-flex; align-items: center; gap: 4px; font-weight: 700; color: #FFF; background: rgba(0, 229, 255, 0.14); border: 1px solid rgba(0, 229, 255, 0.35); padding: 3px 8px; border-radius: 6px;">
-              ${icons.pin(11)} <strong style="color: #00E5FF;">${distText}</strong> · ${gym.name.split(' ')[0]}
+              ${icons.pin(11)} <strong style="color: #00E5FF;">${distText}</strong> · ${gym.name.split(' ')[0]} (${athlete.city || gym.city || 'TR'})
             </span>
           </div>
 
@@ -430,7 +443,7 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
                 </svg>
               ` : ''}
             </div>
-            <div class="tinder-athlete-gym">${gym.name} (${gym.district || 'İstanbul'})</div>
+            <div class="tinder-athlete-gym">${gym.name} (${athlete.district ? `${athlete.district}, ` : ''}${athlete.city || gym.city || 'İstanbul'})</div>
           </div>
 
           <!-- Activity Spotlight Box -->
@@ -556,7 +569,7 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
                       <span class="feed-dist-badge" style="font-size: 10.5px; font-weight: 800; color: #00E5FF; background: rgba(0, 229, 255, 0.12); border: 1px solid rgba(0, 229, 255, 0.28); padding: 1px 6px; border-radius: 4px; display: inline-flex; align-items: center; gap: 3px;">
                         ${icons.pin(10)} ${distText}
                       </span>
-                      <span>${gym.name}</span>
+                      <span>${gym.name} (${member.city || gym.city || 'İstanbul'})</span>
                     </div>
                     <div class="member-tags">
                       <span class="member-tag-chip" style="color: var(--color-kor);">${member.level || 'Orta'}</span>

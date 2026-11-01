@@ -1,8645 +1,8894 @@
 /**
- * Veyro - Hyper-Realistic Community Fitness Athletes Dataset (200 Profiles)
- * 100 Female & 100 Male Turkish fitness athletes with genuine bios, multiple photos,
- * realistic gyms, geographic coordinates, workout plans, and localized stories.
+ * Veyro - 200 Authentic Community Athlete Profiles & Nationwide Localized Stories
+ * Realistic Turkish athletes spanning Turkey's major cities (İstanbul, Ankara, İzmir, Antalya, Bursa, Eskişehir, Adana, Trabzon, Muğla...)
+ * Zero repetition: Distinct portraits, varied real workout action photos, and authentic fitness bios.
  */
+
+export const TURKEY_GYMS_CATALOG = [
+  {
+    "id": "gym_ist_kadikoy",
+    "name": "MACFit Kadıköy",
+    "district": "Kadıköy",
+    "city": "İstanbul",
+    "lat": 40.9902,
+    "lng": 29.0298
+  },
+  {
+    "id": "gym_ist_moda",
+    "name": "PowerGym Moda",
+    "district": "Moda",
+    "city": "İstanbul",
+    "lat": 40.985,
+    "lng": 29.025
+  },
+  {
+    "id": "gym_ist_cadde",
+    "name": "PlusFitness Caddebostan",
+    "district": "Caddebostan",
+    "city": "İstanbul",
+    "lat": 40.968,
+    "lng": 29.062
+  },
+  {
+    "id": "gym_ist_atasehir",
+    "name": "FitCity Ataşehir",
+    "district": "Ataşehir",
+    "city": "İstanbul",
+    "lat": 40.992,
+    "lng": 29.115
+  },
+  {
+    "id": "gym_ist_uskudar",
+    "name": "Üsküdar GymClub",
+    "district": "Üsküdar",
+    "city": "İstanbul",
+    "lat": 41.026,
+    "lng": 29.018
+  },
+  {
+    "id": "gym_ist_maltepe",
+    "name": "Hilltown MACFit",
+    "district": "Maltepe",
+    "city": "İstanbul",
+    "lat": 40.932,
+    "lng": 29.135
+  },
+  {
+    "id": "gym_ist_pendik",
+    "name": "Viaport MACFit",
+    "district": "Pendik",
+    "city": "İstanbul",
+    "lat": 40.88,
+    "lng": 29.23
+  },
+  {
+    "id": "gym_ist_besiktas",
+    "name": "MACFit Beşiktaş",
+    "district": "Beşiktaş",
+    "city": "İstanbul",
+    "lat": 41.042,
+    "lng": 29.006
+  },
+  {
+    "id": "gym_ist_sisli",
+    "name": "MAC Kanyon",
+    "district": "Şişli",
+    "city": "İstanbul",
+    "lat": 41.078,
+    "lng": 29.011
+  },
+  {
+    "id": "gym_ist_bakirkoy",
+    "name": "Galleria Sports Club",
+    "district": "Bakırköy",
+    "city": "İstanbul",
+    "lat": 40.976,
+    "lng": 28.872
+  },
+  {
+    "id": "gym_ist_sariyer",
+    "name": "Vadi İstanbul MACFit",
+    "district": "Sarıyer",
+    "city": "İstanbul",
+    "lat": 41.108,
+    "lng": 28.988
+  },
+  {
+    "id": "gym_ist_beylikduzu",
+    "name": "Torium Sports Center",
+    "district": "Beylikdüzü",
+    "city": "İstanbul",
+    "lat": 41.002,
+    "lng": 28.685
+  },
+  {
+    "id": "gym_ank_tunali",
+    "name": "MACFit Tunalı Hilmi",
+    "district": "Çankaya",
+    "city": "Ankara",
+    "lat": 39.905,
+    "lng": 32.86
+  },
+  {
+    "id": "gym_ank_panora",
+    "name": "Panora MAC",
+    "district": "Çankaya",
+    "city": "Ankara",
+    "lat": 39.852,
+    "lng": 32.836
+  },
+  {
+    "id": "gym_ank_cayyolu",
+    "name": "Arcadium MACFit",
+    "district": "Çayyolu",
+    "city": "Ankara",
+    "lat": 39.888,
+    "lng": 32.702
+  },
+  {
+    "id": "gym_ank_kizilay",
+    "name": "Kızılay PowerGym",
+    "district": "Kızılay",
+    "city": "Ankara",
+    "lat": 39.921,
+    "lng": 32.854
+  },
+  {
+    "id": "gym_ank_batikent",
+    "name": "Atlantis MACFit",
+    "district": "Batıkent",
+    "city": "Ankara",
+    "lat": 39.97,
+    "lng": 32.748
+  },
+  {
+    "id": "gym_ank_bilkent",
+    "name": "Sports International Bilkent",
+    "district": "Bilkent",
+    "city": "Ankara",
+    "lat": 39.871,
+    "lng": 32.753
+  },
+  {
+    "id": "gym_ank_kecioren",
+    "name": "Antares MACFit",
+    "district": "Keçiören",
+    "city": "Ankara",
+    "lat": 39.967,
+    "lng": 32.822
+  },
+  {
+    "id": "gym_izm_alsancak",
+    "name": "MACFit Alsancak",
+    "district": "Alsancak",
+    "city": "İzmir",
+    "lat": 38.438,
+    "lng": 27.142
+  },
+  {
+    "id": "gym_izm_mavibahce",
+    "name": "MaviBahçe MACFit",
+    "district": "Karşıyaka",
+    "city": "İzmir",
+    "lat": 38.462,
+    "lng": 27.098
+  },
+  {
+    "id": "gym_izm_bornova",
+    "name": "Forum Bornova MACFit",
+    "district": "Bornova",
+    "city": "İzmir",
+    "lat": 38.455,
+    "lng": 27.218
+  },
+  {
+    "id": "gym_izm_bostanli",
+    "name": "Bostanlı FitClub",
+    "district": "Bostanlı",
+    "city": "İzmir",
+    "lat": 38.457,
+    "lng": 27.102
+  },
+  {
+    "id": "gym_izm_goztepe",
+    "name": "Göztepe Sahil Gym",
+    "district": "Göztepe",
+    "city": "İzmir",
+    "lat": 38.398,
+    "lng": 27.092
+  },
+  {
+    "id": "gym_izm_balcova",
+    "name": "Agora MACFit",
+    "district": "Balçova",
+    "city": "İzmir",
+    "lat": 38.392,
+    "lng": 27.051
+  },
+  {
+    "id": "gym_izm_urla",
+    "name": "Urla Surf & Fitness",
+    "district": "Urla",
+    "city": "İzmir",
+    "lat": 38.322,
+    "lng": 26.765
+  },
+  {
+    "id": "gym_ant_muratpasa",
+    "name": "TerraCity MACFit",
+    "district": "Muratpaşa",
+    "city": "Antalya",
+    "lat": 36.852,
+    "lng": 30.754
+  },
+  {
+    "id": "gym_ant_konyaalti",
+    "name": "Konyaaltı Beach Gym",
+    "district": "Konyaaltı",
+    "city": "Antalya",
+    "lat": 36.878,
+    "lng": 30.645
+  },
+  {
+    "id": "gym_ant_lara",
+    "name": "Lara PlusFitness",
+    "district": "Lara",
+    "city": "Antalya",
+    "lat": 36.858,
+    "lng": 30.789
+  },
+  {
+    "id": "gym_ant_alanya",
+    "name": "Alanya Cleopatra Fitness",
+    "district": "Alanya",
+    "city": "Antalya",
+    "lat": 36.544,
+    "lng": 31.986
+  },
+  {
+    "id": "gym_bur_nilufer",
+    "name": "Sur Yapı Marka MACFit",
+    "district": "Nilüfer",
+    "city": "Bursa",
+    "lat": 40.211,
+    "lng": 28.986
+  },
+  {
+    "id": "gym_bur_ozluce",
+    "name": "Özlüce FitClub",
+    "district": "Özlüce",
+    "city": "Bursa",
+    "lat": 40.224,
+    "lng": 28.921
+  },
+  {
+    "id": "gym_bur_podyum",
+    "name": "PodyumPark Sports Club",
+    "district": "Nilüfer",
+    "city": "Bursa",
+    "lat": 40.218,
+    "lng": 28.968
+  },
+  {
+    "id": "gym_bur_osmangazi",
+    "name": "Zafer Plaza Fitness",
+    "district": "Osmangazi",
+    "city": "Bursa",
+    "lat": 40.188,
+    "lng": 29.061
+  },
+  {
+    "id": "gym_esk_tepebasi",
+    "name": "Espark MACFit",
+    "district": "Tepebaşı",
+    "city": "Eskişehir",
+    "lat": 39.782,
+    "lng": 30.509
+  },
+  {
+    "id": "gym_esk_cassaba",
+    "name": "Cassaba Modern Fitness",
+    "district": "Tepebaşı",
+    "city": "Eskişehir",
+    "lat": 39.789,
+    "lng": 30.498
+  },
+  {
+    "id": "gym_esk_odunpazari",
+    "name": "Odunpazarı FitLife",
+    "district": "Odunpazarı",
+    "city": "Eskişehir",
+    "lat": 39.761,
+    "lng": 30.526
+  },
+  {
+    "id": "gym_ada_cukurova",
+    "name": "M1 Adana MACFit",
+    "district": "Çukurova",
+    "city": "Adana",
+    "lat": 37.032,
+    "lng": 35.265
+  },
+  {
+    "id": "gym_ada_barajyolu",
+    "name": "Turgut Özal FitLife",
+    "district": "Çukurova",
+    "city": "Adana",
+    "lat": 37.038,
+    "lng": 35.302
+  },
+  {
+    "id": "gym_mer_yenisehir",
+    "name": "Forum Mersin MACFit",
+    "district": "Yenişehir",
+    "city": "Mersin",
+    "lat": 36.786,
+    "lng": 34.598
+  },
+  {
+    "id": "gym_mer_mezitli",
+    "name": "Marina Sports Club",
+    "district": "Mezitli",
+    "city": "Mersin",
+    "lat": 36.758,
+    "lng": 34.532
+  },
+  {
+    "id": "gym_tra_ortahisar",
+    "name": "Forum Trabzon MACFit",
+    "district": "Ortahisar",
+    "city": "Trabzon",
+    "lat": 40.998,
+    "lng": 39.758
+  },
+  {
+    "id": "gym_sam_atakum",
+    "name": "Atakum Sahil MACFit",
+    "district": "Atakum",
+    "city": "Samsun",
+    "lat": 41.328,
+    "lng": 36.312
+  },
+  {
+    "id": "gym_mug_bodrum",
+    "name": "Midtown MACFit Bodrum",
+    "district": "Bodrum",
+    "city": "Muğla",
+    "lat": 37.052,
+    "lng": 27.382
+  },
+  {
+    "id": "gym_mug_yalikavak",
+    "name": "Yalıkavak Marina Gym",
+    "district": "Yalıkavak",
+    "city": "Muğla",
+    "lat": 37.108,
+    "lng": 27.291
+  },
+  {
+    "id": "gym_mug_fethiye",
+    "name": "Fethiye Kordon Sports",
+    "district": "Fethiye",
+    "city": "Muğla",
+    "lat": 36.632,
+    "lng": 29.118
+  },
+  {
+    "id": "gym_kon_selcuklu",
+    "name": "Kule Site MACFit",
+    "district": "Selçuklu",
+    "city": "Konya",
+    "lat": 37.892,
+    "lng": 32.495
+  },
+  {
+    "id": "gym_gaz_sehitkamil",
+    "name": "Sanko Park MACFit",
+    "district": "Şehitkamil",
+    "city": "Gaziantep",
+    "lat": 37.072,
+    "lng": 37.362
+  },
+  {
+    "id": "gym_kay_melikgazi",
+    "name": "Kayseri Park MACFit",
+    "district": "Melikgazi",
+    "city": "Kayseri",
+    "lat": 38.728,
+    "lng": 35.508
+  },
+  {
+    "id": "gym_koc_izmit",
+    "name": "41 Burda MACFit",
+    "district": "İzmit",
+    "city": "Kocaeli",
+    "lat": 40.758,
+    "lng": 29.952
+  },
+  {
+    "id": "gym_sak_serdivan",
+    "name": "Agora Serdivan MACFit",
+    "district": "Serdivan",
+    "city": "Sakarya",
+    "lat": 40.768,
+    "lng": 30.368
+  },
+  {
+    "id": "gym_den_pamukkale",
+    "name": "Forum Çamlık MACFit",
+    "district": "Pamukkale",
+    "city": "Denizli",
+    "lat": 37.765,
+    "lng": 29.098
+  },
+  {
+    "id": "gym_bal_karesi",
+    "name": "Yaylada MACFit",
+    "district": "Karesi",
+    "city": "Balıkesir",
+    "lat": 39.658,
+    "lng": 27.892
+  },
+  {
+    "id": "gym_tek_corlu",
+    "name": "Trend Arena MACFit",
+    "district": "Çorlu",
+    "city": "Tekirdağ",
+    "lat": 41.162,
+    "lng": 27.812
+  },
+  {
+    "id": "gym_diy_kayapinar",
+    "name": "Ceylan Karavil MACFit",
+    "district": "Kayapınar",
+    "city": "Diyarbakır",
+    "lat": 37.938,
+    "lng": 40.182
+  },
+  {
+    "id": "gym_ayd_kusadasi",
+    "name": "Kuşadası Marina Fitness",
+    "district": "Kuşadası",
+    "city": "Aydın",
+    "lat": 37.868,
+    "lng": 27.262
+  },
+  {
+    "id": "gym_can_merkez",
+    "name": "17 Burda MACFit",
+    "district": "Merkez",
+    "city": "Çanakkale",
+    "lat": 40.138,
+    "lng": 26.418
+  }
+];
 
 export const COMMUNITY_ATHLETES_200 = [
   {
     "id": "ath_f_1000",
-    "name": "Ece Öztürk",
-    "initials": "EÖ",
-    "gender": "Kadın",
-    "age": 21,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 531 100 10 20",
-    "email": "ece.öztürk0@gmail.com",
-    "bio": "Haftada 4 gün ağırlık, 1 gün kardiyo. Birlikte motive olacak ve set aralarında spotterlık yapacak partner arıyorum 💪",
-    "goals": [
-      "Kas",
-      "Güç"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 40.9902,
-    "lng": 29.0478,
-    "distanceKm": 0.3,
-    "photos": [
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Bugün",
-      "time": "07:00",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
-    "onboarded": true,
-    "createdAt": 1793310129598,
-    "lastLoginAt": 1793482929598
-  },
-  {
-    "id": "ath_f_1001",
-    "name": "Zeynep Arslan",
-    "initials": "ZA",
-    "gender": "Kadın",
-    "age": 22,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 532 107 13 25",
-    "email": "zeynep.arslan1@gmail.com",
-    "bio": "Sabahları 07:00 seansları. Squat ve Hip Thrust odaklı çalışıyorum. Düzenli gelen arkadaşlar ekleyebilir ✨",
-    "goals": [
-      "Kondisyon",
-      "Kas"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Akşam",
-      "Öğle"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.997622,
-    "lng": 29.034725,
-    "distanceKm": 0.7,
-    "photos": [
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Bugün",
-      "time": "07:30",
-      "gymName": "PowerGym Moda",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
-    "onboarded": true,
-    "createdAt": 1793137329598,
-    "lastLoginAt": 1793479329598
-  },
-  {
-    "id": "ath_f_1002",
-    "name": "Sinem Aslan",
-    "initials": "SA",
-    "gender": "Kadın",
-    "age": 23,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 533 114 16 30",
-    "email": "sinem.aslan2@gmail.com",
-    "bio": "Pilates ve fonksiyonel fitness ile ilgileniyorum. Haftasonu koşu veya salonda partner iyi olur 🧘‍♀️",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.981639,
-    "lng": 29.054509,
-    "distanceKm": 2.5,
-    "photos": [
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Bugün",
-      "time": "08:00",
-      "gymName": "PlusFitness Caddebostan",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
-    "onboarded": true,
-    "createdAt": 1792964529598,
-    "lastLoginAt": 1793475729598
-  },
-  {
-    "id": "ath_f_1003",
-    "name": "İrem Koç",
-    "initials": "İK",
-    "gender": "Kadın",
-    "age": 24,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 534 121 19 35",
-    "email": "i̇rem.koç3@gmail.com",
-    "bio": "Kilo verme ve sıkılaşma dönemindeyim. Birlikte kardiyo ve HIIT yapacak motivasyon partneri arıyorum.",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 40.994117,
-    "lng": 29.09718,
-    "distanceKm": 4.7,
-    "photos": [
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Yarın",
-      "time": "12:30",
-      "gymName": "FitCity Ataşehir",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
-    "onboarded": true,
-    "createdAt": 1792791729598,
-    "lastLoginAt": 1793472129598
-  },
-  {
-    "id": "ath_f_1004",
-    "name": "Damla Şimşek",
-    "initials": "DŞ",
-    "gender": "Kadın",
-    "age": 25,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 535 128 22 40",
-    "email": "damla.şimşek4@gmail.com",
-    "bio": "MACFit Kadıköy müdavimiyim. Bacak günlerinde birbirimize destek olacak kız arkadaş arıyorum 🏋️‍♀️",
-    "goals": [
-      "Güç",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Gece"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.014648,
-    "lng": 29.006234,
-    "distanceKm": 4.5,
-    "photos": [
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Yarın",
-      "time": "13:00",
-      "gymName": "Üsküdar GymClub",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
-    "onboarded": true,
-    "createdAt": 1792618929598,
-    "lastLoginAt": 1793468529598
-  },
-  {
-    "id": "ath_f_1005",
-    "name": "Melisa Erdoğan",
-    "initials": "ME",
-    "gender": "Kadın",
-    "age": 26,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 536 135 25 45",
-    "email": "melisa.erdoğan5@gmail.com",
-    "bio": "Haftada 5 gün split antrenman. Disiplinli ve zamanında gelen partnerlerle çalışmayı seviyorum.",
-    "goals": [
-      "Kas",
-      "Kondisyon"
-    ],
-    "level": "Başlangıç",
-    "preferredTimes": [
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.027616,
-    "lng": 29.011106,
-    "distanceKm": 6.3,
-    "photos": [
-      "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Çarşamba",
-      "time": "18:00",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
-    "onboarded": true,
-    "createdAt": 1792446129598,
-    "lastLoginAt": 1793464929598
-  },
-  {
-    "id": "ath_f_1006",
-    "name": "Tuğba Tekin",
-    "initials": "TT",
-    "gender": "Kadın",
-    "age": 27,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 537 142 28 50",
-    "email": "tuğba.tekin6@gmail.com",
-    "bio": "Yeni başladım sayılır, form düzeltme ve temel hareketlerde motive olacak birini arıyorum 🌸",
-    "goals": [
-      "Kas",
-      "Güç"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Akşam",
-      "Öğle"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.927809,
-    "lng": 29.152283,
-    "distanceKm": 7.9,
-    "photos": [
-      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Perşembe",
-      "time": "18:30",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
-    "onboarded": true,
-    "createdAt": 1792273329598,
-    "lastLoginAt": 1793482929598
-  },
-  {
-    "id": "ath_f_1007",
-    "name": "Yasemin Avcı",
-    "initials": "YA",
-    "gender": "Kadın",
-    "age": 28,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 538 149 31 55",
-    "email": "yasemin.avcı7@gmail.com",
-    "bio": "Hypertrophy ve güç odaklı alt-üst vücut spliti yapıyorum. Karşılıklı yardımlaşma güzel olur.",
-    "goals": [
-      "Kondisyon",
-      "Kas"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 41.000055,
-    "lng": 29.04337,
-    "distanceKm": 1.6,
-    "photos": [
-      "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Cuma",
-      "time": "19:00",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
-    "onboarded": true,
-    "createdAt": 1792100529598,
-    "lastLoginAt": 1793479329598
-  },
-  {
-    "id": "ath_f_1008",
-    "name": "Elif Ünal",
-    "initials": "EÜ",
-    "gender": "Kadın",
-    "age": 29,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 539 156 34 60",
-    "email": "elif.ünal8@gmail.com",
-    "bio": "Crossfit ve fonksiyonel antrenmanlar vazgeçilmezim. Sabah enerjisiyle spora başlayanlar yazabilir ⚡",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.99984,
-    "lng": 29.022381,
-    "distanceKm": 1.9,
-    "photos": [
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Bugün",
-      "time": "19:30",
-      "gymName": "PowerGym Moda",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
-    "onboarded": true,
-    "createdAt": 1791927729598,
-    "lastLoginAt": 1793475729598
-  },
-  {
-    "id": "ath_f_1009",
-    "name": "Beril Can",
-    "initials": "BC",
-    "gender": "Kadın",
-    "age": 30,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 531 163 37 65",
-    "email": "beril.can9@gmail.com",
-    "bio": "Akşam iş çıkışı 19:30 seansları. Omuz ve sırt günlerinde süperset partneri.",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Gece"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.974182,
-    "lng": 29.0456,
-    "distanceKm": 3.7,
-    "photos": [
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Bugün",
-      "time": "20:00",
-      "gymName": "PlusFitness Caddebostan",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
-    "onboarded": true,
-    "createdAt": 1791754929598,
-    "lastLoginAt": 1793472129598
-  },
-  {
-    "id": "ath_f_1010",
-    "name": "Gizem Coşkun",
-    "initials": "GC",
-    "gender": "Kadın",
-    "age": 31,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 532 170 40 70",
-    "email": "gizem.coşkun10@gmail.com",
-    "bio": "Haftada 4 gün ağırlık, 1 gün kardiyo. Birlikte motive olacak ve set aralarında spotterlık yapacak partner arıyorum 💪",
-    "goals": [
-      "Güç",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 40.98384,
-    "lng": 29.099897,
-    "distanceKm": 6,
-    "photos": [
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Bugün",
-      "time": "20:30",
-      "gymName": "FitCity Ataşehir",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
-    "onboarded": true,
-    "createdAt": 1791582129598,
-    "lastLoginAt": 1793468529598
-  },
-  {
-    "id": "ath_f_1011",
-    "name": "Hazal Uçar",
-    "initials": "HU",
-    "gender": "Kadın",
-    "age": 32,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 533 177 43 75",
-    "email": "hazal.uçar11@gmail.com",
-    "bio": "Sabahları 07:00 seansları. Squat ve Hip Thrust odaklı çalışıyorum. Düzenli gelen arkadaşlar ekleyebilir ✨",
-    "goals": [
-      "Kas",
-      "Kondisyon"
-    ],
-    "level": "Başlangıç",
-    "preferredTimes": [
-      "Akşam",
-      "Öğle"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.011,
-    "lng": 29.01808,
-    "distanceKm": 5.8,
-    "photos": [
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Yarın",
-      "time": "21:00",
-      "gymName": "Üsküdar GymClub",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
-    "onboarded": true,
-    "createdAt": 1791409329598,
-    "lastLoginAt": 1793464929598
-  },
-  {
-    "id": "ath_f_1012",
-    "name": "Buse Soylu",
-    "initials": "BS",
-    "gender": "Kadın",
-    "age": 33,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 534 184 46 80",
-    "email": "buse.soylu12@gmail.com",
-    "bio": "Pilates ve fonksiyonel fitness ile ilgileniyorum. Haftasonu koşu veya salonda partner iyi olur 🧘‍♀️",
-    "goals": [
-      "Kas",
-      "Güç"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.033951,
-    "lng": 29.021189,
-    "distanceKm": 7.6,
-    "photos": [
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Yarın",
-      "time": "07:00",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
-    "onboarded": true,
-    "createdAt": 1791236529598,
-    "lastLoginAt": 1793482929598
-  },
-  {
-    "id": "ath_f_1013",
-    "name": "Cansu Kalkan",
-    "initials": "CK",
-    "gender": "Kadın",
-    "age": 21,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 535 191 49 85",
-    "email": "cansu.kalkan13@gmail.com",
-    "bio": "Kilo verme ve sıkılaşma dönemindeyim. Birlikte kardiyo ve HIIT yapacak motivasyon partneri arıyorum.",
-    "goals": [
-      "Kondisyon",
-      "Kas"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.938303,
-    "lng": 29.151334,
-    "distanceKm": 9.1,
-    "photos": [
-      "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Çarşamba",
-      "time": "07:30",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
-    "onboarded": true,
-    "createdAt": 1791063729598,
-    "lastLoginAt": 1793479329598
-  },
-  {
-    "id": "ath_f_1014",
-    "name": "Pelin Kartal",
-    "initials": "PK",
-    "gender": "Kadın",
-    "age": 22,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 536 198 52 90",
-    "email": "pelin.kartal14@gmail.com",
-    "bio": "MACFit Kadıköy müdavimiyim. Bacak günlerinde birbirimize destek olacak kız arkadaş arıyorum 🏋️‍♀️",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Gece"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 41.005059,
-    "lng": 29.032261,
-    "distanceKm": 2.8,
-    "photos": [
-      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Perşembe",
-      "time": "08:00",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
-    "onboarded": true,
-    "createdAt": 1790890929598,
-    "lastLoginAt": 1793475729598
-  },
-  {
-    "id": "ath_f_1015",
-    "name": "Derya Demir",
-    "initials": "DD",
-    "gender": "Kadın",
-    "age": 23,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 537 205 55 95",
-    "email": "derya.demir15@gmail.com",
-    "bio": "Haftada 5 gün split antrenman. Disiplinli ve zamanında gelen partnerlerle çalışmayı seviyorum.",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.994754,
-    "lng": 29.011326,
-    "distanceKm": 0.5,
-    "photos": [
-      "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Cuma",
-      "time": "12:30",
-      "gymName": "PowerGym Moda",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
-    "onboarded": true,
-    "createdAt": 1790718129598,
-    "lastLoginAt": 1793472129598
-  },
-  {
-    "id": "ath_f_1016",
-    "name": "Selin Yıldız",
-    "initials": "SY",
-    "gender": "Kadın",
-    "age": 24,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 538 212 58 20",
-    "email": "selin.yıldız16@gmail.com",
-    "bio": "Yeni başladım sayılır, form düzeltme ve temel hareketlerde motive olacak birini arıyorum 🌸",
-    "goals": [
-      "Güç",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Akşam",
-      "Öğle"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.963681,
-    "lng": 29.044762,
-    "distanceKm": 2.3,
-    "photos": [
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Bugün",
-      "time": "13:00",
-      "gymName": "PlusFitness Caddebostan",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
-    "onboarded": true,
-    "createdAt": 1790545329598,
-    "lastLoginAt": 1793468529598
-  },
-  {
-    "id": "ath_f_1017",
-    "name": "Ayşe Aydın",
-    "initials": "AA",
-    "gender": "Kadın",
-    "age": 25,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 539 219 61 25",
-    "email": "ayşe.aydın17@gmail.com",
-    "bio": "Hypertrophy ve güç odaklı alt-üst vücut spliti yapıyorum. Karşılıklı yardımlaşma güzel olur.",
-    "goals": [
-      "Kas",
-      "Kondisyon"
-    ],
-    "level": "Başlangıç",
-    "preferredTimes": [
-      "Sabah"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 40.977579,
-    "lng": 29.110047,
-    "distanceKm": 4.6,
-    "photos": [
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Bugün",
-      "time": "18:00",
-      "gymName": "FitCity Ataşehir",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
-    "onboarded": true,
-    "createdAt": 1790372529598,
-    "lastLoginAt": 1793464929598
-  },
-  {
-    "id": "ath_f_1018",
-    "name": "Merve Doğan",
-    "initials": "MD",
-    "gender": "Kadın",
-    "age": 26,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 531 226 64 30",
-    "email": "merve.doğan18@gmail.com",
-    "bio": "Crossfit ve fonksiyonel antrenmanlar vazgeçilmezim. Sabah enerjisiyle spora başlayanlar yazabilir ⚡",
-    "goals": [
-      "Kas",
-      "Güç"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.014735,
-    "lng": 29.029886,
-    "distanceKm": 4.3,
-    "photos": [
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Bugün",
-      "time": "18:30",
-      "gymName": "Üsküdar GymClub",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
-    "onboarded": true,
-    "createdAt": 1790199729598,
-    "lastLoginAt": 1793482929598
-  },
-  {
-    "id": "ath_f_1019",
-    "name": "Duygu Çetin",
-    "initials": "DÇ",
-    "gender": "Kadın",
-    "age": 27,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 532 233 67 35",
-    "email": "duygu.çetin19@gmail.com",
-    "bio": "Akşam iş çıkışı 19:30 seansları. Omuz ve sırt günlerinde süperset partneri.",
-    "goals": [
-      "Kondisyon",
-      "Kas"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Gece"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.044248,
-    "lng": 29.023797,
-    "distanceKm": 6.1,
-    "photos": [
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Yarın",
-      "time": "19:00",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
-    "onboarded": true,
-    "createdAt": 1790026929598,
-    "lastLoginAt": 1793479329598
-  },
-  {
-    "id": "ath_f_1020",
-    "name": "Begüm Kurt",
-    "initials": "BK",
-    "gender": "Kadın",
-    "age": 28,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 533 240 70 40",
-    "email": "begüm.kurt20@gmail.com",
-    "bio": "Haftada 4 gün ağırlık, 1 gün kardiyo. Birlikte motive olacak ve set aralarında spotterlık yapacak partner arıyorum 💪",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.945694,
-    "lng": 29.142345,
-    "distanceKm": 7.7,
-    "photos": [
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Yarın",
-      "time": "19:30",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
-    "onboarded": true,
-    "createdAt": 1789854129598,
-    "lastLoginAt": 1793475729598
-  },
-  {
-    "id": "ath_f_1021",
-    "name": "Simge Polat",
-    "initials": "SP",
-    "gender": "Kadın",
-    "age": 29,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 534 247 73 45",
-    "email": "simge.polat21@gmail.com",
-    "bio": "Sabahları 07:00 seansları. Squat ve Hip Thrust odaklı çalışıyorum. Düzenli gelen arkadaşlar ekleyebilir ✨",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Akşam",
-      "Öğle"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 41.00275,
-    "lng": 29.019941,
-    "distanceKm": 1.4,
-    "photos": [
-      "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Çarşamba",
-      "time": "20:00",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
-    "onboarded": true,
-    "createdAt": 1789681329598,
-    "lastLoginAt": 1793472129598
-  },
-  {
-    "id": "ath_f_1022",
-    "name": "Burcu Yavuz",
-    "initials": "BY",
-    "gender": "Kadın",
-    "age": 30,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 535 254 76 50",
-    "email": "burcu.yavuz22@gmail.com",
-    "bio": "Pilates ve fonksiyonel fitness ile ilgileniyorum. Haftasonu koşu veya salonda partner iyi olur 🧘‍♀️",
-    "goals": [
-      "Güç",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Sabah"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.984867,
-    "lng": 29.007001,
-    "distanceKm": 1.8,
-    "photos": [
-      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Perşembe",
-      "time": "20:30",
-      "gymName": "PowerGym Moda",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
-    "onboarded": true,
-    "createdAt": 1789508529598,
-    "lastLoginAt": 1793468529598
-  },
-  {
-    "id": "ath_f_1023",
-    "name": "Dilara Güler",
-    "initials": "DG",
-    "gender": "Kadın",
-    "age": 31,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 536 261 79 55",
-    "email": "dilara.güler23@gmail.com",
-    "bio": "Kilo verme ve sıkılaşma dönemindeyim. Birlikte kardiyo ve HIIT yapacak motivasyon partneri arıyorum.",
-    "goals": [
-      "Kas",
-      "Kondisyon"
-    ],
-    "level": "Başlangıç",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.955307,
-    "lng": 29.052409,
-    "distanceKm": 3.5,
-    "photos": [
-      "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Cuma",
-      "time": "21:00",
-      "gymName": "PlusFitness Caddebostan",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
-    "onboarded": true,
-    "createdAt": 1789335729598,
-    "lastLoginAt": 1793464929598
-  },
-  {
-    "id": "ath_f_1024",
-    "name": "Ezgi Bulut",
-    "initials": "EB",
-    "gender": "Kadın",
-    "age": 32,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 537 268 82 60",
-    "email": "ezgi.bulut24@gmail.com",
-    "bio": "MACFit Kadıköy müdavimiyim. Bacak günlerinde birbirimize destek olacak kız arkadaş arıyorum 🏋️‍♀️",
-    "goals": [
-      "Kas",
-      "Güç"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Gece"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 40.978416,
-    "lng": 29.122635,
-    "distanceKm": 5.8,
-    "photos": [
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Bugün",
-      "time": "07:00",
-      "gymName": "FitCity Ataşehir",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
-    "onboarded": true,
-    "createdAt": 1789162929598,
-    "lastLoginAt": 1793482929598
-  },
-  {
-    "id": "ath_f_1025",
-    "name": "Aslı Güneş",
-    "initials": "AG",
-    "gender": "Kadın",
-    "age": 33,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 538 275 85 65",
-    "email": "aslı.güneş25@gmail.com",
-    "bio": "Haftada 5 gün split antrenman. Disiplinli ve zamanında gelen partnerlerle çalışmayı seviyorum.",
-    "goals": [
-      "Kondisyon",
-      "Kas"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.024015,
-    "lng": 29.035842,
-    "distanceKm": 5.6,
-    "photos": [
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Bugün",
-      "time": "07:30",
-      "gymName": "Üsküdar GymClub",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
-    "onboarded": true,
-    "createdAt": 1788990129598,
-    "lastLoginAt": 1793479329598
-  },
-  {
-    "id": "ath_f_1026",
-    "name": "İpek Karaca",
-    "initials": "İK",
-    "gender": "Kadın",
-    "age": 21,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 539 282 88 70",
-    "email": "i̇pek.karaca26@gmail.com",
-    "bio": "Yeni başladım sayılır, form düzeltme ve temel hareketlerde motive olacak birini arıyorum 🌸",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Akşam",
-      "Öğle"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.053438,
-    "lng": 29.017645,
-    "distanceKm": 7.4,
-    "photos": [
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Bugün",
-      "time": "08:00",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
-    "onboarded": true,
-    "createdAt": 1788817329598,
-    "lastLoginAt": 1793475729598
-  },
-  {
-    "id": "ath_f_1027",
-    "name": "Defne Sarı",
-    "initials": "DS",
-    "gender": "Kadın",
-    "age": 22,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 531 289 91 75",
-    "email": "defne.sarı27@gmail.com",
-    "bio": "Hypertrophy ve güç odaklı alt-üst vücut spliti yapıyorum. Karşılıklı yardımlaşma güzel olur.",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Sabah"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.946346,
-    "lng": 29.129742,
-    "distanceKm": 9,
-    "photos": [
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Yarın",
-      "time": "12:30",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
-    "onboarded": true,
-    "createdAt": 1788644529598,
-    "lastLoginAt": 1793472129598
-  },
-  {
-    "id": "ath_f_1028",
-    "name": "Başak Acar",
-    "initials": "BA",
-    "gender": "Kadın",
-    "age": 23,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 532 296 94 80",
-    "email": "başak.acar28@gmail.com",
-    "bio": "Crossfit ve fonksiyonel antrenmanlar vazgeçilmezim. Sabah enerjisiyle spora başlayanlar yazabilir ⚡",
-    "goals": [
-      "Güç",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 40.994264,
-    "lng": 29.012473,
-    "distanceKm": 2.6,
-    "photos": [
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Yarın",
-      "time": "13:00",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
-    "onboarded": true,
-    "createdAt": 1788471729598,
-    "lastLoginAt": 1793468529598
-  },
-  {
-    "id": "ath_f_1029",
-    "name": "Serra Duran",
-    "initials": "SD",
-    "gender": "Kadın",
-    "age": 24,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 533 303 97 85",
-    "email": "serra.duran29@gmail.com",
-    "bio": "Akşam iş çıkışı 19:30 seansları. Omuz ve sırt günlerinde süperset partneri.",
-    "goals": [
-      "Kas",
-      "Kondisyon"
-    ],
-    "level": "Başlangıç",
-    "preferredTimes": [
-      "Gece"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.975045,
-    "lng": 29.011535,
-    "distanceKm": 3,
-    "photos": [
-      "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Çarşamba",
-      "time": "18:00",
-      "gymName": "PowerGym Moda",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
-    "onboarded": true,
-    "createdAt": 1788298929598,
-    "lastLoginAt": 1793464929598
-  },
-  {
-    "id": "ath_f_1030",
-    "name": "Yağmur Eren",
-    "initials": "YE",
-    "gender": "Kadın",
-    "age": 25,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 534 310 10 90",
-    "email": "yağmur.eren30@gmail.com",
-    "bio": "Haftada 4 gün ağırlık, 1 gün kardiyo. Birlikte motive olacak ve set aralarında spotterlık yapacak partner arıyorum 💪",
-    "goals": [
-      "Kas",
-      "Güç"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.95318,
-    "lng": 29.064777,
-    "distanceKm": 2.1,
-    "photos": [
-      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Perşembe",
-      "time": "18:30",
-      "gymName": "PlusFitness Caddebostan",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
-    "onboarded": true,
-    "createdAt": 1788126129598,
-    "lastLoginAt": 1793482929598
-  },
-  {
-    "id": "ath_f_1031",
-    "name": "Nil Yılmaz",
-    "initials": "NY",
-    "gender": "Kadın",
-    "age": 26,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 535 317 13 95",
-    "email": "nil.yılmaz31@gmail.com",
-    "bio": "Sabahları 07:00 seansları. Squat ve Hip Thrust odaklı çalışıyorum. Düzenli gelen arkadaşlar ekleyebilir ✨",
-    "goals": [
-      "Kondisyon",
-      "Kas"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Akşam",
-      "Öğle"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 40.985939,
-    "lng": 29.131465,
-    "distanceKm": 4.4,
-    "photos": [
-      "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Cuma",
-      "time": "19:00",
-      "gymName": "FitCity Ataşehir",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
-    "onboarded": true,
-    "createdAt": 1787953329598,
-    "lastLoginAt": 1793479329598
-  },
-  {
-    "id": "ath_f_1032",
-    "name": "Bade Çelik",
-    "initials": "BÇ",
-    "gender": "Kadın",
-    "age": 27,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 536 324 16 20",
-    "email": "bade.çelik32@gmail.com",
-    "bio": "Pilates ve fonksiyonel fitness ile ilgileniyorum. Haftasonu koşu veya salonda partner iyi olur 🧘‍♀️",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.034271,
-    "lng": 29.033016,
-    "distanceKm": 4.2,
-    "photos": [
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Bugün",
-      "time": "19:30",
-      "gymName": "Üsküdar GymClub",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
-    "onboarded": true,
-    "createdAt": 1787780529598,
-    "lastLoginAt": 1793475729598
-  },
-  {
-    "id": "ath_f_1033",
-    "name": "Derin Yıldırım",
-    "initials": "DY",
-    "gender": "Kadın",
-    "age": 28,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 537 331 19 25",
-    "email": "derin.yıldırım33@gmail.com",
-    "bio": "Kilo verme ve sıkılaşma dönemindeyim. Birlikte kardiyo ve HIIT yapacak motivasyon partneri arıyorum.",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.056999,
-    "lng": 29.005761,
-    "distanceKm": 5.9,
-    "photos": [
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Bugün",
-      "time": "20:00",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
-    "onboarded": true,
-    "createdAt": 1787607729598,
-    "lastLoginAt": 1793472129598
-  },
-  {
-    "id": "ath_f_1034",
-    "name": "Leyla Özdemir",
-    "initials": "LÖ",
-    "gender": "Kadın",
-    "age": 29,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 538 338 22 30",
-    "email": "leyla.özdemir34@gmail.com",
-    "bio": "MACFit Kadıköy müdavimiyim. Bacak günlerinde birbirimize destek olacak kız arkadaş arıyorum 🏋️‍♀️",
-    "goals": [
-      "Güç",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Gece"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.939936,
-    "lng": 29.119726,
-    "distanceKm": 7.5,
-    "photos": [
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Bugün",
-      "time": "20:30",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
-    "onboarded": true,
-    "createdAt": 1787434929598,
-    "lastLoginAt": 1793468529598
-  },
-  {
-    "id": "ath_f_1035",
-    "name": "Sena Kılıç",
-    "initials": "SK",
-    "gender": "Kadın",
-    "age": 30,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 539 345 25 35",
-    "email": "sena.kılıç35@gmail.com",
-    "bio": "Haftada 5 gün split antrenman. Disiplinli ve zamanında gelen partnerlerle çalışmayı seviyorum.",
-    "goals": [
-      "Kas",
-      "Kondisyon"
-    ],
-    "level": "Başlangıç",
-    "preferredTimes": [
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 40.983777,
-    "lng": 29.013534,
-    "distanceKm": 1.2,
-    "photos": [
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Yarın",
-      "time": "21:00",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
-    "onboarded": true,
-    "createdAt": 1787262129598,
-    "lastLoginAt": 1793464929598
-  },
-  {
-    "id": "ath_f_1036",
-    "name": "Ceren Kara",
-    "initials": "CK",
-    "gender": "Kadın",
-    "age": 31,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 531 352 28 40",
-    "email": "ceren.kara36@gmail.com",
-    "bio": "Yeni başladım sayılır, form düzeltme ve temel hareketlerde motive olacak birini arıyorum 🌸",
-    "goals": [
-      "Kas",
-      "Güç"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Akşam",
-      "Öğle"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.970123,
-    "lng": 29.022697,
-    "distanceKm": 1.6,
-    "photos": [
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Yarın",
-      "time": "07:00",
-      "gymName": "PowerGym Moda",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
-    "onboarded": true,
-    "createdAt": 1787089329598,
-    "lastLoginAt": 1793482929598
-  },
-  {
-    "id": "ath_f_1037",
-    "name": "Nehir Özkan",
-    "initials": "NÖ",
-    "gender": "Kadın",
-    "age": 32,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 532 359 31 45",
-    "email": "nehir.özkan37@gmail.com",
-    "bio": "Hypertrophy ve güç odaklı alt-üst vücut spliti yapıyorum. Karşılıklı yardımlaşma güzel olur.",
-    "goals": [
-      "Kondisyon",
-      "Kas"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.958347,
-    "lng": 29.075777,
-    "distanceKm": 3.4,
-    "photos": [
-      "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Çarşamba",
-      "time": "07:30",
-      "gymName": "PlusFitness Caddebostan",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
-    "onboarded": true,
-    "createdAt": 1786916529598,
-    "lastLoginAt": 1793479329598
-  },
-  {
-    "id": "ath_f_1038",
-    "name": "Eylül Korkmaz",
+    "name": "Ece Kaya",
     "initials": "EK",
     "gender": "Kadın",
-    "age": 33,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 533 366 34 50",
-    "email": "eylül.korkmaz38@gmail.com",
-    "bio": "Crossfit ve fonksiyonel antrenmanlar vazgeçilmezim. Sabah enerjisiyle spora başlayanlar yazabilir ⚡",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
+    "age": 20,
+    "city": "İstanbul",
+    "district": "Kadıköy",
+    "gymId": "gym_ist_kadikoy",
+    "gymName": "MACFit Kadıköy (İstanbul)",
+    "lat": 40.9882,
+    "lng": 29.0278,
+    "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&auto=format&fit=crop&q=80"
     ],
     "level": "Orta",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
     "preferredTimes": [
-      "Sabah",
       "Akşam"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 40.996446,
-    "lng": 29.132191,
-    "distanceKm": 5.6,
-    "photos": [
-      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Perşembe",
-      "time": "08:00",
-      "gymName": "FitCity Ataşehir",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
-    "onboarded": true,
-    "createdAt": 1786743729598,
-    "lastLoginAt": 1793475729598
-  },
-  {
-    "id": "ath_f_1039",
-    "name": "Melda Aksoy",
-    "initials": "MA",
-    "gender": "Kadın",
-    "age": 21,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 534 373 37 55",
-    "email": "melda.aksoy39@gmail.com",
-    "bio": "Akşam iş çıkışı 19:30 seansları. Omuz ve sırt günlerinde süperset partneri.",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Gece"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.040457,
-    "lng": 29.0228,
-    "distanceKm": 5.4,
-    "photos": [
-      "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Cuma",
-      "time": "12:30",
-      "gymName": "Üsküdar GymClub",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
-    "onboarded": true,
-    "createdAt": 1786570929599,
-    "lastLoginAt": 1793472129599
-  },
-  {
-    "id": "ath_f_1040",
-    "name": "Pınar Yalçın",
-    "initials": "PY",
-    "gender": "Kadın",
-    "age": 22,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 535 380 40 60",
-    "email": "pınar.yalçın40@gmail.com",
     "bio": "Haftada 4 gün ağırlık, 1 gün kardiyo. Birlikte motive olacak ve set aralarında spotterlık yapacak partner arıyorum 💪",
-    "goals": [
-      "Güç",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.053177,
-    "lng": 28.993995,
-    "distanceKm": 7.2,
-    "photos": [
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Bugün",
-      "time": "13:00",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
+    "verified": false,
+    "attendanceStreak": 4,
+    "workoutsCompleted": 10,
+    "rating": 4.7,
     "onboarded": true,
-    "createdAt": 1786398129599,
-    "lastLoginAt": 1793468529599
-  },
-  {
-    "id": "ath_f_1041",
-    "name": "Gamze Keskin",
-    "initials": "GK",
-    "gender": "Kadın",
-    "age": 23,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 536 387 43 65",
-    "email": "gamze.keskin41@gmail.com",
-    "bio": "Sabahları 07:00 seansları. Squat ve Hip Thrust odaklı çalışıyorum. Düzenli gelen arkadaşlar ekleyebilir ✨",
-    "goals": [
-      "Kas",
-      "Kondisyon"
-    ],
-    "level": "Başlangıç",
-    "preferredTimes": [
-      "Akşam",
-      "Öğle"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.929621,
-    "lng": 29.117228,
-    "distanceKm": 8.8,
-    "photos": [
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
-    ],
     "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
       "day": "Bugün",
-      "time": "18:00",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
-    "onboarded": true,
-    "createdAt": 1786225329599,
-    "lastLoginAt": 1793464929599
-  },
-  {
-    "id": "ath_f_1042",
-    "name": "Bengü Bozkurt",
-    "initials": "BB",
-    "gender": "Kadın",
-    "age": 24,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 537 394 46 70",
-    "email": "bengü.bozkurt42@gmail.com",
-    "bio": "Pilates ve fonksiyonel fitness ile ilgileniyorum. Haftasonu koşu veya salonda partner iyi olur 🧘‍♀️",
-    "goals": [
-      "Kas",
-      "Güç"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 40.976452,
-    "lng": 29.0226,
-    "distanceKm": 2.5,
-    "photos": [
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
+      "time": "17:00",
       "workoutType": "Bacak & Kalça",
-      "day": "Bugün",
-      "time": "18:30",
-      "gymName": "MACFit Kadıköy",
       "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
-    "onboarded": true,
-    "createdAt": 1786052529599,
-    "lastLoginAt": 1793482929599
-  },
-  {
-    "id": "ath_f_1043",
-    "name": "Rüya Taş",
-    "initials": "RT",
-    "gender": "Kadın",
-    "age": 25,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 538 401 49 75",
-    "email": "rüya.taş43@gmail.com",
-    "bio": "Kilo verme ve sıkılaşma dönemindeyim. Birlikte kardiyo ve HIIT yapacak motivasyon partneri arıyorum.",
-    "goals": [
-      "Kondisyon",
-      "Kas"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.972523,
-    "lng": 29.034992,
-    "distanceKm": 2.8,
-    "photos": [
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Yarın",
-      "time": "19:00",
-      "gymName": "PowerGym Moda",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
-    "onboarded": true,
-    "createdAt": 1785879729599,
-    "lastLoginAt": 1793479329599
-  },
-  {
-    "id": "ath_f_1044",
-    "name": "Melike Gök",
-    "initials": "MG",
-    "gender": "Kadın",
-    "age": 26,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 539 408 52 80",
-    "email": "melike.gök44@gmail.com",
-    "bio": "MACFit Kadıköy müdavimiyim. Bacak günlerinde birbirimize destek olacak kız arkadaş arıyorum 🏋️‍♀️",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Gece"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.968266,
-    "lng": 29.079997,
-    "distanceKm": 4.6,
-    "photos": [
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Yarın",
-      "time": "19:30",
-      "gymName": "PlusFitness Caddebostan",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
-    "onboarded": true,
-    "createdAt": 1785706929599,
-    "lastLoginAt": 1793475729599
-  },
-  {
-    "id": "ath_f_1045",
-    "name": "Nazlı Sever",
-    "initials": "NS",
-    "gender": "Kadın",
-    "age": 27,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 531 415 55 85",
-    "email": "nazlı.sever45@gmail.com",
-    "bio": "Haftada 5 gün split antrenman. Disiplinli ve zamanında gelen partnerlerle çalışmayı seviyorum.",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 41.004764,
-    "lng": 29.124456,
-    "distanceKm": 4.2,
-    "photos": [
-      "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Çarşamba",
-      "time": "20:00",
-      "gymName": "FitCity Ataşehir",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
-    "onboarded": true,
-    "createdAt": 1785534129599,
-    "lastLoginAt": 1793472129599
-  },
-  {
-    "id": "ath_f_1046",
-    "name": "Ebru Işık",
-    "initials": "EI",
-    "gender": "Kadın",
-    "age": 28,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 532 422 58 90",
-    "email": "ebru.işık46@gmail.com",
-    "bio": "Yeni başladım sayılır, form düzeltme ve temel hareketlerde motive olacak birini arıyorum 🌸",
-    "goals": [
-      "Güç",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Akşam",
-      "Öğle"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.039527,
-    "lng": 29.010221,
-    "distanceKm": 4,
-    "photos": [
-      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Perşembe",
-      "time": "20:30",
-      "gymName": "Üsküdar GymClub",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
-    "onboarded": true,
-    "createdAt": 1785361329599,
-    "lastLoginAt": 1793468529599
-  },
-  {
-    "id": "ath_f_1047",
-    "name": "Deniz Demirci",
-    "initials": "DD",
-    "gender": "Kadın",
-    "age": 29,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 533 429 61 95",
-    "email": "deniz.demirci47@gmail.com",
-    "bio": "Hypertrophy ve güç odaklı alt-üst vücut spliti yapıyorum. Karşılıklı yardımlaşma güzel olur.",
-    "goals": [
-      "Kas",
-      "Kondisyon"
-    ],
-    "level": "Başlangıç",
-    "preferredTimes": [
-      "Sabah"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.043854,
-    "lng": 28.988138,
-    "distanceKm": 5.8,
-    "photos": [
-      "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Cuma",
-      "time": "21:00",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
-    "onboarded": true,
-    "createdAt": 1785188529599,
-    "lastLoginAt": 1793464929599
-  },
-  {
-    "id": "ath_f_1048",
-    "name": "Ada Kaya",
-    "initials": "AK",
-    "gender": "Kadın",
-    "age": 30,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 534 436 64 20",
-    "email": "ada.kaya48@gmail.com",
-    "bio": "Crossfit ve fonksiyonel antrenmanlar vazgeçilmezim. Sabah enerjisiyle spora başlayanlar yazabilir ⚡",
-    "goals": [
-      "Kas",
-      "Güç"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.920476,
-    "lng": 29.123477,
-    "distanceKm": 7.3,
-    "photos": [
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Bugün",
-      "time": "07:00",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
-    "onboarded": true,
-    "createdAt": 1785015729599,
-    "lastLoginAt": 1793482929599
-  },
-  {
-    "id": "ath_f_1049",
-    "name": "Gözde Şahin",
-    "initials": "GŞ",
-    "gender": "Kadın",
-    "age": 31,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 535 443 67 25",
-    "email": "gözde.şahin49@gmail.com",
-    "bio": "Akşam iş çıkışı 19:30 seansları. Omuz ve sırt günlerinde süperset partneri.",
-    "goals": [
-      "Kondisyon",
-      "Kas"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Gece"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 40.975894,
-    "lng": 29.035211,
-    "distanceKm": 1,
-    "photos": [
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Bugün",
-      "time": "07:30",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
-    "onboarded": true,
-    "createdAt": 1784842929599,
-    "lastLoginAt": 1793479329599
-  },
-  {
-    "id": "ath_f_1050",
-    "name": "Hande Öztürk",
-    "initials": "HÖ",
-    "gender": "Kadın",
-    "age": 32,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 536 450 70 30",
-    "email": "hande.öztürk50@gmail.com",
-    "bio": "Haftada 4 gün ağırlık, 1 gün kardiyo. Birlikte motive olacak ve set aralarında spotterlık yapacak partner arıyorum 💪",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.981064,
-    "lng": 29.042369,
-    "distanceKm": 1.4,
-    "photos": [
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Bugün",
-      "time": "08:00",
-      "gymName": "PowerGym Moda",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
-    "onboarded": true,
-    "createdAt": 1784670129599,
-    "lastLoginAt": 1793475729599
-  },
-  {
-    "id": "ath_f_1051",
-    "name": "Aylin Arslan",
-    "initials": "AA",
-    "gender": "Kadın",
-    "age": 33,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 537 457 73 35",
-    "email": "aylin.arslan51@gmail.com",
-    "bio": "Sabahları 07:00 seansları. Squat ve Hip Thrust odaklı çalışıyorum. Düzenli gelen arkadaşlar ekleyebilir ✨",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Akşam",
-      "Öğle"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.978053,
-    "lng": 29.075359,
-    "distanceKm": 3.2,
-    "photos": [
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Yarın",
-      "time": "12:30",
-      "gymName": "PlusFitness Caddebostan",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
-    "onboarded": true,
-    "createdAt": 1784497329599,
-    "lastLoginAt": 1793472129599
-  },
-  {
-    "id": "ath_f_1052",
-    "name": "Berna Aslan",
-    "initials": "BA",
-    "gender": "Kadın",
-    "age": 21,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 538 464 76 40",
-    "email": "berna.aslan52@gmail.com",
-    "bio": "Pilates ve fonksiyonel fitness ile ilgileniyorum. Haftasonu koşu veya salonda partner iyi olur 🧘‍♀️",
-    "goals": [
-      "Güç",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Sabah"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 41.006799,
-    "lng": 29.112066,
-    "distanceKm": 5.5,
-    "photos": [
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Yarın",
-      "time": "13:00",
-      "gymName": "FitCity Ataşehir",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
-    "onboarded": true,
-    "createdAt": 1784324529599,
-    "lastLoginAt": 1793468529599
-  },
-  {
-    "id": "ath_f_1053",
-    "name": "Işıl Koç",
-    "initials": "IK",
-    "gender": "Kadın",
-    "age": 22,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 539 471 79 45",
-    "email": "işıl.koç53@gmail.com",
-    "bio": "Kilo verme ve sıkılaşma dönemindeyim. Birlikte kardiyo ve HIIT yapacak motivasyon partneri arıyorum.",
-    "goals": [
-      "Kas",
-      "Kondisyon"
-    ],
-    "level": "Başlangıç",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.031939,
-    "lng": 29.001471,
-    "distanceKm": 5.2,
-    "photos": [
-      "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Çarşamba",
-      "time": "18:00",
-      "gymName": "Üsküdar GymClub",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
-    "onboarded": true,
-    "createdAt": 1784151729599,
-    "lastLoginAt": 1793464929599
-  },
-  {
-    "id": "ath_f_1054",
-    "name": "Şevval Şimşek",
-    "initials": "ŞŞ",
-    "gender": "Kadın",
-    "age": 23,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 531 478 82 50",
-    "email": "şevval.şimşek54@gmail.com",
-    "bio": "MACFit Kadıköy müdavimiyim. Bacak günlerinde birbirimize destek olacak kız arkadaş arıyorum 🏋️‍♀️",
-    "goals": [
-      "Kas",
-      "Güç"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Gece"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.033618,
-    "lng": 28.991072,
-    "distanceKm": 7,
-    "photos": [
-      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Perşembe",
-      "time": "18:30",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
-    "onboarded": true,
-    "createdAt": 1783978929599,
-    "lastLoginAt": 1793482929599
-  },
-  {
-    "id": "ath_f_1055",
-    "name": "Ceyda Erdoğan",
-    "initials": "CE",
-    "gender": "Kadın",
-    "age": 24,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 532 485 85 55",
-    "email": "ceyda.erdoğan55@gmail.com",
-    "bio": "Haftada 5 gün split antrenman. Disiplinli ve zamanında gelen partnerlerle çalışmayı seviyorum.",
-    "goals": [
-      "Kondisyon",
-      "Kas"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.917004,
-    "lng": 29.135398,
-    "distanceKm": 8.6,
-    "photos": [
-      "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Cuma",
-      "time": "19:00",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
-    "onboarded": true,
-    "createdAt": 1783806129599,
-    "lastLoginAt": 1793479329599
-  },
-  {
-    "id": "ath_f_1056",
-    "name": "Bahar Tekin",
-    "initials": "BT",
-    "gender": "Kadın",
-    "age": 25,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 533 492 88 60",
-    "email": "bahar.tekin56@gmail.com",
-    "bio": "Yeni başladım sayılır, form düzeltme ve temel hareketlerde motive olacak birini arıyorum 🌸",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Akşam",
-      "Öğle"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 40.982377,
-    "lng": 29.045158,
-    "distanceKm": 2.3,
-    "photos": [
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Bugün",
-      "time": "19:30",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
-    "onboarded": true,
-    "createdAt": 1783633329599,
-    "lastLoginAt": 1793475729599
-  },
-  {
-    "id": "ath_f_1057",
-    "name": "Buket Avcı",
-    "initials": "BA",
-    "gender": "Kadın",
-    "age": 26,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 534 499 91 65",
-    "email": "buket.avcı57@gmail.com",
-    "bio": "Hypertrophy ve güç odaklı alt-üst vücut spliti yapıyorum. Karşılıklı yardımlaşma güzel olur.",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Sabah"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.991542,
-    "lng": 29.041198,
-    "distanceKm": 2.7,
-    "photos": [
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Bugün",
-      "time": "20:00",
-      "gymName": "PowerGym Moda",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
-    "onboarded": true,
-    "createdAt": 1783460529599,
-    "lastLoginAt": 1793472129599
-  },
-  {
-    "id": "ath_f_1058",
-    "name": "Sude Ünal",
-    "initials": "SÜ",
-    "gender": "Kadın",
-    "age": 27,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 535 506 94 70",
-    "email": "sude.ünal58@gmail.com",
-    "bio": "Crossfit ve fonksiyonel antrenmanlar vazgeçilmezim. Sabah enerjisiyle spora başlayanlar yazabilir ⚡",
-    "goals": [
-      "Güç",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.982893,
-    "lng": 29.064145,
-    "distanceKm": 4.4,
-    "photos": [
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Bugün",
-      "time": "20:30",
-      "gymName": "PlusFitness Caddebostan",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
-    "onboarded": true,
-    "createdAt": 1783287729599,
-    "lastLoginAt": 1793468529599
-  },
-  {
-    "id": "ath_f_1059",
-    "name": "Esra Can",
-    "initials": "EC",
-    "gender": "Kadın",
-    "age": 28,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 536 513 97 75",
-    "email": "esra.can59@gmail.com",
-    "bio": "Akşam iş çıkışı 19:30 seansları. Omuz ve sırt günlerinde süperset partneri.",
-    "goals": [
-      "Kas",
-      "Kondisyon"
-    ],
-    "level": "Başlangıç",
-    "preferredTimes": [
-      "Gece"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 41.001551,
-    "lng": 29.101121,
-    "distanceKm": 6.7,
-    "photos": [
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Yarın",
-      "time": "21:00",
-      "gymName": "FitCity Ataşehir",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
-    "onboarded": true,
-    "createdAt": 1783114929599,
-    "lastLoginAt": 1793464929599
-  },
-  {
-    "id": "ath_f_1060",
-    "name": "Lara Coşkun",
-    "initials": "LC",
-    "gender": "Kadın",
-    "age": 29,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 537 520 10 80",
-    "email": "lara.coşkun60@gmail.com",
-    "bio": "Haftada 4 gün ağırlık, 1 gün kardiyo. Birlikte motive olacak ve set aralarında spotterlık yapacak partner arıyorum 💪",
-    "goals": [
-      "Kas",
-      "Güç"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.021428,
-    "lng": 29.000857,
-    "distanceKm": 3.8,
-    "photos": [
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Yarın",
-      "time": "07:00",
-      "gymName": "Üsküdar GymClub",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
-    "onboarded": true,
-    "createdAt": 1782942129599,
-    "lastLoginAt": 1793482929599
-  },
-  {
-    "id": "ath_f_1061",
-    "name": "Alara Uçar",
-    "initials": "AU",
-    "gender": "Kadın",
-    "age": 30,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 538 527 13 85",
-    "email": "alara.uçar61@gmail.com",
-    "bio": "Sabahları 07:00 seansları. Squat ve Hip Thrust odaklı çalışıyorum. Düzenli gelen arkadaşlar ekleyebilir ✨",
-    "goals": [
-      "Kondisyon",
-      "Kas"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Akşam",
-      "Öğle"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.027508,
-    "lng": 29.001354,
-    "distanceKm": 5.6,
-    "photos": [
-      "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Çarşamba",
-      "time": "07:30",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
-    "onboarded": true,
-    "createdAt": 1782769329599,
-    "lastLoginAt": 1793479329599
-  },
-  {
-    "id": "ath_f_1062",
-    "name": "İlayda Soylu",
-    "initials": "İS",
-    "gender": "Kadın",
-    "age": 31,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 539 534 16 90",
-    "email": "i̇layda.soylu62@gmail.com",
-    "bio": "Pilates ve fonksiyonel fitness ile ilgileniyorum. Haftasonu koşu veya salonda partner iyi olur 🧘‍♀️",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.920912,
-    "lng": 29.147123,
-    "distanceKm": 7.2,
-    "photos": [
-      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Perşembe",
-      "time": "08:00",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
-    "onboarded": true,
-    "createdAt": 1782596529599,
-    "lastLoginAt": 1793475729599
-  },
-  {
-    "id": "ath_f_1063",
-    "name": "Ecehan Kalkan",
-    "initials": "EK",
-    "gender": "Kadın",
-    "age": 32,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 531 541 19 95",
-    "email": "ecehan.kalkan63@gmail.com",
-    "bio": "Kilo verme ve sıkılaşma dönemindeyim. Birlikte kardiyo ve HIIT yapacak motivasyon partneri arıyorum.",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 40.99271,
-    "lng": 29.047546,
-    "distanceKm": 0.8,
-    "photos": [
-      "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Cuma",
-      "time": "12:30",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
-    "onboarded": true,
-    "createdAt": 1782423729599,
-    "lastLoginAt": 1793472129599
-  },
-  {
-    "id": "ath_f_1064",
-    "name": "Sezen Kartal",
-    "initials": "SK",
-    "gender": "Kadın",
-    "age": 33,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 532 548 22 20",
-    "email": "sezen.kartal64@gmail.com",
-    "bio": "MACFit Kadıköy müdavimiyim. Bacak günlerinde birbirimize destek olacak kız arkadaş arıyorum 🏋️‍♀️",
-    "goals": [
-      "Güç",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Gece"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.9988,
-    "lng": 29.032053,
-    "distanceKm": 1.2,
-    "photos": [
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Bugün",
-      "time": "13:00",
-      "gymName": "PowerGym Moda",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
-    "onboarded": true,
-    "createdAt": 1782250929599,
-    "lastLoginAt": 1793468529599
-  },
-  {
-    "id": "ath_f_1065",
-    "name": "Nisa Demir",
-    "initials": "ND",
-    "gender": "Kadın",
-    "age": 21,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 533 555 25 25",
-    "email": "nisa.demir65@gmail.com",
-    "bio": "Haftada 5 gün split antrenman. Disiplinli ve zamanında gelen partnerlerle çalışmayı seviyorum.",
-    "goals": [
-      "Kas",
-      "Kondisyon"
-    ],
-    "level": "Başlangıç",
-    "preferredTimes": [
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.980402,
-    "lng": 29.051876,
-    "distanceKm": 3,
-    "photos": [
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Bugün",
-      "time": "18:00",
-      "gymName": "PlusFitness Caddebostan",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
-    "onboarded": true,
-    "createdAt": 1782078129599,
-    "lastLoginAt": 1793464929599
-  },
-  {
-    "id": "ath_f_1066",
-    "name": "Büşra Yıldız",
-    "initials": "BY",
-    "gender": "Kadın",
-    "age": 22,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 534 562 28 30",
-    "email": "büşra.yıldız66@gmail.com",
-    "bio": "Yeni başladım sayılır, form düzeltme ve temel hareketlerde motive olacak birini arıyorum 🌸",
-    "goals": [
-      "Kas",
-      "Güç"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Akşam",
-      "Öğle"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 40.991602,
-    "lng": 29.097006,
-    "distanceKm": 5.3,
-    "photos": [
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Bugün",
-      "time": "18:30",
-      "gymName": "FitCity Ataşehir",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
-    "onboarded": true,
-    "createdAt": 1781905329599,
-    "lastLoginAt": 1793482929599
-  },
-  {
-    "id": "ath_f_1067",
-    "name": "Hilal Aydın",
-    "initials": "HA",
-    "gender": "Kadın",
-    "age": 23,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 535 569 31 35",
-    "email": "hilal.aydın67@gmail.com",
-    "bio": "Hypertrophy ve güç odaklı alt-üst vücut spliti yapıyorum. Karşılıklı yardımlaşma güzel olur.",
-    "goals": [
-      "Kondisyon",
-      "Kas"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.013167,
-    "lng": 29.00868,
-    "distanceKm": 5.1,
-    "photos": [
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Yarın",
-      "time": "19:00",
-      "gymName": "Üsküdar GymClub",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
-    "onboarded": true,
-    "createdAt": 1781732529599,
-    "lastLoginAt": 1793479329599
-  },
-  {
-    "id": "ath_f_1068",
-    "name": "Sibel Doğan",
-    "initials": "SD",
-    "gender": "Kadın",
-    "age": 24,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 536 576 34 40",
-    "email": "sibel.doğan68@gmail.com",
-    "bio": "Crossfit ve fonksiyonel antrenmanlar vazgeçilmezim. Sabah enerjisiyle spora başlayanlar yazabilir ⚡",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.028531,
-    "lng": 29.013923,
-    "distanceKm": 6.8,
-    "photos": [
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Yarın",
-      "time": "19:30",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
-    "onboarded": true,
-    "createdAt": 1781559729599,
-    "lastLoginAt": 1793475729599
-  },
-  {
-    "id": "ath_f_1069",
-    "name": "Selma Çetin",
-    "initials": "SÇ",
-    "gender": "Kadın",
-    "age": 25,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 537 583 37 45",
-    "email": "selma.çetin69@gmail.com",
-    "bio": "Akşam iş çıkışı 19:30 seansları. Omuz ve sırt günlerinde süperset partneri.",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Gece"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.930278,
-    "lng": 29.152881,
-    "distanceKm": 8.4,
-    "photos": [
-      "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Çarşamba",
-      "time": "20:00",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
-    "onboarded": true,
-    "createdAt": 1781386929599,
-    "lastLoginAt": 1793472129599
-  },
-  {
-    "id": "ath_f_1070",
-    "name": "Özge Kurt",
-    "initials": "ÖK",
-    "gender": "Kadın",
-    "age": 26,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 538 590 40 50",
-    "email": "özge.kurt70@gmail.com",
-    "bio": "Haftada 4 gün ağırlık, 1 gün kardiyo. Birlikte motive olacak ve set aralarında spotterlık yapacak partner arıyorum 💪",
-    "goals": [
-      "Güç",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 41.001808,
-    "lng": 29.0412,
-    "distanceKm": 2.1,
-    "photos": [
-      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Perşembe",
-      "time": "20:30",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
-    "onboarded": true,
-    "createdAt": 1781214129599,
-    "lastLoginAt": 1793468529599
-  },
-  {
-    "id": "ath_f_1071",
-    "name": "Öykü Polat",
-    "initials": "ÖP",
-    "gender": "Kadın",
-    "age": 27,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 539 597 43 55",
-    "email": "öykü.polat71@gmail.com",
-    "bio": "Sabahları 07:00 seansları. Squat ve Hip Thrust odaklı çalışıyorum. Düzenli gelen arkadaşlar ekleyebilir ✨",
-    "goals": [
-      "Kas",
-      "Kondisyon"
-    ],
-    "level": "Başlangıç",
-    "preferredTimes": [
-      "Akşam",
-      "Öğle"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.999266,
-    "lng": 29.019438,
-    "distanceKm": 2.5,
-    "photos": [
-      "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Cuma",
-      "time": "21:00",
-      "gymName": "PowerGym Moda",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
-    "onboarded": true,
-    "createdAt": 1781041329599,
-    "lastLoginAt": 1793464929599
-  },
-  {
-    "id": "ath_f_1072",
-    "name": "Melis Yavuz",
-    "initials": "MY",
-    "gender": "Kadın",
-    "age": 28,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 531 604 46 60",
-    "email": "melis.yavuz72@gmail.com",
-    "bio": "Pilates ve fonksiyonel fitness ile ilgileniyorum. Haftasonu koşu veya salonda partner iyi olur 🧘‍♀️",
-    "goals": [
-      "Kas",
-      "Güç"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.971807,
-    "lng": 29.044589,
-    "distanceKm": 4.3,
-    "photos": [
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Bugün",
-      "time": "07:00",
-      "gymName": "PlusFitness Caddebostan",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
-    "onboarded": true,
-    "createdAt": 1780868529599,
-    "lastLoginAt": 1793482929599
-  },
-  {
-    "id": "ath_f_1073",
-    "name": "Beliz Güler",
-    "initials": "BG",
-    "gender": "Kadın",
-    "age": 29,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 532 611 49 65",
-    "email": "beliz.güler73@gmail.com",
-    "bio": "Kilo verme ve sıkılaşma dönemindeyim. Birlikte kardiyo ve HIIT yapacak motivasyon partneri arıyorum.",
-    "goals": [
-      "Kondisyon",
-      "Kas"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 40.981848,
-    "lng": 29.101749,
-    "distanceKm": 6.5,
-    "photos": [
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Bugün",
-      "time": "07:30",
-      "gymName": "FitCity Ataşehir",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
-    "onboarded": true,
-    "createdAt": 1780695729599,
-    "lastLoginAt": 1793479329599
-  },
-  {
-    "id": "ath_f_1074",
-    "name": "Ecem Bulut",
-    "initials": "EB",
-    "gender": "Kadın",
-    "age": 30,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 533 618 52 70",
-    "email": "ecem.bulut74@gmail.com",
-    "bio": "MACFit Kadıköy müdavimiyim. Bacak günlerinde birbirimize destek olacak kız arkadaş arıyorum 🏋️‍♀️",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Gece"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.011223,
-    "lng": 29.021091,
-    "distanceKm": 6.3,
-    "photos": [
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Bugün",
-      "time": "08:00",
-      "gymName": "Üsküdar GymClub",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
-    "onboarded": true,
-    "createdAt": 1780522929599,
-    "lastLoginAt": 1793475729599
-  },
-  {
-    "id": "ath_f_1075",
-    "name": "Gülce Güneş",
-    "initials": "GG",
-    "gender": "Kadın",
-    "age": 31,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 534 625 55 75",
-    "email": "gülce.güneş75@gmail.com",
-    "bio": "Haftada 5 gün split antrenman. Disiplinli ve zamanında gelen partnerlerle çalışmayı seviyorum.",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.036183,
-    "lng": 29.022592,
-    "distanceKm": 5.4,
-    "photos": [
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Yarın",
-      "time": "12:30",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
-    "onboarded": true,
-    "createdAt": 1780350129599,
-    "lastLoginAt": 1793472129599
-  },
-  {
-    "id": "ath_f_1076",
-    "name": "Yeliz Karaca",
-    "initials": "YK",
-    "gender": "Kadın",
-    "age": 32,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 535 632 58 80",
-    "email": "yeliz.karaca76@gmail.com",
-    "bio": "Yeni başladım sayılır, form düzeltme ve temel hareketlerde motive olacak birini arıyorum 🌸",
-    "goals": [
-      "Güç",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Akşam",
-      "Öğle"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.940492,
-    "lng": 29.149838,
-    "distanceKm": 7,
-    "photos": [
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Yarın",
-      "time": "13:00",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
-    "onboarded": true,
-    "createdAt": 1780177329599,
-    "lastLoginAt": 1793468529599
-  },
-  {
-    "id": "ath_f_1077",
-    "name": "Banu Sarı",
-    "initials": "BS",
-    "gender": "Kadın",
-    "age": 33,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 536 639 61 85",
-    "email": "banu.sarı77@gmail.com",
-    "bio": "Hypertrophy ve güç odaklı alt-üst vücut spliti yapıyorum. Karşılıklı yardımlaşma güzel olur.",
-    "goals": [
-      "Kas",
-      "Kondisyon"
-    ],
-    "level": "Başlangıç",
-    "preferredTimes": [
-      "Sabah"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 41.005193,
-    "lng": 29.029242,
-    "distanceKm": 0.7,
-    "photos": [
-      "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Çarşamba",
-      "time": "18:00",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
-    "onboarded": true,
-    "createdAt": 1780004529599,
-    "lastLoginAt": 1793464929599
-  },
-  {
-    "id": "ath_f_1078",
-    "name": "Tülin Acar",
-    "initials": "TA",
-    "gender": "Kadın",
-    "age": 21,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 537 646 64 90",
-    "email": "tülin.acar78@gmail.com",
-    "bio": "Crossfit ve fonksiyonel antrenmanlar vazgeçilmezim. Sabah enerjisiyle spora başlayanlar yazabilir ⚡",
-    "goals": [
-      "Kas",
-      "Güç"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.99271,
-    "lng": 29.00956,
-    "distanceKm": 1,
-    "photos": [
-      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Perşembe",
-      "time": "18:30",
-      "gymName": "PowerGym Moda",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
-    "onboarded": true,
-    "createdAt": 1779831729599,
-    "lastLoginAt": 1793482929599
-  },
-  {
-    "id": "ath_f_1079",
-    "name": "Belgin Duran",
-    "initials": "BD",
-    "gender": "Kadın",
-    "age": 22,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 538 653 67 95",
-    "email": "belgin.duran79@gmail.com",
-    "bio": "Akşam iş çıkışı 19:30 seansları. Omuz ve sırt günlerinde süperset partneri.",
-    "goals": [
-      "Kondisyon",
-      "Kas"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Gece"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.961338,
-    "lng": 29.045873,
-    "distanceKm": 2.8,
-    "photos": [
-      "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Cuma",
-      "time": "19:00",
-      "gymName": "PlusFitness Caddebostan",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
-    "onboarded": true,
-    "createdAt": 1779658929599,
-    "lastLoginAt": 1793479329599
-  },
-  {
-    "id": "ath_f_1080",
-    "name": "Ayça Eren",
-    "initials": "AE",
-    "gender": "Kadın",
-    "age": 23,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 539 660 70 20",
-    "email": "ayça.eren80@gmail.com",
-    "bio": "Haftada 4 gün ağırlık, 1 gün kardiyo. Birlikte motive olacak ve set aralarında spotterlık yapacak partner arıyorum 💪",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 40.977092,
-    "lng": 29.113013,
-    "distanceKm": 5.1,
-    "photos": [
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Bugün",
-      "time": "19:30",
-      "gymName": "FitCity Ataşehir",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
-    "onboarded": true,
-    "createdAt": 1779486129599,
-    "lastLoginAt": 1793475729599
-  },
-  {
-    "id": "ath_f_1081",
-    "name": "Gülben Yılmaz",
-    "initials": "GY",
-    "gender": "Kadın",
-    "age": 24,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 531 667 73 25",
-    "email": "gülben.yılmaz81@gmail.com",
-    "bio": "Sabahları 07:00 seansları. Squat ve Hip Thrust odaklı çalışıyorum. Düzenli gelen arkadaşlar ekleyebilir ✨",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Akşam",
-      "Öğle"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.016552,
-    "lng": 29.03198,
-    "distanceKm": 4.9,
-    "photos": [
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Bugün",
-      "time": "20:00",
-      "gymName": "Üsküdar GymClub",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
-    "onboarded": true,
-    "createdAt": 1779313329599,
-    "lastLoginAt": 1793472129599
-  },
-  {
-    "id": "ath_f_1082",
-    "name": "Didem Çelik",
-    "initials": "DÇ",
-    "gender": "Kadın",
-    "age": 25,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 532 674 76 30",
-    "email": "didem.çelik82@gmail.com",
-    "bio": "Pilates ve fonksiyonel fitness ile ilgileniyorum. Haftasonu koşu veya salonda partner iyi olur 🧘‍♀️",
-    "goals": [
-      "Güç",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Sabah"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.046698,
-    "lng": 29.023094,
-    "distanceKm": 6.7,
-    "photos": [
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Bugün",
-      "time": "20:30",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
-    "onboarded": true,
-    "createdAt": 1779140529599,
-    "lastLoginAt": 1793468529599
-  },
-  {
-    "id": "ath_f_1083",
-    "name": "Feride Yıldırım",
-    "initials": "FY",
-    "gender": "Kadın",
-    "age": 26,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 533 681 79 35",
-    "email": "feride.yıldırım83@gmail.com",
-    "bio": "Kilo verme ve sıkılaşma dönemindeyim. Birlikte kardiyo ve HIIT yapacak motivasyon partneri arıyorum.",
-    "goals": [
-      "Kas",
-      "Kondisyon"
-    ],
-    "level": "Başlangıç",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.946525,
-    "lng": 29.139492,
-    "distanceKm": 8.2,
-    "photos": [
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Yarın",
-      "time": "21:00",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
-    "onboarded": true,
-    "createdAt": 1778967729599,
-    "lastLoginAt": 1793464929599
-  },
-  {
-    "id": "ath_f_1084",
-    "name": "Şeyma Özdemir",
-    "initials": "ŞÖ",
-    "gender": "Kadın",
-    "age": 27,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 534 688 82 40",
-    "email": "şeyma.özdemir84@gmail.com",
-    "bio": "MACFit Kadıköy müdavimiyim. Bacak günlerinde birbirimize destek olacak kız arkadaş arıyorum 🏋️‍♀️",
-    "goals": [
-      "Kas",
-      "Güç"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Gece"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 41.001198,
-    "lng": 29.01756,
-    "distanceKm": 1.9,
-    "photos": [
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Yarın",
-      "time": "07:00",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
-    "onboarded": true,
-    "createdAt": 1778794929599,
-    "lastLoginAt": 1793482929599
-  },
-  {
-    "id": "ath_f_1085",
-    "name": "Zehra Kılıç",
-    "initials": "ZK",
-    "gender": "Kadın",
-    "age": 28,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 535 695 85 45",
-    "email": "zehra.kılıç85@gmail.com",
-    "bio": "Haftada 5 gün split antrenman. Disiplinli ve zamanında gelen partnerlerle çalışmayı seviyorum.",
-    "goals": [
-      "Kondisyon",
-      "Kas"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.982359,
-    "lng": 29.007281,
-    "distanceKm": 2.3,
-    "photos": [
-      "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Çarşamba",
-      "time": "07:30",
-      "gymName": "PowerGym Moda",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
-    "onboarded": true,
-    "createdAt": 1778622129599,
-    "lastLoginAt": 1793479329599
-  },
-  {
-    "id": "ath_f_1086",
-    "name": "Efsun Kara",
-    "initials": "EK",
-    "gender": "Kadın",
-    "age": 29,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 536 702 88 50",
-    "email": "efsun.kara86@gmail.com",
-    "bio": "Yeni başladım sayılır, form düzeltme ve temel hareketlerde motive olacak birini arıyorum 🌸",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Akşam",
-      "Öğle"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.954148,
-    "lng": 29.055093,
-    "distanceKm": 4.1,
-    "photos": [
-      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Perşembe",
-      "time": "08:00",
-      "gymName": "PlusFitness Caddebostan",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
-    "onboarded": true,
-    "createdAt": 1778449329599,
-    "lastLoginAt": 1793475729599
-  },
-  {
-    "id": "ath_f_1087",
-    "name": "Su Özkan",
-    "initials": "SÖ",
-    "gender": "Kadın",
-    "age": 30,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 537 709 91 55",
-    "email": "su.özkan87@gmail.com",
-    "bio": "Hypertrophy ve güç odaklı alt-üst vücut spliti yapıyorum. Karşılıklı yardımlaşma güzel olur.",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Sabah"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 40.979673,
-    "lng": 29.125256,
-    "distanceKm": 6.4,
-    "photos": [
-      "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Cuma",
-      "time": "12:30",
-      "gymName": "FitCity Ataşehir",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
-    "onboarded": true,
-    "createdAt": 1778276529599,
-    "lastLoginAt": 1793472129599
-  },
-  {
-    "id": "ath_f_1088",
-    "name": "Mira Korkmaz",
-    "initials": "MK",
-    "gender": "Kadın",
-    "age": 31,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 538 716 94 60",
-    "email": "mira.korkmaz88@gmail.com",
-    "bio": "Crossfit ve fonksiyonel antrenmanlar vazgeçilmezim. Sabah enerjisiyle spora başlayanlar yazabilir ⚡",
-    "goals": [
-      "Güç",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.026531,
-    "lng": 29.035989,
-    "distanceKm": 6.1,
-    "photos": [
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Bugün",
-      "time": "13:00",
-      "gymName": "Üsküdar GymClub",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
-    "onboarded": true,
-    "createdAt": 1778103729599,
-    "lastLoginAt": 1793468529599
-  },
-  {
-    "id": "ath_f_1089",
-    "name": "Doğa Aksoy",
-    "initials": "DA",
-    "gender": "Kadın",
-    "age": 32,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 539 723 97 65",
-    "email": "doğa.aksoy89@gmail.com",
-    "bio": "Akşam iş çıkışı 19:30 seansları. Omuz ve sırt günlerinde süperset partneri.",
-    "goals": [
-      "Kas",
-      "Kondisyon"
-    ],
-    "level": "Başlangıç",
-    "preferredTimes": [
-      "Gece"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.054901,
-    "lng": 29.015183,
-    "distanceKm": 7.9,
-    "photos": [
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Bugün",
-      "time": "18:00",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
-    "onboarded": true,
-    "createdAt": 1777930929599,
-    "lastLoginAt": 1793464929599
-  },
-  {
-    "id": "ath_f_1090",
-    "name": "Ceren Yalçın",
-    "initials": "CY",
-    "gender": "Kadın",
-    "age": 33,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 531 730 10 70",
-    "email": "ceren.yalçın90@gmail.com",
-    "bio": "Haftada 4 gün ağırlık, 1 gün kardiyo. Birlikte motive olacak ve set aralarında spotterlık yapacak partner arıyorum 💪",
-    "goals": [
-      "Kas",
-      "Güç"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.94541,
-    "lng": 29.126935,
-    "distanceKm": 6.8,
-    "photos": [
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Bugün",
-      "time": "18:30",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
-    "onboarded": true,
-    "createdAt": 1777758129599,
-    "lastLoginAt": 1793482929599
-  },
-  {
-    "id": "ath_f_1091",
-    "name": "Simay Keskin",
-    "initials": "SK",
-    "gender": "Kadın",
-    "age": 21,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 532 737 13 75",
-    "email": "simay.keskin91@gmail.com",
-    "bio": "Sabahları 07:00 seansları. Squat ve Hip Thrust odaklı çalışıyorum. Düzenli gelen arkadaşlar ekleyebilir ✨",
-    "goals": [
-      "Kondisyon",
-      "Kas"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Akşam",
-      "Öğle"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 40.99179,
-    "lng": 29.011901,
-    "distanceKm": 0.5,
-    "photos": [
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Yarın",
-      "time": "19:00",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
-    "onboarded": true,
-    "createdAt": 1777585329599,
-    "lastLoginAt": 1793479329599
-  },
-  {
-    "id": "ath_f_1092",
-    "name": "Pırıl Bozkurt",
-    "initials": "PB",
-    "gender": "Kadın",
-    "age": 22,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 533 744 16 80",
-    "email": "pırıl.bozkurt92@gmail.com",
-    "bio": "Pilates ve fonksiyonel fitness ile ilgileniyorum. Haftasonu koşu veya salonda partner iyi olur 🧘‍♀️",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.973308,
-    "lng": 29.013724,
-    "distanceKm": 0.9,
-    "photos": [
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Yarın",
-      "time": "19:30",
-      "gymName": "PowerGym Moda",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
-    "onboarded": true,
-    "createdAt": 1777412529599,
-    "lastLoginAt": 1793475729599
-  },
-  {
-    "id": "ath_f_1093",
-    "name": "Beste Taş",
-    "initials": "BT",
-    "gender": "Kadın",
-    "age": 23,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 534 751 19 85",
-    "email": "beste.taş93@gmail.com",
-    "bio": "Kilo verme ve sıkılaşma dönemindeyim. Birlikte kardiyo ve HIIT yapacak motivasyon partneri arıyorum.",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.953776,
-    "lng": 29.067714,
-    "distanceKm": 2.6,
-    "photos": [
-      "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Çarşamba",
-      "time": "20:00",
-      "gymName": "PlusFitness Caddebostan",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
-    "onboarded": true,
-    "createdAt": 1777239729599,
-    "lastLoginAt": 1793472129599
-  },
-  {
-    "id": "ath_f_1094",
-    "name": "Dila Gök",
-    "initials": "DG",
-    "gender": "Kadın",
-    "age": 24,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 535 758 22 90",
-    "email": "dila.gök94@gmail.com",
-    "bio": "MACFit Kadıköy müdavimiyim. Bacak günlerinde birbirimize destek olacak kız arkadaş arıyorum 🏋️‍♀️",
-    "goals": [
-      "Güç",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Gece"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 40.988321,
-    "lng": 29.13245,
-    "distanceKm": 4.9,
-    "photos": [
-      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Perşembe",
-      "time": "20:30",
-      "gymName": "FitCity Ataşehir",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
-    "onboarded": true,
-    "createdAt": 1777066929599,
-    "lastLoginAt": 1793468529599
-  },
-  {
-    "id": "ath_f_1095",
-    "name": "Gülfem Sever",
-    "initials": "GS",
-    "gender": "Kadın",
-    "age": 25,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 536 765 25 95",
-    "email": "gülfem.sever95@gmail.com",
-    "bio": "Haftada 5 gün split antrenman. Disiplinli ve zamanında gelen partnerlerle çalışmayı seviyorum.",
-    "goals": [
-      "Kas",
-      "Kondisyon"
-    ],
-    "level": "Başlangıç",
-    "preferredTimes": [
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.036249,
-    "lng": 29.031143,
-    "distanceKm": 4.7,
-    "photos": [
-      "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Cuma",
-      "time": "21:00",
-      "gymName": "Üsküdar GymClub",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
-    "onboarded": true,
-    "createdAt": 1776894129599,
-    "lastLoginAt": 1793464929599
-  },
-  {
-    "id": "ath_f_1096",
-    "name": "Asude Işık",
-    "initials": "AI",
-    "gender": "Kadın",
-    "age": 26,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 537 772 28 20",
-    "email": "asude.işık96@gmail.com",
-    "bio": "Yeni başladım sayılır, form düzeltme ve temel hareketlerde motive olacak birini arıyorum 🌸",
-    "goals": [
-      "Kas",
-      "Güç"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Akşam",
-      "Öğle"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.056754,
-    "lng": 29.002752,
-    "distanceKm": 6.5,
-    "photos": [
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Bugün",
-      "time": "07:00",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
-    "onboarded": true,
-    "createdAt": 1776721329599,
-    "lastLoginAt": 1793482929599
-  },
-  {
-    "id": "ath_f_1097",
-    "name": "Rana Demirci",
-    "initials": "RD",
-    "gender": "Kadın",
-    "age": 27,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 538 779 31 25",
-    "email": "rana.demirci97@gmail.com",
-    "bio": "Hypertrophy ve güç odaklı alt-üst vücut spliti yapıyorum. Karşılıklı yardımlaşma güzel olur.",
-    "goals": [
-      "Kondisyon",
-      "Kas"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.937694,
-    "lng": 29.118347,
-    "distanceKm": 8.1,
-    "photos": [
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Bugün",
-      "time": "07:30",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
-    "onboarded": true,
-    "createdAt": 1776548529599,
-    "lastLoginAt": 1793479329599
-  },
-  {
-    "id": "ath_f_1098",
-    "name": "Sevde Kaya",
-    "initials": "SK",
-    "gender": "Kadın",
-    "age": 28,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 539 786 34 30",
-    "email": "sevde.kaya98@gmail.com",
-    "bio": "Crossfit ve fonksiyonel antrenmanlar vazgeçilmezim. Sabah enerjisiyle spora başlayanlar yazabilir ⚡",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 40.981599,
-    "lng": 29.015053,
-    "distanceKm": 1.7,
-    "photos": [
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Bugün",
-      "time": "08:00",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
-    "onboarded": true,
-    "createdAt": 1776375729599,
-    "lastLoginAt": 1793475729599
-  },
-  {
-    "id": "ath_f_1099",
-    "name": "Esin Şahin",
-    "initials": "EŞ",
-    "gender": "Kadın",
-    "age": 29,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 531 793 37 35",
-    "email": "esin.şahin99@gmail.com",
-    "bio": "Akşam iş çıkışı 19:30 seansları. Omuz ve sırt günlerinde süperset partneri.",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Gece"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.970012,
-    "lng": 29.025717,
-    "distanceKm": 2.1,
-    "photos": [
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Yarın",
-      "time": "12:30",
-      "gymName": "PowerGym Moda",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
-    "onboarded": true,
-    "createdAt": 1776202929599,
-    "lastLoginAt": 1793472129599
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
   },
   {
     "id": "ath_m_2000",
-    "name": "Can Doğan",
+    "name": "Can Demir",
     "initials": "CD",
     "gender": "Erkek",
-    "age": 22,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 541 120 11 15",
-    "email": "can.doğan0@gmail.com",
-    "bio": "Haftada 5 gün Push-Pull-Legs yapıyorum. Bench ve Squat'ta ağır kilolarda spotter partneri arıyorum 💪",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.984,
-    "lng": 29.062,
-    "distanceKm": 2.6,
+    "age": 21,
+    "city": "Ankara",
+    "district": "Kızılay",
+    "gymId": "gym_ank_kizilay",
+    "gymName": "Kızılay PowerGym (Ankara)",
+    "lat": 39.919,
+    "lng": 32.852,
+    "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80",
     "photos": [
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80",
       "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
+      "https://images.unsplash.com/photo-1579758629938-03607ccdbaba?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&auto=format&fit=crop&q=80"
     ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Bugün",
-      "time": "13:00",
-      "gymName": "PlusFitness Caddebostan",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
+    "level": "Yeni başladım",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
+    "preferredTimes": [
+      "Sabah"
+    ],
+    "bio": "Haftada 5 gün Push-Pull-Legs yapıyorum. Bench ve Squat'ta ağır kilolarda spotter partneri arıyorum 💪",
+    "verified": true,
+    "attendanceStreak": 5,
+    "workoutsCompleted": 12,
+    "rating": 4.7,
     "onboarded": true,
-    "createdAt": 1793223729599,
-    "lastLoginAt": 1793482929599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Sırt & Biceps",
+      "expectation": "Set arası motivasyon",
+      "note": "Lat pulldown ve barbell row odaklı seans"
+    }
+  },
+  {
+    "id": "ath_f_1001",
+    "name": "Zeynep Şahin",
+    "initials": "ZŞ",
+    "gender": "Kadın",
+    "age": 27,
+    "city": "İstanbul",
+    "district": "Moda",
+    "gymId": "gym_ist_moda",
+    "gymName": "PowerGym Moda (İstanbul)",
+    "lat": 40.9843,
+    "lng": 29.0247,
+    "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1524502397800-2eeaad7c3fe5?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
+    "preferredTimes": [
+      "Sabah"
+    ],
+    "bio": "Sabahları 07:00 seansları. Squat ve Hip Thrust odaklı çalışıyorum. Düzenli gelen arkadaşlar ekleyebilir ✨",
+    "verified": true,
+    "attendanceStreak": 9,
+    "workoutsCompleted": 17,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "18:30",
+      "workoutType": "Göğüs & Kol",
+      "expectation": "Ağır kilo partneri",
+      "note": "Bench press ve dumbbell press süpersetleri"
+    }
   },
   {
     "id": "ath_m_2001",
-    "name": "Kerem Koç",
-    "initials": "KK",
+    "name": "Kerem Öztürk",
+    "initials": "KÖ",
     "gender": "Erkek",
-    "age": 23,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 542 131 18 24",
-    "email": "kerem.koç1@gmail.com",
-    "bio": "Sabah 07:30 veya akşam 19:00 seansları. Hedef hacim ve hipertrofi. Ciddi antrenman arkadaşı eklesin 🏋️‍♂️",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 40.993132,
-    "lng": 29.131957,
-    "distanceKm": 4.9,
+    "age": 32,
+    "city": "Ankara",
+    "district": "Batıkent",
+    "gymId": "gym_ank_batikent",
+    "gymName": "Atlantis MACFit (Ankara)",
+    "lat": 39.9699,
+    "lng": 32.7483,
+    "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=80",
     "photos": [
       "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
+      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=800&auto=format&fit=crop&q=80"
     ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Yarın",
-      "time": "18:00",
-      "gymName": "FitCity Ataşehir",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
+    "level": "Orta",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Sabah 07:30 veya akşam 19:00 seansları. Hedef hacim ve hipertrofi. Ciddi antrenman arkadaşı eklesin 🏋️‍♂️",
+    "verified": false,
+    "attendanceStreak": 9,
+    "workoutsCompleted": 21,
+    "rating": 4.8,
     "onboarded": true,
-    "createdAt": 1792964529599,
-    "lastLoginAt": 1793479329599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Omuz & Karın",
+      "expectation": "Süperset partneri",
+      "note": "Overhead press ve lateral raise tükeniş setleri"
+    }
+  },
+  {
+    "id": "ath_f_1002",
+    "name": "Sinem Öztürk",
+    "initials": "SÖ",
+    "gender": "Kadın",
+    "age": 34,
+    "city": "İstanbul",
+    "district": "Caddebostan",
+    "gymId": "gym_ist_cadde",
+    "gymName": "PlusFitness Caddebostan (İstanbul)",
+    "lat": 40.9686,
+    "lng": 29.0634,
+    "avatar": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/11183203/pexels-photo-11183203.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "Yeni başladım",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Pilates ve fonksiyonel fitness ile ilgileniyorum. Haftasonu koşu veya salonda partner iyi olur 🧘‍♀️",
+    "verified": true,
+    "attendanceStreak": 14,
+    "workoutsCompleted": 24,
+    "rating": 4.9,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "19:00",
+      "workoutType": "Sırt & Biceps",
+      "expectation": "Set arası motivasyon",
+      "note": "Lat pulldown ve barbell row odaklı seans"
+    }
   },
   {
     "id": "ath_m_2002",
-    "name": "Burak Korkmaz",
+    "name": "Burak Kılıç",
     "initials": "BK",
     "gender": "Erkek",
-    "age": 24,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 543 142 25 33",
-    "email": "burak.korkmaz2@gmail.com",
-    "bio": "Crossfit ve calisthenics karışık gidiyorum. Güç antrenmanında sınırları zorlayacak partner arıyorum ⚡",
-    "goals": [
-      "Güç",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Gece"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.01016,
-    "lng": 29.020399,
-    "distanceKm": 4.7,
+    "age": 27,
+    "city": "Ankara",
+    "district": "Bilkent",
+    "gymId": "gym_ank_bilkent",
+    "gymName": "Sports International Bilkent (Ankara)",
+    "lat": 39.8728,
+    "lng": 32.7516,
+    "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&auto=format&fit=crop&q=80",
     "photos": [
       "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
+      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
     ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Yarın",
-      "time": "18:30",
-      "gymName": "Üsküdar GymClub",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
+    "level": "İleri",
+    "goals": [
+      "Güç",
+      "Hipertrofi"
+    ],
+    "preferredTimes": [
+      "Akşam",
+      "Haftasonu"
+    ],
+    "bio": "Crossfit ve calisthenics karışık gidiyorum. Güç antrenmanında sınırları zorlayacak partner arıyorum ⚡",
+    "verified": true,
+    "attendanceStreak": 13,
+    "workoutsCompleted": 30,
+    "rating": 4.9,
     "onboarded": true,
-    "createdAt": 1792705329599,
-    "lastLoginAt": 1793475729599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
+  },
+  {
+    "id": "ath_f_1003",
+    "name": "İrem Arslan",
+    "initials": "İA",
+    "gender": "Kadın",
+    "age": 26,
+    "city": "İstanbul",
+    "district": "Ataşehir",
+    "gymId": "gym_ist_atasehir",
+    "gymName": "FitCity Ataşehir (İstanbul)",
+    "lat": 40.9939,
+    "lng": 29.1141,
+    "avatar": "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/28080/pexels-photo-28080.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Güç",
+      "Hipertrofi"
+    ],
+    "preferredTimes": [
+      "Akşam",
+      "Haftasonu"
+    ],
+    "bio": "Kilo verme ve sıkılaşma dönemindeyim. Birlikte kardiyo ve HIIT yapacak motivasyon partneri arıyorum.",
+    "verified": false,
+    "attendanceStreak": 19,
+    "workoutsCompleted": 31,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "20:30",
+      "workoutType": "Omuz & Karın",
+      "expectation": "Süperset partneri",
+      "note": "Overhead press ve lateral raise tükeniş setleri"
+    }
   },
   {
     "id": "ath_m_2003",
-    "name": "Deniz Güler",
-    "initials": "DG",
+    "name": "Deniz Kurt",
+    "initials": "DK",
     "gender": "Erkek",
-    "age": 25,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 544 153 32 42",
-    "email": "deniz.güler3@gmail.com",
-    "bio": "Kondisyon ve yağ yakımı odaklıyım. Birlikte tempolu kardiyo ve ağırlık kombinasyonu yapabiliriz.",
-    "goals": [
-      "Kas",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.038627,
-    "lng": 28.989382,
-    "distanceKm": 6.4,
+    "age": 22,
+    "city": "Ankara",
+    "district": "Keçiören",
+    "gymId": "gym_ank_kecioren",
+    "gymName": "Antares MACFit (Ankara)",
+    "lat": 39.9667,
+    "lng": 32.8229,
+    "avatar": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&auto=format&fit=crop&q=80",
     "photos": [
       "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
+      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/2247179/pexels-photo-2247179.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=800&auto=format&fit=crop&q=80"
     ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Çarşamba",
-      "time": "19:00",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
+    "level": "Orta",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
+    "preferredTimes": [
+      "Sabah",
+      "Öğle"
+    ],
+    "bio": "Kondisyon ve yağ yakımı odaklıyım. Birlikte tempolu kardiyo ve ağırlık kombinasyonu yapabiliriz.",
+    "verified": false,
+    "attendanceStreak": 17,
+    "workoutsCompleted": 39,
+    "rating": 5,
     "onboarded": true,
-    "createdAt": 1792446129599,
-    "lastLoginAt": 1793472129599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
+  },
+  {
+    "id": "ath_f_1004",
+    "name": "Damla Aslan",
+    "initials": "DA",
+    "gender": "Kadın",
+    "age": 33,
+    "city": "İstanbul",
+    "district": "Üsküdar",
+    "gymId": "gym_ist_uskudar",
+    "gymName": "Üsküdar GymClub (İstanbul)",
+    "lat": 41.0252,
+    "lng": 29.0188,
+    "avatar": "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/3490348/pexels-photo-3490348.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
+    "preferredTimes": [
+      "Sabah",
+      "Öğle"
+    ],
+    "bio": "Bacak ve kalça günlerinde birbirimize destek olacak disiplinli sporcu kız arkadaş arıyorum 🏋️‍♀️",
+    "verified": true,
+    "attendanceStreak": 6,
+    "workoutsCompleted": 38,
+    "rating": 4.7,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "21:00",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
   },
   {
     "id": "ath_m_2004",
-    "name": "Alp Ünal",
-    "initials": "AÜ",
+    "name": "Alp Erdoğan",
+    "initials": "AE",
     "gender": "Erkek",
-    "age": 26,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 545 164 39 51",
-    "email": "alp.ünal4@gmail.com",
-    "bio": "Powerlifting ve temel bileşik egzersizler (Squat, Bench, Deadlift). Disiplinli sporcular yazsın.",
-    "goals": [
-      "Kas",
-      "Güç"
-    ],
-    "level": "Başlangıç",
-    "preferredTimes": [
-      "Akşam",
-      "Öğle"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.947363,
-    "lng": 29.13025,
-    "distanceKm": 8,
+    "age": 33,
+    "city": "İzmir",
+    "district": "Alsancak",
+    "gymId": "gym_izm_alsancak",
+    "gymName": "MACFit Alsancak (İzmir)",
+    "lat": 38.4396,
+    "lng": 27.1412,
+    "avatar": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&auto=format&fit=crop&q=80",
     "photos": [
       "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
+      "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/3289711/pexels-photo-3289711.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&auto=format&fit=crop&q=80"
     ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Perşembe",
-      "time": "19:30",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
+    "level": "İleri",
+    "goals": [
+      "Kas",
+      "Kondisyon"
+    ],
+    "preferredTimes": [
+      "Akşam"
+    ],
+    "bio": "Powerlifting ve temel bileşik egzersizler (Squat, Bench, Deadlift). Disiplinli sporcular yazsın.",
+    "verified": true,
+    "attendanceStreak": 21,
+    "workoutsCompleted": 48,
+    "rating": 4.7,
     "onboarded": true,
-    "createdAt": 1792186929599,
-    "lastLoginAt": 1793468529599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
+  },
+  {
+    "id": "ath_f_1005",
+    "name": "Melisa Koç",
+    "initials": "MK",
+    "gender": "Kadın",
+    "age": 25,
+    "city": "İstanbul",
+    "district": "Maltepe",
+    "gymId": "gym_ist_maltepe",
+    "gymName": "Hilltown MACFit (İstanbul)",
+    "lat": 40.9325,
+    "lng": 29.1335,
+    "avatar": "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1576678927484-cc907957088c?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/416778/pexels-photo-416778.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1581009137042-c552e485697a?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Kas",
+      "Kondisyon"
+    ],
+    "preferredTimes": [
+      "Akşam"
+    ],
+    "bio": "Haftada 5 gün split antrenman. Disiplinli ve zamanında gelen partnerlerle çalışmayı seviyorum.",
+    "verified": true,
+    "attendanceStreak": 11,
+    "workoutsCompleted": 45,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "17:30",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
   },
   {
     "id": "ath_m_2005",
-    "name": "Tolga Taş",
-    "initials": "TT",
+    "name": "Tolga Yalçın",
+    "initials": "TY",
     "gender": "Erkek",
-    "age": 27,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 546 175 46 60",
-    "email": "tolga.taş5@gmail.com",
-    "bio": "Haftasonları sabah koşusu, hafta içi akşam Kadıköy salon seansları. Sürekli motive partner arıyorum.",
-    "goals": [
-      "Kondisyon",
-      "Kas"
+    "age": 28,
+    "city": "İzmir",
+    "district": "Karşıyaka",
+    "gymId": "gym_izm_mavibahce",
+    "gymName": "MaviBahçe MACFit (İzmir)",
+    "lat": 38.4615,
+    "lng": 27.0995,
+    "avatar": "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1576678927484-cc907957088c?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/414029/pexels-photo-414029.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1581009137042-c552e485697a?w=800&auto=format&fit=crop&q=80"
     ],
-    "level": "Orta",
+    "level": "Yeni başladım",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
     "preferredTimes": [
       "Sabah"
     ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 40.995746,
-    "lng": 29.045746,
-    "distanceKm": 1.7,
-    "photos": [
-      "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Cuma",
-      "time": "20:00",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
+    "bio": "Haftasonları sabah koşusu, hafta içi akşam salon seansları. Sürekli motive partner arıyorum.",
+    "verified": false,
+    "attendanceStreak": 25,
+    "workoutsCompleted": 57,
+    "rating": 4.8,
     "onboarded": true,
-    "createdAt": 1791927729599,
-    "lastLoginAt": 1793464929599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
+  },
+  {
+    "id": "ath_f_1006",
+    "name": "Tuğba Şimşek",
+    "initials": "TŞ",
+    "gender": "Kadın",
+    "age": 32,
+    "city": "İstanbul",
+    "district": "Pendik",
+    "gymId": "gym_ist_pendik",
+    "gymName": "Viaport MACFit (İstanbul)",
+    "lat": 40.8818,
+    "lng": 29.2302,
+    "avatar": "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/669578/pexels-photo-669578.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
+    "preferredTimes": [
+      "Sabah"
+    ],
+    "bio": "Yeni başladım sayılır, form düzeltme ve temel hareketlerde motive olacak birini arıyorum 🌸",
+    "verified": false,
+    "attendanceStreak": 16,
+    "workoutsCompleted": 52,
+    "rating": 4.9,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
   },
   {
     "id": "ath_m_2006",
-    "name": "Berkay Acar",
-    "initials": "BA",
+    "name": "Berkay Güneş",
+    "initials": "BG",
     "gender": "Erkek",
-    "age": 28,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 547 186 53 69",
-    "email": "berkay.acar6@gmail.com",
-    "bio": "Sporda 3. yılım. Form ve tempo odaklı çalışıyorum, zamanı verimli kullanan biriyle eşleşmek isterim.",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.970422,
-    "lng": 29.032006,
-    "distanceKm": 2,
+    "age": 23,
+    "city": "İzmir",
+    "district": "Bornova",
+    "gymId": "gym_izm_bornova",
+    "gymName": "Forum Bornova MACFit (İzmir)",
+    "lat": 38.4564,
+    "lng": 27.2178,
+    "avatar": "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=800&auto=format&fit=crop&q=80",
     "photos": [
       "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
+      "https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/669584/pexels-photo-669584.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?w=800&auto=format&fit=crop&q=80"
     ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Bugün",
-      "time": "20:30",
-      "gymName": "PowerGym Moda",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
+    "level": "Orta",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Sporda 3. yılım. Form ve tempo odaklı çalışıyorum, zamanı verimli kullanan biriyle eşleşmek isterim.",
+    "verified": true,
+    "attendanceStreak": 7,
+    "workoutsCompleted": 66,
+    "rating": 4.9,
     "onboarded": true,
-    "createdAt": 1791668529599,
-    "lastLoginAt": 1793461329599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Göğüs & Kol",
+      "expectation": "Ağır kilo partneri",
+      "note": "Bench press ve dumbbell press süpersetleri"
+    }
+  },
+  {
+    "id": "ath_f_1007",
+    "name": "Yasemin Erdoğan",
+    "initials": "YE",
+    "gender": "Kadın",
+    "age": 24,
+    "city": "İstanbul",
+    "district": "Beşiktaş",
+    "gymId": "gym_ist_besiktas",
+    "gymName": "MACFit Beşiktaş (İstanbul)",
+    "lat": 41.0411,
+    "lng": 29.0079,
+    "avatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1599058917212-d750089bc07e?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/669582/pexels-photo-669582.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1599058917765-a780eda07a3e?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "Yeni başladım",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Hypertrophy ve güç odaklı alt-üst vücut spliti yapıyorum. Karşılıklı yardımlaşma güzel olur.",
+    "verified": true,
+    "attendanceStreak": 21,
+    "workoutsCompleted": 59,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
   },
   {
     "id": "ath_m_2007",
-    "name": "Mert Kalkan",
-    "initials": "MK",
+    "name": "Mert Coşkun",
+    "initials": "MC",
     "gender": "Erkek",
-    "age": 29,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 548 197 60 78",
-    "email": "mert.kalkan7@gmail.com",
-    "bio": "İş çıkışı 18:30 seansları. Göğüs-kol ve sırt günlerinde tükeniş setleri için spotter lazım 🎯",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Gece"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.960391,
-    "lng": 29.047045,
-    "distanceKm": 3.8,
+    "age": 34,
+    "city": "İzmir",
+    "district": "Bostanlı",
+    "gymId": "gym_izm_bostanli",
+    "gymName": "Bostanlı FitClub (İzmir)",
+    "lat": 38.4563,
+    "lng": 27.1001,
+    "avatar": "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=800&auto=format&fit=crop&q=80",
     "photos": [
       "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
+      "https://images.unsplash.com/photo-1599058917212-d750089bc07e?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/669576/pexels-photo-669576.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1599058917765-a780eda07a3e?w=800&auto=format&fit=crop&q=80"
     ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Bugün",
-      "time": "21:00",
-      "gymName": "PlusFitness Caddebostan",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
+    "level": "İleri",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
+    "preferredTimes": [
+      "Akşam",
+      "Haftasonu"
+    ],
+    "bio": "İş çıkışı 18:30 seansları. Göğüs-kol ve sırt günlerinde tükeniş setleri için spotter lazım 🎯",
+    "verified": false,
+    "attendanceStreak": 11,
+    "workoutsCompleted": 75,
+    "rating": 5,
     "onboarded": true,
-    "createdAt": 1791409329599,
-    "lastLoginAt": 1793457729599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Sırt & Biceps",
+      "expectation": "Set arası motivasyon",
+      "note": "Lat pulldown ve barbell row odaklı seans"
+    }
+  },
+  {
+    "id": "ath_f_1008",
+    "name": "Elif Tekin",
+    "initials": "ET",
+    "gender": "Kadın",
+    "age": 31,
+    "city": "İstanbul",
+    "district": "Şişli",
+    "gymId": "gym_ist_sisli",
+    "gymName": "MAC Kanyon (İstanbul)",
+    "lat": 41.0784,
+    "lng": 29.0106,
+    "avatar": "https://images.unsplash.com/photo-1524502397800-2eeaad7c3fe5?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1524502397800-2eeaad7c3fe5?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/703014/pexels-photo-703014.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
+    "preferredTimes": [
+      "Akşam",
+      "Haftasonu"
+    ],
+    "bio": "Crossfit ve fonksiyonel antrenmanlar vazgeçilmezim. Sabah enerjisiyle spora başlayanlar yazabilir ⚡",
+    "verified": true,
+    "attendanceStreak": 8,
+    "workoutsCompleted": 11,
+    "rating": 4.7,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Göğüs & Kol",
+      "expectation": "Ağır kilo partneri",
+      "note": "Bench press ve dumbbell press süpersetleri"
+    }
   },
   {
     "id": "ath_m_2008",
-    "name": "Emre Kaya",
-    "initials": "EK",
+    "name": "Emre Sever",
+    "initials": "ES",
     "gender": "Erkek",
-    "age": 30,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 549 208 67 87",
-    "email": "emre.kaya8@gmail.com",
-    "bio": "Fonksiyonel güç ve kondisyon antrenmanı. Birlikte PR deneyecek partner arıyorum 🔥",
+    "age": 29,
+    "city": "İzmir",
+    "district": "Göztepe",
+    "gymId": "gym_izm_goztepe",
+    "gymName": "Göztepe Sahil Gym (İzmir)",
+    "lat": 38.3992,
+    "lng": 27.0924,
+    "avatar": "https://images.unsplash.com/photo-1534258936925-c58bed479fcb?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1534258936925-c58bed479fcb?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/669580/pexels-photo-669580.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "Orta",
     "goals": [
       "Güç",
-      "Kondisyon"
+      "Hipertrofi"
+    ],
+    "preferredTimes": [
+      "Sabah",
+      "Öğle"
+    ],
+    "bio": "Fonksiyonel güç ve kondisyon antrenmanı. Birlikte PR deneyecek partner arıyorum 🔥",
+    "verified": true,
+    "attendanceStreak": 15,
+    "workoutsCompleted": 19,
+    "rating": 4.7,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Omuz & Karın",
+      "expectation": "Süperset partneri",
+      "note": "Overhead press ve lateral raise tükeniş setleri"
+    }
+  },
+  {
+    "id": "ath_f_1009",
+    "name": "Beril Avcı",
+    "initials": "BA",
+    "gender": "Kadın",
+    "age": 23,
+    "city": "İstanbul",
+    "district": "Bakırköy",
+    "gymId": "gym_ist_bakirkoy",
+    "gymName": "Galleria Sports Club (İstanbul)",
+    "lat": 40.9777,
+    "lng": 28.8733,
+    "avatar": "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1583454155184-870a1f63aebc?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/863926/pexels-photo-863926.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "İleri",
+    "goals": [
+      "Güç",
+      "Hipertrofi"
+    ],
     "preferredTimes": [
-      "Akşam"
+      "Sabah",
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 41.005502,
-    "lng": 29.105878,
-    "distanceKm": 6.1,
-    "photos": [
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Bugün",
-      "time": "07:00",
-      "gymName": "FitCity Ataşehir",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
+    "bio": "Akşam iş çıkışı 19:30 seansları. Omuz ve sırt günlerinde süperset partneri.",
+    "verified": false,
+    "attendanceStreak": 13,
+    "workoutsCompleted": 18,
+    "rating": 4.8,
     "onboarded": true,
-    "createdAt": 1791150129599,
-    "lastLoginAt": 1793482929599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Sırt & Biceps",
+      "expectation": "Set arası motivasyon",
+      "note": "Lat pulldown ve barbell row odaklı seans"
+    }
   },
   {
     "id": "ath_m_2009",
-    "name": "Barış Yıldırım",
-    "initials": "BY",
+    "name": "Barış Eren",
+    "initials": "BE",
     "gender": "Erkek",
-    "age": 31,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 541 219 74 16",
-    "email": "barış.yıldırım9@gmail.com",
-    "bio": "Düzenli antrenman ve temiz beslenme yaşam tarzım. Salonda vakit kaybetmeden basacak dostlar eklesin.",
-    "goals": [
-      "Kas",
-      "Kondisyon"
+    "age": 24,
+    "city": "İzmir",
+    "district": "Balçova",
+    "gymId": "gym_izm_balcova",
+    "gymName": "Agora MACFit (İzmir)",
+    "lat": 38.3911,
+    "lng": 27.0497,
+    "avatar": "https://images.unsplash.com/photo-1458312732998-763933ed4896?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1458312732998-763933ed4896?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1583454155184-870a1f63aebc?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/791763/pexels-photo-791763.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "İleri",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
     "preferredTimes": [
-      "Akşam",
-      "Öğle"
+      "Akşam"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.035519,
-    "lng": 29.031664,
-    "distanceKm": 5.8,
-    "photos": [
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Yarın",
-      "time": "07:30",
-      "gymName": "Üsküdar GymClub",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
+    "bio": "Düzenli antrenman ve temiz beslenme yaşam tarzım. Salonda vakit kaybetmeden basacak dostlar eklesin.",
+    "verified": false,
+    "attendanceStreak": 19,
+    "workoutsCompleted": 28,
+    "rating": 4.8,
     "onboarded": true,
-    "createdAt": 1790890929599,
-    "lastLoginAt": 1793479329599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
+  },
+  {
+    "id": "ath_f_1010",
+    "name": "Gizem Ünal",
+    "initials": "GÜ",
+    "gender": "Kadın",
+    "age": 30,
+    "city": "İstanbul",
+    "district": "Sarıyer",
+    "gymId": "gym_ist_sariyer",
+    "gymName": "Vadi İstanbul MACFit (İstanbul)",
+    "lat": 41.107,
+    "lng": 28.987,
+    "avatar": "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/4716814/pexels-photo-4716814.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/864939/pexels-photo-864939.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/17210041/pexels-photo-17210041.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
+    "preferredTimes": [
+      "Akşam"
+    ],
+    "bio": "Haftada 4 gün ağırlık, 1 gün kardiyo. Birlikte motive olacak ve set aralarında spotterlık yapacak partner arıyorum 💪",
+    "verified": true,
+    "attendanceStreak": 18,
+    "workoutsCompleted": 25,
+    "rating": 4.9,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "17:00",
+      "workoutType": "Omuz & Karın",
+      "expectation": "Süperset partneri",
+      "note": "Overhead press ve lateral raise tükeniş setleri"
+    }
   },
   {
     "id": "ath_m_2010",
-    "name": "Arda Doğan",
+    "name": "Arda Demir",
     "initials": "AD",
     "gender": "Erkek",
-    "age": 32,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 542 230 81 25",
-    "email": "arda.doğan10@gmail.com",
-    "bio": "Haftada 5 gün Push-Pull-Legs yapıyorum. Bench ve Squat'ta ağır kilolarda spotter partneri arıyorum 💪",
+    "age": 35,
+    "city": "İzmir",
+    "district": "Urla",
+    "gymId": "gym_izm_urla",
+    "gymName": "Urla Surf & Fitness (İzmir)",
+    "lat": 38.323,
+    "lng": 26.766,
+    "avatar": "https://images.unsplash.com/photo-1627483298606-cf54c61779a9?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1627483298606-cf54c61779a9?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/4716814/pexels-photo-4716814.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/17210041/pexels-photo-17210041.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Yeni başladım",
     "goals": [
       "Kas",
-      "Güç"
+      "Kondisyon"
     ],
-    "level": "Başlangıç",
     "preferredTimes": [
       "Sabah"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.029845,
-    "lng": 29.017055,
-    "distanceKm": 7.6,
-    "photos": [
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Yarın",
-      "time": "08:00",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
+    "bio": "Haftada 5 gün Push-Pull-Legs yapıyorum. Bench ve Squat'ta ağır kilolarda spotter partneri arıyorum 💪",
+    "verified": true,
+    "attendanceStreak": 23,
+    "workoutsCompleted": 37,
+    "rating": 4.9,
     "onboarded": true,
-    "createdAt": 1790631729599,
-    "lastLoginAt": 1793475729599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
+  },
+  {
+    "id": "ath_f_1011",
+    "name": "Hazal Can",
+    "initials": "HC",
+    "gender": "Kadın",
+    "age": 22,
+    "city": "İstanbul",
+    "district": "Beylikdüzü",
+    "gymId": "gym_ist_beylikduzu",
+    "gymName": "Torium Sports Center (İstanbul)",
+    "lat": 41.0023,
+    "lng": 28.6857,
+    "avatar": "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/29259725/pexels-photo-29259725.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/868705/pexels-photo-868705.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/25596879/pexels-photo-25596879.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kas",
+      "Kondisyon"
+    ],
+    "preferredTimes": [
+      "Sabah"
+    ],
+    "bio": "Sabahları 07:00 seansları. Squat ve Hip Thrust odaklı çalışıyorum. Düzenli gelen arkadaşlar ekleyebilir ✨",
+    "verified": true,
+    "attendanceStreak": 5,
+    "workoutsCompleted": 32,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "18:30",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
   },
   {
     "id": "ath_m_2011",
-    "name": "Kaan Koç",
-    "initials": "KK",
+    "name": "Kaan Öztürk",
+    "initials": "KÖ",
     "gender": "Erkek",
-    "age": 33,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 543 241 88 34",
-    "email": "kaan.koç11@gmail.com",
-    "bio": "Sabah 07:30 veya akşam 19:00 seansları. Hedef hacim ve hipertrofi. Ciddi antrenman arkadaşı eklesin 🏋️‍♂️",
-    "goals": [
-      "Kondisyon",
-      "Kas"
+    "age": 30,
+    "city": "Antalya",
+    "district": "Muratpaşa",
+    "gymId": "gym_ant_muratpasa",
+    "gymName": "TerraCity MACFit (Antalya)",
+    "lat": 36.8509,
+    "lng": 30.7533,
+    "avatar": "https://images.unsplash.com/photo-1518214598173-1666bc921d66?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1518214598173-1666bc921d66?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/29259725/pexels-photo-29259725.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/868483/pexels-photo-868483.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/25596879/pexels-photo-25596879.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "Orta",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
     "preferredTimes": [
-      "Sabah",
-      "Akşam"
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.920762,
-    "lng": 29.1229,
-    "distanceKm": 9.2,
-    "photos": [
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Çarşamba",
-      "time": "12:30",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
+    "bio": "Sabah 07:30 veya akşam 19:00 seansları. Hedef hacim ve hipertrofi. Ciddi antrenman arkadaşı eklesin 🏋️‍♂️",
+    "verified": false,
+    "attendanceStreak": 5,
+    "workoutsCompleted": 46,
+    "rating": 5,
     "onboarded": true,
-    "createdAt": 1790372529599,
-    "lastLoginAt": 1793472129599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
+  },
+  {
+    "id": "ath_f_1012",
+    "name": "Buse Coşkun",
+    "initials": "BC",
+    "gender": "Kadın",
+    "age": 29,
+    "city": "Ankara",
+    "district": "Çankaya",
+    "gymId": "gym_ank_tunali",
+    "gymName": "MACFit Tunalı Hilmi (Ankara)",
+    "lat": 39.9066,
+    "lng": 32.8584,
+    "avatar": "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/13030611/pexels-photo-13030611.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1579758629938-03607ccdbaba?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/3888405/pexels-photo-3888405.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Yeni başladım",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Pilates ve fonksiyonel fitness ile ilgileniyorum. Haftasonu koşu veya salonda partner iyi olur 🧘‍♀️",
+    "verified": false,
+    "attendanceStreak": 10,
+    "workoutsCompleted": 39,
+    "rating": 4.7,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "19:00",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
   },
   {
     "id": "ath_m_2012",
-    "name": "Doruk Korkmaz",
+    "name": "Doruk Kılıç",
     "initials": "DK",
     "gender": "Erkek",
-    "age": 34,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 544 252 95 43",
-    "email": "doruk.korkmaz12@gmail.com",
-    "bio": "Crossfit ve calisthenics karışık gidiyorum. Güç antrenmanında sınırları zorlayacak partner arıyorum ⚡",
+    "age": 25,
+    "city": "Antalya",
+    "district": "Konyaaltı",
+    "gymId": "gym_ant_konyaalti",
+    "gymName": "Konyaaltı Beach Gym (Antalya)",
+    "lat": 36.8788,
+    "lng": 30.6466,
+    "avatar": "https://images.unsplash.com/photo-1534367507873-d2d7e24c797f?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1534367507873-d2d7e24c797f?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/13030611/pexels-photo-13030611.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1534367507873-d2d7e24c797f?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/3888405/pexels-photo-3888405.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
     "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
+    "preferredTimes": [
+      "Akşam",
+      "Haftasonu"
+    ],
+    "bio": "Crossfit ve calisthenics karışık gidiyorum. Güç antrenmanında sınırları zorlayacak partner arıyorum ⚡",
+    "verified": true,
+    "attendanceStreak": 9,
+    "workoutsCompleted": 55,
+    "rating": 4.7,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
+  },
+  {
+    "id": "ath_f_1013",
+    "name": "Cansu Uçar",
+    "initials": "CU",
+    "gender": "Kadın",
+    "age": 21,
+    "city": "Ankara",
+    "district": "Çankaya",
+    "gymId": "gym_ank_panora",
+    "gymName": "Panora MAC (Ankara)",
+    "lat": 39.8509,
+    "lng": 32.8361,
+    "avatar": "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/4720790/pexels-photo-4720790.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/9644820/pexels-photo-9644820.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "Orta",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
     "preferredTimes": [
-      "Gece"
+      "Akşam",
+      "Haftasonu"
     ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 41.000765,
-    "lng": 29.017033,
-    "distanceKm": 0.3,
-    "photos": [
-      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Perşembe",
-      "time": "13:00",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
+    "bio": "Kilo verme ve sıkılaşma dönemindeyim. Birlikte kardiyo ve HIIT yapacak motivasyon partneri arıyorum.",
+    "verified": true,
+    "attendanceStreak": 15,
+    "workoutsCompleted": 46,
+    "rating": 4.8,
     "onboarded": true,
-    "createdAt": 1790113329599,
-    "lastLoginAt": 1793468529599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "20:30",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
   },
   {
     "id": "ath_m_2013",
-    "name": "Efe Güler",
-    "initials": "EG",
+    "name": "Efe Kurt",
+    "initials": "EK",
     "gender": "Erkek",
-    "age": 35,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 545 263 14 52",
-    "email": "efe.güler13@gmail.com",
-    "bio": "Kondisyon ve yağ yakımı odaklıyım. Birlikte tempolu kardiyo ve ağırlık kombinasyonu yapabiliriz.",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
+    "age": 36,
+    "city": "Antalya",
+    "district": "Lara",
+    "gymId": "gym_ant_lara",
+    "gymName": "Lara PlusFitness (Antalya)",
+    "lat": 36.8567,
+    "lng": 30.7889,
+    "avatar": "https://images.unsplash.com/photo-1576678927484-cc907957088c?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1576678927484-cc907957088c?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/4720790/pexels-photo-4720790.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/9644820/pexels-photo-9644820.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "Orta",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
     "preferredTimes": [
-      "Akşam"
+      "Sabah",
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.997733,
-    "lng": 29.035294,
-    "distanceKm": 0.7,
-    "photos": [
-      "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Cuma",
-      "time": "18:00",
-      "gymName": "PowerGym Moda",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
+    "bio": "Kondisyon ve yağ yakımı odaklıyım. Birlikte tempolu kardiyo ve ağırlık kombinasyonu yapabiliriz.",
+    "verified": false,
+    "attendanceStreak": 13,
+    "workoutsCompleted": 64,
+    "rating": 4.8,
     "onboarded": true,
-    "createdAt": 1789854129599,
-    "lastLoginAt": 1793464929599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Göğüs & Kol",
+      "expectation": "Ağır kilo partneri",
+      "note": "Bench press ve dumbbell press süpersetleri"
+    }
+  },
+  {
+    "id": "ath_f_1014",
+    "name": "Pelin Soylu",
+    "initials": "PS",
+    "gender": "Kadın",
+    "age": 28,
+    "city": "Ankara",
+    "district": "Çayyolu",
+    "gymId": "gym_ank_cayyolu",
+    "gymName": "Arcadium MACFit (Ankara)",
+    "lat": 39.8882,
+    "lng": 32.7038,
+    "avatar": "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/8874355/pexels-photo-8874355.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/15917308/pexels-photo-15917308.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
+    "preferredTimes": [
+      "Sabah",
+      "Öğle"
+    ],
+    "bio": "Bacak ve kalça günlerinde birbirimize destek olacak disiplinli sporcu kız arkadaş arıyorum 🏋️‍♀️",
+    "verified": true,
+    "attendanceStreak": 20,
+    "workoutsCompleted": 53,
+    "rating": 4.9,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "21:00",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
   },
   {
     "id": "ath_m_2014",
-    "name": "Batu Ünal",
-    "initials": "BÜ",
+    "name": "Batu Erdoğan",
+    "initials": "BE",
     "gender": "Erkek",
-    "age": 22,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 546 274 21 61",
-    "email": "batu.ünal14@gmail.com",
-    "bio": "Powerlifting ve temel bileşik egzersizler (Squat, Bench, Deadlift). Disiplinli sporcular yazsın.",
-    "goals": [
-      "Güç",
-      "Kondisyon"
+    "age": 31,
+    "city": "Antalya",
+    "district": "Alanya",
+    "gymId": "gym_ant_alanya",
+    "gymName": "Alanya Cleopatra Fitness (Antalya)",
+    "lat": 36.5446,
+    "lng": 31.9842,
+    "avatar": "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/8874355/pexels-photo-8874355.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/15917308/pexels-photo-15917308.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "İleri",
+    "goals": [
+      "Güç",
+      "Hipertrofi"
+    ],
     "preferredTimes": [
-      "Akşam",
-      "Öğle"
+      "Akşam"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.959236,
-    "lng": 29.076223,
-    "distanceKm": 2.4,
-    "photos": [
-      "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Bugün",
-      "time": "18:30",
-      "gymName": "PlusFitness Caddebostan",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
+    "bio": "Powerlifting ve temel bileşik egzersizler (Squat, Bench, Deadlift). Disiplinli sporcular yazsın.",
+    "verified": true,
+    "attendanceStreak": 17,
+    "workoutsCompleted": 73,
+    "rating": 4.9,
     "onboarded": true,
-    "createdAt": 1789594929599,
-    "lastLoginAt": 1793461329599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Sırt & Biceps",
+      "expectation": "Set arası motivasyon",
+      "note": "Lat pulldown ve barbell row odaklı seans"
+    }
+  },
+  {
+    "id": "ath_f_1015",
+    "name": "Derya Kalkan",
+    "initials": "DK",
+    "gender": "Kadın",
+    "age": 20,
+    "city": "Ankara",
+    "district": "Kızılay",
+    "gymId": "gym_ank_kizilay",
+    "gymName": "Kızılay PowerGym (Ankara)",
+    "lat": 39.9225,
+    "lng": 32.8535,
+    "avatar": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/3838705/pexels-photo-3838705.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2247179/pexels-photo-2247179.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/16996376/pexels-photo-16996376.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Güç",
+      "Hipertrofi"
+    ],
+    "preferredTimes": [
+      "Akşam"
+    ],
+    "bio": "Haftada 5 gün split antrenman. Disiplinli ve zamanında gelen partnerlerle çalışmayı seviyorum.",
+    "verified": false,
+    "attendanceStreak": 7,
+    "workoutsCompleted": 60,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "17:30",
+      "workoutType": "Göğüs & Kol",
+      "expectation": "Ağır kilo partneri",
+      "note": "Bench press ve dumbbell press süpersetleri"
+    }
   },
   {
     "id": "ath_m_2015",
-    "name": "Çağlar Taş",
-    "initials": "ÇT",
+    "name": "Çağlar Yalçın",
+    "initials": "ÇY",
     "gender": "Erkek",
-    "age": 23,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 547 285 28 70",
-    "email": "çağlar.taş15@gmail.com",
-    "bio": "Haftasonları sabah koşusu, hafta içi akşam Kadıköy salon seansları. Sürekli motive partner arıyorum.",
-    "goals": [
-      "Kas",
-      "Kondisyon"
+    "age": 26,
+    "city": "Bursa",
+    "district": "Nilüfer",
+    "gymId": "gym_bur_nilufer",
+    "gymName": "Sur Yapı Marka MACFit (Bursa)",
+    "lat": 40.2095,
+    "lng": 28.9865,
+    "avatar": "https://images.unsplash.com/photo-1583454155184-870a1f63aebc?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1583454155184-870a1f63aebc?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/3838705/pexels-photo-3838705.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/17210041/pexels-photo-17210041.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/16996376/pexels-photo-16996376.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
-    "level": "İleri",
+    "level": "Yeni başladım",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
     "preferredTimes": [
       "Sabah"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 40.978027,
-    "lng": 29.106718,
-    "distanceKm": 4.7,
-    "photos": [
-      "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Bugün",
-      "time": "19:00",
-      "gymName": "FitCity Ataşehir",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
+    "bio": "Haftasonları sabah koşusu, hafta içi akşam salon seansları. Sürekli motive partner arıyorum.",
+    "verified": false,
+    "attendanceStreak": 21,
+    "workoutsCompleted": 17,
+    "rating": 5,
     "onboarded": true,
-    "createdAt": 1789335729599,
-    "lastLoginAt": 1793457729599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Omuz & Karın",
+      "expectation": "Süperset partneri",
+      "note": "Overhead press ve lateral raise tükeniş setleri"
+    }
+  },
+  {
+    "id": "ath_f_1016",
+    "name": "Selin Kartal",
+    "initials": "SK",
+    "gender": "Kadın",
+    "age": 27,
+    "city": "Ankara",
+    "district": "Batıkent",
+    "gymId": "gym_ank_batikent",
+    "gymName": "Atlantis MACFit (Ankara)",
+    "lat": 39.9688,
+    "lng": 32.7492,
+    "avatar": "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/39635369/pexels-photo-39635369.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3289711/pexels-photo-3289711.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
+    "preferredTimes": [
+      "Sabah"
+    ],
+    "bio": "Yeni başladım sayılır, form düzeltme ve temel hareketlerde motive olacak birini arıyorum 🌸",
+    "verified": true,
+    "attendanceStreak": 12,
+    "workoutsCompleted": 12,
+    "rating": 4.7,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Sırt & Biceps",
+      "expectation": "Set arası motivasyon",
+      "note": "Lat pulldown ve barbell row odaklı seans"
+    }
   },
   {
     "id": "ath_m_2016",
-    "name": "Onur Acar",
-    "initials": "OA",
+    "name": "Onur Güneş",
+    "initials": "OG",
     "gender": "Erkek",
-    "age": 24,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 548 296 35 79",
-    "email": "onur.acar16@gmail.com",
-    "bio": "Sporda 3. yılım. Form ve tempo odaklı çalışıyorum, zamanı verimli kullanan biriyle eşleşmek isterim.",
+    "age": 21,
+    "city": "Bursa",
+    "district": "Özlüce",
+    "gymId": "gym_bur_ozluce",
+    "gymName": "Özlüce FitClub (Bursa)",
+    "lat": 40.2244,
+    "lng": 28.9198,
+    "avatar": "https://images.unsplash.com/photo-1579758629938-03607ccdbaba?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1579758629938-03607ccdbaba?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/39635369/pexels-photo-39635369.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2827400/pexels-photo-2827400.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
     "goals": [
       "Kas",
-      "Güç"
+      "Kondisyon"
     ],
-    "level": "Başlangıç",
     "preferredTimes": [
-      "Sabah",
-      "Akşam"
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.032787,
-    "lng": 29.002605,
-    "distanceKm": 4.5,
-    "photos": [
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Bugün",
-      "time": "19:30",
-      "gymName": "Üsküdar GymClub",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
+    "bio": "Sporda 3. yılım. Form ve tempo odaklı çalışıyorum, zamanı verimli kullanan biriyle eşleşmek isterim.",
+    "verified": true,
+    "attendanceStreak": 25,
+    "workoutsCompleted": 26,
+    "rating": 4.7,
     "onboarded": true,
-    "createdAt": 1789076529599,
-    "lastLoginAt": 1793482929599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
+  },
+  {
+    "id": "ath_f_1017",
+    "name": "Ayşe Demir",
+    "initials": "AD",
+    "gender": "Kadın",
+    "age": 34,
+    "city": "Ankara",
+    "district": "Bilkent",
+    "gymId": "gym_ank_bilkent",
+    "gymName": "Sports International Bilkent (Ankara)",
+    "lat": 39.8711,
+    "lng": 32.7519,
+    "avatar": "https://images.unsplash.com/photo-1548690312-e3b507d8c110?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1548690312-e3b507d8c110?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/414029/pexels-photo-414029.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1431282/pexels-photo-1431282.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Yeni başladım",
+    "goals": [
+      "Kas",
+      "Kondisyon"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Hypertrophy ve güç odaklı alt-üst vücut spliti yapıyorum. Karşılıklı yardımlaşma güzel olur.",
+    "verified": true,
+    "attendanceStreak": 17,
+    "workoutsCompleted": 19,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Omuz & Karın",
+      "expectation": "Süperset partneri",
+      "note": "Overhead press ve lateral raise tükeniş setleri"
+    }
   },
   {
     "id": "ath_m_2017",
-    "name": "Ozan Kalkan",
-    "initials": "OK",
+    "name": "Ozan Coşkun",
+    "initials": "OC",
     "gender": "Erkek",
-    "age": 25,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 549 307 42 88",
-    "email": "ozan.kalkan17@gmail.com",
-    "bio": "İş çıkışı 18:30 seansları. Göğüs-kol ve sırt günlerinde tükeniş setleri için spotter lazım 🎯",
+    "age": 32,
+    "city": "Bursa",
+    "district": "Nilüfer",
+    "gymId": "gym_bur_podyum",
+    "gymName": "PodyumPark Sports Club (Bursa)",
+    "lat": 40.2163,
+    "lng": 28.9691,
+    "avatar": "https://images.unsplash.com/photo-1581009137042-c552e485697a?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1581009137042-c552e485697a?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4058411/pexels-photo-4058411.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1431282/pexels-photo-1431282.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
     "goals": [
-      "Kondisyon",
-      "Kas"
+      "Kas",
+      "Güç"
+    ],
+    "preferredTimes": [
+      "Akşam",
+      "Haftasonu"
+    ],
+    "bio": "İş çıkışı 18:30 seansları. Göğüs-kol ve sırt günlerinde tükeniş setleri için spotter lazım 🎯",
+    "verified": false,
+    "attendanceStreak": 7,
+    "workoutsCompleted": 35,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
+  },
+  {
+    "id": "ath_f_1018",
+    "name": "Merve Yıldız",
+    "initials": "MY",
+    "gender": "Kadın",
+    "age": 26,
+    "city": "Ankara",
+    "district": "Keçiören",
+    "gymId": "gym_ank_kecioren",
+    "gymName": "Antares MACFit (Ankara)",
+    "lat": 39.9684,
+    "lng": 32.8226,
+    "avatar": "https://images.unsplash.com/photo-1517344884509-a0c97ec11bcc?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1517344884509-a0c97ec11bcc?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/1552106/pexels-photo-1552106.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/669584/pexels-photo-669584.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1552103/pexels-photo-1552103.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "Orta",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
     "preferredTimes": [
-      "Gece"
+      "Akşam",
+      "Haftasonu"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.056933,
-    "lng": 29.012104,
-    "distanceKm": 6.3,
-    "photos": [
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Yarın",
-      "time": "20:00",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
+    "bio": "Crossfit ve fonksiyonel antrenmanlar vazgeçilmezim. Sabah enerjisiyle spora başlayanlar yazabilir ⚡",
+    "verified": false,
+    "attendanceStreak": 4,
+    "workoutsCompleted": 26,
+    "rating": 4.9,
     "onboarded": true,
-    "createdAt": 1788817329599,
-    "lastLoginAt": 1793479329599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
   },
   {
     "id": "ath_m_2018",
-    "name": "Serdar Kaya",
-    "initials": "SK",
+    "name": "Serdar Sever",
+    "initials": "SS",
     "gender": "Erkek",
-    "age": 26,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 541 318 49 17",
-    "email": "serdar.kaya18@gmail.com",
-    "bio": "Fonksiyonel güç ve kondisyon antrenmanı. Birlikte PR deneyecek partner arıyorum 🔥",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
+    "age": 27,
+    "city": "Bursa",
+    "district": "Osmangazi",
+    "gymId": "gym_bur_osmangazi",
+    "gymName": "Zafer Plaza Fitness (Bursa)",
+    "lat": 40.1882,
+    "lng": 29.0604,
+    "avatar": "https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/1552106/pexels-photo-1552106.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/416717/pexels-photo-416717.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1552103/pexels-photo-1552103.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "Orta",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
     "preferredTimes": [
-      "Akşam"
+      "Sabah",
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.927326,
-    "lng": 29.151258,
-    "distanceKm": 7.8,
-    "photos": [
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Yarın",
-      "time": "20:30",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
+    "bio": "Fonksiyonel güç ve kondisyon antrenmanı. Birlikte PR deneyecek partner arıyorum 🔥",
+    "verified": true,
+    "attendanceStreak": 11,
+    "workoutsCompleted": 44,
+    "rating": 4.9,
     "onboarded": true,
-    "createdAt": 1788558129599,
-    "lastLoginAt": 1793475729599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
+  },
+  {
+    "id": "ath_f_1019",
+    "name": "Duygu Aydın",
+    "initials": "DA",
+    "gender": "Kadın",
+    "age": 33,
+    "city": "İzmir",
+    "district": "Alsancak",
+    "gymId": "gym_izm_alsancak",
+    "gymName": "MACFit Alsancak (İzmir)",
+    "lat": 38.4367,
+    "lng": 27.1403,
+    "avatar": "https://images.unsplash.com/photo-1550345332-09e3ac987658?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1550345332-09e3ac987658?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/1552104/pexels-photo-1552104.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/669576/pexels-photo-669576.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2261477/pexels-photo-2261477.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
+    "preferredTimes": [
+      "Sabah",
+      "Öğle"
+    ],
+    "bio": "Akşam iş çıkışı 19:30 seansları. Omuz ve sırt günlerinde süperset partneri.",
+    "verified": true,
+    "attendanceStreak": 9,
+    "workoutsCompleted": 33,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
   },
   {
     "id": "ath_m_2019",
-    "name": "Koray Yıldırım",
-    "initials": "KY",
+    "name": "Koray Eren",
+    "initials": "KE",
     "gender": "Erkek",
-    "age": 27,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 542 329 56 26",
-    "email": "koray.yıldırım19@gmail.com",
-    "bio": "Düzenli antrenman ve temiz beslenme yaşam tarzım. Salonda vakit kaybetmeden basacak dostlar eklesin.",
+    "age": 22,
+    "city": "Eskişehir",
+    "district": "Tepebaşı",
+    "gymId": "gym_esk_tepebasi",
+    "gymName": "Espark MACFit (Eskişehir)",
+    "lat": 39.7801,
+    "lng": 30.5107,
+    "avatar": "https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/1552104/pexels-photo-1552104.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/669577/pexels-photo-669577.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2261477/pexels-photo-2261477.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
     "goals": [
-      "Sağlık",
-      "Kondisyon"
+      "Genel form",
+      "Mobilite"
+    ],
+    "preferredTimes": [
+      "Akşam"
+    ],
+    "bio": "Düzenli antrenman ve temiz beslenme yaşam tarzım. Salonda vakit kaybetmeden basacak dostlar eklesin.",
+    "verified": false,
+    "attendanceStreak": 15,
+    "workoutsCompleted": 53,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
+  },
+  {
+    "id": "ath_f_1020",
+    "name": "Begüm Doğan",
+    "initials": "BD",
+    "gender": "Kadın",
+    "age": 25,
+    "city": "İzmir",
+    "district": "Karşıyaka",
+    "gymId": "gym_izm_mavibahce",
+    "gymName": "MaviBahçe MACFit (İzmir)",
+    "lat": 38.462,
+    "lng": 27.098,
+    "avatar": "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/2261482/pexels-photo-2261482.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/669580/pexels-photo-669580.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2261485/pexels-photo-2261485.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "Orta",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
     "preferredTimes": [
-      "Akşam",
-      "Öğle"
+      "Akşam"
     ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 40.974606,
-    "lng": 29.025996,
-    "distanceKm": 1.5,
-    "photos": [
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Çarşamba",
-      "time": "21:00",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
+    "bio": "Haftada 4 gün ağırlık, 1 gün kardiyo. Birlikte motive olacak ve set aralarında spotterlık yapacak partner arıyorum 💪",
+    "verified": true,
+    "attendanceStreak": 14,
+    "workoutsCompleted": 40,
+    "rating": 4.7,
     "onboarded": true,
-    "createdAt": 1788298929599,
-    "lastLoginAt": 1793472129599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "17:00",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
   },
   {
     "id": "ath_m_2020",
-    "name": "Yiğit Doğan",
+    "name": "Yiğit Demir",
     "initials": "YD",
     "gender": "Erkek",
-    "age": 28,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 543 340 63 35",
-    "email": "yiğit.doğan20@gmail.com",
-    "bio": "Haftada 5 gün Push-Pull-Legs yapıyorum. Bench ve Squat'ta ağır kilolarda spotter partneri arıyorum 💪",
+    "age": 33,
+    "city": "Eskişehir",
+    "district": "Tepebaşı",
+    "gymId": "gym_esk_cassaba",
+    "gymName": "Cassaba Modern Fitness (Eskişehir)",
+    "lat": 39.789,
+    "lng": 30.498,
+    "avatar": "https://images.unsplash.com/photo-1599058917212-d750089bc07e?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1599058917212-d750089bc07e?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/2261482/pexels-photo-2261482.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/669585/pexels-photo-669585.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2261485/pexels-photo-2261485.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Yeni başladım",
     "goals": [
       "Güç",
-      "Kondisyon"
+      "Hipertrofi"
     ],
-    "level": "İleri",
     "preferredTimes": [
       "Sabah"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.987468,
-    "lng": 29.008203,
-    "distanceKm": 1.9,
-    "photos": [
-      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Perşembe",
-      "time": "07:00",
-      "gymName": "PowerGym Moda",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
+    "bio": "Haftada 5 gün Push-Pull-Legs yapıyorum. Bench ve Squat'ta ağır kilolarda spotter partneri arıyorum 💪",
+    "verified": true,
+    "attendanceStreak": 19,
+    "workoutsCompleted": 62,
+    "rating": 4.7,
     "onboarded": true,
-    "createdAt": 1788039729599,
-    "lastLoginAt": 1793468529599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Göğüs & Kol",
+      "expectation": "Ağır kilo partneri",
+      "note": "Bench press ve dumbbell press süpersetleri"
+    }
+  },
+  {
+    "id": "ath_f_1021",
+    "name": "Simge Çetin",
+    "initials": "SÇ",
+    "gender": "Kadın",
+    "age": 32,
+    "city": "İzmir",
+    "district": "Bornova",
+    "gymId": "gym_izm_bornova",
+    "gymName": "Forum Bornova MACFit (İzmir)",
+    "lat": 38.4563,
+    "lng": 27.2197,
+    "avatar": "https://images.unsplash.com/photo-1554284126-aa88f22d8b74?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1554284126-aa88f22d8b74?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/3076509/pexels-photo-3076509.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/791763/pexels-photo-791763.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3076516/pexels-photo-3076516.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Güç",
+      "Hipertrofi"
+    ],
+    "preferredTimes": [
+      "Sabah"
+    ],
+    "bio": "Sabahları 07:00 seansları. Squat ve Hip Thrust odaklı çalışıyorum. Düzenli gelen arkadaşlar ekleyebilir ✨",
+    "verified": false,
+    "attendanceStreak": 19,
+    "workoutsCompleted": 47,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "18:30",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
   },
   {
     "id": "ath_m_2021",
-    "name": "Görkem Koç",
-    "initials": "GK",
+    "name": "Görkem Öztürk",
+    "initials": "GÖ",
     "gender": "Erkek",
-    "age": 29,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 544 351 70 44",
-    "email": "görkem.koç21@gmail.com",
-    "bio": "Sabah 07:30 veya akşam 19:00 seansları. Hedef hacim ve hipertrofi. Ciddi antrenman arkadaşı eklesin 🏋️‍♂️",
-    "goals": [
-      "Kas",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.983943,
-    "lng": 29.063428,
-    "distanceKm": 3.6,
+    "age": 28,
+    "city": "Eskişehir",
+    "district": "Odunpazarı",
+    "gymId": "gym_esk_odunpazari",
+    "gymName": "Odunpazarı FitLife (Eskişehir)",
+    "lat": 39.7629,
+    "lng": 30.5243,
+    "avatar": "https://images.unsplash.com/photo-1599058917765-a780eda07a3e?w=800&auto=format&fit=crop&q=80",
     "photos": [
-      "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
+      "https://images.unsplash.com/photo-1599058917765-a780eda07a3e?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/3076509/pexels-photo-3076509.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/703016/pexels-photo-703016.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3076516/pexels-photo-3076516.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Cuma",
-      "time": "07:30",
-      "gymName": "PlusFitness Caddebostan",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
+    "level": "Orta",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Sabah 07:30 veya akşam 19:00 seansları. Hedef hacim ve hipertrofi. Ciddi antrenman arkadaşı eklesin 🏋️‍♂️",
+    "verified": false,
+    "attendanceStreak": 23,
+    "workoutsCompleted": 71,
+    "rating": 4.8,
     "onboarded": true,
-    "createdAt": 1787780529599,
-    "lastLoginAt": 1793464929599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Sırt & Biceps",
+      "expectation": "Set arası motivasyon",
+      "note": "Lat pulldown ve barbell row odaklı seans"
+    }
+  },
+  {
+    "id": "ath_f_1022",
+    "name": "Burcu Kurt",
+    "initials": "BK",
+    "gender": "Kadın",
+    "age": 24,
+    "city": "İzmir",
+    "district": "Bostanlı",
+    "gymId": "gym_izm_bostanli",
+    "gymName": "Bostanlı FitClub (İzmir)",
+    "lat": 38.4556,
+    "lng": 27.1014,
+    "avatar": "https://images.unsplash.com/photo-1554344728-77cf90d9ed26?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1554344728-77cf90d9ed26?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/3112004/pexels-photo-3112004.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3768916/pexels-photo-3768916.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Yeni başladım",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Pilates ve fonksiyonel fitness ile ilgileniyorum. Haftasonu koşu veya salonda partner iyi olur 🧘‍♀️",
+    "verified": true,
+    "attendanceStreak": 6,
+    "workoutsCompleted": 54,
+    "rating": 4.9,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "19:00",
+      "workoutType": "Göğüs & Kol",
+      "expectation": "Ağır kilo partneri",
+      "note": "Bench press ve dumbbell press süpersetleri"
+    }
   },
   {
     "id": "ath_m_2022",
-    "name": "Uğur Korkmaz",
+    "name": "Uğur Kılıç",
     "initials": "UK",
     "gender": "Erkek",
-    "age": 30,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 545 362 77 53",
-    "email": "uğur.korkmaz22@gmail.com",
-    "bio": "Crossfit ve calisthenics karışık gidiyorum. Güç antrenmanında sınırları zorlayacak partner arıyorum ⚡",
+    "age": 23,
+    "city": "Adana",
+    "district": "Çukurova",
+    "gymId": "gym_ada_cukurova",
+    "gymName": "M1 Adana MACFit (Adana)",
+    "lat": 37.0318,
+    "lng": 35.2656,
+    "avatar": "https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/3112004/pexels-photo-3112004.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/863977/pexels-photo-863977.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3768916/pexels-photo-3768916.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
     "goals": [
       "Kas",
-      "Güç"
+      "Kondisyon"
     ],
-    "level": "Başlangıç",
     "preferredTimes": [
-      "Gece"
+      "Akşam",
+      "Haftasonu"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 40.991788,
-    "lng": 29.131999,
-    "distanceKm": 5.9,
-    "photos": [
-      "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Bugün",
-      "time": "08:00",
-      "gymName": "FitCity Ataşehir",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
+    "bio": "Crossfit ve calisthenics karışık gidiyorum. Güç antrenmanında sınırları zorlayacak partner arıyorum ⚡",
+    "verified": true,
+    "attendanceStreak": 5,
+    "workoutsCompleted": 15,
+    "rating": 4.9,
     "onboarded": true,
-    "createdAt": 1787521329599,
-    "lastLoginAt": 1793461329599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Omuz & Karın",
+      "expectation": "Süperset partneri",
+      "note": "Overhead press ve lateral raise tükeniş setleri"
+    }
+  },
+  {
+    "id": "ath_f_1023",
+    "name": "Dilara Polat",
+    "initials": "DP",
+    "gender": "Kadın",
+    "age": 31,
+    "city": "İzmir",
+    "district": "Göztepe",
+    "gymId": "gym_izm_goztepe",
+    "gymName": "Göztepe Sahil Gym (İzmir)",
+    "lat": 38.3979,
+    "lng": 27.0931,
+    "avatar": "https://images.unsplash.com/photo-1566241142559-40e1dab266c6?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1566241142559-40e1dab266c6?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/3775164/pexels-photo-3775164.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/868483/pexels-photo-868483.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3775566/pexels-photo-3775566.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Kas",
+      "Kondisyon"
+    ],
+    "preferredTimes": [
+      "Akşam",
+      "Haftasonu"
+    ],
+    "bio": "Kilo verme ve sıkılaşma dönemindeyim. Birlikte kardiyo ve HIIT yapacak motivasyon partneri arıyorum.",
+    "verified": true,
+    "attendanceStreak": 11,
+    "workoutsCompleted": 61,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "20:30",
+      "workoutType": "Sırt & Biceps",
+      "expectation": "Set arası motivasyon",
+      "note": "Lat pulldown ve barbell row odaklı seans"
+    }
   },
   {
     "id": "ath_m_2023",
-    "name": "Volkan Güler",
-    "initials": "VG",
+    "name": "Volkan Kurt",
+    "initials": "VK",
     "gender": "Erkek",
-    "age": 31,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 546 373 84 62",
-    "email": "volkan.güler23@gmail.com",
-    "bio": "Kondisyon ve yağ yakımı odaklıyım. Birlikte tempolu kardiyo ve ağırlık kombinasyonu yapabiliriz.",
-    "goals": [
-      "Kondisyon",
-      "Kas"
+    "age": 34,
+    "city": "Adana",
+    "district": "Çukurova",
+    "gymId": "gym_ada_barajyolu",
+    "gymName": "Turgut Özal FitLife (Adana)",
+    "lat": 37.0397,
+    "lng": 35.3009,
+    "avatar": "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/3775164/pexels-photo-3775164.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/866023/pexels-photo-866023.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3775566/pexels-photo-3775566.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "Orta",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
     "preferredTimes": [
-      "Akşam"
+      "Sabah",
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.010026,
-    "lng": 29.018977,
-    "distanceKm": 5.7,
-    "photos": [
-      "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Bugün",
-      "time": "12:30",
-      "gymName": "Üsküdar GymClub",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
+    "bio": "Kondisyon ve yağ yakımı odaklıyım. Birlikte tempolu kardiyo ve ağırlık kombinasyonu yapabiliriz.",
+    "verified": false,
+    "attendanceStreak": 9,
+    "workoutsCompleted": 24,
+    "rating": 5,
     "onboarded": true,
-    "createdAt": 1787262129599,
-    "lastLoginAt": 1793457729599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
+  },
+  {
+    "id": "ath_f_1024",
+    "name": "Ezgi Yavuz",
+    "initials": "EY",
+    "gender": "Kadın",
+    "age": 23,
+    "city": "İzmir",
+    "district": "Balçova",
+    "gymId": "gym_izm_balcova",
+    "gymName": "Agora MACFit (İzmir)",
+    "lat": 38.3932,
+    "lng": 27.0498,
+    "avatar": "https://images.unsplash.com/photo-1567013127542-490d757e51fc?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1567013127542-490d757e51fc?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/3775593/pexels-photo-3775593.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1534367507873-d2d7e24c797f?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/3775603/pexels-photo-3775603.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
+    "preferredTimes": [
+      "Sabah",
+      "Öğle"
+    ],
+    "bio": "Bacak ve kalça günlerinde birbirimize destek olacak disiplinli sporcu kız arkadaş arıyorum 🏋️‍♀️",
+    "verified": false,
+    "attendanceStreak": 16,
+    "workoutsCompleted": 13,
+    "rating": 4.7,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "21:00",
+      "workoutType": "Omuz & Karın",
+      "expectation": "Süperset partneri",
+      "note": "Overhead press ve lateral raise tükeniş setleri"
+    }
   },
   {
     "id": "ath_m_2024",
-    "name": "Taylan Ünal",
-    "initials": "TÜ",
+    "name": "Taylan Erdoğan",
+    "initials": "TE",
     "gender": "Erkek",
-    "age": 32,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 547 384 91 71",
-    "email": "taylan.ünal24@gmail.com",
-    "bio": "Powerlifting ve temel bileşik egzersizler (Squat, Bench, Deadlift). Disiplinli sporcular yazsın.",
+    "age": 29,
+    "city": "Mersin",
+    "district": "Yenişehir",
+    "gymId": "gym_mer_yenisehir",
+    "gymName": "Forum Mersin MACFit (Mersin)",
+    "lat": 36.7856,
+    "lng": 34.5992,
+    "avatar": "https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3775593/pexels-photo-3775593.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/868776/pexels-photo-868776.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3775603/pexels-photo-3775603.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
     "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
+    "preferredTimes": [
+      "Akşam"
+    ],
+    "bio": "Powerlifting ve temel bileşik egzersizler (Squat, Bench, Deadlift). Disiplinli sporcular yazsın.",
+    "verified": true,
+    "attendanceStreak": 13,
+    "workoutsCompleted": 33,
+    "rating": 4.7,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
+  },
+  {
+    "id": "ath_f_1025",
+    "name": "Aslı Güler",
+    "initials": "AG",
+    "gender": "Kadın",
+    "age": 30,
+    "city": "İzmir",
+    "district": "Urla",
+    "gymId": "gym_izm_urla",
+    "gymName": "Urla Surf & Fitness (İzmir)",
+    "lat": 38.3205,
+    "lng": 26.7655,
+    "avatar": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/4162451/pexels-photo-4162451.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/4162487/pexels-photo-4162487.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "Orta",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
     "preferredTimes": [
-      "Akşam",
-      "Öğle"
+      "Akşam"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.039953,
-    "lng": 28.98914,
-    "distanceKm": 7.4,
-    "photos": [
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Bugün",
-      "time": "13:00",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
+    "bio": "Haftada 5 gün split antrenman. Disiplinli ve zamanında gelen partnerlerle çalışmayı seviyorum.",
+    "verified": true,
+    "attendanceStreak": 21,
+    "workoutsCompleted": 20,
+    "rating": 4.8,
     "onboarded": true,
-    "createdAt": 1787002929599,
-    "lastLoginAt": 1793482929599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "17:30",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
   },
   {
     "id": "ath_m_2025",
-    "name": "Cenk Taş",
-    "initials": "CT",
+    "name": "Cenk Yalçın",
+    "initials": "CY",
     "gender": "Erkek",
-    "age": 33,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 548 395 98 80",
-    "email": "cenk.taş25@gmail.com",
-    "bio": "Haftasonları sabah koşusu, hafta içi akşam Kadıköy salon seansları. Sürekli motive partner arıyorum.",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
+    "age": 24,
+    "city": "Mersin",
+    "district": "Mezitli",
+    "gymId": "gym_mer_mezitli",
+    "gymName": "Marina Sports Club (Mersin)",
+    "lat": 36.7595,
+    "lng": 34.5315,
+    "avatar": "https://images.pexels.com/photos/4716814/pexels-photo-4716814.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/4716814/pexels-photo-4716814.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4162451/pexels-photo-4162451.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/4162487/pexels-photo-4162487.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
-    "level": "Orta",
+    "level": "Yeni başladım",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
     "preferredTimes": [
       "Sabah"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.947684,
-    "lng": 29.131637,
-    "distanceKm": 9,
-    "photos": [
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Yarın",
-      "time": "18:00",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
+    "bio": "Haftasonları sabah koşusu, hafta içi akşam salon seansları. Sürekli motive partner arıyorum.",
+    "verified": false,
+    "attendanceStreak": 17,
+    "workoutsCompleted": 42,
+    "rating": 4.8,
     "onboarded": true,
-    "createdAt": 1786743729599,
-    "lastLoginAt": 1793479329599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
+  },
+  {
+    "id": "ath_f_1026",
+    "name": "İpek Bulut",
+    "initials": "İB",
+    "gender": "Kadın",
+    "age": 22,
+    "city": "Antalya",
+    "district": "Muratpaşa",
+    "gymId": "gym_ant_muratpasa",
+    "gymName": "TerraCity MACFit (Antalya)",
+    "lat": 36.8518,
+    "lng": 30.7522,
+    "avatar": "https://images.unsplash.com/photo-1571019613576-2b22c76fd955?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1571019613576-2b22c76fd955?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/4164761/pexels-photo-4164761.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/4325454/pexels-photo-4325454.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
+    "preferredTimes": [
+      "Sabah"
+    ],
+    "bio": "Yeni başladım sayılır, form düzeltme ve temel hareketlerde motive olacak birini arıyorum 🌸",
+    "verified": true,
+    "attendanceStreak": 8,
+    "workoutsCompleted": 27,
+    "rating": 4.9,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
   },
   {
     "id": "ath_m_2026",
-    "name": "Berk Acar",
-    "initials": "BA",
+    "name": "Berk Güneş",
+    "initials": "BG",
     "gender": "Erkek",
-    "age": 34,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 549 406 17 89",
-    "email": "berk.acar26@gmail.com",
-    "bio": "Sporda 3. yılım. Form ve tempo odaklı çalışıyorum, zamanı verimli kullanan biriyle eşleşmek isterim.",
+    "age": 35,
+    "city": "Trabzon",
+    "district": "Ortahisar",
+    "gymId": "gym_tra_ortahisar",
+    "gymName": "Forum Trabzon MACFit (Trabzon)",
+    "lat": 40.9974,
+    "lng": 39.7598,
+    "avatar": "https://images.pexels.com/photos/17210041/pexels-photo-17210041.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/17210041/pexels-photo-17210041.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4164761/pexels-photo-4164761.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1524502397800-2eeaad7c3fe5?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/4325454/pexels-photo-4325454.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
     "goals": [
       "Güç",
-      "Kondisyon"
+      "Hipertrofi"
     ],
-    "level": "İleri",
     "preferredTimes": [
-      "Sabah",
-      "Akşam"
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 40.994466,
-    "lng": 29.046185,
-    "distanceKm": 2.7,
-    "photos": [
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Yarın",
-      "time": "18:30",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
+    "bio": "Sporda 3. yılım. Form ve tempo odaklı çalışıyorum, zamanı verimli kullanan biriyle eşleşmek isterim.",
+    "verified": true,
+    "attendanceStreak": 21,
+    "workoutsCompleted": 51,
+    "rating": 4.9,
     "onboarded": true,
-    "createdAt": 1786484529599,
-    "lastLoginAt": 1793475729599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
+  },
+  {
+    "id": "ath_f_1027",
+    "name": "Defne Güneş",
+    "initials": "DG",
+    "gender": "Kadın",
+    "age": 29,
+    "city": "Antalya",
+    "district": "Konyaaltı",
+    "gymId": "gym_ant_konyaalti",
+    "gymName": "Konyaaltı Beach Gym (Antalya)",
+    "lat": 36.8791,
+    "lng": 30.6449,
+    "avatar": "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/4327024/pexels-photo-4327024.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/17210041/pexels-photo-17210041.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4327027/pexels-photo-4327027.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Yeni başladım",
+    "goals": [
+      "Güç",
+      "Hipertrofi"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Hypertrophy ve güç odaklı alt-üst vücut spliti yapıyorum. Karşılıklı yardımlaşma güzel olur.",
+    "verified": false,
+    "attendanceStreak": 13,
+    "workoutsCompleted": 34,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
   },
   {
     "id": "ath_m_2027",
-    "name": "Erdem Kalkan",
-    "initials": "EK",
+    "name": "Erdem Coşkun",
+    "initials": "EC",
     "gender": "Erkek",
-    "age": 35,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 541 417 24 18",
-    "email": "erdem.kalkan27@gmail.com",
-    "bio": "İş çıkışı 18:30 seansları. Göğüs-kol ve sırt günlerinde tükeniş setleri için spotter lazım 🎯",
-    "goals": [
-      "Kas",
-      "Kondisyon"
+    "age": 30,
+    "city": "Samsun",
+    "district": "Atakum",
+    "gymId": "gym_sam_atakum",
+    "gymName": "Atakum Sahil MACFit (Samsun)",
+    "lat": 41.3293,
+    "lng": 36.3121,
+    "avatar": "https://images.pexels.com/photos/11183203/pexels-photo-11183203.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/11183203/pexels-photo-11183203.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4327024/pexels-photo-4327024.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/11183203/pexels-photo-11183203.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4327027/pexels-photo-4327027.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "İleri",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
     "preferredTimes": [
-      "Gece"
+      "Akşam",
+      "Haftasonu"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.96992,
-    "lng": 29.030681,
-    "distanceKm": 0.5,
-    "photos": [
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Çarşamba",
-      "time": "19:00",
-      "gymName": "PowerGym Moda",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
+    "bio": "İş çıkışı 18:30 seansları. Göğüs-kol ve sırt günlerinde tükeniş setleri için spotter lazım 🎯",
+    "verified": false,
+    "attendanceStreak": 25,
+    "workoutsCompleted": 60,
+    "rating": 5,
     "onboarded": true,
-    "createdAt": 1786225329599,
-    "lastLoginAt": 1793472129599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Göğüs & Kol",
+      "expectation": "Ağır kilo partneri",
+      "note": "Bench press ve dumbbell press süpersetleri"
+    }
+  },
+  {
+    "id": "ath_f_1028",
+    "name": "Başak Karaca",
+    "initials": "BK",
+    "gender": "Kadın",
+    "age": 21,
+    "city": "Antalya",
+    "district": "Lara",
+    "gymId": "gym_ant_lara",
+    "gymName": "Lara PlusFitness (Antalya)",
+    "lat": 36.8564,
+    "lng": 30.7906,
+    "avatar": "https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/4498574/pexels-photo-4498574.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2827400/pexels-photo-2827400.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4498606/pexels-photo-4498606.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
+    "preferredTimes": [
+      "Akşam",
+      "Haftasonu"
+    ],
+    "bio": "Crossfit ve fonksiyonel antrenmanlar vazgeçilmezim. Sabah enerjisiyle spora başlayanlar yazabilir ⚡",
+    "verified": true,
+    "attendanceStreak": 18,
+    "workoutsCompleted": 41,
+    "rating": 4.7,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
   },
   {
     "id": "ath_m_2028",
-    "name": "Sinan Kaya",
-    "initials": "SK",
+    "name": "Sinan Sever",
+    "initials": "SS",
     "gender": "Erkek",
-    "age": 22,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 542 428 31 27",
-    "email": "sinan.kaya28@gmail.com",
-    "bio": "Fonksiyonel güç ve kondisyon antrenmanı. Birlikte PR deneyecek partner arıyorum 🔥",
+    "age": 25,
+    "city": "Muğla",
+    "district": "Bodrum",
+    "gymId": "gym_mug_bodrum",
+    "gymName": "Midtown MACFit Bodrum (Muğla)",
+    "lat": 37.0512,
+    "lng": 27.3804,
+    "avatar": "https://images.pexels.com/photos/13030611/pexels-photo-13030611.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/13030611/pexels-photo-13030611.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4498574/pexels-photo-4498574.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/28080/pexels-photo-28080.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4498606/pexels-photo-4498606.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
     "goals": [
       "Kas",
-      "Güç"
+      "Kondisyon"
     ],
-    "level": "Başlangıç",
     "preferredTimes": [
-      "Akşam"
+      "Sabah",
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.9616,
-    "lng": 29.046419,
-    "distanceKm": 2.3,
-    "photos": [
-      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
+    "bio": "Fonksiyonel güç ve kondisyon antrenmanı. Birlikte PR deneyecek partner arıyorum 🔥",
+    "verified": true,
+    "attendanceStreak": 7,
+    "workoutsCompleted": 69,
+    "rating": 4.7,
+    "onboarded": true,
     "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Sırt & Biceps",
+      "expectation": "Set arası motivasyon",
+      "note": "Lat pulldown ve barbell row odaklı seans"
+    }
+  },
+  {
+    "id": "ath_f_1029",
+    "name": "Serra Sarı",
+    "initials": "SS",
+    "gender": "Kadın",
+    "age": 28,
+    "city": "Antalya",
+    "district": "Alanya",
+    "gymId": "gym_ant_alanya",
+    "gymName": "Alanya Cleopatra Fitness (Antalya)",
+    "lat": 36.5437,
+    "lng": 31.9853,
+    "avatar": "https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?w=800&auto=format&fit=crop&q=80",
+    "photos": [
+      "https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/4534689/pexels-photo-4534689.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4058411/pexels-photo-4058411.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4662438/pexels-photo-4662438.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kas",
+      "Kondisyon"
+    ],
+    "preferredTimes": [
+      "Sabah",
+      "Öğle"
+    ],
+    "bio": "Akşam iş çıkışı 19:30 seansları. Omuz ve sırt günlerinde süperset partneri.",
+    "verified": true,
+    "attendanceStreak": 5,
+    "workoutsCompleted": 48,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
       "workoutType": "Göğüs & Kol",
-      "day": "Perşembe",
-      "time": "19:30",
-      "gymName": "PlusFitness Caddebostan",
       "expectation": "Ağır kilo partneri",
       "note": "Bench press ve dumbbell press süpersetleri"
-    },
-    "onboarded": true,
-    "createdAt": 1785966129599,
-    "lastLoginAt": 1793468529599
+    }
   },
   {
     "id": "ath_m_2029",
-    "name": "Murat Yıldırım",
-    "initials": "MY",
+    "name": "Murat Eren",
+    "initials": "ME",
     "gender": "Erkek",
-    "age": 23,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 543 439 38 36",
-    "email": "murat.yıldırım29@gmail.com",
-    "bio": "Düzenli antrenman ve temiz beslenme yaşam tarzım. Salonda vakit kaybetmeden basacak dostlar eklesin.",
+    "age": 36,
+    "city": "Muğla",
+    "district": "Yalıkavak",
+    "gymId": "gym_mug_yalikavak",
+    "gymName": "Yalıkavak Marina Gym (Muğla)",
+    "lat": 37.1091,
+    "lng": 27.2917,
+    "avatar": "https://images.pexels.com/photos/3888405/pexels-photo-3888405.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3888405/pexels-photo-3888405.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4534689/pexels-photo-4534689.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3490348/pexels-photo-3490348.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4662438/pexels-photo-4662438.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
     "goals": [
-      "Kondisyon",
-      "Kas"
+      "Kas",
+      "Güç"
+    ],
+    "preferredTimes": [
+      "Akşam"
+    ],
+    "bio": "Düzenli antrenman ve temiz beslenme yaşam tarzım. Salonda vakit kaybetmeden basacak dostlar eklesin.",
+    "verified": false,
+    "attendanceStreak": 11,
+    "workoutsCompleted": 13,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Omuz & Karın",
+      "expectation": "Süperset partneri",
+      "note": "Overhead press ve lateral raise tükeniş setleri"
+    }
+  },
+  {
+    "id": "ath_f_1030",
+    "name": "Yağmur Acar",
+    "initials": "YA",
+    "gender": "Kadın",
+    "age": 20,
+    "city": "Bursa",
+    "district": "Nilüfer",
+    "gymId": "gym_bur_nilufer",
+    "gymName": "Sur Yapı Marka MACFit (Bursa)",
+    "lat": 40.212,
+    "lng": 28.987,
+    "avatar": "https://images.pexels.com/photos/8038623/pexels-photo-8038623.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/8038623/pexels-photo-8038623.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4752861/pexels-photo-4752861.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/416717/pexels-photo-416717.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4753996/pexels-photo-4753996.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "Orta",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
     "preferredTimes": [
-      "Akşam",
-      "Öğle"
+      "Akşam"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 41.006175,
-    "lng": 29.107115,
-    "distanceKm": 4.5,
-    "photos": [
-      "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
+    "bio": "Haftada 4 gün ağırlık, 1 gün kardiyo. Birlikte motive olacak ve set aralarında spotterlık yapacak partner arıyorum 💪",
+    "verified": false,
+    "attendanceStreak": 10,
+    "workoutsCompleted": 55,
+    "rating": 4.9,
+    "onboarded": true,
     "nextWorkout": {
+      "day": "Bugün",
+      "time": "17:00",
       "workoutType": "Sırt & Biceps",
-      "day": "Cuma",
-      "time": "20:00",
-      "gymName": "FitCity Ataşehir",
       "expectation": "Set arası motivasyon",
       "note": "Lat pulldown ve barbell row odaklı seans"
-    },
-    "onboarded": true,
-    "createdAt": 1785706929599,
-    "lastLoginAt": 1793464929599
+    }
   },
   {
     "id": "ath_m_2030",
-    "name": "Hakan Doğan",
+    "name": "Hakan Demir",
     "initials": "HD",
     "gender": "Erkek",
-    "age": 24,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 544 450 45 45",
-    "email": "hakan.doğan30@gmail.com",
-    "bio": "Haftada 5 gün Push-Pull-Legs yapıyorum. Bench ve Squat'ta ağır kilolarda spotter partneri arıyorum 💪",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
+    "age": 31,
+    "city": "Muğla",
+    "district": "Fethiye",
+    "gymId": "gym_mug_fethiye",
+    "gymName": "Fethiye Kordon Sports (Muğla)",
+    "lat": 36.631,
+    "lng": 29.117,
+    "avatar": "https://images.pexels.com/photos/4720790/pexels-photo-4720790.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/4720790/pexels-photo-4720790.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4752861/pexels-photo-4752861.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/416778/pexels-photo-416778.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4753996/pexels-photo-4753996.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
-    "level": "Orta",
+    "level": "Yeni başladım",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
     "preferredTimes": [
       "Sabah"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.034405,
-    "lng": 29.032465,
-    "distanceKm": 4.3,
-    "photos": [
-      "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
+    "bio": "Haftada 5 gün Push-Pull-Legs yapıyorum. Bench ve Squat'ta ağır kilolarda spotter partneri arıyorum 💪",
+    "verified": true,
+    "attendanceStreak": 15,
+    "workoutsCompleted": 22,
+    "rating": 4.9,
+    "onboarded": true,
     "nextWorkout": {
-      "workoutType": "Omuz & Karın",
       "day": "Bugün",
-      "time": "20:30",
-      "gymName": "Üsküdar GymClub",
+      "time": "20:00",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
+  },
+  {
+    "id": "ath_f_1031",
+    "name": "Nil Duran",
+    "initials": "ND",
+    "gender": "Kadın",
+    "age": 27,
+    "city": "Bursa",
+    "district": "Özlüce",
+    "gymId": "gym_bur_ozluce",
+    "gymName": "Özlüce FitClub (Bursa)",
+    "lat": 40.2223,
+    "lng": 28.9197,
+    "avatar": "https://images.pexels.com/photos/7900680/pexels-photo-7900680.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/7900680/pexels-photo-7900680.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4761792/pexels-photo-4761792.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/669577/pexels-photo-669577.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4944975/pexels-photo-4944975.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
+    "preferredTimes": [
+      "Sabah"
+    ],
+    "bio": "Sabahları 07:00 seansları. Squat ve Hip Thrust odaklı çalışıyorum. Düzenli gelen arkadaşlar ekleyebilir ✨",
+    "verified": true,
+    "attendanceStreak": 15,
+    "workoutsCompleted": 62,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "18:30",
+      "workoutType": "Omuz & Karın",
       "expectation": "Süperset partneri",
       "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
-    "onboarded": true,
-    "createdAt": 1785447729599,
-    "lastLoginAt": 1793461329599
+    }
   },
   {
     "id": "ath_m_2031",
-    "name": "Tarık Koç",
-    "initials": "TK",
+    "name": "Tarık Öztürk",
+    "initials": "TÖ",
     "gender": "Erkek",
-    "age": 25,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 545 461 52 54",
-    "email": "tarık.koç31@gmail.com",
-    "bio": "Sabah 07:30 veya akşam 19:00 seansları. Hedef hacim ve hipertrofi. Ciddi antrenman arkadaşı eklesin 🏋️‍♂️",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
+    "age": 26,
+    "city": "Konya",
+    "district": "Selçuklu",
+    "gymId": "gym_kon_selcuklu",
+    "gymName": "Kule Site MACFit (Konya)",
+    "lat": 37.8929,
+    "lng": 32.4963,
+    "avatar": "https://images.pexels.com/photos/9644820/pexels-photo-9644820.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/9644820/pexels-photo-9644820.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4761792/pexels-photo-4761792.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/669578/pexels-photo-669578.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4944975/pexels-photo-4944975.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "Orta",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
     "preferredTimes": [
-      "Sabah",
-      "Akşam"
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.029014,
-    "lng": 29.015931,
-    "distanceKm": 6.1,
-    "photos": [
-      "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Bugün",
-      "time": "21:00",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
+    "bio": "Sabah 07:30 veya akşam 19:00 seansları. Hedef hacim ve hipertrofi. Ciddi antrenman arkadaşı eklesin 🏋️‍♂️",
+    "verified": false,
+    "attendanceStreak": 19,
+    "workoutsCompleted": 31,
+    "rating": 5,
     "onboarded": true,
-    "createdAt": 1785188529599,
-    "lastLoginAt": 1793457729599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
+  },
+  {
+    "id": "ath_f_1032",
+    "name": "Bade Eren",
+    "initials": "BE",
+    "gender": "Kadın",
+    "age": 34,
+    "city": "Bursa",
+    "district": "Nilüfer",
+    "gymId": "gym_bur_podyum",
+    "gymName": "PodyumPark Sports Club (Bursa)",
+    "lat": 40.2176,
+    "lng": 28.9684,
+    "avatar": "https://images.pexels.com/photos/2294400/pexels-photo-2294400.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/2294400/pexels-photo-2294400.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/5067741/pexels-photo-5067741.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/669585/pexels-photo-669585.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/5327466/pexels-photo-5327466.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Yeni başladım",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Pilates ve fonksiyonel fitness ile ilgileniyorum. Haftasonu koşu veya salonda partner iyi olur 🧘‍♀️",
+    "verified": true,
+    "attendanceStreak": 20,
+    "workoutsCompleted": 14,
+    "rating": 4.7,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "19:00",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
   },
   {
     "id": "ath_m_2032",
-    "name": "Emrecan Korkmaz",
+    "name": "Emrecan Kılıç",
     "initials": "EK",
     "gender": "Erkek",
-    "age": 26,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 546 472 59 63",
-    "email": "emrecan.korkmaz32@gmail.com",
-    "bio": "Crossfit ve calisthenics karışık gidiyorum. Güç antrenmanında sınırları zorlayacak partner arıyorum ⚡",
-    "goals": [
-      "Güç",
-      "Kondisyon"
+    "age": 21,
+    "city": "Gaziantep",
+    "district": "Şehitkamil",
+    "gymId": "gym_gaz_sehitkamil",
+    "gymName": "Sanko Park MACFit (Gaziantep)",
+    "lat": 37.0708,
+    "lng": 37.3616,
+    "avatar": "https://images.pexels.com/photos/8874355/pexels-photo-8874355.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/8874355/pexels-photo-8874355.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/5067741/pexels-photo-5067741.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/669582/pexels-photo-669582.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/5327466/pexels-photo-5327466.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "İleri",
+    "goals": [
+      "Güç",
+      "Hipertrofi"
+    ],
     "preferredTimes": [
-      "Gece"
+      "Akşam",
+      "Haftasonu"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.921758,
-    "lng": 29.12194,
-    "distanceKm": 7.7,
-    "photos": [
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Bugün",
-      "time": "07:00",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
+    "bio": "Crossfit ve calisthenics karışık gidiyorum. Güç antrenmanında sınırları zorlayacak partner arıyorum ⚡",
+    "verified": true,
+    "attendanceStreak": 23,
+    "workoutsCompleted": 40,
+    "rating": 4.7,
     "onboarded": true,
-    "createdAt": 1784929329599,
-    "lastLoginAt": 1793482929599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
+  },
+  {
+    "id": "ath_f_1033",
+    "name": "Derin Yılmaz",
+    "initials": "DY",
+    "gender": "Kadın",
+    "age": 26,
+    "city": "Bursa",
+    "district": "Osmangazi",
+    "gymId": "gym_bur_osmangazi",
+    "gymName": "Zafer Plaza Fitness (Bursa)",
+    "lat": 40.1889,
+    "lng": 29.0591,
+    "avatar": "https://images.pexels.com/photos/6550860/pexels-photo-6550860.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/6550860/pexels-photo-6550860.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/6455823/pexels-photo-6455823.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/703016/pexels-photo-703016.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/6455828/pexels-photo-6455828.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Güç",
+      "Hipertrofi"
+    ],
+    "preferredTimes": [
+      "Akşam",
+      "Haftasonu"
+    ],
+    "bio": "Kilo verme ve sıkılaşma dönemindeyim. Birlikte kardiyo ve HIIT yapacak motivasyon partneri arıyorum.",
+    "verified": false,
+    "attendanceStreak": 7,
+    "workoutsCompleted": 21,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "20:30",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
   },
   {
     "id": "ath_m_2033",
-    "name": "Atakan Güler",
-    "initials": "AG",
+    "name": "Atakan Kurt",
+    "initials": "AK",
     "gender": "Erkek",
-    "age": 27,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 547 483 66 72",
-    "email": "atakan.güler33@gmail.com",
-    "bio": "Kondisyon ve yağ yakımı odaklıyım. Birlikte tempolu kardiyo ve ağırlık kombinasyonu yapabiliriz.",
+    "age": 32,
+    "city": "Kayseri",
+    "district": "Melikgazi",
+    "gymId": "gym_kay_melikgazi",
+    "gymName": "Kayseri Park MACFit (Kayseri)",
+    "lat": 38.7287,
+    "lng": 35.5099,
+    "avatar": "https://images.pexels.com/photos/15917308/pexels-photo-15917308.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/15917308/pexels-photo-15917308.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/6455823/pexels-photo-6455823.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/703014/pexels-photo-703014.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/6455828/pexels-photo-6455828.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
     "goals": [
-      "Kas",
-      "Kondisyon"
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
+    "preferredTimes": [
+      "Sabah",
+      "Öğle"
+    ],
+    "bio": "Kondisyon ve yağ yakımı odaklıyım. Birlikte tempolu kardiyo ve ağırlık kombinasyonu yapabiliriz.",
+    "verified": false,
+    "attendanceStreak": 5,
+    "workoutsCompleted": 49,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
+  },
+  {
+    "id": "ath_f_1034",
+    "name": "Leyla Çelik",
+    "initials": "LÇ",
+    "gender": "Kadın",
+    "age": 33,
+    "city": "Eskişehir",
+    "district": "Tepebaşı",
+    "gymId": "gym_esk_tepebasi",
+    "gymName": "Espark MACFit (Eskişehir)",
+    "lat": 39.7802,
+    "lng": 30.5088,
+    "avatar": "https://images.pexels.com/photos/903171/pexels-photo-903171.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/903171/pexels-photo-903171.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/6456141/pexels-photo-6456141.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/863977/pexels-photo-863977.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/6456201/pexels-photo-6456201.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "İleri",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
     "preferredTimes": [
-      "Akşam"
+      "Sabah",
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 41.001737,
-    "lng": 29.018021,
-    "distanceKm": 1.3,
-    "photos": [
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Yarın",
-      "time": "07:30",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
+    "bio": "Bacak ve kalça günlerinde birbirimize destek olacak disiplinli sporcu kız arkadaş arıyorum 🏋️‍♀️",
+    "verified": true,
+    "attendanceStreak": 12,
+    "workoutsCompleted": 28,
+    "rating": 4.9,
     "onboarded": true,
-    "createdAt": 1784670129599,
-    "lastLoginAt": 1793479329599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "21:00",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
   },
   {
     "id": "ath_m_2034",
-    "name": "Cem Ünal",
-    "initials": "CÜ",
+    "name": "Cem Erdoğan",
+    "initials": "CE",
     "gender": "Erkek",
-    "age": 28,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 548 494 73 81",
-    "email": "cem.ünal34@gmail.com",
-    "bio": "Powerlifting ve temel bileşik egzersizler (Squat, Bench, Deadlift). Disiplinli sporcular yazsın.",
+    "age": 27,
+    "city": "Kocaeli",
+    "district": "İzmit",
+    "gymId": "gym_koc_izmit",
+    "gymName": "41 Burda MACFit (Kocaeli)",
+    "lat": 40.7566,
+    "lng": 29.9522,
+    "avatar": "https://images.pexels.com/photos/3838705/pexels-photo-3838705.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3838705/pexels-photo-3838705.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/6456141/pexels-photo-6456141.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/863926/pexels-photo-863926.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/6456201/pexels-photo-6456201.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
     "goals": [
       "Kas",
-      "Güç"
+      "Kondisyon"
     ],
-    "level": "Başlangıç",
     "preferredTimes": [
-      "Akşam",
-      "Öğle"
+      "Akşam"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.996874,
-    "lng": 29.036394,
-    "distanceKm": 1.7,
-    "photos": [
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
+    "bio": "Powerlifting ve temel bileşik egzersizler (Squat, Bench, Deadlift). Disiplinli sporcular yazsın.",
+    "verified": true,
+    "attendanceStreak": 9,
+    "workoutsCompleted": 58,
+    "rating": 4.9,
+    "onboarded": true,
     "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
       "workoutType": "Göğüs & Kol",
-      "day": "Yarın",
-      "time": "08:00",
-      "gymName": "PowerGym Moda",
       "expectation": "Ağır kilo partneri",
       "note": "Bench press ve dumbbell press süpersetleri"
-    },
+    }
+  },
+  {
+    "id": "ath_f_1035",
+    "name": "Sena Yıldırım",
+    "initials": "SY",
+    "gender": "Kadın",
+    "age": 25,
+    "city": "Eskişehir",
+    "district": "Tepebaşı",
+    "gymId": "gym_esk_cassaba",
+    "gymName": "Cassaba Modern Fitness (Eskişehir)",
+    "lat": 39.7885,
+    "lng": 30.4995,
+    "avatar": "https://images.pexels.com/photos/25596879/pexels-photo-25596879.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/25596879/pexels-photo-25596879.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/6740822/pexels-photo-6740822.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/866023/pexels-photo-866023.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/6855349/pexels-photo-6855349.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Kas",
+      "Kondisyon"
+    ],
+    "preferredTimes": [
+      "Akşam"
+    ],
+    "bio": "Haftada 5 gün split antrenman. Disiplinli ve zamanında gelen partnerlerle çalışmayı seviyorum.",
+    "verified": true,
+    "attendanceStreak": 17,
+    "workoutsCompleted": 35,
+    "rating": 5,
     "onboarded": true,
-    "createdAt": 1784410929599,
-    "lastLoginAt": 1793475729599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "17:30",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
   },
   {
     "id": "ath_m_2035",
-    "name": "Buğra Taş",
-    "initials": "BT",
+    "name": "Buğra Yalçın",
+    "initials": "BY",
     "gender": "Erkek",
-    "age": 29,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 549 505 80 90",
-    "email": "buğra.taş35@gmail.com",
-    "bio": "Haftasonları sabah koşusu, hafta içi akşam Kadıköy salon seansları. Sürekli motive partner arıyorum.",
-    "goals": [
-      "Kondisyon",
-      "Kas"
+    "age": 22,
+    "city": "Sakarya",
+    "district": "Serdivan",
+    "gymId": "gym_sak_serdivan",
+    "gymName": "Agora Serdivan MACFit (Sakarya)",
+    "lat": 40.7685,
+    "lng": 30.3665,
+    "avatar": "https://images.pexels.com/photos/16996376/pexels-photo-16996376.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/16996376/pexels-photo-16996376.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/6740822/pexels-photo-6740822.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/864939/pexels-photo-864939.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/6855349/pexels-photo-6855349.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
-    "level": "Orta",
+    "level": "Yeni başladım",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
     "preferredTimes": [
       "Sabah"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.958143,
-    "lng": 29.075391,
-    "distanceKm": 3.5,
-    "photos": [
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
+    "bio": "Haftasonları sabah koşusu, hafta içi akşam salon seansları. Sürekli motive partner arıyorum.",
+    "verified": false,
+    "attendanceStreak": 13,
+    "workoutsCompleted": 67,
+    "rating": 5,
+    "onboarded": true,
     "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
       "workoutType": "Sırt & Biceps",
-      "day": "Çarşamba",
-      "time": "12:30",
-      "gymName": "PlusFitness Caddebostan",
       "expectation": "Set arası motivasyon",
       "note": "Lat pulldown ve barbell row odaklı seans"
-    },
+    }
+  },
+  {
+    "id": "ath_f_1036",
+    "name": "Ceren Özdemir",
+    "initials": "CÖ",
+    "gender": "Kadın",
+    "age": 32,
+    "city": "Eskişehir",
+    "district": "Odunpazarı",
+    "gymId": "gym_esk_odunpazari",
+    "gymName": "Odunpazarı FitLife (Eskişehir)",
+    "lat": 39.7618,
+    "lng": 30.5252,
+    "avatar": "https://images.pexels.com/photos/29259725/pexels-photo-29259725.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/29259725/pexels-photo-29259725.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/868776/pexels-photo-868776.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
+    "preferredTimes": [
+      "Sabah"
+    ],
+    "bio": "Yeni başladım sayılır, form düzeltme ve temel hareketlerde motive olacak birini arıyorum 🌸",
+    "verified": false,
+    "attendanceStreak": 4,
+    "workoutsCompleted": 42,
+    "rating": 4.7,
     "onboarded": true,
-    "createdAt": 1784151729599,
-    "lastLoginAt": 1793472129599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Göğüs & Kol",
+      "expectation": "Ağır kilo partneri",
+      "note": "Bench press ve dumbbell press süpersetleri"
+    }
   },
   {
     "id": "ath_m_2036",
-    "name": "Göktuğ Acar",
-    "initials": "GA",
+    "name": "Göktuğ Güneş",
+    "initials": "GG",
     "gender": "Erkek",
-    "age": 30,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 541 516 87 19",
-    "email": "göktuğ.acar36@gmail.com",
-    "bio": "Sporda 3. yılım. Form ve tempo odaklı çalışıyorum, zamanı verimli kullanan biriyle eşleşmek isterim.",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
+    "age": 33,
+    "city": "Denizli",
+    "district": "Pamukkale",
+    "gymId": "gym_den_pamukkale",
+    "gymName": "Forum Çamlık MACFit (Denizli)",
+    "lat": 37.7634,
+    "lng": 29.0988,
+    "avatar": "https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/868705/pexels-photo-868705.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
     ],
     "level": "Orta",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
     "preferredTimes": [
-      "Sabah",
-      "Akşam"
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 40.978731,
-    "lng": 29.105501,
-    "distanceKm": 5.7,
-    "photos": [
-      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
+    "bio": "Sporda 3. yılım. Form ve tempo odaklı çalışıyorum, zamanı verimli kullanan biriyle eşleşmek isterim.",
+    "verified": true,
+    "attendanceStreak": 17,
+    "workoutsCompleted": 76,
+    "rating": 4.7,
+    "onboarded": true,
     "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
       "workoutType": "Omuz & Karın",
-      "day": "Perşembe",
-      "time": "13:00",
-      "gymName": "FitCity Ataşehir",
       "expectation": "Süperset partneri",
       "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
+    }
+  },
+  {
+    "id": "ath_f_1037",
+    "name": "Nehir Kılıç",
+    "initials": "NK",
+    "gender": "Kadın",
+    "age": 24,
+    "city": "Adana",
+    "district": "Çukurova",
+    "gymId": "gym_ada_cukurova",
+    "gymName": "M1 Adana MACFit (Adana)",
+    "lat": 37.0301,
+    "lng": 35.2659,
+    "avatar": "https://images.pexels.com/photos/32695898/pexels-photo-32695898.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/32695898/pexels-photo-32695898.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "Yeni başladım",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Hypertrophy ve güç odaklı alt-üst vücut spliti yapıyorum. Karşılıklı yardımlaşma güzel olur.",
+    "verified": true,
+    "attendanceStreak": 9,
+    "workoutsCompleted": 49,
+    "rating": 4.8,
     "onboarded": true,
-    "createdAt": 1783892529599,
-    "lastLoginAt": 1793468529599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Sırt & Biceps",
+      "expectation": "Set arası motivasyon",
+      "note": "Lat pulldown ve barbell row odaklı seans"
+    }
   },
   {
     "id": "ath_m_2037",
-    "name": "Kutay Kalkan",
-    "initials": "KK",
+    "name": "Kutay Coşkun",
+    "initials": "KC",
     "gender": "Erkek",
-    "age": 31,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 542 527 94 28",
-    "email": "kutay.kalkan37@gmail.com",
-    "bio": "İş çıkışı 18:30 seansları. Göğüs-kol ve sırt günlerinde tükeniş setleri için spotter lazım 🎯",
+    "age": 28,
+    "city": "Balıkesir",
+    "district": "Karesi",
+    "gymId": "gym_bal_karesi",
+    "gymName": "Yaylada MACFit (Balıkesir)",
+    "lat": 39.6583,
+    "lng": 27.8911,
+    "avatar": "https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1579758629938-03607ccdbaba?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "İleri",
     "goals": [
-      "Sağlık",
-      "Kondisyon"
+      "Genel form",
+      "Mobilite"
+    ],
+    "preferredTimes": [
+      "Akşam",
+      "Haftasonu"
+    ],
+    "bio": "İş çıkışı 18:30 seansları. Göğüs-kol ve sırt günlerinde tükeniş setleri için spotter lazım 🎯",
+    "verified": false,
+    "attendanceStreak": 21,
+    "workoutsCompleted": 20,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
+  },
+  {
+    "id": "ath_f_1038",
+    "name": "Eylül Kara",
+    "initials": "EK",
+    "gender": "Kadın",
+    "age": 31,
+    "city": "Adana",
+    "district": "Çukurova",
+    "gymId": "gym_ada_barajyolu",
+    "gymName": "Turgut Özal FitLife (Adana)",
+    "lat": 37.0374,
+    "lng": 35.3006,
+    "avatar": "https://images.pexels.com/photos/3757376/pexels-photo-3757376.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3757376/pexels-photo-3757376.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1524502397800-2eeaad7c3fe5?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
     ],
     "level": "Orta",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
     "preferredTimes": [
-      "Gece"
+      "Akşam",
+      "Haftasonu"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.03398,
-    "lng": 29.003265,
-    "distanceKm": 5.5,
-    "photos": [
-      "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Cuma",
-      "time": "18:00",
-      "gymName": "Üsküdar GymClub",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
+    "bio": "Crossfit ve fonksiyonel antrenmanlar vazgeçilmezim. Sabah enerjisiyle spora başlayanlar yazabilir ⚡",
+    "verified": true,
+    "attendanceStreak": 14,
+    "workoutsCompleted": 56,
+    "rating": 4.9,
     "onboarded": true,
-    "createdAt": 1783633329599,
-    "lastLoginAt": 1793464929599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Omuz & Karın",
+      "expectation": "Süperset partneri",
+      "note": "Overhead press ve lateral raise tükeniş setleri"
+    }
   },
   {
     "id": "ath_m_2038",
-    "name": "Tuna Kaya",
-    "initials": "TK",
+    "name": "Tuna Sever",
+    "initials": "TS",
     "gender": "Erkek",
-    "age": 32,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 543 538 13 37",
-    "email": "tuna.kaya38@gmail.com",
-    "bio": "Fonksiyonel güç ve kondisyon antrenmanı. Birlikte PR deneyecek partner arıyorum 🔥",
+    "age": 23,
+    "city": "Tekirdağ",
+    "district": "Çorlu",
+    "gymId": "gym_tek_corlu",
+    "gymName": "Trend Arena MACFit (Tekirdağ)",
+    "lat": 41.1602,
+    "lng": 27.8134,
+    "avatar": "https://images.pexels.com/photos/1552249/pexels-photo-1552249.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/1552249/pexels-photo-1552249.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "Orta",
     "goals": [
       "Güç",
-      "Kondisyon"
+      "Hipertrofi"
+    ],
+    "preferredTimes": [
+      "Sabah",
+      "Öğle"
+    ],
+    "bio": "Fonksiyonel güç ve kondisyon antrenmanı. Birlikte PR deneyecek partner arıyorum 🔥",
+    "verified": true,
+    "attendanceStreak": 25,
+    "workoutsCompleted": 29,
+    "rating": 4.9,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
+  },
+  {
+    "id": "ath_f_1039",
+    "name": "Melda Özkan",
+    "initials": "MÖ",
+    "gender": "Kadın",
+    "age": 23,
+    "city": "Mersin",
+    "district": "Yenişehir",
+    "gymId": "gym_mer_yenisehir",
+    "gymName": "Forum Mersin MACFit (Mersin)",
+    "lat": 36.7867,
+    "lng": 34.5983,
+    "avatar": "https://images.pexels.com/photos/3757374/pexels-photo-3757374.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3757374/pexels-photo-3757374.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/11183203/pexels-photo-11183203.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
     ],
     "level": "İleri",
+    "goals": [
+      "Güç",
+      "Hipertrofi"
+    ],
     "preferredTimes": [
-      "Akşam"
+      "Sabah",
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.056398,
-    "lng": 29.013415,
-    "distanceKm": 7.3,
-    "photos": [
-      "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Bugün",
-      "time": "18:30",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
+    "bio": "Akşam iş çıkışı 19:30 seansları. Omuz ve sırt günlerinde süperset partneri.",
+    "verified": false,
+    "attendanceStreak": 19,
+    "workoutsCompleted": 63,
+    "rating": 5,
     "onboarded": true,
-    "createdAt": 1783374129599,
-    "lastLoginAt": 1793461329599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
   },
   {
     "id": "ath_m_2039",
-    "name": "Sarp Yıldırım",
-    "initials": "SY",
+    "name": "Sarp Eren",
+    "initials": "SE",
     "gender": "Erkek",
-    "age": 33,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 544 549 20 46",
-    "email": "sarp.yıldırım39@gmail.com",
-    "bio": "Düzenli antrenman ve temiz beslenme yaşam tarzım. Salonda vakit kaybetmeden basacak dostlar eklesin.",
-    "goals": [
-      "Kas",
-      "Kondisyon"
+    "age": 34,
+    "city": "Diyarbakır",
+    "district": "Kayapınar",
+    "gymId": "gym_diy_kayapinar",
+    "gymName": "Ceylan Karavil MACFit (Diyarbakır)",
+    "lat": 37.9381,
+    "lng": 40.1817,
+    "avatar": "https://images.pexels.com/photos/1552252/pexels-photo-1552252.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/1552252/pexels-photo-1552252.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80"
     ],
     "level": "İleri",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
     "preferredTimes": [
-      "Akşam",
-      "Öğle"
+      "Akşam"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.926057,
-    "lng": 29.150784,
-    "distanceKm": 8.8,
-    "photos": [
-      "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Bugün",
-      "time": "19:00",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
+    "bio": "Düzenli antrenman ve temiz beslenme yaşam tarzım. Salonda vakit kaybetmeden basacak dostlar eklesin.",
+    "verified": false,
+    "attendanceStreak": 7,
+    "workoutsCompleted": 38,
+    "rating": 5,
     "onboarded": true,
-    "createdAt": 1783114929599,
-    "lastLoginAt": 1793457729599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
+  },
+  {
+    "id": "ath_f_1040",
+    "name": "Pınar Korkmaz",
+    "initials": "PK",
+    "gender": "Kadın",
+    "age": 30,
+    "city": "Mersin",
+    "district": "Mezitli",
+    "gymId": "gym_mer_mezitli",
+    "gymName": "Marina Sports Club (Mersin)",
+    "lat": 36.756,
+    "lng": 34.53,
+    "avatar": "https://images.pexels.com/photos/3823039/pexels-photo-3823039.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3823039/pexels-photo-3823039.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/28080/pexels-photo-28080.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
+    "preferredTimes": [
+      "Akşam"
+    ],
+    "bio": "Haftada 4 gün ağırlık, 1 gün kardiyo. Birlikte motive olacak ve set aralarında spotterlık yapacak partner arıyorum 💪",
+    "verified": true,
+    "attendanceStreak": 6,
+    "workoutsCompleted": 15,
+    "rating": 4.7,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "17:00",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
   },
   {
     "id": "ath_m_2040",
-    "name": "Bora Doğan",
+    "name": "Bora Demir",
     "initials": "BD",
     "gender": "Erkek",
-    "age": 34,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 545 560 27 55",
-    "email": "bora.doğan40@gmail.com",
-    "bio": "Haftada 5 gün Push-Pull-Legs yapıyorum. Bench ve Squat'ta ağır kilolarda spotter partneri arıyorum 💪",
+    "age": 29,
+    "city": "Aydın",
+    "district": "Kuşadası",
+    "gymId": "gym_ayd_kusadasi",
+    "gymName": "Kuşadası Marina Fitness (Aydın)",
+    "lat": 37.866,
+    "lng": 27.26,
+    "avatar": "https://images.pexels.com/photos/1431282/pexels-photo-1431282.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/1431282/pexels-photo-1431282.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/2247179/pexels-photo-2247179.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "Yeni başladım",
     "goals": [
       "Kas",
-      "Güç"
+      "Kondisyon"
     ],
-    "level": "Başlangıç",
     "preferredTimes": [
       "Sabah"
     ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 40.974961,
-    "lng": 29.024618,
-    "distanceKm": 2.5,
-    "photos": [
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Bugün",
-      "time": "19:30",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
+    "bio": "Haftada 5 gün Push-Pull-Legs yapıyorum. Bench ve Squat'ta ağır kilolarda spotter partneri arıyorum 💪",
+    "verified": true,
+    "attendanceStreak": 11,
+    "workoutsCompleted": 47,
+    "rating": 4.7,
     "onboarded": true,
-    "createdAt": 1782855729599,
-    "lastLoginAt": 1793482929599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
+  },
+  {
+    "id": "ath_f_1041",
+    "name": "Gamze Aksoy",
+    "initials": "GA",
+    "gender": "Kadın",
+    "age": 22,
+    "city": "Trabzon",
+    "district": "Ortahisar",
+    "gymId": "gym_tra_ortahisar",
+    "gymName": "Forum Trabzon MACFit (Trabzon)",
+    "lat": 40.9973,
+    "lng": 39.7577,
+    "avatar": "https://images.pexels.com/photos/3823076/pexels-photo-3823076.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3823076/pexels-photo-3823076.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/3490348/pexels-photo-3490348.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1576678927484-cc907957088c?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kas",
+      "Kondisyon"
+    ],
+    "preferredTimes": [
+      "Sabah"
+    ],
+    "bio": "Sabahları 07:00 seansları. Squat ve Hip Thrust odaklı çalışıyorum. Düzenli gelen arkadaşlar ekleyebilir ✨",
+    "verified": true,
+    "attendanceStreak": 11,
+    "workoutsCompleted": 22,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "18:30",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
   },
   {
     "id": "ath_m_2041",
-    "name": "Yağız Koç",
-    "initials": "YK",
+    "name": "Yağız Öztürk",
+    "initials": "YÖ",
     "gender": "Erkek",
-    "age": 35,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 546 571 34 64",
-    "email": "yağız.koç41@gmail.com",
-    "bio": "Sabah 07:30 veya akşam 19:00 seansları. Hedef hacim ve hipertrofi. Ciddi antrenman arkadaşı eklesin 🏋️‍♂️",
-    "goals": [
-      "Kondisyon",
-      "Kas"
+    "age": 24,
+    "city": "Çanakkale",
+    "district": "Merkez",
+    "gymId": "gym_can_merkez",
+    "gymName": "17 Burda MACFit (Çanakkale)",
+    "lat": 40.1379,
+    "lng": 26.4183,
+    "avatar": "https://images.pexels.com/photos/1552106/pexels-photo-1552106.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/1552106/pexels-photo-1552106.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/3289711/pexels-photo-3289711.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1576678927484-cc907957088c?w=800&auto=format&fit=crop&q=80"
     ],
     "level": "Orta",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
     "preferredTimes": [
-      "Sabah",
-      "Akşam"
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.988787,
-    "lng": 29.008483,
-    "distanceKm": 2.9,
-    "photos": [
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Yarın",
-      "time": "20:00",
-      "gymName": "PowerGym Moda",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
+    "bio": "Sabah 07:30 veya akşam 19:00 seansları. Hedef hacim ve hipertrofi. Ciddi antrenman arkadaşı eklesin 🏋️‍♂️",
+    "verified": false,
+    "attendanceStreak": 15,
+    "workoutsCompleted": 56,
+    "rating": 4.8,
     "onboarded": true,
-    "createdAt": 1782596529599,
-    "lastLoginAt": 1793479329599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Göğüs & Kol",
+      "expectation": "Ağır kilo partneri",
+      "note": "Bench press ve dumbbell press süpersetleri"
+    }
+  },
+  {
+    "id": "ath_f_1042",
+    "name": "Bengü Yalçın",
+    "initials": "BY",
+    "gender": "Kadın",
+    "age": 29,
+    "city": "Samsun",
+    "district": "Atakum",
+    "gymId": "gym_sam_atakum",
+    "gymName": "Atakum Sahil MACFit (Samsun)",
+    "lat": 41.3286,
+    "lng": 36.3134,
+    "avatar": "https://images.pexels.com/photos/416778/pexels-photo-416778.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/416778/pexels-photo-416778.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1581009137042-c552e485697a?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/416778/pexels-photo-416778.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "Yeni başladım",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Pilates ve fonksiyonel fitness ile ilgileniyorum. Haftasonu koşu veya salonda partner iyi olur 🧘‍♀️",
+    "verified": false,
+    "attendanceStreak": 16,
+    "workoutsCompleted": 29,
+    "rating": 4.9,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "19:00",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
   },
   {
     "id": "ath_m_2042",
-    "name": "Oğuz Korkmaz",
+    "name": "Oğuz Kılıç",
     "initials": "OK",
     "gender": "Erkek",
-    "age": 22,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 547 582 41 73",
-    "email": "oğuz.korkmaz42@gmail.com",
-    "bio": "Crossfit ve calisthenics karışık gidiyorum. Güç antrenmanında sınırları zorlayacak partner arıyorum ⚡",
+    "age": 35,
+    "city": "İstanbul",
+    "district": "Kadıköy",
+    "gymId": "gym_ist_kadikoy",
+    "gymName": "MACFit Kadıköy (İstanbul)",
+    "lat": 40.992,
+    "lng": 29.0284,
+    "avatar": "https://images.pexels.com/photos/1552103/pexels-photo-1552103.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/1552103/pexels-photo-1552103.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1581009137042-c552e485697a?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/414029/pexels-photo-414029.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "İleri",
     "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
+    "preferredTimes": [
+      "Akşam",
+      "Haftasonu"
+    ],
+    "bio": "Crossfit ve calisthenics karışık gidiyorum. Güç antrenmanında sınırları zorlayacak partner arıyorum ⚡",
+    "verified": true,
+    "attendanceStreak": 19,
+    "workoutsCompleted": 65,
+    "rating": 4.9,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Sırt & Biceps",
+      "expectation": "Set arası motivasyon",
+      "note": "Lat pulldown ve barbell row odaklı seans"
+    }
+  },
+  {
+    "id": "ath_f_1043",
+    "name": "Rüya Keskin",
+    "initials": "RK",
+    "gender": "Kadın",
+    "age": 21,
+    "city": "Muğla",
+    "district": "Bodrum",
+    "gymId": "gym_mug_bodrum",
+    "gymName": "Midtown MACFit Bodrum (Muğla)",
+    "lat": 37.0539,
+    "lng": 27.3811,
+    "avatar": "https://images.pexels.com/photos/416717/pexels-photo-416717.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/416717/pexels-photo-416717.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/669578/pexels-photo-669578.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1599058917212-d750089bc07e?w=800&auto=format&fit=crop&q=80"
     ],
     "level": "Orta",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
     "preferredTimes": [
-      "Gece"
+      "Akşam",
+      "Haftasonu"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.983774,
-    "lng": 29.064845,
-    "distanceKm": 2.1,
-    "photos": [
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
+    "bio": "Kilo verme ve sıkılaşma dönemindeyim. Birlikte kardiyo ve HIIT yapacak motivasyon partneri arıyorum.",
+    "verified": true,
+    "attendanceStreak": 21,
+    "workoutsCompleted": 36,
+    "rating": 5,
+    "onboarded": true,
     "nextWorkout": {
-      "workoutType": "Omuz & Karın",
       "day": "Yarın",
       "time": "20:30",
-      "gymName": "PlusFitness Caddebostan",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
-    "onboarded": true,
-    "createdAt": 1782337329599,
-    "lastLoginAt": 1793475729599
+      "workoutType": "Göğüs & Kol",
+      "expectation": "Ağır kilo partneri",
+      "note": "Bench press ve dumbbell press süpersetleri"
+    }
   },
   {
     "id": "ath_m_2043",
-    "name": "Rüzgar Güler",
-    "initials": "RG",
+    "name": "Rüzgar Kurt",
+    "initials": "RK",
     "gender": "Erkek",
-    "age": 23,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 548 593 48 82",
-    "email": "rüzgar.güler43@gmail.com",
-    "bio": "Kondisyon ve yağ yakımı odaklıyım. Birlikte tempolu kardiyo ve ağırlık kombinasyonu yapabiliriz.",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
+    "age": 30,
+    "city": "İstanbul",
+    "district": "Moda",
+    "gymId": "gym_ist_moda",
+    "gymName": "PowerGym Moda (İstanbul)",
+    "lat": 40.9847,
+    "lng": 29.0259,
+    "avatar": "https://images.pexels.com/photos/1552104/pexels-photo-1552104.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/1552104/pexels-photo-1552104.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/669584/pexels-photo-669584.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1599058917212-d750089bc07e?w=800&auto=format&fit=crop&q=80"
     ],
     "level": "Orta",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
     "preferredTimes": [
-      "Akşam"
+      "Sabah",
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 40.990445,
-    "lng": 29.13192,
-    "distanceKm": 4.4,
-    "photos": [
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Çarşamba",
-      "time": "21:00",
-      "gymName": "FitCity Ataşehir",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
+    "bio": "Kondisyon ve yağ yakımı odaklıyım. Birlikte tempolu kardiyo ve ağırlık kombinasyonu yapabiliriz.",
+    "verified": false,
+    "attendanceStreak": 23,
+    "workoutsCompleted": 74,
+    "rating": 5,
     "onboarded": true,
-    "createdAt": 1782078129599,
-    "lastLoginAt": 1793472129599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Omuz & Karın",
+      "expectation": "Süperset partneri",
+      "note": "Overhead press ve lateral raise tükeniş setleri"
+    }
+  },
+  {
+    "id": "ath_f_1044",
+    "name": "Melike Bozkurt",
+    "initials": "MB",
+    "gender": "Kadın",
+    "age": 28,
+    "city": "Muğla",
+    "district": "Yalıkavak",
+    "gymId": "gym_mug_yalikavak",
+    "gymName": "Yalıkavak Marina Gym (Muğla)",
+    "lat": 37.1072,
+    "lng": 27.2918,
+    "avatar": "https://images.pexels.com/photos/2247179/pexels-photo-2247179.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/2247179/pexels-photo-2247179.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1599058917765-a780eda07a3e?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/669582/pexels-photo-669582.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
+    "preferredTimes": [
+      "Sabah",
+      "Öğle"
+    ],
+    "bio": "Bacak ve kalça günlerinde birbirimize destek olacak disiplinli sporcu kız arkadaş arıyorum 🏋️‍♀️",
+    "verified": true,
+    "attendanceStreak": 8,
+    "workoutsCompleted": 43,
+    "rating": 4.7,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "21:00",
+      "workoutType": "Sırt & Biceps",
+      "expectation": "Set arası motivasyon",
+      "note": "Lat pulldown ve barbell row odaklı seans"
+    }
   },
   {
     "id": "ath_m_2044",
-    "name": "Kuzey Ünal",
-    "initials": "KÜ",
+    "name": "Kuzey Erdoğan",
+    "initials": "KE",
     "gender": "Erkek",
-    "age": 24,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 549 604 55 91",
-    "email": "kuzey.ünal44@gmail.com",
-    "bio": "Powerlifting ve temel bileşik egzersizler (Squat, Bench, Deadlift). Disiplinli sporcular yazsın.",
-    "goals": [
-      "Güç",
-      "Kondisyon"
+    "age": 25,
+    "city": "İstanbul",
+    "district": "Caddebostan",
+    "gymId": "gym_ist_cadde",
+    "gymName": "PlusFitness Caddebostan (İstanbul)",
+    "lat": 40.9696,
+    "lng": 29.0612,
+    "avatar": "https://images.pexels.com/photos/1552256/pexels-photo-1552256.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/1552256/pexels-photo-1552256.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1599058917765-a780eda07a3e?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/669576/pexels-photo-669576.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=800&auto=format&fit=crop&q=80"
     ],
     "level": "İleri",
+    "goals": [
+      "Güç",
+      "Hipertrofi"
+    ],
     "preferredTimes": [
-      "Akşam",
-      "Öğle"
+      "Akşam"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.010006,
-    "lng": 29.017549,
-    "distanceKm": 4.1,
-    "photos": [
-      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Perşembe",
-      "time": "07:00",
-      "gymName": "Üsküdar GymClub",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
+    "bio": "Powerlifting ve temel bileşik egzersizler (Squat, Bench, Deadlift). Disiplinli sporcular yazsın.",
+    "verified": true,
+    "attendanceStreak": 5,
+    "workoutsCompleted": 18,
+    "rating": 4.7,
     "onboarded": true,
-    "createdAt": 1781818929599,
-    "lastLoginAt": 1793468529599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
+  },
+  {
+    "id": "ath_f_1045",
+    "name": "Nazlı Taş",
+    "initials": "NT",
+    "gender": "Kadın",
+    "age": 20,
+    "city": "Muğla",
+    "district": "Fethiye",
+    "gymId": "gym_mug_fethiye",
+    "gymName": "Fethiye Kordon Sports (Muğla)",
+    "lat": 36.6325,
+    "lng": 29.1165,
+    "avatar": "https://images.pexels.com/photos/2261477/pexels-photo-2261477.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/2261477/pexels-photo-2261477.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/703014/pexels-photo-703014.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1583454155184-870a1f63aebc?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Güç",
+      "Hipertrofi"
+    ],
+    "preferredTimes": [
+      "Akşam"
+    ],
+    "bio": "Haftada 5 gün split antrenman. Disiplinli ve zamanında gelen partnerlerle çalışmayı seviyorum.",
+    "verified": false,
+    "attendanceStreak": 13,
+    "workoutsCompleted": 50,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "17:30",
+      "workoutType": "Omuz & Karın",
+      "expectation": "Süperset partneri",
+      "note": "Overhead press ve lateral raise tükeniş setleri"
+    }
   },
   {
     "id": "ath_m_2045",
-    "name": "Demir Taş",
-    "initials": "DT",
+    "name": "Demir Yalçın",
+    "initials": "DY",
     "gender": "Erkek",
-    "age": 25,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 541 615 62 20",
-    "email": "demir.taş45@gmail.com",
-    "bio": "Haftasonları sabah koşusu, hafta içi akşam Kadıköy salon seansları. Sürekli motive partner arıyorum.",
-    "goals": [
-      "Kas",
-      "Kondisyon"
+    "age": 36,
+    "city": "İstanbul",
+    "district": "Ataşehir",
+    "gymId": "gym_ist_atasehir",
+    "gymName": "FitCity Ataşehir (İstanbul)",
+    "lat": 40.9915,
+    "lng": 29.1165,
+    "avatar": "https://images.pexels.com/photos/1552254/pexels-photo-1552254.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/1552254/pexels-photo-1552254.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/669580/pexels-photo-669580.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1583454155184-870a1f63aebc?w=800&auto=format&fit=crop&q=80"
     ],
-    "level": "İleri",
+    "level": "Yeni başladım",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
     "preferredTimes": [
       "Sabah"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.041292,
-    "lng": 28.989017,
-    "distanceKm": 5.9,
-    "photos": [
-      "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Cuma",
-      "time": "07:30",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
+    "bio": "Haftasonları sabah koşusu, hafta içi akşam salon seansları. Sürekli motive partner arıyorum.",
+    "verified": false,
+    "attendanceStreak": 9,
+    "workoutsCompleted": 27,
+    "rating": 4.8,
     "onboarded": true,
-    "createdAt": 1781559729599,
-    "lastLoginAt": 1793464929599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
+  },
+  {
+    "id": "ath_f_1046",
+    "name": "Ebru Gök",
+    "initials": "EG",
+    "gender": "Kadın",
+    "age": 27,
+    "city": "Konya",
+    "district": "Selçuklu",
+    "gymId": "gym_kon_selcuklu",
+    "gymName": "Kule Site MACFit (Konya)",
+    "lat": 37.8938,
+    "lng": 32.4952,
+    "avatar": "https://images.pexels.com/photos/2261482/pexels-photo-2261482.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/2261482/pexels-photo-2261482.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/863926/pexels-photo-863926.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4716814/pexels-photo-4716814.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
+    "preferredTimes": [
+      "Sabah"
+    ],
+    "bio": "Yeni başladım sayılır, form düzeltme ve temel hareketlerde motive olacak birini arıyorum 🌸",
+    "verified": true,
+    "attendanceStreak": 18,
+    "workoutsCompleted": 57,
+    "rating": 4.9,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
   },
   {
     "id": "ath_m_2046",
-    "name": "Çınar Acar",
-    "initials": "ÇA",
+    "name": "Çınar Güneş",
+    "initials": "ÇG",
     "gender": "Erkek",
-    "age": 26,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 542 626 69 29",
-    "email": "çınar.acar46@gmail.com",
-    "bio": "Sporda 3. yılım. Form ve tempo odaklı çalışıyorum, zamanı verimli kullanan biriyle eşleşmek isterim.",
+    "age": 31,
+    "city": "İstanbul",
+    "district": "Üsküdar",
+    "gymId": "gym_ist_uskudar",
+    "gymName": "Üsküdar GymClub (İstanbul)",
+    "lat": 41.0274,
+    "lng": 29.0178,
+    "avatar": "https://images.pexels.com/photos/28080/pexels-photo-28080.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/28080/pexels-photo-28080.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/791763/pexels-photo-791763.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4716814/pexels-photo-4716814.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
     "goals": [
       "Kas",
-      "Güç"
+      "Kondisyon"
     ],
-    "level": "Başlangıç",
     "preferredTimes": [
-      "Sabah",
-      "Akşam"
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.947894,
-    "lng": 29.133049,
-    "distanceKm": 7.5,
-    "photos": [
-      "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Bugün",
-      "time": "08:00",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
+    "bio": "Sporda 3. yılım. Form ve tempo odaklı çalışıyorum, zamanı verimli kullanan biriyle eşleşmek isterim.",
+    "verified": true,
+    "attendanceStreak": 13,
+    "workoutsCompleted": 36,
+    "rating": 4.9,
     "onboarded": true,
-    "createdAt": 1781300529599,
-    "lastLoginAt": 1793461329599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
+  },
+  {
+    "id": "ath_f_1047",
+    "name": "Deniz Sever",
+    "initials": "DS",
+    "gender": "Kadın",
+    "age": 34,
+    "city": "Gaziantep",
+    "district": "Şehitkamil",
+    "gymId": "gym_gaz_sehitkamil",
+    "gymName": "Sanko Park MACFit (Gaziantep)",
+    "lat": 37.0711,
+    "lng": 37.3639,
+    "avatar": "https://images.pexels.com/photos/2261485/pexels-photo-2261485.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/2261485/pexels-photo-2261485.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/17210041/pexels-photo-17210041.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/864939/pexels-photo-864939.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/29259725/pexels-photo-29259725.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Yeni başladım",
+    "goals": [
+      "Kas",
+      "Kondisyon"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Hypertrophy ve güç odaklı alt-üst vücut spliti yapıyorum. Karşılıklı yardımlaşma güzel olur.",
+    "verified": true,
+    "attendanceStreak": 5,
+    "workoutsCompleted": 64,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
   },
   {
     "id": "ath_m_2047",
-    "name": "Atlas Kalkan",
-    "initials": "AK",
+    "name": "Atlas Coşkun",
+    "initials": "AC",
     "gender": "Erkek",
-    "age": 27,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 543 637 76 38",
-    "email": "atlas.kalkan47@gmail.com",
-    "bio": "İş çıkışı 18:30 seansları. Göğüs-kol ve sırt günlerinde tükeniş setleri için spotter lazım 🎯",
+    "age": 26,
+    "city": "İstanbul",
+    "district": "Maltepe",
+    "gymId": "gym_ist_maltepe",
+    "gymName": "Hilltown MACFit (İstanbul)",
+    "lat": 40.9313,
+    "lng": 29.1331,
+    "avatar": "https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/17210041/pexels-photo-17210041.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/29259725/pexels-photo-29259725.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
     "goals": [
-      "Kondisyon",
-      "Kas"
+      "Kas",
+      "Güç"
+    ],
+    "preferredTimes": [
+      "Akşam",
+      "Haftasonu"
+    ],
+    "bio": "İş çıkışı 18:30 seansları. Göğüs-kol ve sırt günlerinde tükeniş setleri için spotter lazım 🎯",
+    "verified": false,
+    "attendanceStreak": 17,
+    "workoutsCompleted": 45,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
+  },
+  {
+    "id": "ath_f_1048",
+    "name": "Ada Işık",
+    "initials": "AI",
+    "gender": "Kadın",
+    "age": 26,
+    "city": "Kayseri",
+    "district": "Melikgazi",
+    "gymId": "gym_kay_melikgazi",
+    "gymName": "Kayseri Park MACFit (Kayseri)",
+    "lat": 38.7284,
+    "lng": 35.5076,
+    "avatar": "https://images.pexels.com/photos/2827400/pexels-photo-2827400.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/2827400/pexels-photo-2827400.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/25596879/pexels-photo-25596879.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/868705/pexels-photo-868705.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/13030611/pexels-photo-13030611.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "Orta",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
     "preferredTimes": [
-      "Gece"
+      "Akşam",
+      "Haftasonu"
     ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 40.993156,
-    "lng": 29.046507,
-    "distanceKm": 1.2,
-    "photos": [
-      "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Bugün",
-      "time": "12:30",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
+    "bio": "Crossfit ve fonksiyonel antrenmanlar vazgeçilmezim. Sabah enerjisiyle spora başlayanlar yazabilir ⚡",
+    "verified": false,
+    "attendanceStreak": 10,
+    "workoutsCompleted": 16,
+    "rating": 4.7,
     "onboarded": true,
-    "createdAt": 1781041329599,
-    "lastLoginAt": 1793457729599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
   },
   {
     "id": "ath_m_2048",
-    "name": "Pars Kaya",
-    "initials": "PK",
+    "name": "Pars Sever",
+    "initials": "PS",
     "gender": "Erkek",
-    "age": 28,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 544 648 83 47",
-    "email": "pars.kaya48@gmail.com",
-    "bio": "Fonksiyonel güç ve kondisyon antrenmanı. Birlikte PR deneyecek partner arıyorum 🔥",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
+    "age": 21,
+    "city": "İstanbul",
+    "district": "Pendik",
+    "gymId": "gym_ist_pendik",
+    "gymName": "Viaport MACFit (İstanbul)",
+    "lat": 40.8812,
+    "lng": 29.2304,
+    "avatar": "https://images.pexels.com/photos/1954525/pexels-photo-1954525.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/1954525/pexels-photo-1954525.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/25596879/pexels-photo-25596879.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/868483/pexels-photo-868483.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/13030611/pexels-photo-13030611.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "Orta",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
     "preferredTimes": [
-      "Akşam"
+      "Sabah",
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.969524,
-    "lng": 29.029315,
-    "distanceKm": 1.5,
-    "photos": [
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Bugün",
-      "time": "13:00",
-      "gymName": "PowerGym Moda",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
+    "bio": "Fonksiyonel güç ve kondisyon antrenmanı. Birlikte PR deneyecek partner arıyorum 🔥",
+    "verified": true,
+    "attendanceStreak": 21,
+    "workoutsCompleted": 54,
+    "rating": 4.7,
     "onboarded": true,
-    "createdAt": 1780782129599,
-    "lastLoginAt": 1793482929599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Göğüs & Kol",
+      "expectation": "Ağır kilo partneri",
+      "note": "Bench press ve dumbbell press süpersetleri"
+    }
+  },
+  {
+    "id": "ath_f_1049",
+    "name": "Gözde Demirci",
+    "initials": "GD",
+    "gender": "Kadın",
+    "age": 33,
+    "city": "Kocaeli",
+    "district": "İzmit",
+    "gymId": "gym_koc_izmit",
+    "gymName": "41 Burda MACFit (Kocaeli)",
+    "lat": 40.7597,
+    "lng": 29.9533,
+    "avatar": "https://images.pexels.com/photos/3076509/pexels-photo-3076509.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3076509/pexels-photo-3076509.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3888405/pexels-photo-3888405.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1579758629938-03607ccdbaba?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/4720790/pexels-photo-4720790.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
+    "preferredTimes": [
+      "Sabah",
+      "Öğle"
+    ],
+    "bio": "Akşam iş çıkışı 19:30 seansları. Omuz ve sırt günlerinde süperset partneri.",
+    "verified": true,
+    "attendanceStreak": 15,
+    "workoutsCompleted": 23,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
   },
   {
     "id": "ath_m_2049",
-    "name": "Baran Yıldırım",
-    "initials": "BY",
+    "name": "Baran Eren",
+    "initials": "BE",
     "gender": "Erkek",
-    "age": 29,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 545 659 90 56",
-    "email": "baran.yıldırım49@gmail.com",
-    "bio": "Düzenli antrenman ve temiz beslenme yaşam tarzım. Salonda vakit kaybetmeden basacak dostlar eklesin.",
+    "age": 32,
+    "city": "İstanbul",
+    "district": "Beşiktaş",
+    "gymId": "gym_ist_besiktas",
+    "gymName": "MACFit Beşiktaş (İstanbul)",
+    "lat": 41.0411,
+    "lng": 29.0047,
+    "avatar": "https://images.pexels.com/photos/1865131/pexels-photo-1865131.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/1865131/pexels-photo-1865131.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3888405/pexels-photo-3888405.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1534367507873-d2d7e24c797f?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/4720790/pexels-photo-4720790.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
     "goals": [
-      "Sağlık",
-      "Kondisyon"
+      "Genel form",
+      "Mobilite"
+    ],
+    "preferredTimes": [
+      "Akşam"
+    ],
+    "bio": "Düzenli antrenman ve temiz beslenme yaşam tarzım. Salonda vakit kaybetmeden basacak dostlar eklesin.",
+    "verified": false,
+    "attendanceStreak": 25,
+    "workoutsCompleted": 63,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Sırt & Biceps",
+      "expectation": "Set arası motivasyon",
+      "note": "Lat pulldown ve barbell row odaklı seans"
+    }
+  },
+  {
+    "id": "ath_f_1050",
+    "name": "Hande Kaya",
+    "initials": "HK",
+    "gender": "Kadın",
+    "age": 25,
+    "city": "Sakarya",
+    "district": "Serdivan",
+    "gymId": "gym_sak_serdivan",
+    "gymName": "Agora Serdivan MACFit (Sakarya)",
+    "lat": 40.767,
+    "lng": 30.367,
+    "avatar": "https://images.pexels.com/photos/3076516/pexels-photo-3076516.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3076516/pexels-photo-3076516.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/9644820/pexels-photo-9644820.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/8874355/pexels-photo-8874355.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "Orta",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
     "preferredTimes": [
-      "Akşam",
-      "Öğle"
+      "Akşam"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.962854,
-    "lng": 29.045903,
-    "distanceKm": 3.3,
-    "photos": [
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Yarın",
-      "time": "18:00",
-      "gymName": "PlusFitness Caddebostan",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
+    "bio": "Haftada 4 gün ağırlık, 1 gün kardiyo. Birlikte motive olacak ve set aralarında spotterlık yapacak partner arıyorum 💪",
+    "verified": true,
+    "attendanceStreak": 20,
+    "workoutsCompleted": 30,
+    "rating": 4.9,
     "onboarded": true,
-    "createdAt": 1780522929599,
-    "lastLoginAt": 1793479329599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "17:00",
+      "workoutType": "Göğüs & Kol",
+      "expectation": "Ağır kilo partneri",
+      "note": "Bench press ve dumbbell press süpersetleri"
+    }
   },
   {
     "id": "ath_m_2050",
-    "name": "Furkan Doğan",
+    "name": "Furkan Demir",
     "initials": "FD",
     "gender": "Erkek",
-    "age": 30,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 546 670 97 65",
-    "email": "furkan.doğan50@gmail.com",
-    "bio": "Haftada 5 gün Push-Pull-Legs yapıyorum. Bench ve Squat'ta ağır kilolarda spotter partneri arıyorum 💪",
+    "age": 27,
+    "city": "İstanbul",
+    "district": "Şişli",
+    "gymId": "gym_ist_sisli",
+    "gymName": "MAC Kanyon (İstanbul)",
+    "lat": 41.079,
+    "lng": 29.012,
+    "avatar": "https://images.pexels.com/photos/1756959/pexels-photo-1756959.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/1756959/pexels-photo-1756959.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/9644820/pexels-photo-9644820.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/8874355/pexels-photo-8874355.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Yeni başladım",
     "goals": [
       "Güç",
-      "Kondisyon"
+      "Hipertrofi"
     ],
-    "level": "İleri",
     "preferredTimes": [
       "Sabah"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 41.006748,
-    "lng": 29.108408,
-    "distanceKm": 5.6,
-    "photos": [
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
+    "bio": "Haftada 5 gün Push-Pull-Legs yapıyorum. Bench ve Squat'ta ağır kilolarda spotter partneri arıyorum 💪",
+    "verified": true,
+    "attendanceStreak": 7,
+    "workoutsCompleted": 72,
+    "rating": 4.9,
+    "onboarded": true,
     "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Omuz & Karın",
+      "expectation": "Süperset partneri",
+      "note": "Overhead press ve lateral raise tükeniş setleri"
+    }
+  },
+  {
+    "id": "ath_f_1051",
+    "name": "Aylin Şahin",
+    "initials": "AŞ",
+    "gender": "Kadın",
+    "age": 32,
+    "city": "Denizli",
+    "district": "Pamukkale",
+    "gymId": "gym_den_pamukkale",
+    "gymName": "Forum Çamlık MACFit (Denizli)",
+    "lat": 37.7653,
+    "lng": 29.0987,
+    "avatar": "https://images.pexels.com/photos/3112004/pexels-photo-3112004.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3112004/pexels-photo-3112004.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/15917308/pexels-photo-15917308.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/3838705/pexels-photo-3838705.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Güç",
+      "Hipertrofi"
+    ],
+    "preferredTimes": [
+      "Sabah"
+    ],
+    "bio": "Sabahları 07:00 seansları. Squat ve Hip Thrust odaklı çalışıyorum. Düzenli gelen arkadaşlar ekleyebilir ✨",
+    "verified": false,
+    "attendanceStreak": 7,
+    "workoutsCompleted": 37,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
       "day": "Yarın",
       "time": "18:30",
-      "gymName": "FitCity Ataşehir",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
-    "onboarded": true,
-    "createdAt": 1780263729599,
-    "lastLoginAt": 1793475729599
+      "workoutType": "Sırt & Biceps",
+      "expectation": "Set arası motivasyon",
+      "note": "Lat pulldown ve barbell row odaklı seans"
+    }
   },
   {
     "id": "ath_m_2051",
-    "name": "Batuhan Koç",
-    "initials": "BK",
+    "name": "Batuhan Öztürk",
+    "initials": "BÖ",
     "gender": "Erkek",
-    "age": 31,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 547 681 16 74",
-    "email": "batuhan.koç51@gmail.com",
-    "bio": "Sabah 07:30 veya akşam 19:00 seansları. Hedef hacim ve hipertrofi. Ciddi antrenman arkadaşı eklesin 🏋️‍♂️",
-    "goals": [
-      "Kas",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.033232,
-    "lng": 29.033164,
-    "distanceKm": 5.3,
+    "age": 22,
+    "city": "İstanbul",
+    "district": "Bakırköy",
+    "gymId": "gym_ist_bakirkoy",
+    "gymName": "Galleria Sports Club (İstanbul)",
+    "lat": 40.9749,
+    "lng": 28.8713,
+    "avatar": "https://images.pexels.com/photos/1552248/pexels-photo-1552248.jpeg?auto=compress&cs=tinysrgb&w=800",
     "photos": [
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
+      "https://images.pexels.com/photos/1552248/pexels-photo-1552248.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/15917308/pexels-photo-15917308.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/3838705/pexels-photo-3838705.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Çarşamba",
-      "time": "19:00",
-      "gymName": "Üsküdar GymClub",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
+    "level": "Orta",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Sabah 07:30 veya akşam 19:00 seansları. Hedef hacim ve hipertrofi. Ciddi antrenman arkadaşı eklesin 🏋️‍♂️",
+    "verified": false,
+    "attendanceStreak": 11,
+    "workoutsCompleted": 16,
+    "rating": 5,
     "onboarded": true,
-    "createdAt": 1780004529599,
-    "lastLoginAt": 1793472129599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
+  },
+  {
+    "id": "ath_f_1052",
+    "name": "Berna Öztürk",
+    "initials": "BÖ",
+    "gender": "Kadın",
+    "age": 24,
+    "city": "Balıkesir",
+    "district": "Karesi",
+    "gymId": "gym_bal_karesi",
+    "gymName": "Yaylada MACFit (Balıkesir)",
+    "lat": 39.6596,
+    "lng": 27.8904,
+    "avatar": "https://images.pexels.com/photos/3253501/pexels-photo-3253501.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3253501/pexels-photo-3253501.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/16996376/pexels-photo-16996376.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2247179/pexels-photo-2247179.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/39635369/pexels-photo-39635369.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Yeni başladım",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Pilates ve fonksiyonel fitness ile ilgileniyorum. Haftasonu koşu veya salonda partner iyi olur 🧘‍♀️",
+    "verified": true,
+    "attendanceStreak": 12,
+    "workoutsCompleted": 44,
+    "rating": 4.7,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "19:00",
+      "workoutType": "Omuz & Karın",
+      "expectation": "Süperset partneri",
+      "note": "Overhead press ve lateral raise tükeniş setleri"
+    }
   },
   {
     "id": "ath_m_2052",
-    "name": "Kadir Korkmaz",
+    "name": "Kadir Kılıç",
     "initials": "KK",
     "gender": "Erkek",
-    "age": 32,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 548 692 23 83",
-    "email": "kadir.korkmaz52@gmail.com",
-    "bio": "Crossfit ve calisthenics karışık gidiyorum. Güç antrenmanında sınırları zorlayacak partner arıyorum ⚡",
+    "age": 33,
+    "city": "İstanbul",
+    "district": "Sarıyer",
+    "gymId": "gym_ist_sariyer",
+    "gymName": "Vadi İstanbul MACFit (İstanbul)",
+    "lat": 41.1088,
+    "lng": 28.9896,
+    "avatar": "https://images.pexels.com/photos/1552251/pexels-photo-1552251.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/1552251/pexels-photo-1552251.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/16996376/pexels-photo-16996376.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/17210041/pexels-photo-17210041.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/39635369/pexels-photo-39635369.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
     "goals": [
       "Kas",
-      "Güç"
+      "Kondisyon"
     ],
-    "level": "Başlangıç",
     "preferredTimes": [
-      "Gece"
+      "Akşam",
+      "Haftasonu"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.028275,
-    "lng": 29.014738,
-    "distanceKm": 7.1,
-    "photos": [
-      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Perşembe",
-      "time": "19:30",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
+    "bio": "Crossfit ve calisthenics karışık gidiyorum. Güç antrenmanında sınırları zorlayacak partner arıyorum ⚡",
+    "verified": true,
+    "attendanceStreak": 15,
+    "workoutsCompleted": 25,
+    "rating": 4.7,
     "onboarded": true,
-    "createdAt": 1779745329599,
-    "lastLoginAt": 1793468529599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
+  },
+  {
+    "id": "ath_f_1053",
+    "name": "Işıl Arslan",
+    "initials": "IA",
+    "gender": "Kadın",
+    "age": 31,
+    "city": "Tekirdağ",
+    "district": "Çorlu",
+    "gymId": "gym_tek_corlu",
+    "gymName": "Trend Arena MACFit (Tekirdağ)",
+    "lat": 41.1609,
+    "lng": 27.8121,
+    "avatar": "https://images.pexels.com/photos/3289711/pexels-photo-3289711.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3289711/pexels-photo-3289711.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3289711/pexels-photo-3289711.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Kas",
+      "Kondisyon"
+    ],
+    "preferredTimes": [
+      "Akşam",
+      "Haftasonu"
+    ],
+    "bio": "Kilo verme ve sıkılaşma dönemindeyim. Birlikte kardiyo ve HIIT yapacak motivasyon partneri arıyorum.",
+    "verified": true,
+    "attendanceStreak": 17,
+    "workoutsCompleted": 51,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "20:30",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
   },
   {
     "id": "ath_m_2053",
-    "name": "Kemal Güler",
-    "initials": "KG",
+    "name": "Kemal Kurt",
+    "initials": "KK",
     "gender": "Erkek",
-    "age": 33,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 549 703 30 92",
-    "email": "kemal.güler53@gmail.com",
-    "bio": "Kondisyon ve yağ yakımı odaklıyım. Birlikte tempolu kardiyo ve ağırlık kombinasyonu yapabiliriz.",
-    "goals": [
-      "Kondisyon",
-      "Kas"
+    "age": 28,
+    "city": "İstanbul",
+    "district": "Beylikdüzü",
+    "gymId": "gym_ist_beylikduzu",
+    "gymName": "Torium Sports Center (İstanbul)",
+    "lat": 41.0007,
+    "lng": 28.6849,
+    "avatar": "https://images.pexels.com/photos/1552253/pexels-photo-1552253.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/1552253/pexels-photo-1552253.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2827400/pexels-photo-2827400.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "Orta",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
     "preferredTimes": [
-      "Akşam"
+      "Sabah",
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.922826,
-    "lng": 29.121072,
-    "distanceKm": 8.7,
-    "photos": [
-      "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Cuma",
-      "time": "20:00",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
+    "bio": "Kondisyon ve yağ yakımı odaklıyım. Birlikte tempolu kardiyo ve ağırlık kombinasyonu yapabiliriz.",
+    "verified": false,
+    "attendanceStreak": 19,
+    "workoutsCompleted": 34,
+    "rating": 4.8,
     "onboarded": true,
-    "createdAt": 1779486129599,
-    "lastLoginAt": 1793464929599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
+  },
+  {
+    "id": "ath_f_1054",
+    "name": "Şevval Aslan",
+    "initials": "ŞA",
+    "gender": "Kadın",
+    "age": 23,
+    "city": "Diyarbakır",
+    "district": "Kayapınar",
+    "gymId": "gym_diy_kayapinar",
+    "gymName": "Ceylan Karavil MACFit (Diyarbakır)",
+    "lat": 37.9382,
+    "lng": 40.1838,
+    "avatar": "https://images.pexels.com/photos/3490348/pexels-photo-3490348.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3490348/pexels-photo-3490348.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1431282/pexels-photo-1431282.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/414029/pexels-photo-414029.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1552106/pexels-photo-1552106.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
+    "preferredTimes": [
+      "Sabah",
+      "Öğle"
+    ],
+    "bio": "Bacak ve kalça günlerinde birbirimize destek olacak disiplinli sporcu kız arkadaş arıyorum 🏋️‍♀️",
+    "verified": false,
+    "attendanceStreak": 4,
+    "workoutsCompleted": 58,
+    "rating": 4.9,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "21:00",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
   },
   {
     "id": "ath_m_2054",
-    "name": "Ali Ünal",
-    "initials": "AÜ",
+    "name": "Ali Erdoğan",
+    "initials": "AE",
     "gender": "Erkek",
-    "age": 34,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 541 714 37 21",
-    "email": "ali.ünal54@gmail.com",
-    "bio": "Powerlifting ve temel bileşik egzersizler (Squat, Bench, Deadlift). Disiplinli sporcular yazsın.",
+    "age": 23,
+    "city": "Ankara",
+    "district": "Çankaya",
+    "gymId": "gym_ank_tunali",
+    "gymName": "MACFit Tunalı Hilmi (Ankara)",
+    "lat": 39.9056,
+    "lng": 32.8582,
+    "avatar": "https://images.pexels.com/photos/1229356/pexels-photo-1229356.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/1229356/pexels-photo-1229356.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1431282/pexels-photo-1431282.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4058411/pexels-photo-4058411.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1552106/pexels-photo-1552106.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
     "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
+    "preferredTimes": [
+      "Akşam"
+    ],
+    "bio": "Powerlifting ve temel bileşik egzersizler (Squat, Bench, Deadlift). Disiplinli sporcular yazsın.",
+    "verified": true,
+    "attendanceStreak": 23,
+    "workoutsCompleted": 43,
+    "rating": 4.9,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
+  },
+  {
+    "id": "ath_f_1055",
+    "name": "Ceyda Koç",
+    "initials": "CK",
+    "gender": "Kadın",
+    "age": 30,
+    "city": "Aydın",
+    "district": "Kuşadası",
+    "gymId": "gym_ayd_kusadasi",
+    "gymName": "Kuşadası Marina Fitness (Aydın)",
+    "lat": 37.8695,
+    "lng": 27.2615,
+    "avatar": "https://images.pexels.com/photos/3768916/pexels-photo-3768916.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768916/pexels-photo-3768916.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1552103/pexels-photo-1552103.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/669584/pexels-photo-669584.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1552104/pexels-photo-1552104.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "Orta",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
     "preferredTimes": [
-      "Akşam",
-      "Öğle"
+      "Akşam"
     ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 41.002627,
-    "lng": 29.019092,
-    "distanceKm": 2.3,
-    "photos": [
-      "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Bugün",
-      "time": "20:30",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
+    "bio": "Haftada 5 gün split antrenman. Disiplinli ve zamanında gelen partnerlerle çalışmayı seviyorum.",
+    "verified": true,
+    "attendanceStreak": 9,
+    "workoutsCompleted": 10,
+    "rating": 5,
     "onboarded": true,
-    "createdAt": 1779226929599,
-    "lastLoginAt": 1793461329599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "17:30",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
   },
   {
     "id": "ath_m_2055",
-    "name": "Ahmet Taş",
-    "initials": "AT",
+    "name": "Ahmet Yalçın",
+    "initials": "AY",
     "gender": "Erkek",
-    "age": 35,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 542 725 44 30",
-    "email": "ahmet.taş55@gmail.com",
-    "bio": "Haftasonları sabah koşusu, hafta içi akşam Kadıköy salon seansları. Sürekli motive partner arıyorum.",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
+    "age": 34,
+    "city": "Ankara",
+    "district": "Çankaya",
+    "gymId": "gym_ank_panora",
+    "gymName": "Panora MAC (Ankara)",
+    "lat": 39.8505,
+    "lng": 32.8365,
+    "avatar": "https://images.pexels.com/photos/116077/pexels-photo-116077.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/116077/pexels-photo-116077.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1552103/pexels-photo-1552103.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/416717/pexels-photo-416717.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1552104/pexels-photo-1552104.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
-    "level": "Orta",
+    "level": "Yeni başladım",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
     "preferredTimes": [
       "Sabah"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.995932,
-    "lng": 29.037413,
-    "distanceKm": 2.7,
-    "photos": [
-      "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Bugün",
-      "time": "21:00",
-      "gymName": "PowerGym Moda",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
+    "bio": "Haftasonları sabah koşusu, hafta içi akşam salon seansları. Sürekli motive partner arıyorum.",
+    "verified": false,
+    "attendanceStreak": 5,
+    "workoutsCompleted": 52,
+    "rating": 5,
     "onboarded": true,
-    "createdAt": 1778967729599,
-    "lastLoginAt": 1793457729599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Göğüs & Kol",
+      "expectation": "Ağır kilo partneri",
+      "note": "Bench press ve dumbbell press süpersetleri"
+    }
+  },
+  {
+    "id": "ath_f_1056",
+    "name": "Bahar Şimşek",
+    "initials": "BŞ",
+    "gender": "Kadın",
+    "age": 22,
+    "city": "Çanakkale",
+    "district": "Merkez",
+    "gymId": "gym_can_merkez",
+    "gymName": "17 Burda MACFit (Çanakkale)",
+    "lat": 40.1368,
+    "lng": 26.4192,
+    "avatar": "https://images.pexels.com/photos/3775164/pexels-photo-3775164.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3775164/pexels-photo-3775164.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2261477/pexels-photo-2261477.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/669576/pexels-photo-669576.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2261482/pexels-photo-2261482.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
+    "preferredTimes": [
+      "Sabah"
+    ],
+    "bio": "Yeni başladım sayılır, form düzeltme ve temel hareketlerde motive olacak birini arıyorum 🌸",
+    "verified": true,
+    "attendanceStreak": 14,
+    "workoutsCompleted": 17,
+    "rating": 4.7,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
   },
   {
     "id": "ath_m_2056",
-    "name": "Mehmet Acar",
-    "initials": "MA",
+    "name": "Mehmet Güneş",
+    "initials": "MG",
     "gender": "Erkek",
-    "age": 22,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 543 736 51 39",
-    "email": "mehmet.acar56@gmail.com",
-    "bio": "Sporda 3. yılım. Form ve tempo odaklı çalışıyorum, zamanı verimli kullanan biriyle eşleşmek isterim.",
+    "age": 29,
+    "city": "Ankara",
+    "district": "Çayyolu",
+    "gymId": "gym_ank_cayyolu",
+    "gymName": "Arcadium MACFit (Ankara)",
+    "lat": 39.8884,
+    "lng": 32.7008,
+    "avatar": "https://images.pexels.com/photos/116078/pexels-photo-116078.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/116078/pexels-photo-116078.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2261477/pexels-photo-2261477.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/669577/pexels-photo-669577.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2261482/pexels-photo-2261482.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
     "goals": [
       "Güç",
-      "Kondisyon"
+      "Hipertrofi"
     ],
-    "level": "İleri",
     "preferredTimes": [
-      "Sabah",
-      "Akşam"
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.95712,
-    "lng": 29.074464,
-    "distanceKm": 4.5,
-    "photos": [
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Bugün",
-      "time": "07:00",
-      "gymName": "PlusFitness Caddebostan",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
+    "bio": "Sporda 3. yılım. Form ve tempo odaklı çalışıyorum, zamanı verimli kullanan biriyle eşleşmek isterim.",
+    "verified": true,
+    "attendanceStreak": 9,
+    "workoutsCompleted": 61,
+    "rating": 4.7,
     "onboarded": true,
-    "createdAt": 1778708529599,
-    "lastLoginAt": 1793482929599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Sırt & Biceps",
+      "expectation": "Set arası motivasyon",
+      "note": "Lat pulldown ve barbell row odaklı seans"
+    }
+  },
+  {
+    "id": "ath_f_1057",
+    "name": "Buket Erdoğan",
+    "initials": "BE",
+    "gender": "Kadın",
+    "age": 29,
+    "city": "İstanbul",
+    "district": "Kadıköy",
+    "gymId": "gym_ist_kadikoy",
+    "gymName": "MACFit Kadıköy (İstanbul)",
+    "lat": 40.9903,
+    "lng": 29.0287,
+    "avatar": "https://images.pexels.com/photos/3775566/pexels-photo-3775566.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3775566/pexels-photo-3775566.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2261485/pexels-photo-2261485.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/669580/pexels-photo-669580.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3076509/pexels-photo-3076509.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Yeni başladım",
+    "goals": [
+      "Güç",
+      "Hipertrofi"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Hypertrophy ve güç odaklı alt-üst vücut spliti yapıyorum. Karşılıklı yardımlaşma güzel olur.",
+    "verified": false,
+    "attendanceStreak": 19,
+    "workoutsCompleted": 24,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Göğüs & Kol",
+      "expectation": "Ağır kilo partneri",
+      "note": "Bench press ve dumbbell press süpersetleri"
+    }
   },
   {
     "id": "ath_m_2057",
-    "name": "Mustafa Kalkan",
-    "initials": "MK",
+    "name": "Mustafa Coşkun",
+    "initials": "MC",
     "gender": "Erkek",
-    "age": 23,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 544 747 58 48",
-    "email": "mustafa.kalkan57@gmail.com",
-    "bio": "İş çıkışı 18:30 seansları. Göğüs-kol ve sırt günlerinde tükeniş setleri için spotter lazım 🎯",
-    "goals": [
-      "Kas",
-      "Kondisyon"
+    "age": 24,
+    "city": "Ankara",
+    "district": "Kızılay",
+    "gymId": "gym_ank_kizilay",
+    "gymName": "Kızılay PowerGym (Ankara)",
+    "lat": 39.9193,
+    "lng": 32.8551,
+    "avatar": "https://images.pexels.com/photos/116079/pexels-photo-116079.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/116079/pexels-photo-116079.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2261485/pexels-photo-2261485.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/669585/pexels-photo-669585.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3076509/pexels-photo-3076509.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "İleri",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
     "preferredTimes": [
-      "Gece"
+      "Akşam",
+      "Haftasonu"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 40.979529,
-    "lng": 29.10435,
-    "distanceKm": 4.2,
-    "photos": [
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Yarın",
-      "time": "07:30",
-      "gymName": "FitCity Ataşehir",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
+    "bio": "İş çıkışı 18:30 seansları. Göğüs-kol ve sırt günlerinde tükeniş setleri için spotter lazım 🎯",
+    "verified": false,
+    "attendanceStreak": 13,
+    "workoutsCompleted": 70,
+    "rating": 4.8,
     "onboarded": true,
-    "createdAt": 1778449329599,
-    "lastLoginAt": 1793479329599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Omuz & Karın",
+      "expectation": "Süperset partneri",
+      "note": "Overhead press ve lateral raise tükeniş setleri"
+    }
+  },
+  {
+    "id": "ath_f_1058",
+    "name": "Sude Tekin",
+    "initials": "ST",
+    "gender": "Kadın",
+    "age": 21,
+    "city": "İstanbul",
+    "district": "Moda",
+    "gymId": "gym_ist_moda",
+    "gymName": "PowerGym Moda (İstanbul)",
+    "lat": 40.9864,
+    "lng": 29.0256,
+    "avatar": "https://images.pexels.com/photos/3775593/pexels-photo-3775593.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3775593/pexels-photo-3775593.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3076516/pexels-photo-3076516.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/791763/pexels-photo-791763.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3112004/pexels-photo-3112004.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
+    "preferredTimes": [
+      "Akşam",
+      "Haftasonu"
+    ],
+    "bio": "Crossfit ve fonksiyonel antrenmanlar vazgeçilmezim. Sabah enerjisiyle spora başlayanlar yazabilir ⚡",
+    "verified": true,
+    "attendanceStreak": 6,
+    "workoutsCompleted": 31,
+    "rating": 4.9,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Sırt & Biceps",
+      "expectation": "Set arası motivasyon",
+      "note": "Lat pulldown ve barbell row odaklı seans"
+    }
   },
   {
     "id": "ath_m_2058",
-    "name": "Yasin Kaya",
-    "initials": "YK",
+    "name": "Yasin Sever",
+    "initials": "YS",
     "gender": "Erkek",
-    "age": 24,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 545 758 65 57",
-    "email": "yasin.kaya58@gmail.com",
-    "bio": "Fonksiyonel güç ve kondisyon antrenmanı. Birlikte PR deneyecek partner arıyorum 🔥",
+    "age": 35,
+    "city": "Ankara",
+    "district": "Batıkent",
+    "gymId": "gym_ank_batikent",
+    "gymName": "Atlantis MACFit (Ankara)",
+    "lat": 39.9702,
+    "lng": 32.7474,
+    "avatar": "https://images.pexels.com/photos/703009/pexels-photo-703009.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/703009/pexels-photo-703009.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3076516/pexels-photo-3076516.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/703016/pexels-photo-703016.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3112004/pexels-photo-3112004.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
     "goals": [
       "Kas",
-      "Güç"
+      "Kondisyon"
     ],
-    "level": "Başlangıç",
     "preferredTimes": [
-      "Akşam"
+      "Sabah",
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.035116,
-    "lng": 29.004029,
-    "distanceKm": 4,
-    "photos": [
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Yarın",
-      "time": "08:00",
-      "gymName": "Üsküdar GymClub",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
+    "bio": "Fonksiyonel güç ve kondisyon antrenmanı. Birlikte PR deneyecek partner arıyorum 🔥",
+    "verified": true,
+    "attendanceStreak": 17,
+    "workoutsCompleted": 14,
+    "rating": 4.9,
     "onboarded": true,
-    "createdAt": 1778190129599,
-    "lastLoginAt": 1793475729599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
+  },
+  {
+    "id": "ath_f_1059",
+    "name": "Esra Avcı",
+    "initials": "EA",
+    "gender": "Kadın",
+    "age": 28,
+    "city": "İstanbul",
+    "district": "Caddebostan",
+    "gymId": "gym_ist_cadde",
+    "gymName": "PlusFitness Caddebostan (İstanbul)",
+    "lat": 40.9667,
+    "lng": 29.0603,
+    "avatar": "https://images.pexels.com/photos/3775603/pexels-photo-3775603.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3775603/pexels-photo-3775603.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3768916/pexels-photo-3768916.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3775164/pexels-photo-3775164.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kas",
+      "Kondisyon"
+    ],
+    "preferredTimes": [
+      "Sabah",
+      "Öğle"
+    ],
+    "bio": "Akşam iş çıkışı 19:30 seansları. Omuz ve sırt günlerinde süperset partneri.",
+    "verified": true,
+    "attendanceStreak": 11,
+    "workoutsCompleted": 38,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Omuz & Karın",
+      "expectation": "Süperset partneri",
+      "note": "Overhead press ve lateral raise tükeniş setleri"
+    }
   },
   {
     "id": "ath_m_2059",
-    "name": "Yusuf Yıldırım",
-    "initials": "YY",
+    "name": "Yusuf Eren",
+    "initials": "YE",
     "gender": "Erkek",
-    "age": 25,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 546 769 72 66",
-    "email": "yusuf.yıldırım59@gmail.com",
-    "bio": "Düzenli antrenman ve temiz beslenme yaşam tarzım. Salonda vakit kaybetmeden basacak dostlar eklesin.",
+    "age": 30,
+    "city": "Ankara",
+    "district": "Bilkent",
+    "gymId": "gym_ank_bilkent",
+    "gymName": "Sports International Bilkent (Ankara)",
+    "lat": 39.8691,
+    "lng": 32.7547,
+    "avatar": "https://images.pexels.com/photos/703012/pexels-photo-703012.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/703012/pexels-photo-703012.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3768916/pexels-photo-3768916.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/863977/pexels-photo-863977.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3775164/pexels-photo-3775164.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
     "goals": [
-      "Kondisyon",
-      "Kas"
+      "Kas",
+      "Güç"
+    ],
+    "preferredTimes": [
+      "Akşam"
+    ],
+    "bio": "Düzenli antrenman ve temiz beslenme yaşam tarzım. Salonda vakit kaybetmeden basacak dostlar eklesin.",
+    "verified": false,
+    "attendanceStreak": 21,
+    "workoutsCompleted": 23,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
+  },
+  {
+    "id": "ath_f_1060",
+    "name": "Lara Ünal",
+    "initials": "LÜ",
+    "gender": "Kadın",
+    "age": 20,
+    "city": "İstanbul",
+    "district": "Ataşehir",
+    "gymId": "gym_ist_atasehir",
+    "gymName": "FitCity Ataşehir (İstanbul)",
+    "lat": 40.992,
+    "lng": 29.115,
+    "avatar": "https://images.pexels.com/photos/3822906/pexels-photo-3822906.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3822906/pexels-photo-3822906.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3775566/pexels-photo-3775566.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/868483/pexels-photo-868483.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3775593/pexels-photo-3775593.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "Orta",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
     "preferredTimes": [
-      "Akşam",
-      "Öğle"
+      "Akşam"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.055761,
-    "lng": 29.014673,
-    "distanceKm": 5.7,
-    "photos": [
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Çarşamba",
-      "time": "12:30",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
+    "bio": "Haftada 4 gün ağırlık, 1 gün kardiyo. Birlikte motive olacak ve set aralarında spotterlık yapacak partner arıyorum 💪",
+    "verified": false,
+    "attendanceStreak": 16,
+    "workoutsCompleted": 45,
+    "rating": 4.7,
     "onboarded": true,
-    "createdAt": 1777930929599,
-    "lastLoginAt": 1793472129599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "17:00",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
   },
   {
     "id": "ath_m_2060",
-    "name": "Eren Doğan",
+    "name": "Eren Demir",
     "initials": "ED",
     "gender": "Erkek",
-    "age": 26,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 547 780 79 75",
-    "email": "eren.doğan60@gmail.com",
-    "bio": "Haftada 5 gün Push-Pull-Legs yapıyorum. Bench ve Squat'ta ağır kilolarda spotter partneri arıyorum 💪",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
+    "age": 25,
+    "city": "Ankara",
+    "district": "Keçiören",
+    "gymId": "gym_ank_kecioren",
+    "gymName": "Antares MACFit (Ankara)",
+    "lat": 39.967,
+    "lng": 32.822,
+    "avatar": "https://images.pexels.com/photos/703015/pexels-photo-703015.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/703015/pexels-photo-703015.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3775566/pexels-photo-3775566.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/866023/pexels-photo-866023.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3775593/pexels-photo-3775593.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
-    "level": "Orta",
+    "level": "Yeni başladım",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
     "preferredTimes": [
       "Sabah"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.924831,
-    "lng": 29.150198,
-    "distanceKm": 7.3,
-    "photos": [
-      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Perşembe",
-      "time": "13:00",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
+    "bio": "Haftada 5 gün Push-Pull-Legs yapıyorum. Bench ve Squat'ta ağır kilolarda spotter partneri arıyorum 💪",
+    "verified": true,
+    "attendanceStreak": 25,
+    "workoutsCompleted": 32,
+    "rating": 4.7,
     "onboarded": true,
-    "createdAt": 1777671729599,
-    "lastLoginAt": 1793468529599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
+  },
+  {
+    "id": "ath_f_1061",
+    "name": "Alara Can",
+    "initials": "AC",
+    "gender": "Kadın",
+    "age": 27,
+    "city": "İstanbul",
+    "district": "Üsküdar",
+    "gymId": "gym_ist_uskudar",
+    "gymName": "Üsküdar GymClub (İstanbul)",
+    "lat": 41.0273,
+    "lng": 29.0197,
+    "avatar": "https://images.pexels.com/photos/3823063/pexels-photo-3823063.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3823063/pexels-photo-3823063.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3775603/pexels-photo-3775603.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1534367507873-d2d7e24c797f?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/4162451/pexels-photo-4162451.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
+    "preferredTimes": [
+      "Sabah"
+    ],
+    "bio": "Sabahları 07:00 seansları. Squat ve Hip Thrust odaklı çalışıyorum. Düzenli gelen arkadaşlar ekleyebilir ✨",
+    "verified": true,
+    "attendanceStreak": 21,
+    "workoutsCompleted": 52,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "18:30",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
   },
   {
     "id": "ath_m_2061",
-    "name": "Enes Koç",
-    "initials": "EK",
+    "name": "Enes Öztürk",
+    "initials": "EÖ",
     "gender": "Erkek",
-    "age": 27,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 548 791 86 84",
-    "email": "enes.koç61@gmail.com",
-    "bio": "Sabah 07:30 veya akşam 19:00 seansları. Hedef hacim ve hipertrofi. Ciddi antrenman arkadaşı eklesin 🏋️‍♂️",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
+    "age": 36,
+    "city": "İzmir",
+    "district": "Alsancak",
+    "gymId": "gym_izm_alsancak",
+    "gymName": "MACFit Alsancak (İzmir)",
+    "lat": 38.4399,
+    "lng": 27.1403,
+    "avatar": "https://images.pexels.com/photos/669584/pexels-photo-669584.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/669584/pexels-photo-669584.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3775603/pexels-photo-3775603.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/868776/pexels-photo-868776.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4162451/pexels-photo-4162451.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "Orta",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
     "preferredTimes": [
-      "Sabah",
-      "Akşam"
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 40.975425,
-    "lng": 29.023277,
-    "distanceKm": 1,
-    "photos": [
-      "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Cuma",
-      "time": "18:00",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
+    "bio": "Sabah 07:30 veya akşam 19:00 seansları. Hedef hacim ve hipertrofi. Ciddi antrenman arkadaşı eklesin 🏋️‍♂️",
+    "verified": false,
+    "attendanceStreak": 7,
+    "workoutsCompleted": 41,
+    "rating": 4.8,
     "onboarded": true,
-    "createdAt": 1777412529599,
-    "lastLoginAt": 1793464929599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
+  },
+  {
+    "id": "ath_f_1062",
+    "name": "İlayda Coşkun",
+    "initials": "İC",
+    "gender": "Kadın",
+    "age": 34,
+    "city": "İstanbul",
+    "district": "Maltepe",
+    "gymId": "gym_ist_maltepe",
+    "gymName": "Hilltown MACFit (İstanbul)",
+    "lat": 40.9306,
+    "lng": 29.1344,
+    "avatar": "https://images.pexels.com/photos/3823086/pexels-photo-3823086.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3823086/pexels-photo-3823086.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4162487/pexels-photo-4162487.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/4164761/pexels-photo-4164761.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Yeni başladım",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Pilates ve fonksiyonel fitness ile ilgileniyorum. Haftasonu koşu veya salonda partner iyi olur 🧘‍♀️",
+    "verified": true,
+    "attendanceStreak": 8,
+    "workoutsCompleted": 59,
+    "rating": 4.9,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "19:00",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
   },
   {
     "id": "ath_m_2062",
-    "name": "Umut Korkmaz",
+    "name": "Umut Kılıç",
     "initials": "UK",
     "gender": "Erkek",
-    "age": 28,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 549 802 93 93",
-    "email": "umut.korkmaz62@gmail.com",
-    "bio": "Crossfit ve calisthenics karışık gidiyorum. Güç antrenmanında sınırları zorlayacak partner arıyorum ⚡",
-    "goals": [
-      "Güç",
-      "Kondisyon"
+    "age": 31,
+    "city": "İzmir",
+    "district": "Karşıyaka",
+    "gymId": "gym_izm_mavibahce",
+    "gymName": "MaviBahçe MACFit (İzmir)",
+    "lat": 38.4618,
+    "lng": 27.0986,
+    "avatar": "https://images.pexels.com/photos/669578/pexels-photo-669578.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/669578/pexels-photo-669578.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4162487/pexels-photo-4162487.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/4164761/pexels-photo-4164761.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "İleri",
+    "goals": [
+      "Güç",
+      "Hipertrofi"
+    ],
     "preferredTimes": [
-      "Gece"
+      "Akşam",
+      "Haftasonu"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.990079,
-    "lng": 29.008879,
-    "distanceKm": 1.4,
-    "photos": [
-      "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Bugün",
-      "time": "18:30",
-      "gymName": "PowerGym Moda",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
+    "bio": "Crossfit ve calisthenics karışık gidiyorum. Güç antrenmanında sınırları zorlayacak partner arıyorum ⚡",
+    "verified": true,
+    "attendanceStreak": 11,
+    "workoutsCompleted": 50,
+    "rating": 4.9,
     "onboarded": true,
-    "createdAt": 1777153329599,
-    "lastLoginAt": 1793461329599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Göğüs & Kol",
+      "expectation": "Ağır kilo partneri",
+      "note": "Bench press ve dumbbell press süpersetleri"
+    }
+  },
+  {
+    "id": "ath_f_1063",
+    "name": "Ecehan Uçar",
+    "initials": "EU",
+    "gender": "Kadın",
+    "age": 26,
+    "city": "İstanbul",
+    "district": "Pendik",
+    "gymId": "gym_ist_pendik",
+    "gymName": "Viaport MACFit (İstanbul)",
+    "lat": 40.8799,
+    "lng": 29.2311,
+    "avatar": "https://images.pexels.com/photos/3823207/pexels-photo-3823207.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3823207/pexels-photo-3823207.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4325454/pexels-photo-4325454.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/4327024/pexels-photo-4327024.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Güç",
+      "Hipertrofi"
+    ],
+    "preferredTimes": [
+      "Akşam",
+      "Haftasonu"
+    ],
+    "bio": "Kilo verme ve sıkılaşma dönemindeyim. Birlikte kardiyo ve HIIT yapacak motivasyon partneri arıyorum.",
+    "verified": false,
+    "attendanceStreak": 13,
+    "workoutsCompleted": 11,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "20:30",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
   },
   {
     "id": "ath_m_2063",
-    "name": "Semih Güler",
-    "initials": "SG",
+    "name": "Semih Kurt",
+    "initials": "SK",
     "gender": "Erkek",
-    "age": 29,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 541 813 12 22",
-    "email": "semih.güler63@gmail.com",
-    "bio": "Kondisyon ve yağ yakımı odaklıyım. Birlikte tempolu kardiyo ve ağırlık kombinasyonu yapabiliriz.",
+    "age": 26,
+    "city": "İzmir",
+    "district": "Bornova",
+    "gymId": "gym_izm_bornova",
+    "gymName": "Forum Bornova MACFit (İzmir)",
+    "lat": 38.4567,
+    "lng": 27.2169,
+    "avatar": "https://images.pexels.com/photos/669577/pexels-photo-669577.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/669577/pexels-photo-669577.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4325454/pexels-photo-4325454.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1524502397800-2eeaad7c3fe5?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/4327024/pexels-photo-4327024.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
     "goals": [
-      "Kas",
-      "Kondisyon"
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
+    "preferredTimes": [
+      "Sabah",
+      "Öğle"
+    ],
+    "bio": "Kondisyon ve yağ yakımı odaklıyım. Birlikte tempolu kardiyo ve ağırlık kombinasyonu yapabiliriz.",
+    "verified": false,
+    "attendanceStreak": 15,
+    "workoutsCompleted": 59,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Sırt & Biceps",
+      "expectation": "Set arası motivasyon",
+      "note": "Lat pulldown ve barbell row odaklı seans"
+    }
+  },
+  {
+    "id": "ath_f_1064",
+    "name": "Sezen Soylu",
+    "initials": "SS",
+    "gender": "Kadın",
+    "age": 33,
+    "city": "İstanbul",
+    "district": "Beşiktaş",
+    "gymId": "gym_ist_besiktas",
+    "gymName": "MACFit Beşiktaş (İstanbul)",
+    "lat": 41.0432,
+    "lng": 29.0048,
+    "avatar": "https://images.pexels.com/photos/3838937/pexels-photo-3838937.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3838937/pexels-photo-3838937.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4327027/pexels-photo-4327027.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/17210041/pexels-photo-17210041.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4498574/pexels-photo-4498574.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "İleri",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
     "preferredTimes": [
-      "Akşam"
+      "Sabah",
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.983494,
-    "lng": 29.066242,
-    "distanceKm": 3.1,
-    "photos": [
-      "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Bugün",
-      "time": "19:00",
-      "gymName": "PlusFitness Caddebostan",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
+    "bio": "Bacak ve kalça günlerinde birbirimize destek olacak disiplinli sporcu kız arkadaş arıyorum 🏋️‍♀️",
+    "verified": true,
+    "attendanceStreak": 18,
+    "workoutsCompleted": 18,
+    "rating": 4.7,
     "onboarded": true,
-    "createdAt": 1776894129599,
-    "lastLoginAt": 1793457729599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "21:00",
+      "workoutType": "Göğüs & Kol",
+      "expectation": "Ağır kilo partneri",
+      "note": "Bench press ve dumbbell press süpersetleri"
+    }
   },
   {
     "id": "ath_m_2064",
-    "name": "Cihan Ünal",
-    "initials": "CÜ",
+    "name": "Cihan Erdoğan",
+    "initials": "CE",
     "gender": "Erkek",
-    "age": 30,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 542 824 19 31",
-    "email": "cihan.ünal64@gmail.com",
-    "bio": "Powerlifting ve temel bileşik egzersizler (Squat, Bench, Deadlift). Disiplinli sporcular yazsın.",
+    "age": 21,
+    "city": "İzmir",
+    "district": "Bostanlı",
+    "gymId": "gym_izm_bostanli",
+    "gymName": "Bostanlı FitClub (İzmir)",
+    "lat": 38.4566,
+    "lng": 27.1032,
+    "avatar": "https://images.pexels.com/photos/669576/pexels-photo-669576.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/669576/pexels-photo-669576.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4327027/pexels-photo-4327027.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/11183203/pexels-photo-11183203.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4498574/pexels-photo-4498574.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
     "goals": [
       "Kas",
-      "Güç"
+      "Kondisyon"
     ],
-    "level": "Başlangıç",
     "preferredTimes": [
-      "Akşam",
-      "Öğle"
+      "Akşam"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 40.989113,
-    "lng": 29.131721,
-    "distanceKm": 5.4,
-    "photos": [
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Bugün",
-      "time": "19:30",
-      "gymName": "FitCity Ataşehir",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
+    "bio": "Powerlifting ve temel bileşik egzersizler (Squat, Bench, Deadlift). Disiplinli sporcular yazsın.",
+    "verified": true,
+    "attendanceStreak": 19,
+    "workoutsCompleted": 68,
+    "rating": 4.7,
     "onboarded": true,
-    "createdAt": 1776634929599,
-    "lastLoginAt": 1793482929599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Omuz & Karın",
+      "expectation": "Süperset partneri",
+      "note": "Overhead press ve lateral raise tükeniş setleri"
+    }
+  },
+  {
+    "id": "ath_f_1065",
+    "name": "Nisa Kalkan",
+    "initials": "NK",
+    "gender": "Kadın",
+    "age": 25,
+    "city": "İstanbul",
+    "district": "Şişli",
+    "gymId": "gym_ist_sisli",
+    "gymName": "MAC Kanyon (İstanbul)",
+    "lat": 41.0765,
+    "lng": 29.0115,
+    "avatar": "https://images.pexels.com/photos/3838977/pexels-photo-3838977.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3838977/pexels-photo-3838977.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4498606/pexels-photo-4498606.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2827400/pexels-photo-2827400.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4534689/pexels-photo-4534689.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Kas",
+      "Kondisyon"
+    ],
+    "preferredTimes": [
+      "Akşam"
+    ],
+    "bio": "Haftada 5 gün split antrenman. Disiplinli ve zamanında gelen partnerlerle çalışmayı seviyorum.",
+    "verified": true,
+    "attendanceStreak": 5,
+    "workoutsCompleted": 25,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "17:30",
+      "workoutType": "Sırt & Biceps",
+      "expectation": "Set arası motivasyon",
+      "note": "Lat pulldown ve barbell row odaklı seans"
+    }
   },
   {
     "id": "ath_m_2065",
-    "name": "İlker Taş",
-    "initials": "İT",
+    "name": "İlker Yalçın",
+    "initials": "İY",
     "gender": "Erkek",
-    "age": 31,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 543 835 26 40",
-    "email": "i̇lker.taş65@gmail.com",
-    "bio": "Haftasonları sabah koşusu, hafta içi akşam Kadıköy salon seansları. Sürekli motive partner arıyorum.",
-    "goals": [
-      "Kondisyon",
-      "Kas"
+    "age": 32,
+    "city": "İzmir",
+    "district": "Göztepe",
+    "gymId": "gym_izm_goztepe",
+    "gymName": "Göztepe Sahil Gym (İzmir)",
+    "lat": 38.3995,
+    "lng": 27.0915,
+    "avatar": "https://images.pexels.com/photos/669582/pexels-photo-669582.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/669582/pexels-photo-669582.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4498606/pexels-photo-4498606.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/28080/pexels-photo-28080.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4534689/pexels-photo-4534689.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
-    "level": "Orta",
+    "level": "Yeni başladım",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
     "preferredTimes": [
       "Sabah"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.010098,
-    "lng": 29.016123,
-    "distanceKm": 5.2,
-    "photos": [
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Yarın",
-      "time": "20:00",
-      "gymName": "Üsküdar GymClub",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
+    "bio": "Haftasonları sabah koşusu, hafta içi akşam salon seansları. Sürekli motive partner arıyorum.",
+    "verified": false,
+    "attendanceStreak": 23,
+    "workoutsCompleted": 12,
+    "rating": 4.8,
     "onboarded": true,
-    "createdAt": 1776375729599,
-    "lastLoginAt": 1793479329599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
+  },
+  {
+    "id": "ath_f_1066",
+    "name": "Büşra Kartal",
+    "initials": "BK",
+    "gender": "Kadın",
+    "age": 32,
+    "city": "İstanbul",
+    "district": "Bakırköy",
+    "gymId": "gym_ist_bakirkoy",
+    "gymName": "Galleria Sports Club (İstanbul)",
+    "lat": 40.9758,
+    "lng": 28.8702,
+    "avatar": "https://images.pexels.com/photos/3927389/pexels-photo-3927389.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3927389/pexels-photo-3927389.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4662438/pexels-photo-4662438.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4058411/pexels-photo-4058411.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4752861/pexels-photo-4752861.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
+    "preferredTimes": [
+      "Sabah"
+    ],
+    "bio": "Yeni başladım sayılır, form düzeltme ve temel hareketlerde motive olacak birini arıyorum 🌸",
+    "verified": false,
+    "attendanceStreak": 10,
+    "workoutsCompleted": 32,
+    "rating": 4.9,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Omuz & Karın",
+      "expectation": "Süperset partneri",
+      "note": "Overhead press ve lateral raise tükeniş setleri"
+    }
   },
   {
     "id": "ath_m_2066",
-    "name": "Alper Acar",
-    "initials": "AA",
+    "name": "Alper Güneş",
+    "initials": "AG",
     "gender": "Erkek",
-    "age": 32,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 544 846 33 49",
-    "email": "alper.acar66@gmail.com",
-    "bio": "Sporda 3. yılım. Form ve tempo odaklı çalışıyorum, zamanı verimli kullanan biriyle eşleşmek isterim.",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
+    "age": 27,
+    "city": "İzmir",
+    "district": "Balçova",
+    "gymId": "gym_izm_balcova",
+    "gymName": "Agora MACFit (İzmir)",
+    "lat": 38.3914,
+    "lng": 27.0528,
+    "avatar": "https://images.pexels.com/photos/669585/pexels-photo-669585.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/669585/pexels-photo-669585.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4662438/pexels-photo-4662438.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3490348/pexels-photo-3490348.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4752861/pexels-photo-4752861.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "Orta",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
     "preferredTimes": [
-      "Sabah",
-      "Akşam"
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.042637,
-    "lng": 28.989013,
-    "distanceKm": 6.9,
-    "photos": [
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Yarın",
-      "time": "20:30",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
+    "bio": "Sporda 3. yılım. Form ve tempo odaklı çalışıyorum, zamanı verimli kullanan biriyle eşleşmek isterim.",
+    "verified": true,
+    "attendanceStreak": 5,
+    "workoutsCompleted": 21,
+    "rating": 4.9,
     "onboarded": true,
-    "createdAt": 1776116529599,
-    "lastLoginAt": 1793475729599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
+  },
+  {
+    "id": "ath_f_1067",
+    "name": "Hilal Demir",
+    "initials": "HD",
+    "gender": "Kadın",
+    "age": 24,
+    "city": "İstanbul",
+    "district": "Sarıyer",
+    "gymId": "gym_ist_sariyer",
+    "gymName": "Vadi İstanbul MACFit (İstanbul)",
+    "lat": 41.1091,
+    "lng": 28.9879,
+    "avatar": "https://images.pexels.com/photos/4058411/pexels-photo-4058411.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/4058411/pexels-photo-4058411.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4753996/pexels-photo-4753996.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/416717/pexels-photo-416717.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4761792/pexels-photo-4761792.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Yeni başladım",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Hypertrophy ve güç odaklı alt-üst vücut spliti yapıyorum. Karşılıklı yardımlaşma güzel olur.",
+    "verified": true,
+    "attendanceStreak": 15,
+    "workoutsCompleted": 39,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
   },
   {
     "id": "ath_m_2067",
-    "name": "Taner Kalkan",
-    "initials": "TK",
+    "name": "Taner Coşkun",
+    "initials": "TC",
     "gender": "Erkek",
-    "age": 33,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 545 857 40 58",
-    "email": "taner.kalkan67@gmail.com",
-    "bio": "İş çıkışı 18:30 seansları. Göğüs-kol ve sırt günlerinde tükeniş setleri için spotter lazım 🎯",
+    "age": 22,
+    "city": "İzmir",
+    "district": "Urla",
+    "gymId": "gym_izm_urla",
+    "gymName": "Urla Surf & Fitness (İzmir)",
+    "lat": 38.3233,
+    "lng": 26.7651,
+    "avatar": "https://images.pexels.com/photos/669580/pexels-photo-669580.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/669580/pexels-photo-669580.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4753996/pexels-photo-4753996.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/416778/pexels-photo-416778.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4761792/pexels-photo-4761792.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
     "goals": [
-      "Sağlık",
-      "Kondisyon"
+      "Genel form",
+      "Mobilite"
+    ],
+    "preferredTimes": [
+      "Akşam",
+      "Haftasonu"
+    ],
+    "bio": "İş çıkışı 18:30 seansları. Göğüs-kol ve sırt günlerinde tükeniş setleri için spotter lazım 🎯",
+    "verified": false,
+    "attendanceStreak": 9,
+    "workoutsCompleted": 30,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
+  },
+  {
+    "id": "ath_f_1068",
+    "name": "Sibel Yıldız",
+    "initials": "SY",
+    "gender": "Kadın",
+    "age": 31,
+    "city": "İstanbul",
+    "district": "Beylikdüzü",
+    "gymId": "gym_ist_beylikduzu",
+    "gymName": "Torium Sports Center (İstanbul)",
+    "lat": 41.0004,
+    "lng": 28.6866,
+    "avatar": "https://images.pexels.com/photos/414029/pexels-photo-414029.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/414029/pexels-photo-414029.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4944975/pexels-photo-4944975.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/669577/pexels-photo-669577.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/5067741/pexels-photo-5067741.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "Orta",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
     "preferredTimes": [
-      "Gece"
+      "Akşam",
+      "Haftasonu"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.947992,
-    "lng": 29.134474,
-    "distanceKm": 8.5,
-    "photos": [
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Çarşamba",
-      "time": "21:00",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
+    "bio": "Crossfit ve fonksiyonel antrenmanlar vazgeçilmezim. Sabah enerjisiyle spora başlayanlar yazabilir ⚡",
+    "verified": true,
+    "attendanceStreak": 20,
+    "workoutsCompleted": 46,
+    "rating": 4.7,
     "onboarded": true,
-    "createdAt": 1775857329599,
-    "lastLoginAt": 1793472129599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
   },
   {
     "id": "ath_m_2068",
-    "name": "Soner Kaya",
-    "initials": "SK",
+    "name": "Soner Sever",
+    "initials": "SS",
     "gender": "Erkek",
-    "age": 34,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 546 868 47 67",
-    "email": "soner.kaya68@gmail.com",
-    "bio": "Fonksiyonel güç ve kondisyon antrenmanı. Birlikte PR deneyecek partner arıyorum 🔥",
+    "age": 33,
+    "city": "Antalya",
+    "district": "Muratpaşa",
+    "gymId": "gym_ant_muratpasa",
+    "gymName": "TerraCity MACFit (Antalya)",
+    "lat": 36.8512,
+    "lng": 30.7524,
+    "avatar": "https://images.pexels.com/photos/416754/pexels-photo-416754.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/416754/pexels-photo-416754.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4944975/pexels-photo-4944975.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/669578/pexels-photo-669578.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/5067741/pexels-photo-5067741.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
     "goals": [
       "Güç",
-      "Kondisyon"
+      "Hipertrofi"
+    ],
+    "preferredTimes": [
+      "Sabah",
+      "Öğle"
+    ],
+    "bio": "Fonksiyonel güç ve kondisyon antrenmanı. Birlikte PR deneyecek partner arıyorum 🔥",
+    "verified": true,
+    "attendanceStreak": 13,
+    "workoutsCompleted": 39,
+    "rating": 4.7,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
+  },
+  {
+    "id": "ath_f_1069",
+    "name": "Selma Aydın",
+    "initials": "SA",
+    "gender": "Kadın",
+    "age": 23,
+    "city": "Ankara",
+    "district": "Çankaya",
+    "gymId": "gym_ank_tunali",
+    "gymName": "MACFit Tunalı Hilmi (Ankara)",
+    "lat": 39.9047,
+    "lng": 32.8593,
+    "avatar": "https://images.pexels.com/photos/4162451/pexels-photo-4162451.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/4162451/pexels-photo-4162451.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/5327466/pexels-photo-5327466.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/669585/pexels-photo-669585.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/6455823/pexels-photo-6455823.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "İleri",
+    "goals": [
+      "Güç",
+      "Hipertrofi"
+    ],
     "preferredTimes": [
-      "Akşam"
+      "Sabah",
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 40.991825,
-    "lng": 29.046712,
-    "distanceKm": 2.2,
-    "photos": [
-      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Perşembe",
-      "time": "07:00",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
+    "bio": "Akşam iş çıkışı 19:30 seansları. Omuz ve sırt günlerinde süperset partneri.",
+    "verified": false,
+    "attendanceStreak": 7,
+    "workoutsCompleted": 53,
+    "rating": 4.8,
     "onboarded": true,
-    "createdAt": 1775598129599,
-    "lastLoginAt": 1793468529599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
   },
   {
     "id": "ath_m_2069",
-    "name": "Caner Yıldırım",
-    "initials": "CY",
+    "name": "Caner Eren",
+    "initials": "CE",
     "gender": "Erkek",
-    "age": 35,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 547 879 54 76",
-    "email": "caner.yıldırım69@gmail.com",
-    "bio": "Düzenli antrenman ve temiz beslenme yaşam tarzım. Salonda vakit kaybetmeden basacak dostlar eklesin.",
-    "goals": [
-      "Kas",
-      "Kondisyon"
+    "age": 28,
+    "city": "Antalya",
+    "district": "Konyaaltı",
+    "gymId": "gym_ant_konyaalti",
+    "gymName": "Konyaaltı Beach Gym (Antalya)",
+    "lat": 36.8791,
+    "lng": 30.6457,
+    "avatar": "https://images.pexels.com/photos/416747/pexels-photo-416747.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/416747/pexels-photo-416747.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/5327466/pexels-photo-5327466.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/669582/pexels-photo-669582.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/6455823/pexels-photo-6455823.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "İleri",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
     "preferredTimes": [
-      "Akşam",
-      "Öğle"
+      "Akşam"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.969238,
-    "lng": 29.027919,
-    "distanceKm": 2.5,
-    "photos": [
-      "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Cuma",
-      "time": "07:30",
-      "gymName": "PowerGym Moda",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
+    "bio": "Düzenli antrenman ve temiz beslenme yaşam tarzım. Salonda vakit kaybetmeden basacak dostlar eklesin.",
+    "verified": false,
+    "attendanceStreak": 17,
+    "workoutsCompleted": 48,
+    "rating": 4.8,
     "onboarded": true,
-    "createdAt": 1775338929599,
-    "lastLoginAt": 1793464929599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Göğüs & Kol",
+      "expectation": "Ağır kilo partneri",
+      "note": "Bench press ve dumbbell press süpersetleri"
+    }
+  },
+  {
+    "id": "ath_f_1070",
+    "name": "Özge Doğan",
+    "initials": "ÖD",
+    "gender": "Kadın",
+    "age": 30,
+    "city": "Ankara",
+    "district": "Çankaya",
+    "gymId": "gym_ank_panora",
+    "gymName": "Panora MAC (Ankara)",
+    "lat": 39.853,
+    "lng": 32.837,
+    "avatar": "https://images.pexels.com/photos/4162487/pexels-photo-4162487.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/4162487/pexels-photo-4162487.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/6455828/pexels-photo-6455828.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/703016/pexels-photo-703016.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/6456141/pexels-photo-6456141.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
+    "preferredTimes": [
+      "Akşam"
+    ],
+    "bio": "Haftada 4 gün ağırlık, 1 gün kardiyo. Birlikte motive olacak ve set aralarında spotterlık yapacak partner arıyorum 💪",
+    "verified": true,
+    "attendanceStreak": 12,
+    "workoutsCompleted": 60,
+    "rating": 4.9,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "17:00",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
   },
   {
     "id": "ath_m_2070",
-    "name": "Okan Doğan",
+    "name": "Okan Demir",
     "initials": "OD",
     "gender": "Erkek",
-    "age": 22,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 548 890 61 85",
-    "email": "okan.doğan70@gmail.com",
-    "bio": "Haftada 5 gün Push-Pull-Legs yapıyorum. Bench ve Squat'ta ağır kilolarda spotter partneri arıyorum 💪",
+    "age": 23,
+    "city": "Antalya",
+    "district": "Lara",
+    "gymId": "gym_ant_lara",
+    "gymName": "Lara PlusFitness (Antalya)",
+    "lat": 36.857,
+    "lng": 30.788,
+    "avatar": "https://images.pexels.com/photos/414027/pexels-photo-414027.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/414027/pexels-photo-414027.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/6455828/pexels-photo-6455828.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/703014/pexels-photo-703014.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/6456141/pexels-photo-6456141.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Yeni başladım",
     "goals": [
       "Kas",
-      "Güç"
+      "Kondisyon"
     ],
-    "level": "Başlangıç",
     "preferredTimes": [
       "Sabah"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.964145,
-    "lng": 29.045501,
-    "distanceKm": 4.3,
-    "photos": [
-      "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
+    "bio": "Haftada 5 gün Push-Pull-Legs yapıyorum. Bench ve Squat'ta ağır kilolarda spotter partneri arıyorum 💪",
+    "verified": true,
+    "attendanceStreak": 21,
+    "workoutsCompleted": 57,
+    "rating": 4.9,
+    "onboarded": true,
     "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
       "day": "Bugün",
-      "time": "08:00",
-      "gymName": "PlusFitness Caddebostan",
+      "time": "20:00",
+      "workoutType": "Sırt & Biceps",
+      "expectation": "Set arası motivasyon",
+      "note": "Lat pulldown ve barbell row odaklı seans"
+    }
+  },
+  {
+    "id": "ath_f_1071",
+    "name": "Öykü Çetin",
+    "initials": "ÖÇ",
+    "gender": "Kadın",
+    "age": 22,
+    "city": "Ankara",
+    "district": "Çayyolu",
+    "gymId": "gym_ank_cayyolu",
+    "gymName": "Arcadium MACFit (Ankara)",
+    "lat": 39.8863,
+    "lng": 32.7007,
+    "avatar": "https://images.pexels.com/photos/4164761/pexels-photo-4164761.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/4164761/pexels-photo-4164761.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/6456201/pexels-photo-6456201.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/863977/pexels-photo-863977.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/6740822/pexels-photo-6740822.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kas",
+      "Kondisyon"
+    ],
+    "preferredTimes": [
+      "Sabah"
+    ],
+    "bio": "Sabahları 07:00 seansları. Squat ve Hip Thrust odaklı çalışıyorum. Düzenli gelen arkadaşlar ekleyebilir ✨",
+    "verified": true,
+    "attendanceStreak": 17,
+    "workoutsCompleted": 12,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "18:30",
+      "workoutType": "Göğüs & Kol",
       "expectation": "Ağır kilo partneri",
       "note": "Bench press ve dumbbell press süpersetleri"
-    },
-    "onboarded": true,
-    "createdAt": 1775079729599,
-    "lastLoginAt": 1793461329599
+    }
   },
   {
     "id": "ath_m_2071",
-    "name": "Levent Koç",
-    "initials": "LK",
+    "name": "Levent Öztürk",
+    "initials": "LÖ",
     "gender": "Erkek",
-    "age": 23,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 549 901 68 94",
-    "email": "levent.koç71@gmail.com",
-    "bio": "Sabah 07:30 veya akşam 19:00 seansları. Hedef hacim ve hipertrofi. Ciddi antrenman arkadaşı eklesin 🏋️‍♂️",
-    "goals": [
-      "Kondisyon",
-      "Kas"
+    "age": 34,
+    "city": "Antalya",
+    "district": "Alanya",
+    "gymId": "gym_ant_alanya",
+    "gymName": "Alanya Cleopatra Fitness (Antalya)",
+    "lat": 36.5449,
+    "lng": 31.9873,
+    "avatar": "https://images.pexels.com/photos/3768593/pexels-photo-3768593.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768593/pexels-photo-3768593.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/6456201/pexels-photo-6456201.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/863926/pexels-photo-863926.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/6740822/pexels-photo-6740822.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "Orta",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
     "preferredTimes": [
-      "Sabah",
-      "Akşam"
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 41.007217,
-    "lng": 29.109747,
-    "distanceKm": 6.6,
-    "photos": [
-      "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
+    "bio": "Sabah 07:30 veya akşam 19:00 seansları. Hedef hacim ve hipertrofi. Ciddi antrenman arkadaşı eklesin 🏋️‍♂️",
+    "verified": false,
+    "attendanceStreak": 25,
+    "workoutsCompleted": 66,
+    "rating": 5,
+    "onboarded": true,
     "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Omuz & Karın",
+      "expectation": "Süperset partneri",
+      "note": "Overhead press ve lateral raise tükeniş setleri"
+    }
+  },
+  {
+    "id": "ath_f_1072",
+    "name": "Melis Kurt",
+    "initials": "MK",
+    "gender": "Kadın",
+    "age": 29,
+    "city": "Ankara",
+    "district": "Kızılay",
+    "gymId": "gym_ank_kizilay",
+    "gymName": "Kızılay PowerGym (Ankara)",
+    "lat": 39.9206,
+    "lng": 32.8544,
+    "avatar": "https://images.pexels.com/photos/4325454/pexels-photo-4325454.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/4325454/pexels-photo-4325454.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/6855349/pexels-photo-6855349.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/866023/pexels-photo-866023.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "Yeni başladım",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Pilates ve fonksiyonel fitness ile ilgileniyorum. Haftasonu koşu veya salonda partner iyi olur 🧘‍♀️",
+    "verified": false,
+    "attendanceStreak": 4,
+    "workoutsCompleted": 19,
+    "rating": 4.7,
+    "onboarded": true,
+    "nextWorkout": {
       "day": "Bugün",
-      "time": "12:30",
-      "gymName": "FitCity Ataşehir",
+      "time": "19:00",
+      "workoutType": "Sırt & Biceps",
       "expectation": "Set arası motivasyon",
       "note": "Lat pulldown ve barbell row odaklı seans"
-    },
-    "onboarded": true,
-    "createdAt": 1774820529599,
-    "lastLoginAt": 1793457729599
+    }
   },
   {
     "id": "ath_m_2072",
-    "name": "Metin Korkmaz",
+    "name": "Metin Kılıç",
     "initials": "MK",
     "gender": "Erkek",
-    "age": 24,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 541 912 75 23",
-    "email": "metin.korkmaz72@gmail.com",
-    "bio": "Crossfit ve calisthenics karışık gidiyorum. Güç antrenmanında sınırları zorlayacak partner arıyorum ⚡",
+    "age": 29,
+    "city": "Bursa",
+    "district": "Nilüfer",
+    "gymId": "gym_bur_nilufer",
+    "gymName": "Sur Yapı Marka MACFit (Bursa)",
+    "lat": 40.2098,
+    "lng": 28.9856,
+    "avatar": "https://images.pexels.com/photos/3768595/pexels-photo-3768595.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768595/pexels-photo-3768595.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/6855349/pexels-photo-6855349.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/864939/pexels-photo-864939.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "İleri",
     "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
+    "preferredTimes": [
+      "Akşam",
+      "Haftasonu"
+    ],
+    "bio": "Crossfit ve calisthenics karışık gidiyorum. Güç antrenmanında sınırları zorlayacak partner arıyorum ⚡",
+    "verified": true,
+    "attendanceStreak": 7,
+    "workoutsCompleted": 75,
+    "rating": 4.7,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
+  },
+  {
+    "id": "ath_f_1073",
+    "name": "Beliz Polat",
+    "initials": "BP",
+    "gender": "Kadın",
+    "age": 21,
+    "city": "Ankara",
+    "district": "Batıkent",
+    "gymId": "gym_ank_batikent",
+    "gymName": "Atlantis MACFit (Ankara)",
+    "lat": 39.9709,
+    "lng": 32.7461,
+    "avatar": "https://images.pexels.com/photos/4327024/pexels-photo-4327024.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/4327024/pexels-photo-4327024.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/868776/pexels-photo-868776.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&auto=format&fit=crop&q=80"
     ],
     "level": "Orta",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
     "preferredTimes": [
-      "Gece"
+      "Akşam",
+      "Haftasonu"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.032008,
-    "lng": 29.033756,
-    "distanceKm": 3.8,
-    "photos": [
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
+    "bio": "Kilo verme ve sıkılaşma dönemindeyim. Birlikte kardiyo ve HIIT yapacak motivasyon partneri arıyorum.",
+    "verified": true,
+    "attendanceStreak": 9,
+    "workoutsCompleted": 26,
+    "rating": 4.8,
+    "onboarded": true,
     "nextWorkout": {
+      "day": "Yarın",
+      "time": "20:30",
       "workoutType": "Omuz & Karın",
-      "day": "Bugün",
-      "time": "13:00",
-      "gymName": "Üsküdar GymClub",
       "expectation": "Süperset partneri",
       "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
-    "onboarded": true,
-    "createdAt": 1774561329599,
-    "lastLoginAt": 1793482929599
+    }
   },
   {
     "id": "ath_m_2073",
-    "name": "Cemil Güler",
-    "initials": "CG",
+    "name": "Cemil Kurt",
+    "initials": "CK",
     "gender": "Erkek",
-    "age": 25,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 542 923 82 32",
-    "email": "cemil.güler73@gmail.com",
-    "bio": "Kondisyon ve yağ yakımı odaklıyım. Birlikte tempolu kardiyo ve ağırlık kombinasyonu yapabiliriz.",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
+    "age": 24,
+    "city": "Bursa",
+    "district": "Özlüce",
+    "gymId": "gym_bur_ozluce",
+    "gymName": "Özlüce FitClub (Bursa)",
+    "lat": 40.2247,
+    "lng": 28.9229,
+    "avatar": "https://images.pexels.com/photos/3768596/pexels-photo-3768596.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768596/pexels-photo-3768596.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/868705/pexels-photo-868705.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&auto=format&fit=crop&q=80"
     ],
     "level": "Orta",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
     "preferredTimes": [
-      "Akşam"
+      "Sabah",
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.027633,
-    "lng": 29.013482,
-    "distanceKm": 5.6,
-    "photos": [
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Yarın",
-      "time": "18:00",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
+    "bio": "Kondisyon ve yağ yakımı odaklıyım. Birlikte tempolu kardiyo ve ağırlık kombinasyonu yapabiliriz.",
+    "verified": false,
+    "attendanceStreak": 11,
+    "workoutsCompleted": 19,
+    "rating": 4.8,
     "onboarded": true,
-    "createdAt": 1774302129599,
-    "lastLoginAt": 1793479329599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
+  },
+  {
+    "id": "ath_f_1074",
+    "name": "Ecem Yavuz",
+    "initials": "EY",
+    "gender": "Kadın",
+    "age": 28,
+    "city": "Ankara",
+    "district": "Bilkent",
+    "gymId": "gym_ank_bilkent",
+    "gymName": "Sports International Bilkent (Ankara)",
+    "lat": 39.8692,
+    "lng": 32.7528,
+    "avatar": "https://images.pexels.com/photos/4327027/pexels-photo-4327027.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/4327027/pexels-photo-4327027.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
+    "preferredTimes": [
+      "Sabah",
+      "Öğle"
+    ],
+    "bio": "Bacak ve kalça günlerinde birbirimize destek olacak disiplinli sporcu kız arkadaş arıyorum 🏋️‍♀️",
+    "verified": true,
+    "attendanceStreak": 14,
+    "workoutsCompleted": 33,
+    "rating": 4.9,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "21:00",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
   },
   {
     "id": "ath_m_2074",
-    "name": "Selim Ünal",
-    "initials": "SÜ",
+    "name": "Selim Erdoğan",
+    "initials": "SE",
     "gender": "Erkek",
-    "age": 26,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 543 934 89 41",
-    "email": "selim.ünal74@gmail.com",
-    "bio": "Powerlifting ve temel bileşik egzersizler (Squat, Bench, Deadlift). Disiplinli sporcular yazsın.",
-    "goals": [
-      "Güç",
-      "Kondisyon"
+    "age": 35,
+    "city": "Bursa",
+    "district": "Nilüfer",
+    "gymId": "gym_bur_podyum",
+    "gymName": "PodyumPark Sports Club (Bursa)",
+    "lat": 40.2166,
+    "lng": 28.9682,
+    "avatar": "https://images.pexels.com/photos/3768597/pexels-photo-3768597.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768597/pexels-photo-3768597.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1579758629938-03607ccdbaba?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=800&auto=format&fit=crop&q=80"
     ],
     "level": "İleri",
+    "goals": [
+      "Güç",
+      "Hipertrofi"
+    ],
     "preferredTimes": [
-      "Akşam",
-      "Öğle"
+      "Akşam"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.923959,
-    "lng": 29.120303,
-    "distanceKm": 7.1,
-    "photos": [
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Yarın",
-      "time": "18:30",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
+    "bio": "Powerlifting ve temel bileşik egzersizler (Squat, Bench, Deadlift). Disiplinli sporcular yazsın.",
+    "verified": true,
+    "attendanceStreak": 15,
+    "workoutsCompleted": 28,
+    "rating": 4.9,
     "onboarded": true,
-    "createdAt": 1774042929599,
-    "lastLoginAt": 1793475729599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
+  },
+  {
+    "id": "ath_f_1075",
+    "name": "Gülce Güler",
+    "initials": "GG",
+    "gender": "Kadın",
+    "age": 20,
+    "city": "Ankara",
+    "district": "Keçiören",
+    "gymId": "gym_ank_kecioren",
+    "gymName": "Antares MACFit (Ankara)",
+    "lat": 39.9665,
+    "lng": 32.8235,
+    "avatar": "https://images.pexels.com/photos/4498574/pexels-photo-4498574.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/4498574/pexels-photo-4498574.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1524502397800-2eeaad7c3fe5?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Güç",
+      "Hipertrofi"
+    ],
+    "preferredTimes": [
+      "Akşam"
+    ],
+    "bio": "Haftada 5 gün split antrenman. Disiplinli ve zamanında gelen partnerlerle çalışmayı seviyorum.",
+    "verified": false,
+    "attendanceStreak": 19,
+    "workoutsCompleted": 40,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "17:30",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
   },
   {
     "id": "ath_m_2075",
-    "name": "Engin Taş",
-    "initials": "ET",
+    "name": "Engin Yalçın",
+    "initials": "EY",
     "gender": "Erkek",
-    "age": 27,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 544 945 96 50",
-    "email": "engin.taş75@gmail.com",
-    "bio": "Haftasonları sabah koşusu, hafta içi akşam Kadıköy salon seansları. Sürekli motive partner arıyorum.",
-    "goals": [
-      "Kas",
-      "Kondisyon"
+    "age": 30,
+    "city": "Bursa",
+    "district": "Osmangazi",
+    "gymId": "gym_bur_osmangazi",
+    "gymName": "Zafer Plaza Fitness (Bursa)",
+    "lat": 40.1885,
+    "lng": 29.0595,
+    "avatar": "https://images.pexels.com/photos/3768598/pexels-photo-3768598.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768598/pexels-photo-3768598.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80"
     ],
-    "level": "İleri",
+    "level": "Yeni başladım",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
     "preferredTimes": [
       "Sabah"
     ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 41.003429,
-    "lng": 29.020238,
-    "distanceKm": 0.8,
-    "photos": [
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Çarşamba",
-      "time": "19:00",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
+    "bio": "Haftasonları sabah koşusu, hafta içi akşam salon seansları. Sürekli motive partner arıyorum.",
+    "verified": false,
+    "attendanceStreak": 19,
+    "workoutsCompleted": 37,
+    "rating": 5,
     "onboarded": true,
-    "createdAt": 1773783729599,
-    "lastLoginAt": 1793472129599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
+  },
+  {
+    "id": "ath_f_1076",
+    "name": "Yeliz Bulut",
+    "initials": "YB",
+    "gender": "Kadın",
+    "age": 27,
+    "city": "İzmir",
+    "district": "Alsancak",
+    "gymId": "gym_izm_alsancak",
+    "gymName": "MACFit Alsancak (İzmir)",
+    "lat": 38.4388,
+    "lng": 27.1412,
+    "avatar": "https://images.pexels.com/photos/4498606/pexels-photo-4498606.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/4498606/pexels-photo-4498606.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/11183203/pexels-photo-11183203.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
+    "preferredTimes": [
+      "Sabah"
+    ],
+    "bio": "Yeni başladım sayılır, form düzeltme ve temel hareketlerde motive olacak birini arıyorum 🌸",
+    "verified": true,
+    "attendanceStreak": 6,
+    "workoutsCompleted": 47,
+    "rating": 4.7,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
   },
   {
     "id": "ath_m_2076",
-    "name": "Selçuk Acar",
-    "initials": "SA",
+    "name": "Selçuk Güneş",
+    "initials": "SG",
     "gender": "Erkek",
-    "age": 28,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 545 956 15 59",
-    "email": "selçuk.acar76@gmail.com",
-    "bio": "Sporda 3. yılım. Form ve tempo odaklı çalışıyorum, zamanı verimli kullanan biriyle eşleşmek isterim.",
+    "age": 25,
+    "city": "Eskişehir",
+    "district": "Tepebaşı",
+    "gymId": "gym_esk_tepebasi",
+    "gymName": "Espark MACFit (Eskişehir)",
+    "lat": 39.7804,
+    "lng": 30.5098,
+    "avatar": "https://images.pexels.com/photos/3768600/pexels-photo-3768600.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768600/pexels-photo-3768600.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "Orta",
     "goals": [
       "Kas",
-      "Güç"
+      "Kondisyon"
     ],
-    "level": "Başlangıç",
     "preferredTimes": [
-      "Sabah",
-      "Akşam"
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.994912,
-    "lng": 29.038345,
-    "distanceKm": 1.2,
-    "photos": [
-      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
+    "bio": "Sporda 3. yılım. Form ve tempo odaklı çalışıyorum, zamanı verimli kullanan biriyle eşleşmek isterim.",
+    "verified": true,
+    "attendanceStreak": 23,
+    "workoutsCompleted": 46,
+    "rating": 4.7,
+    "onboarded": true,
     "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
       "workoutType": "Göğüs & Kol",
-      "day": "Perşembe",
-      "time": "19:30",
-      "gymName": "PowerGym Moda",
       "expectation": "Ağır kilo partneri",
       "note": "Bench press ve dumbbell press süpersetleri"
-    },
+    }
+  },
+  {
+    "id": "ath_f_1077",
+    "name": "Banu Güneş",
+    "initials": "BG",
+    "gender": "Kadın",
+    "age": 34,
+    "city": "İzmir",
+    "district": "Karşıyaka",
+    "gymId": "gym_izm_mavibahce",
+    "gymName": "MaviBahçe MACFit (İzmir)",
+    "lat": 38.4601,
+    "lng": 27.0989,
+    "avatar": "https://images.pexels.com/photos/4534689/pexels-photo-4534689.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/4534689/pexels-photo-4534689.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/28080/pexels-photo-28080.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "Yeni başladım",
+    "goals": [
+      "Kas",
+      "Kondisyon"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Hypertrophy ve güç odaklı alt-üst vücut spliti yapıyorum. Karşılıklı yardımlaşma güzel olur.",
+    "verified": true,
+    "attendanceStreak": 11,
+    "workoutsCompleted": 54,
+    "rating": 4.8,
     "onboarded": true,
-    "createdAt": 1773524529599,
-    "lastLoginAt": 1793468529599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
   },
   {
     "id": "ath_m_2077",
-    "name": "Orkun Kalkan",
-    "initials": "OK",
+    "name": "Orkun Coşkun",
+    "initials": "OC",
     "gender": "Erkek",
-    "age": 29,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 546 967 22 68",
-    "email": "orkun.kalkan77@gmail.com",
-    "bio": "İş çıkışı 18:30 seansları. Göğüs-kol ve sırt günlerinde tükeniş setleri için spotter lazım 🎯",
-    "goals": [
-      "Kondisyon",
-      "Kas"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Gece"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.956173,
-    "lng": 29.073449,
-    "distanceKm": 3,
+    "age": 36,
+    "city": "Eskişehir",
+    "district": "Tepebaşı",
+    "gymId": "gym_esk_cassaba",
+    "gymName": "Cassaba Modern Fitness (Eskişehir)",
+    "lat": 39.7893,
+    "lng": 30.4971,
+    "avatar": "https://images.pexels.com/photos/3768602/pexels-photo-3768602.jpeg?auto=compress&cs=tinysrgb&w=800",
     "photos": [
-      "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
+      "https://images.pexels.com/photos/3768602/pexels-photo-3768602.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/2247179/pexels-photo-2247179.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&auto=format&fit=crop&q=80"
     ],
+    "level": "İleri",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
+    "preferredTimes": [
+      "Akşam",
+      "Haftasonu"
+    ],
+    "bio": "İş çıkışı 18:30 seansları. Göğüs-kol ve sırt günlerinde tükeniş setleri için spotter lazım 🎯",
+    "verified": false,
+    "attendanceStreak": 5,
+    "workoutsCompleted": 55,
+    "rating": 4.8,
+    "onboarded": true,
     "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
       "workoutType": "Sırt & Biceps",
-      "day": "Cuma",
-      "time": "20:00",
-      "gymName": "PlusFitness Caddebostan",
       "expectation": "Set arası motivasyon",
       "note": "Lat pulldown ve barbell row odaklı seans"
-    },
+    }
+  },
+  {
+    "id": "ath_f_1078",
+    "name": "Tülin Karaca",
+    "initials": "TK",
+    "gender": "Kadın",
+    "age": 26,
+    "city": "İzmir",
+    "district": "Bornova",
+    "gymId": "gym_izm_bornova",
+    "gymName": "Forum Bornova MACFit (İzmir)",
+    "lat": 38.4544,
+    "lng": 27.2166,
+    "avatar": "https://images.pexels.com/photos/4662438/pexels-photo-4662438.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/4662438/pexels-photo-4662438.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1576678927484-cc907957088c?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/3490348/pexels-photo-3490348.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1581009137042-c552e485697a?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
+    "preferredTimes": [
+      "Akşam",
+      "Haftasonu"
+    ],
+    "bio": "Crossfit ve fonksiyonel antrenmanlar vazgeçilmezim. Sabah enerjisiyle spora başlayanlar yazabilir ⚡",
+    "verified": false,
+    "attendanceStreak": 16,
+    "workoutsCompleted": 61,
+    "rating": 4.9,
     "onboarded": true,
-    "createdAt": 1773265329599,
-    "lastLoginAt": 1793464929599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Göğüs & Kol",
+      "expectation": "Ağır kilo partneri",
+      "note": "Bench press ve dumbbell press süpersetleri"
+    }
   },
   {
     "id": "ath_m_2078",
-    "name": "Tarkan Kaya",
-    "initials": "TK",
+    "name": "Tarkan Sever",
+    "initials": "TS",
     "gender": "Erkek",
-    "age": 30,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 547 978 29 77",
-    "email": "tarkan.kaya78@gmail.com",
-    "bio": "Fonksiyonel güç ve kondisyon antrenmanı. Birlikte PR deneyecek partner arıyorum 🔥",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
+    "age": 31,
+    "city": "Eskişehir",
+    "district": "Odunpazarı",
+    "gymId": "gym_esk_odunpazari",
+    "gymName": "Odunpazarı FitLife (Eskişehir)",
+    "lat": 39.7592,
+    "lng": 30.5274,
+    "avatar": "https://images.pexels.com/photos/3768603/pexels-photo-3768603.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768603/pexels-photo-3768603.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1576678927484-cc907957088c?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/3289711/pexels-photo-3289711.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1581009137042-c552e485697a?w=800&auto=format&fit=crop&q=80"
     ],
     "level": "Orta",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
     "preferredTimes": [
-      "Akşam"
+      "Sabah",
+      "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 40.980414,
-    "lng": 29.103275,
-    "distanceKm": 5.2,
-    "photos": [
-      "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
+    "bio": "Fonksiyonel güç ve kondisyon antrenmanı. Birlikte PR deneyecek partner arıyorum 🔥",
+    "verified": true,
+    "attendanceStreak": 9,
+    "workoutsCompleted": 64,
+    "rating": 4.9,
+    "onboarded": true,
     "nextWorkout": {
-      "workoutType": "Omuz & Karın",
       "day": "Bugün",
-      "time": "20:30",
-      "gymName": "FitCity Ataşehir",
+      "time": "20:00",
+      "workoutType": "Omuz & Karın",
       "expectation": "Süperset partneri",
       "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
+    }
+  },
+  {
+    "id": "ath_f_1079",
+    "name": "Belgin Sarı",
+    "initials": "BS",
+    "gender": "Kadın",
+    "age": 33,
+    "city": "İzmir",
+    "district": "Bostanlı",
+    "gymId": "gym_izm_bostanli",
+    "gymName": "Bostanlı FitClub (İzmir)",
+    "lat": 38.4577,
+    "lng": 27.1023,
+    "avatar": "https://images.pexels.com/photos/4752861/pexels-photo-4752861.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/4752861/pexels-photo-4752861.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/416778/pexels-photo-416778.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
+    "preferredTimes": [
+      "Sabah",
+      "Öğle"
+    ],
+    "bio": "Akşam iş çıkışı 19:30 seansları. Omuz ve sırt günlerinde süperset partneri.",
+    "verified": true,
+    "attendanceStreak": 21,
+    "workoutsCompleted": 13,
+    "rating": 5,
     "onboarded": true,
-    "createdAt": 1773006129599,
-    "lastLoginAt": 1793461329599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Sırt & Biceps",
+      "expectation": "Set arası motivasyon",
+      "note": "Lat pulldown ve barbell row odaklı seans"
+    }
   },
   {
     "id": "ath_m_2079",
-    "name": "Aykut Yıldırım",
-    "initials": "AY",
+    "name": "Aykut Eren",
+    "initials": "AE",
     "gender": "Erkek",
-    "age": 31,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 548 989 36 86",
-    "email": "aykut.yıldırım79@gmail.com",
-    "bio": "Düzenli antrenman ve temiz beslenme yaşam tarzım. Salonda vakit kaybetmeden basacak dostlar eklesin.",
+    "age": 26,
+    "city": "Adana",
+    "district": "Çukurova",
+    "gymId": "gym_ada_cukurova",
+    "gymName": "M1 Adana MACFit (Adana)",
+    "lat": 37.0321,
+    "lng": 35.2647,
+    "avatar": "https://images.pexels.com/photos/3768605/pexels-photo-3768605.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768605/pexels-photo-3768605.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/414029/pexels-photo-414029.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "İleri",
     "goals": [
-      "Sağlık",
-      "Kondisyon"
+      "Genel form",
+      "Mobilite"
+    ],
+    "preferredTimes": [
+      "Akşam"
+    ],
+    "bio": "Düzenli antrenman ve temiz beslenme yaşam tarzım. Salonda vakit kaybetmeden basacak dostlar eklesin.",
+    "verified": false,
+    "attendanceStreak": 13,
+    "workoutsCompleted": 73,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
+  },
+  {
+    "id": "ath_f_1080",
+    "name": "Ayça Acar",
+    "initials": "AA",
+    "gender": "Kadın",
+    "age": 25,
+    "city": "İzmir",
+    "district": "Göztepe",
+    "gymId": "gym_izm_goztepe",
+    "gymName": "Göztepe Sahil Gym (İzmir)",
+    "lat": 38.396,
+    "lng": 27.09,
+    "avatar": "https://images.pexels.com/photos/4753996/pexels-photo-4753996.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/4753996/pexels-photo-4753996.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1599058917212-d750089bc07e?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/669578/pexels-photo-669578.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1599058917765-a780eda07a3e?w=800&auto=format&fit=crop&q=80"
     ],
     "level": "Orta",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
     "preferredTimes": [
-      "Akşam",
-      "Öğle"
+      "Akşam"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.036188,
-    "lng": 29.004892,
-    "distanceKm": 5,
-    "photos": [
-      "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Bugün",
-      "time": "21:00",
-      "gymName": "Üsküdar GymClub",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
+    "bio": "Haftada 4 gün ağırlık, 1 gün kardiyo. Birlikte motive olacak ve set aralarında spotterlık yapacak partner arıyorum 💪",
+    "verified": true,
+    "attendanceStreak": 8,
+    "workoutsCompleted": 20,
+    "rating": 4.7,
     "onboarded": true,
-    "createdAt": 1772746929599,
-    "lastLoginAt": 1793457729599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "17:00",
+      "workoutType": "Omuz & Karın",
+      "expectation": "Süperset partneri",
+      "note": "Overhead press ve lateral raise tükeniş setleri"
+    }
   },
   {
     "id": "ath_m_2080",
-    "name": "Gökhan Doğan",
+    "name": "Gökhan Demir",
     "initials": "GD",
     "gender": "Erkek",
-    "age": 32,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 549 120 43 15",
-    "email": "gökhan.doğan80@gmail.com",
-    "bio": "Haftada 5 gün Push-Pull-Legs yapıyorum. Bench ve Squat'ta ağır kilolarda spotter partneri arıyorum 💪",
+    "age": 21,
+    "city": "Adana",
+    "district": "Çukurova",
+    "gymId": "gym_ada_barajyolu",
+    "gymName": "Turgut Özal FitLife (Adana)",
+    "lat": 37.036,
+    "lng": 35.3,
+    "avatar": "https://images.pexels.com/photos/3768607/pexels-photo-3768607.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768607/pexels-photo-3768607.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1599058917212-d750089bc07e?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/669584/pexels-photo-669584.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1599058917765-a780eda07a3e?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "Yeni başladım",
     "goals": [
       "Güç",
-      "Kondisyon"
+      "Hipertrofi"
     ],
-    "level": "İleri",
     "preferredTimes": [
       "Sabah"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.055027,
-    "lng": 29.01587,
-    "distanceKm": 6.8,
-    "photos": [
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Bugün",
-      "time": "07:00",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
+    "bio": "Haftada 5 gün Push-Pull-Legs yapıyorum. Bench ve Squat'ta ağır kilolarda spotter partneri arıyorum 💪",
+    "verified": true,
+    "attendanceStreak": 17,
+    "workoutsCompleted": 17,
+    "rating": 4.7,
     "onboarded": true,
-    "createdAt": 1772487729599,
-    "lastLoginAt": 1793482929599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
+  },
+  {
+    "id": "ath_f_1081",
+    "name": "Gülben Duran",
+    "initials": "GD",
+    "gender": "Kadın",
+    "age": 32,
+    "city": "İzmir",
+    "district": "Balçova",
+    "gymId": "gym_izm_balcova",
+    "gymName": "Agora MACFit (İzmir)",
+    "lat": 38.3913,
+    "lng": 27.0507,
+    "avatar": "https://images.pexels.com/photos/4761792/pexels-photo-4761792.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/4761792/pexels-photo-4761792.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/669582/pexels-photo-669582.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=800&auto=format&fit=crop&q=80"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Güç",
+      "Hipertrofi"
+    ],
+    "preferredTimes": [
+      "Sabah"
+    ],
+    "bio": "Sabahları 07:00 seansları. Squat ve Hip Thrust odaklı çalışıyorum. Düzenli gelen arkadaşlar ekleyebilir ✨",
+    "verified": false,
+    "attendanceStreak": 13,
+    "workoutsCompleted": 27,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "18:30",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
   },
   {
     "id": "ath_m_2081",
-    "name": "Serkan Koç",
-    "initials": "SK",
+    "name": "Serkan Öztürk",
+    "initials": "SÖ",
     "gender": "Erkek",
-    "age": 33,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 541 131 50 24",
-    "email": "serkan.koç81@gmail.com",
-    "bio": "Sabah 07:30 veya akşam 19:00 seansları. Hedef hacim ve hipertrofi. Ciddi antrenman arkadaşı eklesin 🏋️‍♂️",
-    "goals": [
-      "Kas",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.923655,
-    "lng": 29.149505,
-    "distanceKm": 8.3,
+    "age": 32,
+    "city": "Mersin",
+    "district": "Yenişehir",
+    "gymId": "gym_mer_yenisehir",
+    "gymName": "Forum Mersin MACFit (Mersin)",
+    "lat": 36.7859,
+    "lng": 34.5983,
+    "avatar": "https://images.pexels.com/photos/3768609/pexels-photo-3768609.jpeg?auto=compress&cs=tinysrgb&w=800",
     "photos": [
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
+      "https://images.pexels.com/photos/3768609/pexels-photo-3768609.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/669576/pexels-photo-669576.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=800&auto=format&fit=crop&q=80"
     ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Yarın",
-      "time": "07:30",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
+    "level": "Orta",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Sabah 07:30 veya akşam 19:00 seansları. Hedef hacim ve hipertrofi. Ciddi antrenman arkadaşı eklesin 🏋️‍♂️",
+    "verified": false,
+    "attendanceStreak": 21,
+    "workoutsCompleted": 26,
+    "rating": 4.8,
     "onboarded": true,
-    "createdAt": 1772228529599,
-    "lastLoginAt": 1793479329599
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
+  },
+  {
+    "id": "ath_f_1082",
+    "name": "Didem Eren",
+    "initials": "DE",
+    "gender": "Kadın",
+    "age": 24,
+    "city": "İzmir",
+    "district": "Urla",
+    "gymId": "gym_izm_urla",
+    "gymName": "Urla Surf & Fitness (İzmir)",
+    "lat": 38.3226,
+    "lng": 26.7664,
+    "avatar": "https://images.pexels.com/photos/4944975/pexels-photo-4944975.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/4944975/pexels-photo-4944975.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1583454155184-870a1f63aebc?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/703014/pexels-photo-703014.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Yeni başladım",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Pilates ve fonksiyonel fitness ile ilgileniyorum. Haftasonu koşu veya salonda partner iyi olur 🧘‍♀️",
+    "verified": true,
+    "attendanceStreak": 18,
+    "workoutsCompleted": 34,
+    "rating": 4.9,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "19:00",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
   },
   {
     "id": "ath_m_2082",
-    "name": "Erkan Korkmaz",
+    "name": "Erkan Kılıç",
     "initials": "EK",
     "gender": "Erkek",
-    "age": 34,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 542 142 57 33",
-    "email": "erkan.korkmaz82@gmail.com",
-    "bio": "Crossfit ve calisthenics karışık gidiyorum. Güç antrenmanında sınırları zorlayacak partner arıyorum ⚡",
+    "age": 27,
+    "city": "Mersin",
+    "district": "Mezitli",
+    "gymId": "gym_mer_mezitli",
+    "gymName": "Marina Sports Club (Mersin)",
+    "lat": 36.7598,
+    "lng": 34.5306,
+    "avatar": "https://images.pexels.com/photos/3768611/pexels-photo-3768611.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768611/pexels-photo-3768611.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1583454155184-870a1f63aebc?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/669580/pexels-photo-669580.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
     "goals": [
       "Kas",
-      "Güç"
+      "Kondisyon"
     ],
-    "level": "Başlangıç",
     "preferredTimes": [
-      "Gece"
+      "Akşam",
+      "Haftasonu"
     ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 40.975992,
-    "lng": 29.021982,
-    "distanceKm": 2,
-    "photos": [
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Yarın",
-      "time": "08:00",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
+    "bio": "Crossfit ve calisthenics karışık gidiyorum. Güç antrenmanında sınırları zorlayacak partner arıyorum ⚡",
+    "verified": true,
+    "attendanceStreak": 25,
+    "workoutsCompleted": 35,
+    "rating": 4.9,
     "onboarded": true,
-    "createdAt": 1771969329599,
-    "lastLoginAt": 1793475729599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
+  },
+  {
+    "id": "ath_f_1083",
+    "name": "Feride Yılmaz",
+    "initials": "FY",
+    "gender": "Kadın",
+    "age": 31,
+    "city": "Antalya",
+    "district": "Muratpaşa",
+    "gymId": "gym_ant_muratpasa",
+    "gymName": "TerraCity MACFit (Antalya)",
+    "lat": 36.8539,
+    "lng": 30.7531,
+    "avatar": "https://images.pexels.com/photos/5067741/pexels-photo-5067741.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/5067741/pexels-photo-5067741.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4716814/pexels-photo-4716814.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/863926/pexels-photo-863926.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/17210041/pexels-photo-17210041.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Kas",
+      "Kondisyon"
+    ],
+    "preferredTimes": [
+      "Akşam",
+      "Haftasonu"
+    ],
+    "bio": "Kilo verme ve sıkılaşma dönemindeyim. Birlikte kardiyo ve HIIT yapacak motivasyon partneri arıyorum.",
+    "verified": true,
+    "attendanceStreak": 5,
+    "workoutsCompleted": 41,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "20:30",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
   },
   {
     "id": "ath_m_2083",
-    "name": "Tuncay Güler",
-    "initials": "TG",
-    "gender": "Erkek",
-    "age": 35,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 543 153 64 42",
-    "email": "tuncay.güler83@gmail.com",
-    "bio": "Kondisyon ve yağ yakımı odaklıyım. Birlikte tempolu kardiyo ve ağırlık kombinasyonu yapabiliriz.",
-    "goals": [
-      "Kondisyon",
-      "Kas"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.991335,
-    "lng": 29.009389,
-    "distanceKm": 2.4,
-    "photos": [
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Çarşamba",
-      "time": "12:30",
-      "gymName": "PowerGym Moda",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
-    "onboarded": true,
-    "createdAt": 1771710129599,
-    "lastLoginAt": 1793472129599
-  },
-  {
-    "id": "ath_m_2084",
-    "name": "Kubilay Ünal",
-    "initials": "KÜ",
-    "gender": "Erkek",
-    "age": 22,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 544 164 71 51",
-    "email": "kubilay.ünal84@gmail.com",
-    "bio": "Powerlifting ve temel bileşik egzersizler (Squat, Bench, Deadlift). Disiplinli sporcular yazsın.",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Akşam",
-      "Öğle"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.983104,
-    "lng": 29.06761,
-    "distanceKm": 4.1,
-    "photos": [
-      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Perşembe",
-      "time": "13:00",
-      "gymName": "PlusFitness Caddebostan",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
-    "onboarded": true,
-    "createdAt": 1771450929599,
-    "lastLoginAt": 1793468529599
-  },
-  {
-    "id": "ath_m_2085",
-    "name": "Ayberk Taş",
-    "initials": "AT",
-    "gender": "Erkek",
-    "age": 23,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 545 175 78 60",
-    "email": "ayberk.taş85@gmail.com",
-    "bio": "Haftasonları sabah koşusu, hafta içi akşam Kadıköy salon seansları. Sürekli motive partner arıyorum.",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 40.987802,
-    "lng": 29.131404,
-    "distanceKm": 6.4,
-    "photos": [
-      "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Cuma",
-      "time": "18:00",
-      "gymName": "FitCity Ataşehir",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
-    "onboarded": true,
-    "createdAt": 1771191729599,
-    "lastLoginAt": 1793464929599
-  },
-  {
-    "id": "ath_m_2086",
-    "name": "Görkem Acar",
-    "initials": "GA",
-    "gender": "Erkek",
-    "age": 24,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 546 186 85 69",
-    "email": "görkem.acar86@gmail.com",
-    "bio": "Sporda 3. yılım. Form ve tempo odaklı çalışıyorum, zamanı verimli kullanan biriyle eşleşmek isterim.",
-    "goals": [
-      "Güç",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.010302,
-    "lng": 29.014711,
-    "distanceKm": 6.2,
-    "photos": [
-      "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Bugün",
-      "time": "18:30",
-      "gymName": "Üsküdar GymClub",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
-    "onboarded": true,
-    "createdAt": 1770932529599,
-    "lastLoginAt": 1793461329599
-  },
-  {
-    "id": "ath_m_2087",
-    "name": "Yalçın Kalkan",
-    "initials": "YK",
-    "gender": "Erkek",
-    "age": 25,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 547 197 92 78",
-    "email": "yalçın.kalkan87@gmail.com",
-    "bio": "İş çıkışı 18:30 seansları. Göğüs-kol ve sırt günlerinde tükeniş setleri için spotter lazım 🎯",
-    "goals": [
-      "Kas",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Gece"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.043977,
-    "lng": 28.98913,
-    "distanceKm": 5.4,
-    "photos": [
-      "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Bugün",
-      "time": "19:00",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
-    "onboarded": true,
-    "createdAt": 1770673329599,
-    "lastLoginAt": 1793457729599
-  },
-  {
-    "id": "ath_m_2088",
-    "name": "Harun Kaya",
-    "initials": "HK",
-    "gender": "Erkek",
-    "age": 26,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 548 208 11 87",
-    "email": "harun.kaya88@gmail.com",
-    "bio": "Fonksiyonel güç ve kondisyon antrenmanı. Birlikte PR deneyecek partner arıyorum 🔥",
-    "goals": [
-      "Kas",
-      "Güç"
-    ],
-    "level": "Başlangıç",
-    "preferredTimes": [
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.947977,
-    "lng": 29.135902,
-    "distanceKm": 7,
-    "photos": [
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Bugün",
-      "time": "19:30",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
-    "onboarded": true,
-    "createdAt": 1770414129599,
-    "lastLoginAt": 1793482929599
-  },
-  {
-    "id": "ath_m_2089",
-    "name": "Oğuzhan Yıldırım",
-    "initials": "OY",
-    "gender": "Erkek",
-    "age": 27,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 549 219 18 16",
-    "email": "oğuzhan.yıldırım89@gmail.com",
-    "bio": "Düzenli antrenman ve temiz beslenme yaşam tarzım. Salonda vakit kaybetmeden basacak dostlar eklesin.",
-    "goals": [
-      "Kondisyon",
-      "Kas"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Akşam",
-      "Öğle"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 40.990483,
-    "lng": 29.046797,
-    "distanceKm": 0.6,
-    "photos": [
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Yarın",
-      "time": "20:00",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
-    "onboarded": true,
-    "createdAt": 1770154929599,
-    "lastLoginAt": 1793479329599
-  },
-  {
-    "id": "ath_m_2090",
-    "name": "Kayra Doğan",
-    "initials": "KD",
-    "gender": "Erkek",
-    "age": 28,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 541 230 25 25",
-    "email": "kayra.doğan90@gmail.com",
-    "bio": "Haftada 5 gün Push-Pull-Legs yapıyorum. Bench ve Squat'ta ağır kilolarda spotter partneri arıyorum 💪",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.969063,
-    "lng": 29.026502,
-    "distanceKm": 1,
-    "photos": [
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Yarın",
-      "time": "20:30",
-      "gymName": "PowerGym Moda",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
-    "onboarded": true,
-    "createdAt": 1769895729599,
-    "lastLoginAt": 1793475729599
-  },
-  {
-    "id": "ath_m_2091",
-    "name": "Devrim Koç",
-    "initials": "DK",
-    "gender": "Erkek",
-    "age": 29,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 542 241 32 34",
-    "email": "devrim.koç91@gmail.com",
-    "bio": "Sabah 07:30 veya akşam 19:00 seansları. Hedef hacim ve hipertrofi. Ciddi antrenman arkadaşı eklesin 🏋️‍♂️",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.965462,
-    "lng": 29.045215,
-    "distanceKm": 2.8,
-    "photos": [
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Çarşamba",
-      "time": "21:00",
-      "gymName": "PlusFitness Caddebostan",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
-    "onboarded": true,
-    "createdAt": 1769636529599,
-    "lastLoginAt": 1793472129599
-  },
-  {
-    "id": "ath_m_2092",
-    "name": "Utku Korkmaz",
-    "initials": "UK",
-    "gender": "Erkek",
-    "age": 30,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 543 252 39 43",
-    "email": "utku.korkmaz92@gmail.com",
-    "bio": "Crossfit ve calisthenics karışık gidiyorum. Güç antrenmanında sınırları zorlayacak partner arıyorum ⚡",
-    "goals": [
-      "Güç",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Gece"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 41.007578,
-    "lng": 29.111123,
-    "distanceKm": 5.1,
-    "photos": [
-      "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Perşembe",
-      "time": "07:00",
-      "gymName": "FitCity Ataşehir",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
-    "onboarded": true,
-    "createdAt": 1769377329599,
-    "lastLoginAt": 1793468529599
-  },
-  {
-    "id": "ath_m_2093",
-    "name": "Bora Güler",
-    "initials": "BG",
-    "gender": "Erkek",
-    "age": 31,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 544 263 46 52",
-    "email": "bora.güler93@gmail.com",
-    "bio": "Kondisyon ve yağ yakımı odaklıyım. Birlikte tempolu kardiyo ve ağırlık kombinasyonu yapabiliriz.",
-    "goals": [
-      "Kas",
-      "Kondisyon"
-    ],
-    "level": "İleri",
-    "preferredTimes": [
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "district": "Üsküdar",
-    "lat": 41.030742,
-    "lng": 29.034236,
-    "distanceKm": 4.8,
-    "photos": [
-      "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Cuma",
-      "time": "07:30",
-      "gymName": "Üsküdar GymClub",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
-    "onboarded": true,
-    "createdAt": 1769118129599,
-    "lastLoginAt": 1793464929599
-  },
-  {
-    "id": "ath_m_2094",
-    "name": "Taha Ünal",
-    "initials": "TÜ",
-    "gender": "Erkek",
-    "age": 32,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 545 274 53 61",
-    "email": "taha.ünal94@gmail.com",
-    "bio": "Powerlifting ve temel bileşik egzersizler (Squat, Bench, Deadlift). Disiplinli sporcular yazsın.",
-    "goals": [
-      "Kas",
-      "Güç"
-    ],
-    "level": "Başlangıç",
-    "preferredTimes": [
-      "Akşam",
-      "Öğle"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "district": "Beşiktaş",
-    "lat": 41.027092,
-    "lng": 29.012174,
-    "distanceKm": 6.6,
-    "photos": [
-      "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Göğüs & Kol",
-      "day": "Bugün",
-      "time": "08:00",
-      "gymName": "MACFit Beşiktaş",
-      "expectation": "Ağır kilo partneri",
-      "note": "Bench press ve dumbbell press süpersetleri"
-    },
-    "onboarded": true,
-    "createdAt": 1768858929599,
-    "lastLoginAt": 1793461329599
-  },
-  {
-    "id": "ath_m_2095",
-    "name": "Ege Taş",
-    "initials": "ET",
-    "gender": "Erkek",
-    "age": 33,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 546 285 60 70",
-    "email": "ege.taş95@gmail.com",
-    "bio": "Haftasonları sabah koşusu, hafta içi akşam Kadıköy salon seansları. Sürekli motive partner arıyorum.",
-    "goals": [
-      "Kondisyon",
-      "Kas"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "district": "Maltepe",
-    "lat": 40.925149,
-    "lng": 29.119637,
-    "distanceKm": 8.2,
-    "photos": [
-      "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Sırt & Biceps",
-      "day": "Bugün",
-      "time": "12:30",
-      "gymName": "Maltepe Sports Center",
-      "expectation": "Set arası motivasyon",
-      "note": "Lat pulldown ve barbell row odaklı seans"
-    },
-    "onboarded": true,
-    "createdAt": 1768599729599,
-    "lastLoginAt": 1793457729599
-  },
-  {
-    "id": "ath_m_2096",
-    "name": "Alpcan Acar",
-    "initials": "AA",
-    "gender": "Erkek",
-    "age": 34,
-    "verified": false,
-    "role": "user",
-    "phone": "+90 547 296 67 79",
-    "email": "alpcan.acar96@gmail.com",
-    "bio": "Sporda 3. yılım. Form ve tempo odaklı çalışıyorum, zamanı verimli kullanan biriyle eşleşmek isterim.",
-    "goals": [
-      "Kilo Verme",
-      "Sıkılaşma"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Sabah",
-      "Akşam"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "district": "Kadıköy",
-    "lat": 41.004138,
-    "lng": 29.021453,
-    "distanceKm": 1.8,
-    "photos": [
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Omuz & Karın",
-      "day": "Bugün",
-      "time": "13:00",
-      "gymName": "MACFit Kadıköy",
-      "expectation": "Süperset partneri",
-      "note": "Overhead press ve lateral raise tükeniş setleri"
-    },
-    "onboarded": true,
-    "createdAt": 1768340529599,
-    "lastLoginAt": 1793482929599
-  },
-  {
-    "id": "ath_m_2097",
-    "name": "Baha Kalkan",
-    "initials": "BK",
-    "gender": "Erkek",
-    "age": 35,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 548 307 74 88",
-    "email": "baha.kalkan97@gmail.com",
-    "bio": "İş çıkışı 18:30 seansları. Göğüs-kol ve sırt günlerinde tükeniş setleri için spotter lazım 🎯",
-    "goals": [
-      "Sağlık",
-      "Kondisyon"
-    ],
-    "level": "Orta",
-    "preferredTimes": [
-      "Gece"
-    ],
-    "genderPref": "Herkes",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "district": "Moda",
-    "lat": 40.993823,
-    "lng": 29.039182,
-    "distanceKm": 2.2,
-    "photos": [
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Kardiyo & Core",
-      "day": "Yarın",
-      "time": "18:00",
-      "gymName": "PowerGym Moda",
-      "expectation": "Kondisyon partneri",
-      "note": "5km tempolu koşu sonrası karın egzersizleri"
-    },
-    "onboarded": true,
-    "createdAt": 1768081329599,
-    "lastLoginAt": 1793479329599
-  },
-  {
-    "id": "ath_m_2098",
-    "name": "Tayfun Kaya",
+    "name": "Tuncay Kurt",
     "initials": "TK",
     "gender": "Erkek",
     "age": 22,
-    "verified": true,
-    "role": "user",
-    "phone": "+90 549 318 81 17",
-    "email": "tayfun.kaya98@gmail.com",
-    "bio": "Fonksiyonel güç ve kondisyon antrenmanı. Birlikte PR deneyecek partner arıyorum 🔥",
+    "city": "Trabzon",
+    "district": "Ortahisar",
+    "gymId": "gym_tra_ortahisar",
+    "gymName": "Forum Trabzon MACFit (Trabzon)",
+    "lat": 40.9977,
+    "lng": 39.7589,
+    "avatar": "https://images.pexels.com/photos/3768613/pexels-photo-3768613.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768613/pexels-photo-3768613.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4716814/pexels-photo-4716814.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/791763/pexels-photo-791763.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/17210041/pexels-photo-17210041.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
     "goals": [
-      "Güç",
-      "Kondisyon"
+      "Kas",
+      "Güç"
+    ],
+    "preferredTimes": [
+      "Sabah",
+      "Öğle"
+    ],
+    "bio": "Kondisyon ve yağ yakımı odaklıyım. Birlikte tempolu kardiyo ve ağırlık kombinasyonu yapabiliriz.",
+    "verified": false,
+    "attendanceStreak": 7,
+    "workoutsCompleted": 44,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Göğüs & Kol",
+      "expectation": "Ağır kilo partneri",
+      "note": "Bench press ve dumbbell press süpersetleri"
+    }
+  },
+  {
+    "id": "ath_f_1084",
+    "name": "Şeyma Çelik",
+    "initials": "ŞÇ",
+    "gender": "Kadın",
+    "age": 23,
+    "city": "Antalya",
+    "district": "Konyaaltı",
+    "gymId": "gym_ant_konyaalti",
+    "gymName": "Konyaaltı Beach Gym (Antalya)",
+    "lat": 36.8772,
+    "lng": 30.6458,
+    "avatar": "https://images.pexels.com/photos/5327466/pexels-photo-5327466.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/5327466/pexels-photo-5327466.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/29259725/pexels-photo-29259725.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/864939/pexels-photo-864939.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/25596879/pexels-photo-25596879.jpeg?auto=compress&cs=tinysrgb&w=800"
     ],
     "level": "İleri",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
+    "preferredTimes": [
+      "Sabah",
+      "Öğle"
+    ],
+    "bio": "Bacak ve kalça günlerinde birbirimize destek olacak disiplinli sporcu kız arkadaş arıyorum 🏋️‍♀️",
+    "verified": false,
+    "attendanceStreak": 10,
+    "workoutsCompleted": 48,
+    "rating": 4.7,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "21:00",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
+  },
+  {
+    "id": "ath_m_2084",
+    "name": "Kubilay Erdoğan",
+    "initials": "KE",
+    "gender": "Erkek",
+    "age": 33,
+    "city": "Samsun",
+    "district": "Atakum",
+    "gymId": "gym_sam_atakum",
+    "gymName": "Atakum Sahil MACFit (Samsun)",
+    "lat": 41.3296,
+    "lng": 36.3112,
+    "avatar": "https://images.pexels.com/photos/3768615/pexels-photo-3768615.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768615/pexels-photo-3768615.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/29259725/pexels-photo-29259725.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/25596879/pexels-photo-25596879.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
     "preferredTimes": [
       "Akşam"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "district": "Caddebostan",
-    "lat": 40.95531,
-    "lng": 29.072354,
-    "distanceKm": 4,
-    "photos": [
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Fonksiyonel & HIIT",
-      "day": "Yarın",
-      "time": "18:30",
-      "gymName": "PlusFitness Caddebostan",
-      "expectation": "Yüksek tempo partneri",
-      "note": "Kettlebell, rope ve box jump seansı"
-    },
+    "bio": "Powerlifting ve temel bileşik egzersizler (Squat, Bench, Deadlift). Disiplinli sporcular yazsın.",
+    "verified": true,
+    "attendanceStreak": 11,
+    "workoutsCompleted": 53,
+    "rating": 4.7,
     "onboarded": true,
-    "createdAt": 1767822129599,
-    "lastLoginAt": 1793475729599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Sırt & Biceps",
+      "expectation": "Set arası motivasyon",
+      "note": "Lat pulldown ve barbell row odaklı seans"
+    }
   },
   {
-    "id": "ath_m_2099",
-    "name": "Yaman Yıldırım",
-    "initials": "YY",
+    "id": "ath_f_1085",
+    "name": "Zehra Yıldırım",
+    "initials": "ZY",
+    "gender": "Kadın",
+    "age": 30,
+    "city": "Antalya",
+    "district": "Lara",
+    "gymId": "gym_ant_lara",
+    "gymName": "Lara PlusFitness (Antalya)",
+    "lat": 36.8585,
+    "lng": 30.7875,
+    "avatar": "https://images.pexels.com/photos/6455823/pexels-photo-6455823.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/6455823/pexels-photo-6455823.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/13030611/pexels-photo-13030611.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/868705/pexels-photo-868705.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3888405/pexels-photo-3888405.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
+    "preferredTimes": [
+      "Akşam"
+    ],
+    "bio": "Haftada 5 gün split antrenman. Disiplinli ve zamanında gelen partnerlerle çalışmayı seviyorum.",
+    "verified": true,
+    "attendanceStreak": 15,
+    "workoutsCompleted": 55,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "17:30",
+      "workoutType": "Göğüs & Kol",
+      "expectation": "Ağır kilo partneri",
+      "note": "Bench press ve dumbbell press süpersetleri"
+    }
+  },
+  {
+    "id": "ath_m_2085",
+    "name": "Ayberk Yalçın",
+    "initials": "AY",
+    "gender": "Erkek",
+    "age": 28,
+    "city": "Muğla",
+    "district": "Bodrum",
+    "gymId": "gym_mug_bodrum",
+    "gymName": "Midtown MACFit Bodrum (Muğla)",
+    "lat": 37.0515,
+    "lng": 27.3835,
+    "avatar": "https://images.pexels.com/photos/3768617/pexels-photo-3768617.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768617/pexels-photo-3768617.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/13030611/pexels-photo-13030611.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/868483/pexels-photo-868483.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3888405/pexels-photo-3888405.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Yeni başladım",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
+    "preferredTimes": [
+      "Sabah"
+    ],
+    "bio": "Haftasonları sabah koşusu, hafta içi akşam salon seansları. Sürekli motive partner arıyorum.",
+    "verified": false,
+    "attendanceStreak": 15,
+    "workoutsCompleted": 62,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Omuz & Karın",
+      "expectation": "Süperset partneri",
+      "note": "Overhead press ve lateral raise tükeniş setleri"
+    }
+  },
+  {
+    "id": "ath_f_1086",
+    "name": "Efsun Özdemir",
+    "initials": "EÖ",
+    "gender": "Kadın",
+    "age": 22,
+    "city": "Antalya",
+    "district": "Alanya",
+    "gymId": "gym_ant_alanya",
+    "gymName": "Alanya Cleopatra Fitness (Antalya)",
+    "lat": 36.5458,
+    "lng": 31.9862,
+    "avatar": "https://images.pexels.com/photos/6455828/pexels-photo-6455828.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/6455828/pexels-photo-6455828.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4720790/pexels-photo-4720790.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1579758629938-03607ccdbaba?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/9644820/pexels-photo-9644820.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
+    "preferredTimes": [
+      "Sabah"
+    ],
+    "bio": "Yeni başladım sayılır, form düzeltme ve temel hareketlerde motive olacak birini arıyorum 🌸",
+    "verified": true,
+    "attendanceStreak": 20,
+    "workoutsCompleted": 62,
+    "rating": 4.9,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Sırt & Biceps",
+      "expectation": "Set arası motivasyon",
+      "note": "Lat pulldown ve barbell row odaklı seans"
+    }
+  },
+  {
+    "id": "ath_m_2086",
+    "name": "Görkem Güneş",
+    "initials": "GG",
     "gender": "Erkek",
     "age": 23,
+    "city": "Muğla",
+    "district": "Yalıkavak",
+    "gymId": "gym_mug_yalikavak",
+    "gymName": "Yalıkavak Marina Gym (Muğla)",
+    "lat": 37.1094,
+    "lng": 27.2908,
+    "avatar": "https://images.pexels.com/photos/3768619/pexels-photo-3768619.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768619/pexels-photo-3768619.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4720790/pexels-photo-4720790.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1534367507873-d2d7e24c797f?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/9644820/pexels-photo-9644820.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Güç",
+      "Hipertrofi"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Sporda 3. yılım. Form ve tempo odaklı çalışıyorum, zamanı verimli kullanan biriyle eşleşmek isterim.",
     "verified": true,
-    "role": "user",
-    "phone": "+90 541 329 88 26",
-    "email": "yaman.yıldırım99@gmail.com",
-    "bio": "Düzenli antrenman ve temiz beslenme yaşam tarzım. Salonda vakit kaybetmeden basacak dostlar eklesin.",
+    "attendanceStreak": 19,
+    "workoutsCompleted": 71,
+    "rating": 4.9,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
+  },
+  {
+    "id": "ath_f_1087",
+    "name": "Su Kılıç",
+    "initials": "SK",
+    "gender": "Kadın",
+    "age": 29,
+    "city": "Bursa",
+    "district": "Nilüfer",
+    "gymId": "gym_bur_nilufer",
+    "gymName": "Sur Yapı Marka MACFit (Bursa)",
+    "lat": 40.2101,
+    "lng": 28.9879,
+    "avatar": "https://images.pexels.com/photos/6456141/pexels-photo-6456141.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/6456141/pexels-photo-6456141.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/8874355/pexels-photo-8874355.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/15917308/pexels-photo-15917308.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Yeni başladım",
+    "goals": [
+      "Güç",
+      "Hipertrofi"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Hypertrophy ve güç odaklı alt-üst vücut spliti yapıyorum. Karşılıklı yardımlaşma güzel olur.",
+    "verified": false,
+    "attendanceStreak": 7,
+    "workoutsCompleted": 14,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Omuz & Karın",
+      "expectation": "Süperset partneri",
+      "note": "Overhead press ve lateral raise tükeniş setleri"
+    }
+  },
+  {
+    "id": "ath_m_2087",
+    "name": "Yalçın Coşkun",
+    "initials": "YC",
+    "gender": "Erkek",
+    "age": 34,
+    "city": "Muğla",
+    "district": "Fethiye",
+    "gymId": "gym_mug_fethiye",
+    "gymName": "Fethiye Kordon Sports (Muğla)",
+    "lat": 36.6313,
+    "lng": 29.1161,
+    "avatar": "https://images.pexels.com/photos/3768725/pexels-photo-3768725.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768725/pexels-photo-3768725.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/8874355/pexels-photo-8874355.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/15917308/pexels-photo-15917308.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
+    "preferredTimes": [
+      "Akşam",
+      "Haftasonu"
+    ],
+    "bio": "İş çıkışı 18:30 seansları. Göğüs-kol ve sırt günlerinde tükeniş setleri için spotter lazım 🎯",
+    "verified": false,
+    "attendanceStreak": 23,
+    "workoutsCompleted": 15,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
+  },
+  {
+    "id": "ath_f_1088",
+    "name": "Mira Kara",
+    "initials": "MK",
+    "gender": "Kadın",
+    "age": 21,
+    "city": "Bursa",
+    "district": "Özlüce",
+    "gymId": "gym_bur_ozluce",
+    "gymName": "Özlüce FitClub (Bursa)",
+    "lat": 40.2244,
+    "lng": 28.9206,
+    "avatar": "https://images.pexels.com/photos/6456201/pexels-photo-6456201.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/6456201/pexels-photo-6456201.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3838705/pexels-photo-3838705.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/16996376/pexels-photo-16996376.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
+    "preferredTimes": [
+      "Akşam",
+      "Haftasonu"
+    ],
+    "bio": "Crossfit ve fonksiyonel antrenmanlar vazgeçilmezim. Sabah enerjisiyle spora başlayanlar yazabilir ⚡",
+    "verified": true,
+    "attendanceStreak": 12,
+    "workoutsCompleted": 21,
+    "rating": 4.7,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
+  },
+  {
+    "id": "ath_m_2088",
+    "name": "Harun Sever",
+    "initials": "HS",
+    "gender": "Erkek",
+    "age": 29,
+    "city": "Konya",
+    "district": "Selçuklu",
+    "gymId": "gym_kon_selcuklu",
+    "gymName": "Kule Site MACFit (Konya)",
+    "lat": 37.8932,
+    "lng": 32.4954,
+    "avatar": "https://images.pexels.com/photos/3768726/pexels-photo-3768726.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768726/pexels-photo-3768726.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3838705/pexels-photo-3838705.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/16996376/pexels-photo-16996376.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
     "goals": [
       "Kas",
       "Kondisyon"
     ],
-    "level": "İleri",
     "preferredTimes": [
-      "Akşam",
+      "Sabah",
       "Öğle"
     ],
-    "genderPref": "Herkes",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "district": "Ataşehir",
-    "lat": 40.981382,
-    "lng": 29.102283,
-    "distanceKm": 6.2,
-    "photos": [
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80"
-    ],
-    "nextWorkout": {
-      "workoutType": "Bacak & Kalça",
-      "day": "Çarşamba",
-      "time": "19:00",
-      "gymName": "FitCity Ataşehir",
-      "expectation": "Spotter partneri arıyor",
-      "note": "Bugün ağır squat ve RDL günü, motive olacak partner"
-    },
+    "bio": "Fonksiyonel güç ve kondisyon antrenmanı. Birlikte PR deneyecek partner arıyorum 🔥",
+    "verified": true,
+    "attendanceStreak": 5,
+    "workoutsCompleted": 24,
+    "rating": 4.7,
     "onboarded": true,
-    "createdAt": 1767562929599,
-    "lastLoginAt": 1793472129599
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
+  },
+  {
+    "id": "ath_f_1089",
+    "name": "Doğa Özkan",
+    "initials": "DÖ",
+    "gender": "Kadın",
+    "age": 28,
+    "city": "Bursa",
+    "district": "Nilüfer",
+    "gymId": "gym_bur_podyum",
+    "gymName": "PodyumPark Sports Club (Bursa)",
+    "lat": 40.2197,
+    "lng": 28.9693,
+    "avatar": "https://images.pexels.com/photos/6740822/pexels-photo-6740822.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/6740822/pexels-photo-6740822.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/39635369/pexels-photo-39635369.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2247179/pexels-photo-2247179.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kas",
+      "Kondisyon"
+    ],
+    "preferredTimes": [
+      "Sabah",
+      "Öğle"
+    ],
+    "bio": "Akşam iş çıkışı 19:30 seansları. Omuz ve sırt günlerinde süperset partneri.",
+    "verified": true,
+    "attendanceStreak": 17,
+    "workoutsCompleted": 28,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
+  },
+  {
+    "id": "ath_m_2089",
+    "name": "Oğuzhan Eren",
+    "initials": "OE",
+    "gender": "Erkek",
+    "age": 24,
+    "city": "Gaziantep",
+    "district": "Şehitkamil",
+    "gymId": "gym_gaz_sehitkamil",
+    "gymName": "Sanko Park MACFit (Gaziantep)",
+    "lat": 37.0711,
+    "lng": 37.3607,
+    "avatar": "https://images.pexels.com/photos/3768728/pexels-photo-3768728.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768728/pexels-photo-3768728.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/39635369/pexels-photo-39635369.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/17210041/pexels-photo-17210041.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
+    "preferredTimes": [
+      "Akşam"
+    ],
+    "bio": "Düzenli antrenman ve temiz beslenme yaşam tarzım. Salonda vakit kaybetmeden basacak dostlar eklesin.",
+    "verified": false,
+    "attendanceStreak": 9,
+    "workoutsCompleted": 33,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
+  },
+  {
+    "id": "ath_f_1090",
+    "name": "Ceren Korkmaz",
+    "initials": "CK",
+    "gender": "Kadın",
+    "age": 20,
+    "city": "Bursa",
+    "district": "Osmangazi",
+    "gymId": "gym_bur_osmangazi",
+    "gymName": "Zafer Plaza Fitness (Bursa)",
+    "lat": 40.187,
+    "lng": 29.06,
+    "avatar": "https://images.pexels.com/photos/6855349/pexels-photo-6855349.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/6855349/pexels-photo-6855349.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3289711/pexels-photo-3289711.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1431282/pexels-photo-1431282.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
+    "preferredTimes": [
+      "Akşam"
+    ],
+    "bio": "Haftada 4 gün ağırlık, 1 gün kardiyo. Birlikte motive olacak ve set aralarında spotterlık yapacak partner arıyorum 💪",
+    "verified": false,
+    "attendanceStreak": 4,
+    "workoutsCompleted": 35,
+    "rating": 4.9,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "17:00",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
+  },
+  {
+    "id": "ath_m_2090",
+    "name": "Kayra Demir",
+    "initials": "KD",
+    "gender": "Erkek",
+    "age": 35,
+    "city": "Kayseri",
+    "district": "Melikgazi",
+    "gymId": "gym_kay_melikgazi",
+    "gymName": "Kayseri Park MACFit (Kayseri)",
+    "lat": 38.729,
+    "lng": 35.509,
+    "avatar": "https://images.pexels.com/photos/3768729/pexels-photo-3768729.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768729/pexels-photo-3768729.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2827400/pexels-photo-2827400.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1431282/pexels-photo-1431282.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Yeni başladım",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
+    "preferredTimes": [
+      "Sabah"
+    ],
+    "bio": "Haftada 5 gün Push-Pull-Legs yapıyorum. Bench ve Squat'ta ağır kilolarda spotter partneri arıyorum 💪",
+    "verified": true,
+    "attendanceStreak": 13,
+    "workoutsCompleted": 42,
+    "rating": 4.9,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Göğüs & Kol",
+      "expectation": "Ağır kilo partneri",
+      "note": "Bench press ve dumbbell press süpersetleri"
+    }
+  },
+  {
+    "id": "ath_f_1091",
+    "name": "Simay Aksoy",
+    "initials": "SA",
+    "gender": "Kadın",
+    "age": 27,
+    "city": "Eskişehir",
+    "district": "Tepebaşı",
+    "gymId": "gym_esk_tepebasi",
+    "gymName": "Espark MACFit (Eskişehir)",
+    "lat": 39.7823,
+    "lng": 30.5097,
+    "avatar": "https://images.pexels.com/photos/703014/pexels-photo-703014.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/703014/pexels-photo-703014.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1552106/pexels-photo-1552106.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/414029/pexels-photo-414029.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1552103/pexels-photo-1552103.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
+    "preferredTimes": [
+      "Sabah"
+    ],
+    "bio": "Sabahları 07:00 seansları. Squat ve Hip Thrust odaklı çalışıyorum. Düzenli gelen arkadaşlar ekleyebilir ✨",
+    "verified": true,
+    "attendanceStreak": 9,
+    "workoutsCompleted": 42,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "18:30",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
+  },
+  {
+    "id": "ath_m_2091",
+    "name": "Devrim Öztürk",
+    "initials": "DÖ",
+    "gender": "Erkek",
+    "age": 30,
+    "city": "Kocaeli",
+    "district": "İzmit",
+    "gymId": "gym_koc_izmit",
+    "gymName": "41 Burda MACFit (Kocaeli)",
+    "lat": 40.7569,
+    "lng": 29.9513,
+    "avatar": "https://images.pexels.com/photos/3768731/pexels-photo-3768731.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768731/pexels-photo-3768731.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1552106/pexels-photo-1552106.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4058411/pexels-photo-4058411.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1552103/pexels-photo-1552103.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Sabah 07:30 veya akşam 19:00 seansları. Hedef hacim ve hipertrofi. Ciddi antrenman arkadaşı eklesin 🏋️‍♂️",
+    "verified": false,
+    "attendanceStreak": 17,
+    "workoutsCompleted": 51,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Sırt & Biceps",
+      "expectation": "Set arası motivasyon",
+      "note": "Lat pulldown ve barbell row odaklı seans"
+    }
+  },
+  {
+    "id": "ath_f_1092",
+    "name": "Pırıl Yalçın",
+    "initials": "PY",
+    "gender": "Kadın",
+    "age": 34,
+    "city": "Eskişehir",
+    "district": "Tepebaşı",
+    "gymId": "gym_esk_cassaba",
+    "gymName": "Cassaba Modern Fitness (Eskişehir)",
+    "lat": 39.7906,
+    "lng": 30.4964,
+    "avatar": "https://images.pexels.com/photos/703016/pexels-photo-703016.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/703016/pexels-photo-703016.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1552104/pexels-photo-1552104.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/669584/pexels-photo-669584.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2261477/pexels-photo-2261477.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Yeni başladım",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Pilates ve fonksiyonel fitness ile ilgileniyorum. Haftasonu koşu veya salonda partner iyi olur 🧘‍♀️",
+    "verified": true,
+    "attendanceStreak": 14,
+    "workoutsCompleted": 49,
+    "rating": 4.7,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "19:00",
+      "workoutType": "Göğüs & Kol",
+      "expectation": "Ağır kilo partneri",
+      "note": "Bench press ve dumbbell press süpersetleri"
+    }
+  },
+  {
+    "id": "ath_m_2092",
+    "name": "Utku Kılıç",
+    "initials": "UK",
+    "gender": "Erkek",
+    "age": 25,
+    "city": "Sakarya",
+    "district": "Serdivan",
+    "gymId": "gym_sak_serdivan",
+    "gymName": "Agora Serdivan MACFit (Sakarya)",
+    "lat": 40.7688,
+    "lng": 30.3696,
+    "avatar": "https://images.pexels.com/photos/3768733/pexels-photo-3768733.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768733/pexels-photo-3768733.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1552104/pexels-photo-1552104.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/416717/pexels-photo-416717.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2261477/pexels-photo-2261477.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Güç",
+      "Hipertrofi"
+    ],
+    "preferredTimes": [
+      "Akşam",
+      "Haftasonu"
+    ],
+    "bio": "Crossfit ve calisthenics karışık gidiyorum. Güç antrenmanında sınırları zorlayacak partner arıyorum ⚡",
+    "verified": true,
+    "attendanceStreak": 21,
+    "workoutsCompleted": 60,
+    "rating": 4.7,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Omuz & Karın",
+      "expectation": "Süperset partneri",
+      "note": "Overhead press ve lateral raise tükeniş setleri"
+    }
+  },
+  {
+    "id": "ath_f_1093",
+    "name": "Beste Keskin",
+    "initials": "BK",
+    "gender": "Kadın",
+    "age": 26,
+    "city": "Eskişehir",
+    "district": "Odunpazarı",
+    "gymId": "gym_esk_odunpazari",
+    "gymName": "Odunpazarı FitLife (Eskişehir)",
+    "lat": 39.7599,
+    "lng": 30.5261,
+    "avatar": "https://images.pexels.com/photos/791763/pexels-photo-791763.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/791763/pexels-photo-791763.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2261482/pexels-photo-2261482.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/669576/pexels-photo-669576.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2261485/pexels-photo-2261485.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Güç",
+      "Hipertrofi"
+    ],
+    "preferredTimes": [
+      "Akşam",
+      "Haftasonu"
+    ],
+    "bio": "Kilo verme ve sıkılaşma dönemindeyim. Birlikte kardiyo ve HIIT yapacak motivasyon partneri arıyorum.",
+    "verified": false,
+    "attendanceStreak": 19,
+    "workoutsCompleted": 56,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "20:30",
+      "workoutType": "Sırt & Biceps",
+      "expectation": "Set arası motivasyon",
+      "note": "Lat pulldown ve barbell row odaklı seans"
+    }
+  },
+  {
+    "id": "ath_m_2093",
+    "name": "Bora Kurt",
+    "initials": "BK",
+    "gender": "Erkek",
+    "age": 36,
+    "city": "Denizli",
+    "district": "Pamukkale",
+    "gymId": "gym_den_pamukkale",
+    "gymName": "Forum Çamlık MACFit (Denizli)",
+    "lat": 37.7637,
+    "lng": 29.0979,
+    "avatar": "https://images.pexels.com/photos/3768734/pexels-photo-3768734.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768734/pexels-photo-3768734.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2261482/pexels-photo-2261482.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/669577/pexels-photo-669577.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/2261485/pexels-photo-2261485.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
+    "preferredTimes": [
+      "Sabah",
+      "Öğle"
+    ],
+    "bio": "Kondisyon ve yağ yakımı odaklıyım. Birlikte tempolu kardiyo ve ağırlık kombinasyonu yapabiliriz.",
+    "verified": false,
+    "attendanceStreak": 25,
+    "workoutsCompleted": 69,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
+  },
+  {
+    "id": "ath_f_1094",
+    "name": "Dila Bozkurt",
+    "initials": "DB",
+    "gender": "Kadın",
+    "age": 33,
+    "city": "Adana",
+    "district": "Çukurova",
+    "gymId": "gym_ada_cukurova",
+    "gymName": "M1 Adana MACFit (Adana)",
+    "lat": 37.0322,
+    "lng": 35.2668,
+    "avatar": "https://images.pexels.com/photos/863926/pexels-photo-863926.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/863926/pexels-photo-863926.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3076509/pexels-photo-3076509.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/669580/pexels-photo-669580.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3076516/pexels-photo-3076516.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
+    "preferredTimes": [
+      "Sabah",
+      "Öğle"
+    ],
+    "bio": "Bacak ve kalça günlerinde birbirimize destek olacak disiplinli sporcu kız arkadaş arıyorum 🏋️‍♀️",
+    "verified": true,
+    "attendanceStreak": 6,
+    "workoutsCompleted": 63,
+    "rating": 4.9,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "21:00",
+      "workoutType": "Omuz & Karın",
+      "expectation": "Süperset partneri",
+      "note": "Overhead press ve lateral raise tükeniş setleri"
+    }
+  },
+  {
+    "id": "ath_m_2094",
+    "name": "Taha Erdoğan",
+    "initials": "TE",
+    "gender": "Erkek",
+    "age": 31,
+    "city": "Balıkesir",
+    "district": "Karesi",
+    "gymId": "gym_bal_karesi",
+    "gymName": "Yaylada MACFit (Balıkesir)",
+    "lat": 39.6586,
+    "lng": 27.8902,
+    "avatar": "https://images.pexels.com/photos/3768736/pexels-photo-3768736.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768736/pexels-photo-3768736.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3076509/pexels-photo-3076509.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/669585/pexels-photo-669585.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3076516/pexels-photo-3076516.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kas",
+      "Kondisyon"
+    ],
+    "preferredTimes": [
+      "Akşam"
+    ],
+    "bio": "Powerlifting ve temel bileşik egzersizler (Squat, Bench, Deadlift). Disiplinli sporcular yazsın.",
+    "verified": true,
+    "attendanceStreak": 7,
+    "workoutsCompleted": 13,
+    "rating": 4.9,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
+  },
+  {
+    "id": "ath_f_1095",
+    "name": "Gülfem Taş",
+    "initials": "GT",
+    "gender": "Kadın",
+    "age": 25,
+    "city": "Adana",
+    "district": "Çukurova",
+    "gymId": "gym_ada_barajyolu",
+    "gymName": "Turgut Özal FitLife (Adana)",
+    "lat": 37.0395,
+    "lng": 35.3015,
+    "avatar": "https://images.pexels.com/photos/863977/pexels-photo-863977.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/863977/pexels-photo-863977.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3112004/pexels-photo-3112004.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/791763/pexels-photo-791763.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3768916/pexels-photo-3768916.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Kas",
+      "Kondisyon"
+    ],
+    "preferredTimes": [
+      "Akşam"
+    ],
+    "bio": "Haftada 5 gün split antrenman. Disiplinli ve zamanında gelen partnerlerle çalışmayı seviyorum.",
+    "verified": true,
+    "attendanceStreak": 11,
+    "workoutsCompleted": 15,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "17:30",
+      "workoutType": "Full Body",
+      "expectation": "Dinamik partner",
+      "note": "Tüm vücut bileşik egzersizler ve core çalışması"
+    }
+  },
+  {
+    "id": "ath_m_2095",
+    "name": "Ege Yalçın",
+    "initials": "EY",
+    "gender": "Erkek",
+    "age": 26,
+    "city": "Tekirdağ",
+    "district": "Çorlu",
+    "gymId": "gym_tek_corlu",
+    "gymName": "Trend Arena MACFit (Tekirdağ)",
+    "lat": 41.1605,
+    "lng": 27.8125,
+    "avatar": "https://images.pexels.com/photos/3768738/pexels-photo-3768738.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768738/pexels-photo-3768738.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3112004/pexels-photo-3112004.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/703016/pexels-photo-703016.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3768916/pexels-photo-3768916.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Yeni başladım",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
+    "preferredTimes": [
+      "Sabah"
+    ],
+    "bio": "Haftasonları sabah koşusu, hafta içi akşam salon seansları. Sürekli motive partner arıyorum.",
+    "verified": false,
+    "attendanceStreak": 11,
+    "workoutsCompleted": 22,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
+  },
+  {
+    "id": "ath_f_1096",
+    "name": "Asude Gök",
+    "initials": "AG",
+    "gender": "Kadın",
+    "age": 32,
+    "city": "Mersin",
+    "district": "Yenişehir",
+    "gymId": "gym_mer_yenisehir",
+    "gymName": "Forum Mersin MACFit (Mersin)",
+    "lat": 36.7848,
+    "lng": 34.5992,
+    "avatar": "https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3775164/pexels-photo-3775164.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3775566/pexels-photo-3775566.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kas",
+      "Güç"
+    ],
+    "preferredTimes": [
+      "Sabah"
+    ],
+    "bio": "Yeni başladım sayılır, form düzeltme ve temel hareketlerde motive olacak birini arıyorum 🌸",
+    "verified": false,
+    "attendanceStreak": 16,
+    "workoutsCompleted": 22,
+    "rating": 4.7,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Kardiyo & HIIT",
+      "expectation": "Tempo partneri",
+      "note": "Koşu bandı intervalleri ve kettlebell devresi"
+    }
+  },
+  {
+    "id": "ath_m_2096",
+    "name": "Alpcan Güneş",
+    "initials": "AG",
+    "gender": "Erkek",
+    "age": 21,
+    "city": "Diyarbakır",
+    "district": "Kayapınar",
+    "gymId": "gym_diy_kayapinar",
+    "gymName": "Ceylan Karavil MACFit (Diyarbakır)",
+    "lat": 37.9384,
+    "lng": 40.1808,
+    "avatar": "https://images.pexels.com/photos/3768740/pexels-photo-3768740.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768740/pexels-photo-3768740.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3775164/pexels-photo-3775164.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/863977/pexels-photo-863977.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3775566/pexels-photo-3775566.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Sporda 3. yılım. Form ve tempo odaklı çalışıyorum, zamanı verimli kullanan biriyle eşleşmek isterim.",
+    "verified": true,
+    "attendanceStreak": 15,
+    "workoutsCompleted": 31,
+    "rating": 4.7,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "18:00",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
+  },
+  {
+    "id": "ath_f_1097",
+    "name": "Rana Sever",
+    "initials": "RS",
+    "gender": "Kadın",
+    "age": 24,
+    "city": "Mersin",
+    "district": "Mezitli",
+    "gymId": "gym_mer_mezitli",
+    "gymName": "Marina Sports Club (Mersin)",
+    "lat": 36.7581,
+    "lng": 34.5309,
+    "avatar": "https://images.pexels.com/photos/864939/pexels-photo-864939.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/864939/pexels-photo-864939.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3775593/pexels-photo-3775593.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/868483/pexels-photo-868483.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3775603/pexels-photo-3775603.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Yeni başladım",
+    "goals": [
+      "Kondisyon",
+      "Yağ Yakımı"
+    ],
+    "preferredTimes": [
+      "Öğle"
+    ],
+    "bio": "Hypertrophy ve güç odaklı alt-üst vücut spliti yapıyorum. Karşılıklı yardımlaşma güzel olur.",
+    "verified": true,
+    "attendanceStreak": 21,
+    "workoutsCompleted": 29,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Fonksiyonel & Mobilite",
+      "expectation": "Disiplinli sporcu",
+      "note": "Esneme, kalça mobilitesi ve core aktivasyonu"
+    }
+  },
+  {
+    "id": "ath_m_2097",
+    "name": "Baha Coşkun",
+    "initials": "BC",
+    "gender": "Erkek",
+    "age": 32,
+    "city": "Aydın",
+    "district": "Kuşadası",
+    "gymId": "gym_ayd_kusadasi",
+    "gymName": "Kuşadası Marina Fitness (Aydın)",
+    "lat": 37.8663,
+    "lng": 27.2631,
+    "avatar": "https://images.pexels.com/photos/3768742/pexels-photo-3768742.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768742/pexels-photo-3768742.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3775593/pexels-photo-3775593.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/866023/pexels-photo-866023.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/3775603/pexels-photo-3775603.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
+    "preferredTimes": [
+      "Akşam",
+      "Haftasonu"
+    ],
+    "bio": "İş çıkışı 18:30 seansları. Göğüs-kol ve sırt günlerinde tükeniş setleri için spotter lazım 🎯",
+    "verified": false,
+    "attendanceStreak": 19,
+    "workoutsCompleted": 40,
+    "rating": 4.8,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "19:30",
+      "workoutType": "Göğüs & Kol",
+      "expectation": "Ağır kilo partneri",
+      "note": "Bench press ve dumbbell press süpersetleri"
+    }
+  },
+  {
+    "id": "ath_f_1098",
+    "name": "Sevde Işık",
+    "initials": "SI",
+    "gender": "Kadın",
+    "age": 31,
+    "city": "Trabzon",
+    "district": "Ortahisar",
+    "gymId": "gym_tra_ortahisar",
+    "gymName": "Forum Trabzon MACFit (Trabzon)",
+    "lat": 40.9994,
+    "lng": 39.7586,
+    "avatar": "https://images.pexels.com/photos/866023/pexels-photo-866023.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/866023/pexels-photo-866023.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4162451/pexels-photo-4162451.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1534367507873-d2d7e24c797f?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/4162487/pexels-photo-4162487.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Genel form",
+      "Mobilite"
+    ],
+    "preferredTimes": [
+      "Akşam",
+      "Haftasonu"
+    ],
+    "bio": "Crossfit ve fonksiyonel antrenmanlar vazgeçilmezim. Sabah enerjisiyle spora başlayanlar yazabilir ⚡",
+    "verified": true,
+    "attendanceStreak": 8,
+    "workoutsCompleted": 36,
+    "rating": 4.9,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Bacak & Kalça",
+      "expectation": "Spotter partneri arıyor",
+      "note": "Ağır squat ve RDL seansı, motive olacak partner"
+    }
+  },
+  {
+    "id": "ath_m_2098",
+    "name": "Tayfun Sever",
+    "initials": "TS",
+    "gender": "Erkek",
+    "age": 27,
+    "city": "Çanakkale",
+    "district": "Merkez",
+    "gymId": "gym_can_merkez",
+    "gymName": "17 Burda MACFit (Çanakkale)",
+    "lat": 40.1382,
+    "lng": 26.4174,
+    "avatar": "https://images.pexels.com/photos/3768744/pexels-photo-3768744.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768744/pexels-photo-3768744.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4162451/pexels-photo-4162451.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/868776/pexels-photo-868776.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4162487/pexels-photo-4162487.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "Orta",
+    "goals": [
+      "Güç",
+      "Hipertrofi"
+    ],
+    "preferredTimes": [
+      "Sabah",
+      "Öğle"
+    ],
+    "bio": "Fonksiyonel güç ve kondisyon antrenmanı. Birlikte PR deneyecek partner arıyorum 🔥",
+    "verified": true,
+    "attendanceStreak": 23,
+    "workoutsCompleted": 49,
+    "rating": 4.9,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Bugün",
+      "time": "20:00",
+      "workoutType": "Sırt & Biceps",
+      "expectation": "Set arası motivasyon",
+      "note": "Lat pulldown ve barbell row odaklı seans"
+    }
+  },
+  {
+    "id": "ath_f_1099",
+    "name": "Esin Demirci",
+    "initials": "ED",
+    "gender": "Kadın",
+    "age": 23,
+    "city": "Samsun",
+    "district": "Atakum",
+    "gymId": "gym_sam_atakum",
+    "gymName": "Atakum Sahil MACFit (Samsun)",
+    "lat": 41.3267,
+    "lng": 36.3103,
+    "avatar": "https://images.pexels.com/photos/868483/pexels-photo-868483.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/868483/pexels-photo-868483.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4164761/pexels-photo-4164761.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/4325454/pexels-photo-4325454.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Güç",
+      "Hipertrofi"
+    ],
+    "preferredTimes": [
+      "Sabah",
+      "Öğle"
+    ],
+    "bio": "Akşam iş çıkışı 19:30 seansları. Omuz ve sırt günlerinde süperset partneri.",
+    "verified": false,
+    "attendanceStreak": 13,
+    "workoutsCompleted": 43,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Göğüs & Kol",
+      "expectation": "Ağır kilo partneri",
+      "note": "Bench press ve dumbbell press süpersetleri"
+    }
+  },
+  {
+    "id": "ath_m_2099",
+    "name": "Yaman Eren",
+    "initials": "YE",
+    "gender": "Erkek",
+    "age": 22,
+    "city": "İstanbul",
+    "district": "Kadıköy",
+    "gymId": "gym_ist_kadikoy",
+    "gymName": "MACFit Kadıköy (İstanbul)",
+    "lat": 40.9883,
+    "lng": 29.0315,
+    "avatar": "https://images.pexels.com/photos/3768745/pexels-photo-3768745.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "photos": [
+      "https://images.pexels.com/photos/3768745/pexels-photo-3768745.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/4164761/pexels-photo-4164761.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?w=800&auto=format&fit=crop&q=80",
+      "https://images.pexels.com/photos/4325454/pexels-photo-4325454.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    "level": "İleri",
+    "goals": [
+      "Kardiyo",
+      "Dayanıklılık"
+    ],
+    "preferredTimes": [
+      "Akşam"
+    ],
+    "bio": "Düzenli antrenman ve temiz beslenme yaşam tarzım. Salonda vakit kaybetmeden basacak dostlar eklesin.",
+    "verified": false,
+    "attendanceStreak": 5,
+    "workoutsCompleted": 58,
+    "rating": 5,
+    "onboarded": true,
+    "nextWorkout": {
+      "day": "Yarın",
+      "time": "21:30",
+      "workoutType": "Omuz & Karın",
+      "expectation": "Süperset partneri",
+      "note": "Overhead press ve lateral raise tükeniş setleri"
+    }
   }
 ];
 
 export const NEARBY_COMMUNITY_STORIES = [
   {
-    "id": "story_nearby_1",
+    "id": "story_ist_1",
     "userId": "ath_f_1000",
-    "userName": "Ece Öztürk",
-    "userInitials": "EÖ",
-    "userAvatar": "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80",
-    "image": "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80",
+    "userName": "Ece Kaya",
+    "userInitials": "EK",
+    "userAvatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
+    "image": "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80",
     "tag": "💪 Bacak Günü PR",
-    "caption": "Squat PR denemesi başarılı! Salondayız 🔥",
-    "gymId": "map_gym_59319781",
-    "gymName": "MACFit Kadıköy",
-    "distanceKm": 0.3,
-    "timestamp": 1793479329599,
-    "likesCount": 18,
+    "caption": "Yeni Squat PR: 105kg! Salondayız kızlar 🔥",
+    "city": "İstanbul",
+    "district": "Kadıköy",
+    "gymId": "gym_ist_kadikoy",
+    "gymName": "MACFit Kadıköy (İstanbul)",
+    "distanceKm": 0.4,
+    "timestamp": 1793519140458,
+    "likesCount": 24,
     "viewed": false
   },
   {
-    "id": "story_nearby_2",
-    "userId": "ath_m_2001",
-    "userName": "Kerem Koç",
-    "userInitials": "KK",
-    "userAvatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=80",
+    "id": "story_ist_2",
+    "userId": "ath_m_2000",
+    "userName": "Can Demir",
+    "userInitials": "CD",
+    "userAvatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80",
     "image": "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&auto=format&fit=crop&q=80",
-    "tag": "⚡ Bench Press 100kg",
+    "tag": "⚡ Bench Press 120kg",
     "caption": "Göğüs & Kol bitti! Akşam seansı için partner arayanlar DM atsın 🏋️",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "distanceKm": 4.9,
-    "timestamp": 1793475729599,
+    "city": "İstanbul",
+    "district": "Moda",
+    "gymId": "gym_ist_moda",
+    "gymName": "PowerGym Moda (İstanbul)",
+    "distanceKm": 0.8,
+    "timestamp": 1793515540458,
+    "likesCount": 31,
+    "viewed": false
+  },
+  {
+    "id": "story_ist_3",
+    "userId": "ath_f_1001",
+    "userName": "Zeynep Şahin",
+    "userInitials": "ZŞ",
+    "userAvatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=80",
+    "image": "https://images.unsplash.com/photo-1524502397800-2eeaad7c3fe5?w=800&auto=format&fit=crop&q=80",
+    "tag": "🔥 Sabah Kardiyosu",
+    "caption": "Caddebostan sahil koşusu ve salonda core antrenmanı ✨",
+    "city": "İstanbul",
+    "district": "Caddebostan",
+    "gymId": "gym_ist_cadde",
+    "gymName": "PlusFitness Caddebostan (İstanbul)",
+    "distanceKm": 2.1,
+    "timestamp": 1793511940458,
+    "likesCount": 38,
+    "viewed": false
+  },
+  {
+    "id": "story_ank_1",
+    "userId": "ath_m_2001",
+    "userName": "Kerem Öztürk",
+    "userInitials": "KÖ",
+    "userAvatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=80",
+    "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&auto=format&fit=crop&q=80",
+    "tag": "🏋️ Deadlift Seansı",
+    "caption": "Tunalı'da akşam antrenmanı tam gaz. Spotter desteği mükemmeldi!",
+    "city": "Ankara",
+    "district": "Çankaya",
+    "gymId": "gym_ank_tunali",
+    "gymName": "MACFit Tunalı Hilmi (Ankara)",
+    "distanceKm": 348,
+    "timestamp": 1793508340458,
+    "likesCount": 29,
+    "viewed": false
+  },
+  {
+    "id": "story_izm_1",
+    "userId": "ath_f_1002",
+    "userName": "Sinem Öztürk",
+    "userInitials": "SÖ",
+    "userAvatar": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80",
+    "image": "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80",
+    "tag": "🥗 Pilates & Mobilite",
+    "caption": "Alsancak'ta reformer ve fonksiyonel antrenman tamamlandı 🎯",
+    "city": "İzmir",
+    "district": "Alsancak",
+    "gymId": "gym_izm_alsancak",
+    "gymName": "MACFit Alsancak (İzmir)",
+    "distanceKm": 329,
+    "timestamp": 1793504740458,
+    "likesCount": 45,
+    "viewed": false
+  },
+  {
+    "id": "story_ant_1",
+    "userId": "ath_m_2002",
+    "userName": "Burak Kılıç",
+    "userInitials": "BK",
+    "userAvatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&auto=format&fit=crop&q=80",
+    "image": "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80",
+    "tag": "☀️ Beach Workout",
+    "caption": "Konyaaltı'nda açık hava kondisyon ve salonda hipertrofi seansı 🔥",
+    "city": "Antalya",
+    "district": "Muratpaşa",
+    "gymId": "gym_ant_muratpasa",
+    "gymName": "TerraCity MACFit (Antalya)",
+    "distanceKm": 482,
+    "timestamp": 1793501140458,
+    "likesCount": 33,
+    "viewed": false
+  },
+  {
+    "id": "story_bur_1",
+    "userId": "ath_f_1003",
+    "userName": "İrem Arslan",
+    "userInitials": "İA",
+    "userAvatar": "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&auto=format&fit=crop&q=80",
+    "image": "https://images.pexels.com/photos/28080/pexels-photo-28080.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "tag": "🏆 Hipertrofi Seansı",
+    "caption": "Nilüfer'de omuz ve sırt süpersetleri bitti. Hedefe bir adım daha ⚡",
+    "city": "Bursa",
+    "district": "Nilüfer",
+    "gymId": "gym_bur_nilufer",
+    "gymName": "Sur Yapı Marka MACFit (Bursa)",
+    "distanceKm": 94,
+    "timestamp": 1793497540458,
     "likesCount": 27,
     "viewed": false
   },
   {
-    "id": "story_nearby_3",
-    "userId": "ath_f_1001",
-    "userName": "Zeynep Arslan",
-    "userInitials": "ZA",
-    "userAvatar": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80",
-    "image": "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80",
-    "tag": "🔥 Sabah Kardiyosu",
-    "caption": "Güne 5km tempolu koşu ve core antrenmanı ile başladık ✨",
-    "gymId": "gym_power_moda",
-    "gymName": "PowerGym Moda",
-    "distanceKm": 0.7,
-    "timestamp": 1793472129599,
-    "likesCount": 34,
-    "viewed": false
-  },
-  {
-    "id": "story_nearby_4",
-    "userId": "ath_m_2002",
-    "userName": "Burak Korkmaz",
-    "userInitials": "BK",
-    "userAvatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&auto=format&fit=crop&q=80",
-    "image": "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&auto=format&fit=crop&q=80",
-    "tag": "🏋️ Ağır Siklet Seansı",
-    "caption": "Deadlift 180kg setleri. Spotter ve enerji yüksek!",
-    "gymId": "gym_uskudar_club",
-    "gymName": "Üsküdar GymClub",
-    "distanceKm": 4.7,
-    "timestamp": 1793468529599,
-    "likesCount": 22,
-    "viewed": false
-  },
-  {
-    "id": "story_nearby_5",
-    "userId": "ath_f_1002",
-    "userName": "Sinem Aslan",
-    "userInitials": "SA",
-    "userAvatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=80",
-    "image": "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&auto=format&fit=crop&q=80",
-    "tag": "🥗 Post-Workout Shake",
-    "caption": "Ağır antrenman sonrası esneme ve protein shake zamanı 🎯",
-    "gymId": "gym_cadde_fit",
-    "gymName": "PlusFitness Caddebostan",
-    "distanceKm": 2.5,
-    "timestamp": 1793464929599,
-    "likesCount": 41,
-    "viewed": false
-  },
-  {
-    "id": "story_nearby_6",
+    "id": "story_esk_1",
     "userId": "ath_m_2003",
-    "userName": "Deniz Güler",
-    "userInitials": "DG",
+    "userName": "Deniz Kurt",
+    "userInitials": "DK",
     "userAvatar": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&auto=format&fit=crop&q=80",
-    "image": "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800&auto=format&fit=crop&q=80",
-    "tag": "🏃‍♂️ 5K Tempo Koşusu",
-    "caption": "Moda sahilinde sabah koşusu bitti, şimdi salona geçiyoruz ⚡",
-    "gymId": "gym_besiktas_mac",
-    "gymName": "MACFit Beşiktaş",
-    "distanceKm": 6.4,
-    "timestamp": 1793461329599,
-    "likesCount": 19,
-    "viewed": false
-  },
-  {
-    "id": "story_nearby_7",
-    "userId": "ath_f_1003",
-    "userName": "İrem Koç",
-    "userInitials": "İK",
-    "userAvatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
-    "image": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop&q=80",
-    "tag": "📍 Salondayız",
-    "caption": "Akşam bacak seansı için salondayım, partner arayanlar yazabilir!",
-    "gymId": "gym_atasehir_fit",
-    "gymName": "FitCity Ataşehir",
-    "distanceKm": 4.7,
-    "timestamp": 1793457729599,
-    "likesCount": 30,
-    "viewed": false
-  },
-  {
-    "id": "story_nearby_8",
-    "userId": "ath_m_2004",
-    "userName": "Alp Ünal",
-    "userInitials": "AÜ",
-    "userAvatar": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&auto=format&fit=crop&q=80",
-    "image": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=80",
-    "tag": "🎯 Günlük Hedef Tamam",
-    "caption": "Omuz ve kol süpersetleri tamamlandı. Hedefe bir adım daha 🏆",
-    "gymId": "gym_maltepe_sport",
-    "gymName": "Maltepe Sports Center",
-    "distanceKm": 8,
-    "timestamp": 1793454129599,
-    "likesCount": 25,
+    "image": "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=80",
+    "tag": "🔥 Espark Seansı",
+    "caption": "Tepebaşı Espark'ta akşam bacak seansı. Enerji zirvede!",
+    "city": "Eskişehir",
+    "district": "Tepebaşı",
+    "gymId": "gym_esk_tepebasi",
+    "gymName": "Espark MACFit (Eskişehir)",
+    "distanceKm": 198,
+    "timestamp": 1793493940458,
+    "likesCount": 21,
     "viewed": false
   }
 ];

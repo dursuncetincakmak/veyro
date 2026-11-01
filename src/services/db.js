@@ -7,7 +7,7 @@
 import { notify } from './notification.js';
 import { REAL_REGISTERED_USERS } from './seedUsers.js';
 import { REAL_CHATS, REAL_APPOINTMENTS } from './seedChats.js';
-import { COMMUNITY_ATHLETES_200, NEARBY_COMMUNITY_STORIES } from './seedAthletes200.js';
+import { COMMUNITY_ATHLETES_200, NEARBY_COMMUNITY_STORIES, TURKEY_GYMS_CATALOG } from './seedAthletes200.js';
 import { saveFirestoreDoc, getFirestoreCollection, deleteFirestoreDoc } from './firestoreSync.js';
 
 const STORAGE_PREFIX = "veyro_live_db_v3_";
@@ -339,14 +339,28 @@ class DatabaseEngine {
       });
     }
 
-    // Seed authentic community athlete profiles (200 hyper-realistic active athletes)
+    // Seed and sync nationwide Turkey gyms catalog (İstanbul, Ankara, İzmir, Bursa, Antalya, Eskişehir, vb.)
+    if (Array.isArray(TURKEY_GYMS_CATALOG)) {
+      const existingGyms = this.getCollection("gyms") || [];
+      TURKEY_GYMS_CATALOG.forEach(g => {
+        const gIdx = existingGyms.findIndex(eg => eg.id === g.id);
+        if (gIdx === -1) {
+          existingGyms.push(g);
+        } else {
+          existingGyms[gIdx] = { ...existingGyms[gIdx], ...g };
+        }
+      });
+      this.setCollection("gyms", existingGyms);
+    }
+
+    // Seed authentic community athlete profiles (200 hyper-realistic active athletes across Turkey)
     if (Array.isArray(COMMUNITY_ATHLETES_200)) {
       COMMUNITY_ATHLETES_200.forEach(ath => {
         const idx = realUsersOnly.findIndex(u => u.id === ath.id);
         if (idx === -1) {
           realUsersOnly.push(ath);
         } else {
-          realUsersOnly[idx] = { ...ath, ...realUsersOnly[idx] };
+          realUsersOnly[idx] = { ...realUsersOnly[idx], ...ath };
         }
       });
     }
@@ -361,8 +375,11 @@ class DatabaseEngine {
       ? [...NEARBY_COMMUNITY_STORIES, ...INITIAL_STORIES]
       : INITIAL_STORIES;
     seedStories.forEach(st => {
-      if (!existingStories.some(s => s.id === st.id)) {
+      const sIdx = existingStories.findIndex(s => s.id === st.id);
+      if (sIdx === -1) {
         existingStories.push(st);
+      } else {
+        existingStories[sIdx] = { ...existingStories[sIdx], ...st };
       }
     });
     this.setCollection("stories", existingStories);

@@ -22,6 +22,7 @@ export function showFilterModal(currentFilters = {}, onApply, onClose) {
 
   // Filter state
   const state = {
+    city: currentFilters.city || "all",
     timeSlot: currentFilters.timeSlot || "all", // all | morning | noon | evening | night
     gymId: currentFilters.gymId || "all",
     workoutType: currentFilters.workoutType || "all",
@@ -29,6 +30,12 @@ export function showFilterModal(currentFilters = {}, onApply, onClose) {
     level: currentFilters.level || "all",
     gender: currentFilters.gender || "all"
   };
+
+  const majorCities = [
+    "all", "İstanbul", "Ankara", "İzmir", "Antalya", "Bursa", "Eskişehir",
+    "Adana", "Konya", "Gaziantep", "Mersin", "Trabzon", "Samsun", "Kayseri",
+    "Muğla", "Kocaeli", "Sakarya", "Denizli", "Balıkesir", "Tekirdağ", "Diyarbakır", "Aydın", "Çanakkale"
+  ];
 
   const timeSlots = [
     { id: "all", label: "Tümü" },
@@ -101,7 +108,20 @@ export function showFilterModal(currentFilters = {}, onApply, onClose) {
             </div>
           </div>
 
-          <!-- 2. SPOR SALONU -->
+          <!-- 0. ŞEHİR / İL (TÜM TÜRKİYE) -->
+          <div style="margin-bottom: 16px;">
+            <label style="font-size: 13px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
+              ${icons.pin(15)} <span>Şehir / İl</span>
+            </label>
+            <select id="select-filter-city" style="width: 100%; padding: 10px 14px; background: var(--bg-surface-elevated); border: 1.5px solid var(--border-glass); border-radius: 12px; color: #FFF; font-size: 13px; font-weight: 600; outline: none;">
+              <option value="all" ${state.city === 'all' ? 'selected' : ''}>Tüm Türkiye (En Yakından Uzağa)</option>
+              ${majorCities.filter(c => c !== 'all').map(c => `
+                <option value="${c}" ${state.city === c ? 'selected' : ''}>${c}</option>
+              `).join('')}
+            </select>
+          </div>
+
+          <!-- 1. SPOR SALONU -->
           <div style="margin-bottom: 16px;">
             <label style="font-size: 13px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 6px; margin-bottom: 8px;">
               ${icons.pin(15)} <span>Spor Salonu</span>
@@ -109,7 +129,7 @@ export function showFilterModal(currentFilters = {}, onApply, onClose) {
             <select id="select-filter-gym" style="width: 100%; padding: 10px 14px; background: var(--bg-surface-elevated); border: 1.5px solid var(--border-glass); border-radius: 12px; color: #FFF; font-size: 13px; font-weight: 600; outline: none;">
               <option value="all" ${state.gymId === 'all' ? 'selected' : ''}>Yakınımdaki Tüm Salonlar</option>
               ${allGyms.map(g => `
-                <option value="${g.id}" ${state.gymId === g.id ? 'selected' : ''}>${g.name} (${g.district})</option>
+                <option value="${g.id}" ${state.gymId === g.id ? 'selected' : ''}>${g.name} (${g.district} / ${g.city || 'TR'})</option>
               `).join('')}
             </select>
           </div>
@@ -206,6 +226,11 @@ export function showFilterModal(currentFilters = {}, onApply, onClose) {
       });
     });
 
+    // City change
+    document.getElementById("select-filter-city")?.addEventListener("change", (e) => {
+      state.city = e.target.value;
+    });
+
     // Gym change
     document.getElementById("select-filter-gym")?.addEventListener("change", (e) => {
       state.gymId = e.target.value;
@@ -225,7 +250,7 @@ export function showFilterModal(currentFilters = {}, onApply, onClose) {
             select.innerHTML = `
               <option value="all" ${state.gymId === 'all' ? 'selected' : ''}>Yakınımdaki Tüm Salonlar</option>
               ${allGyms.map(g => `
-                <option value="${g.id}" ${state.gymId === g.id ? 'selected' : ''}>${g.name} (${g.district} · ${g.distanceText || 'Maps'})</option>
+                <option value="${g.id}" ${state.gymId === g.id ? 'selected' : ''}>${g.name} (${g.district} / ${g.city || 'TR'} · ${g.distanceText || 'Maps'})</option>
               `).join('')}
             `;
           }
@@ -235,6 +260,7 @@ export function showFilterModal(currentFilters = {}, onApply, onClose) {
 
     // Reset filters
     document.getElementById("btn-reset-filters")?.addEventListener("click", () => {
+      state.city = "all";
       state.timeSlot = "all";
       state.gymId = "all";
       state.workoutType = "all";
