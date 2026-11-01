@@ -101,9 +101,10 @@ export async function renderGymMapView(container, onSelectGym, options = {}) {
     }
   });
 
-  // Check if Google Maps JS API key is available
-  const gmapKey = config.maps.googleMapsApiKey?.trim();
-  if (gmapKey && gmapKey.startsWith("AIzaSy")) {
+  // Check if provider is set to google_maps AND key is available
+  const provider = config.maps?.provider || 'carto_dark';
+  const gmapKey = config.maps?.googleMapsApiKey?.trim();
+  if (provider === 'google_maps' && gmapKey && gmapKey.startsWith("AIzaSy")) {
     try {
       await loadGoogleMapsSdk(gmapKey);
       initGoogleMap(mapId, userCoords, sortedGyms, (gym) => {
@@ -294,7 +295,7 @@ function loadGoogleMapsSdk(apiKey) {
   return new Promise((resolve, reject) => {
     googleMapsScriptLoaded = true;
     const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&loading=async`;
     script.async = true;
     script.defer = true;
     script.onload = () => resolve();

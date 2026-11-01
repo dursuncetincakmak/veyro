@@ -32,11 +32,11 @@ const DEFAULT_GATEWAYS = {
   },
   // Google Maps & Places API
   maps: {
-    googleMapsApiKey: "AIzaSyDDfUrc7b9z2Ho0cjvgEn7Ag7VWFILHAG4", // Real Google Maps JavaScript API Key
-    placesApiKey: "AIzaSyDDfUrc7b9z2Ho0cjvgEn7Ag7VWFILHAG4", // Google Places API Key
+    googleMapsApiKey: "", // Optional Google Maps JavaScript API Key (Requires Google Cloud billing + Maps JS API)
+    placesApiKey: "", // Optional Google Places API Key
     defaultCenter: { lat: 41.1603, lng: 27.7989, city: "Çorlu, Tekirdağ" },
     mapStyle: "luxury_dark",
-    provider: "google_maps", // 'carto_dark' | 'google_maps'
+    provider: "carto_dark", // 'carto_dark' (Leaflet OLED - 100% Free & No API Key Needed) | 'google_maps'
     enabled: true,
     lastTested: Date.now()
   },

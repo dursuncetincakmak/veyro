@@ -9,10 +9,15 @@
 import { getGatewayConfig } from './gatewayConfig.js';
 import { calculateDistanceMeters, locationService } from './location.js';
 import { TURKEY_GYMS_CATALOG } from './seedAthletes200.js';
+import { isLocalSyncServerAvailable } from './db.js';
 
 let googleMapsSdkPromise = null;
+let isGooglePlacesForbidden = false;
+
 export function ensureGoogleMapsSdkLoaded(apiKey) {
   if (typeof window === "undefined" || !apiKey) return Promise.resolve(false);
+  const cfg = getGatewayConfig();
+  if (cfg.maps?.provider !== 'google_maps') return Promise.resolve(false);
   if (window.google?.maps?.places) return Promise.resolve(true);
   if (googleMapsSdkPromise) return googleMapsSdkPromise;
 
@@ -29,7 +34,7 @@ export function ensureGoogleMapsSdkLoaded(apiKey) {
     }
     const script = document.createElement("script");
     script.id = "google-maps-sdk-script";
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&loading=async`;
     script.async = true;
     script.defer = true;
     script.onload = () => resolve(true);
@@ -80,51 +85,55 @@ class GymPlacesService {
    * Call Google Places API (New) via local proxy or direct REST
    */
   async fetchFromGooglePlacesNew(query, lat, lng, radius = 10000) {
+    if (isGooglePlacesForbidden) return null;
     const config = getGatewayConfig();
+    if (config.maps?.provider !== 'google_maps') return null;
     const apiKey = config.maps?.googleMapsApiKey?.trim() || 
       (typeof import.meta !== "undefined" && import.meta.env?.VITE_GOOGLE_MAPS_API_KEY?.trim()) || "";
     if (!apiKey) return null;
 
-    // 1. Try local Vite proxy endpoint first to bypass browser CORS
-    try {
-      const proxyRes = await fetch('/api/google-places', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          apiKey,
-          textQuery: query,
-          lat,
-          lng,
-          radius
-        })
-      });
+    // 1. Try local Vite proxy endpoint first to bypass browser CORS (only in local dev server)
+    if (isLocalSyncServerAvailable()) {
+      try {
+        const proxyRes = await fetch('/api/google-places', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            apiKey,
+            textQuery: query,
+            lat,
+            lng,
+            radius
+          })
+        });
 
-      if (proxyRes.ok) {
-        const data = await proxyRes.json();
-        if (data.places && Array.isArray(data.places) && data.places.length > 0) {
-          return data.places.map((p, idx) => {
-            const name = p.displayName?.text || `Spor Salonu ${idx + 1}`;
-            const addr = p.formattedAddress || "";
-            const addrParts = addr.split(",");
-            const district = addrParts.length > 1 ? addrParts[addrParts.length - 2]?.trim() : "Çorlu";
-            const city = addrParts.length > 0 ? addrParts[addrParts.length - 1]?.trim() : "Tekirdağ";
-            return {
-              id: `gplace_v1_${p.id || idx}`,
-              placeId: p.id,
-              name,
-              district,
-              city,
-              lat: p.location?.latitude || lat,
-              lng: p.location?.longitude || lng,
-              address: addr,
-              rating: p.rating || 4.8,
-              source: "google_places_new"
-            };
-          });
+        if (proxyRes.ok) {
+          const data = await proxyRes.json();
+          if (data.places && Array.isArray(data.places) && data.places.length > 0) {
+            return data.places.map((p, idx) => {
+              const name = p.displayName?.text || `Spor Salonu ${idx + 1}`;
+              const addr = p.formattedAddress || "";
+              const addrParts = addr.split(",");
+              const district = addrParts.length > 1 ? addrParts[addrParts.length - 2]?.trim() : "Çorlu";
+              const city = addrParts.length > 0 ? addrParts[addrParts.length - 1]?.trim() : "Tekirdağ";
+              return {
+                id: `gplace_v1_${p.id || idx}`,
+                placeId: p.id,
+                name,
+                district,
+                city,
+                lat: p.location?.latitude || lat,
+                lng: p.location?.longitude || lng,
+                address: addr,
+                rating: p.rating || 4.8,
+                source: "google_places_new"
+              };
+            });
+          }
         }
+      } catch (e) {
+        // Proxy unavailable, continue to direct
       }
-    } catch (e) {
-      // Proxy unavailable, continue to direct
     }
 
     // 2. Direct REST call to Google Places API (New)
@@ -147,29 +156,35 @@ class GymPlacesService {
         })
       });
 
-      if (directRes.ok) {
-        const data = await directRes.json();
-        if (data.places && Array.isArray(data.places) && data.places.length > 0) {
-          return data.places.map((p, idx) => {
-            const name = p.displayName?.text || `Spor Salonu ${idx + 1}`;
-            const addr = p.formattedAddress || "";
-            const addrParts = addr.split(",");
-            const district = addrParts.length > 1 ? addrParts[addrParts.length - 2]?.trim() : "Çorlu";
-            const city = addrParts.length > 0 ? addrParts[addrParts.length - 1]?.trim() : "Tekirdağ";
-            return {
-              id: `gplace_v1_${p.id || idx}`,
-              placeId: p.id,
-              name,
-              district,
-              city,
-              lat: p.location?.latitude || lat,
-              lng: p.location?.longitude || lng,
-              address: addr,
-              rating: p.rating || 4.8,
-              source: "google_places_new"
-            };
-          });
+      if (!directRes.ok) {
+        if (directRes.status === 403 || directRes.status === 401 || directRes.status === 405) {
+          isGooglePlacesForbidden = true;
+          console.warn("[GymPlacesService] Google Places API is not active on this key or requires billing. Falling back smoothly to Leaflet & OSM.");
         }
+        return null;
+      }
+
+      const data = await directRes.json();
+      if (data.places && Array.isArray(data.places) && data.places.length > 0) {
+        return data.places.map((p, idx) => {
+          const name = p.displayName?.text || `Spor Salonu ${idx + 1}`;
+          const addr = p.formattedAddress || "";
+          const addrParts = addr.split(",");
+          const district = addrParts.length > 1 ? addrParts[addrParts.length - 2]?.trim() : "Çorlu";
+          const city = addrParts.length > 0 ? addrParts[addrParts.length - 1]?.trim() : "Tekirdağ";
+          return {
+            id: `gplace_v1_${p.id || idx}`,
+            placeId: p.id,
+            name,
+            district,
+            city,
+            lat: p.location?.latitude || lat,
+            lng: p.location?.longitude || lng,
+            address: addr,
+            rating: p.rating || 4.8,
+            source: "google_places_new"
+          };
+        });
       }
     } catch (e) {
       // Direct call failed or blocked by CORS
@@ -195,8 +210,8 @@ class GymPlacesService {
     const googleApiKey = config.maps?.googleMapsApiKey?.trim() || 
       (typeof import.meta !== "undefined" && import.meta.env?.VITE_GOOGLE_MAPS_API_KEY?.trim()) || "";
 
-    // 1. Google Places API (New) REST query
-    if (googleApiKey) {
+    // 1. Google Places API (New) REST query (only when explicitly set to google_maps)
+    if (config.maps?.provider === 'google_maps' && googleApiKey && !isGooglePlacesForbidden) {
       try {
         const newPlaces = await this.fetchFromGooglePlacesNew("spor salonu fitness gym", lat, lng, radiusMeters);
         if (newPlaces && newPlaces.length > 0) {
@@ -334,8 +349,8 @@ class GymPlacesService {
     const googleApiKey = config.maps?.googleMapsApiKey?.trim() || 
       (typeof import.meta !== "undefined" && import.meta.env?.VITE_GOOGLE_MAPS_API_KEY?.trim()) || "";
 
-    // 1. Google Places API (New) search
-    if (googleApiKey) {
+    // 1. Google Places API (New) search (only when explicitly set to google_maps)
+    if (config.maps?.provider === 'google_maps' && googleApiKey && !isGooglePlacesForbidden) {
       try {
         const newPlaces = await this.fetchFromGooglePlacesNew(cleanQuery, lat, lng, 15000);
         if (newPlaces && newPlaces.length > 0) {
@@ -533,7 +548,7 @@ class GymPlacesService {
             }));
             resolve(gyms);
           } else {
-            reject(new Error("Google Places status: " + status));
+            resolve([]);
           }
         }
       );

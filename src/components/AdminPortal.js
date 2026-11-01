@@ -546,25 +546,28 @@ export function renderAdminPortal(container, onClose, options = {}) {
             <div>
               <label class="form-label" style="font-size: 12px;">Aktif Harita Motoru</label>
               <select id="maps-provider-select" class="text-input-field" style="background: #12141C; color: #FFFFFF;">
-                <option value="carto_dark" ${data.gateways.maps.provider !== 'google_maps' ? 'selected' : ''}>Leaflet OLED Dark Matter (Hızlı & Doğrudan Çalışır)</option>
+                <option value="carto_dark" ${data.gateways.maps.provider !== 'google_maps' ? 'selected' : ''}>Leaflet OLED Dark Matter (Hızlı & Doğrudan Çalışır - Ücretsiz & Önerilen)</option>
                 <option value="google_maps" ${data.gateways.maps.provider === 'google_maps' ? 'selected' : ''}>Google Maps JavaScript API (Resmi SDK)</option>
               </select>
+              <p style="font-size: 11px; color: #00E5FF; margin-top: 5px; line-height: 1.4;">
+                ⚡ <strong>Tavsiye Edilen:</strong> <em>Leaflet OLED Dark Matter</em> motoru tamamen ücretsizdir, sıfır hata ile anında çalışır ve Google API anahtarı veya kart tanımlaması gerektirmez. Eğer Google Maps kullanılacaksa, Google Cloud Console'da anahtar için hem <code>Maps JavaScript API</code> hem de <code>Places API</code> etkinleştirilmelidir.
+              </p>
             </div>
 
             <div>
-              <label class="form-label" style="font-size: 12px;">Google Maps JavaScript API Key</label>
+              <label class="form-label" style="font-size: 12px;">Google Maps JavaScript API Key (İsteğe Bağlı)</label>
               <input type="text" id="maps-api-key" class="text-input-field" placeholder="AIzaSy..." value="${data.gateways.maps.googleMapsApiKey || ''}">
               <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Google Cloud Console > Credentials > Maps JavaScript API anahtarınız.</p>
             </div>
 
             <div>
-              <label class="form-label" style="font-size: 12px;">Google Places API Key (Salon Arama & Geocoding)</label>
+              <label class="form-label" style="font-size: 12px;">Google Places API Key (İsteğe Bağlı)</label>
               <input type="text" id="places-api-key" class="text-input-field" placeholder="AIzaSy..." value="${data.gateways.maps.placesApiKey || ''}">
             </div>
 
             <div>
               <label class="form-label" style="font-size: 12px;">Varsayılan Merkez Şehir / GPS Koordinatları</label>
-              <input type="text" id="maps-default-center" class="text-input-field" value="${data.gateways.maps.defaultCenter?.city || 'İstanbul'} (${data.gateways.maps.defaultCenter?.lat || 40.9902}, ${data.gateways.maps.defaultCenter?.lng || 29.0298})">
+              <input type="text" id="maps-default-center" class="text-input-field" value="${data.gateways.maps.defaultCenter?.city || 'Çorlu, Tekirdağ'} (${data.gateways.maps.defaultCenter?.lat || 41.1603}, ${data.gateways.maps.defaultCenter?.lng || 27.7989})">
             </div>
 
             <div style="display: flex; gap: 10px; margin-top: 6px;">
