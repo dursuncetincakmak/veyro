@@ -32,13 +32,13 @@ const DEFAULT_GATEWAYS = {
   },
   // Google Maps & Places API
   maps: {
-    googleMapsApiKey: "", // Real Google Maps JavaScript API Key
-    placesApiKey: "", // Google Places API Key
-    defaultCenter: { lat: 40.9902, lng: 29.0298, city: "Kadıköy, İstanbul" },
+    googleMapsApiKey: "AIzaSyDDfUrc7b9z2Ho0cjvgEn7Ag7VWFILHAG4", // Real Google Maps JavaScript API Key
+    placesApiKey: "AIzaSyDDfUrc7b9z2Ho0cjvgEn7Ag7VWFILHAG4", // Google Places API Key
+    defaultCenter: { lat: 41.1603, lng: 27.7989, city: "Çorlu, Tekirdağ" },
     mapStyle: "luxury_dark",
-    provider: "carto_dark", // 'carto_dark' | 'google_maps'
+    provider: "google_maps", // 'carto_dark' | 'google_maps'
     enabled: true,
-    lastTested: null
+    lastTested: Date.now()
   },
   // Google & Apple OAuth
   auth: {

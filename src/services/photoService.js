@@ -1,3 +1,4 @@
+
 /**
  * Veyro - Profile Photo Management Service
  * Supports up to 8 photos per profile, canvas downscaling to ~60KB per image,
@@ -70,7 +71,7 @@ export const photoService = {
       reader.readAsDataURL(file);
     });
   },
-  
+
   /**
    * Alias for compressPhoto to ensure universal compatibility
    */

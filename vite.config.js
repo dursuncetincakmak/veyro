@@ -186,6 +186,47 @@ function veyroSyncPlugin() {
           });
           return;
         }
+      } else if (req.url.startsWith('/api/google-places')) {
+        let body = '';
+        req.on('data', chunk => { body += chunk; });
+        req.on('end', async () => {
+          try {
+            const payload = JSON.parse(body || '{}');
+            const apiKey = payload.apiKey || process.env.VITE_GOOGLE_MAPS_API_KEY || 'AIzaSyDDfUrc7b9z2Ho0cjvgEn7Ag7VWFILHAG4';
+            const textQuery = payload.textQuery || 'spor salonu fitness';
+            const lat = Number(payload.lat) || 41.1603;
+            const lng = Number(payload.lng) || 27.7989;
+            const radius = Number(payload.radius) || 10000;
+
+            const gRes = await fetch('https://places.googleapis.com/v1/places:searchText', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-Goog-Api-Key': apiKey,
+                'X-Goog-FieldMask': 'places.id,places.displayName,places.formattedAddress,places.location,places.rating'
+              },
+              body: JSON.stringify({
+                textQuery,
+                locationBias: {
+                  circle: {
+                    center: { latitude: lat, longitude: lng },
+                    radius: radius
+                  }
+                }
+              })
+            });
+
+            const data = await gRes.json();
+            res.statusCode = gRes.status;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(data));
+          } catch (e) {
+            res.statusCode = 500;
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify({ error: e.message }));
+          }
+        });
+        return;
       }
       next();
     };
