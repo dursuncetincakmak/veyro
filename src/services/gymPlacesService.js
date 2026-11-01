@@ -8,6 +8,38 @@
 import { getGatewayConfig } from './gatewayConfig.js';
 import { calculateDistanceMeters, locationService } from './location.js';
 
+let googleMapsSdkPromise = null;
+export function ensureGoogleMapsSdkLoaded(apiKey) {
+  if (typeof window === "undefined" || !apiKey) return Promise.resolve(false);
+  if (window.google?.maps?.places) return Promise.resolve(true);
+  if (googleMapsSdkPromise) return googleMapsSdkPromise;
+
+  googleMapsSdkPromise = new Promise((resolve) => {
+    const existing = document.getElementById("google-maps-sdk-script");
+    if (existing) {
+      if (window.google?.maps?.places) {
+        resolve(true);
+      } else {
+        existing.addEventListener("load", () => resolve(true));
+        existing.addEventListener("error", () => resolve(false));
+      }
+      return;
+    }
+    const script = document.createElement("script");
+    script.id = "google-maps-sdk-script";
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
+    script.async = true;
+    script.defer = true;
+    script.onload = () => resolve(true);
+    script.onerror = (err) => {
+      console.warn("Failed to load Google Maps SDK script:", err);
+      resolve(false);
+    };
+    document.head.appendChild(script);
+  });
+  return googleMapsSdkPromise;
+}
+
 class GymPlacesService {
   constructor() {
     this.cache = new Map();
@@ -56,19 +88,23 @@ class GymPlacesService {
     }
 
     const config = getGatewayConfig();
-    const googleApiKey = config.maps?.googleMapsApiKey?.trim();
+    const googleApiKey = config.maps?.googleMapsApiKey?.trim() || 
+      (typeof import.meta !== "undefined" && import.meta.env?.VITE_GOOGLE_MAPS_API_KEY?.trim()) || "";
 
-    // 1. If Google Places API is active with a real key
-    if (googleApiKey && window.google?.maps?.places) {
-      try {
-        const googleGyms = await this.fetchFromGooglePlaces(lat, lng, radiusMeters);
-        if (googleGyms && googleGyms.length > 0) {
-          const sorted = this.formatAndSort(googleGyms, lat, lng);
-          this.cache.set(cacheKey, sorted);
-          return sorted;
+    // 1. If Google Places API is configured, dynamically load SDK and query live Places
+    if (googleApiKey) {
+      await ensureGoogleMapsSdkLoaded(googleApiKey);
+      if (window.google?.maps?.places) {
+        try {
+          const googleGyms = await this.fetchFromGooglePlaces(lat, lng, radiusMeters);
+          if (googleGyms && googleGyms.length > 0) {
+            const sorted = this.formatAndSort(googleGyms, lat, lng);
+            this.cache.set(cacheKey, sorted);
+            return sorted;
+          }
+        } catch (e) {
+          console.warn("Google Places fetch error, falling back to Live Maps Search:", e);
         }
-      } catch (e) {
-        console.warn("Google Places fetch error, falling back to Live Maps Search:", e);
       }
     }
 
@@ -150,22 +186,27 @@ class GymPlacesService {
       return this.fetchNearbyGymsFromMaps(userCoords);
     }
 
-    const lat = userCoords?.latitude || 40.9875;
-    const lng = userCoords?.longitude || 29.0280;
+    const activeLoc = locationService.getActiveLocation() || { lat: 41.1603, lng: 27.7989 };
+    const lat = userCoords?.latitude || activeLoc.lat;
+    const lng = userCoords?.longitude || activeLoc.lng;
     const cleanQuery = query.trim();
 
     const config = getGatewayConfig();
-    const googleApiKey = config.maps?.googleMapsApiKey?.trim();
+    const googleApiKey = config.maps?.googleMapsApiKey?.trim() || 
+      (typeof import.meta !== "undefined" && import.meta.env?.VITE_GOOGLE_MAPS_API_KEY?.trim()) || "";
 
     // 1. Google Places search if active
-    if (googleApiKey && window.google?.maps?.places) {
-      try {
-        const googleResults = await this.searchGooglePlaces(cleanQuery, lat, lng);
-        if (googleResults && googleResults.length > 0) {
-          return this.formatAndSort(googleResults, lat, lng);
+    if (googleApiKey) {
+      await ensureGoogleMapsSdkLoaded(googleApiKey);
+      if (window.google?.maps?.places) {
+        try {
+          const googleResults = await this.searchGooglePlaces(cleanQuery, lat, lng);
+          if (googleResults && googleResults.length > 0) {
+            return this.formatAndSort(googleResults, lat, lng);
+          }
+        } catch (e) {
+          console.warn("Google Places textSearch error:", e);
         }
-      } catch (e) {
-        console.warn("Google Places textSearch error:", e);
       }
     }
 
