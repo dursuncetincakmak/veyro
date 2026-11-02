@@ -57,16 +57,23 @@ export function showChatInboxModal(onOpenChatPartner) {
               </p>
             </div>
           ` : convos.map(item => {
-            const partner = allUsers.find(u => u.id === item.partnerId) || { id: item.partnerId, name: item.lastMessage?.senderName || "Sporcu", initials: "SP" };
-            const gym = allGyms.find(g => g.id === partner.gymId);
-            const timeStr = item.lastMessage?.timestamp ? new Date(item.lastMessage.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
             const isMe = item.lastMessage?.senderId === currentUser.id;
+            const fallbackName = isMe ? (item.lastMessage?.receiverName || "Sporcu") : (item.lastMessage?.senderName || "Sporcu");
+            const fallbackInitials = fallbackName.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase() || "SP";
+            const partner = allUsers.find(u => u.id === item.partnerId) || {
+              id: item.partnerId,
+              name: fallbackName,
+              initials: fallbackInitials,
+              avatar: item.lastMessage?.partnerAvatar || ""
+            };
+            const partnerAvatar = (partner.photos && partner.photos[0]) || partner.avatar || item.lastMessage?.partnerAvatar || "";
+            const timeStr = item.lastMessage?.timestamp ? new Date(item.lastMessage.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
 
             return `
               <div class="chat-thread-item" data-partner-id="${item.partnerId}" style="display: flex; align-items: center; justify-content: space-between; background: var(--bg-surface-elevated); border: 1px solid ${item.unreadCount > 0 ? 'rgba(255, 87, 34, 0.4)' : 'var(--border-glass)'}; border-radius: var(--radius-md); padding: 12px 14px; cursor: pointer; transition: all 0.2s ease;">
                 <div style="display: flex; align-items: center; gap: 12px; min-width: 0; flex: 1;">
-                  <div class="member-avatar accent-kor" style="width: 44px; height: 44px; font-size: 15px; flex-shrink: 0; position: relative;">
-                    ${partner.initials || "SP"}
+                  <div class="member-avatar accent-kor" style="width: 44px; height: 44px; font-size: 15px; flex-shrink: 0; position: relative; overflow: hidden; padding: 0;">
+                    ${partnerAvatar ? `<img src="${partnerAvatar}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" alt="${partner.name}">` : (partner.initials || "SP")}
                     ${item.unreadCount > 0 ? '<span class="avatar-online-dot" style="background: var(--color-kor);"></span>' : ''}
                   </div>
                   <div style="min-width: 0; flex: 1;">
@@ -79,7 +86,7 @@ export function showChatInboxModal(onOpenChatPartner) {
                     <div style="display: flex; align-items: center; justify-content: space-between;">
                       <p style="font-size: 12.5px; color: ${item.unreadCount > 0 ? 'var(--text-main)' : 'var(--text-secondary)'}; font-weight: ${item.unreadCount > 0 ? '700' : '400'}; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 4px;">
                         ${isMe ? (item.lastMessage?.read ? `<span style="color: #00E5FF; display: inline-flex; align-items: center;" title="Okundu">${icons.checkCheck(13)}</span>` : `<span style="color: rgba(255,255,255,0.45); display: inline-flex; align-items: center;" title="İletildi">${icons.check(12)}</span>`) : ''}
-                        <span style="overflow: hidden; text-overflow: ellipsis;">${item.lastMessage?.text || (item.lastMessage?.image ? 'Fotoğraf' : '')}</span>
+                        <span style="overflow: hidden; text-overflow: ellipsis;">${item.lastMessage?.text || (item.lastMessage?.audio ? '🎙️ Sesli Mesaj' : (item.lastMessage?.image ? '📷 Fotoğraf' : ''))}</span>
                       </p>
                       ${item.unreadCount > 0 ? `
                         <span style="background: var(--color-kor); color: #FFF; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 10px; margin-left: 8px; flex-shrink: 0;">

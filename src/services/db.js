@@ -1428,6 +1428,15 @@ class DatabaseEngine {
   // ==========================================
   // ATHLETE STORIES (24H WORKOUT SHARING)
   // ==========================================
+  isStoryViewedByUser(story, userId) {
+    if (!story) return false;
+    if (story.viewed === true) return true;
+    if (userId && Array.isArray(story.viewedBy) && story.viewedBy.some(v => v.userId === userId)) {
+      return true;
+    }
+    return false;
+  }
+
   getStories(filterGymId, maxDistKm) {
     let list = this.getCollection("stories") || [];
     if (filterGymId && filterGymId !== "all") {
@@ -1439,7 +1448,7 @@ class DatabaseEngine {
     }
     // Sort unviewed first, then by most recent timestamp
     return list.slice().sort((a, b) => {
-      if (a.viewed === b.viewed) {
+      if (!!a.viewed === !!b.viewed) {
         return (b.timestamp || 0) - (a.timestamp || 0);
       }
       return a.viewed ? 1 : -1;
@@ -1454,6 +1463,10 @@ class DatabaseEngine {
         timestamp: Date.now(),
         likesCount: 0,
         viewed: false,
+        viewedBy: [],
+        interactions: [],
+        emojis: storyData.emojis || [],
+        musicTrack: storyData.musicTrack || null,
         ...storyData
       };
       stories.unshift(newStory);
@@ -1465,6 +1478,12 @@ class DatabaseEngine {
           this.broadcastChannel.postMessage({ type: "new_story", story: newStory });
         } catch (e) {}
       }
+
+      // Simulate realistic live gym athlete views & an incoming story reply to inbox
+      setTimeout(() => {
+        this.simulateStoryViewersAndReplies(newStory.id);
+      }, 2200);
+
       return newStory;
     } catch (e) {
       console.error("addStory error", e);
@@ -1472,16 +1491,157 @@ class DatabaseEngine {
     }
   }
 
-  markStoryViewed(storyId) {
+  simulateStoryViewersAndReplies(storyId) {
     try {
       const stories = this.getCollection("stories") || [];
       const story = stories.find(s => s.id === storyId);
-      if (story && !story.viewed) {
-        story.viewed = true;
+      if (!story) return;
+
+      const allUsers = this.getCollection("users") || [];
+      const candidates = allUsers.filter(u => u.id && u.id !== story.userId);
+      if (candidates.length === 0) return;
+
+      // Prefer athletes in the same city or gym
+      const localCandidates = candidates.filter(u =>
+        (story.city && u.city && u.city.toLowerCase() === story.city.toLowerCase()) ||
+        (story.gymName && u.gymName && u.gymName === story.gymName)
+      );
+      const pool = localCandidates.length >= 3 ? localCandidates : candidates;
+      const sampleViewers = pool.slice(0, 5);
+
+      if (!Array.isArray(story.viewedBy)) story.viewedBy = [];
+      const reactionsSample = ["🔥", "💪", "⚡", "👏", "🎯"];
+
+      sampleViewers.forEach((ath, idx) => {
+        if (!story.viewedBy.some(v => v.userId === ath.id)) {
+          story.viewedBy.push({
+            userId: ath.id,
+            userName: ath.name,
+            userInitials: ath.initials || ath.name.substring(0, 2).toUpperCase(),
+            userAvatar: (ath.photos && ath.photos[0]) || ath.avatar || "",
+            gymName: ath.gymName || "Spor Salonu",
+            reaction: reactionsSample[idx % reactionsSample.length],
+            viewedAt: Date.now() - idx * 30000
+          });
+        }
+      });
+
+      story.likesCount = story.viewedBy.length;
+      this.setCollection("stories", stories);
+      this.notifySubscribers("stories", stories);
+
+      // Have the first nearby athlete also send a direct story reply to the user's Message Inbox
+      const replier = sampleViewers[0];
+      if (replier && story.userId) {
+        const chatKey = getChatRoomKey(story.userId, replier.id);
+        const replyText = `📸 Hikayene yanıt verdi (${story.tag || 'Antrenman'}): "🔥 Süper form! Bugün hangi saatte salondasın, beraber set girelim mi? 💪"`;
+
+        if (!Array.isArray(story.interactions)) story.interactions = [];
+        story.interactions.push({
+          userId: replier.id,
+          userName: replier.name,
+          userAvatar: (replier.photos && replier.photos[0]) || replier.avatar || "",
+          text: "🔥 Süper form! Bugün hangi saatte salondasın, beraber set girelim mi? 💪",
+          emoji: "🔥",
+          timestamp: Date.now()
+        });
         this.setCollection("stories", stories);
-        this.notifySubscribers("stories", stories);
+
+        this.addChatMessage(chatKey, {
+          senderId: replier.id,
+          senderName: replier.name,
+          receiverId: story.userId,
+          receiverName: story.userName || "Sporcu",
+          text: replyText,
+          isStoryReply: true,
+          storyId: story.id,
+          storyImage: story.image,
+          storyTag: story.tag || ""
+        });
       }
     } catch (e) {}
+  }
+
+  markStoryViewed(storyId, viewerUser = null) {
+    try {
+      const stories = this.getCollection("stories") || [];
+      const story = stories.find(s => s.id === storyId);
+      if (story) {
+        let changed = false;
+        if (!story.viewed) {
+          story.viewed = true;
+          changed = true;
+        }
+        if (viewerUser && viewerUser.id && viewerUser.id !== story.userId) {
+          if (!Array.isArray(story.viewedBy)) story.viewedBy = [];
+          if (!story.viewedBy.some(v => v.userId === viewerUser.id)) {
+            story.viewedBy.unshift({
+              userId: viewerUser.id,
+              userName: viewerUser.name || "Sporcu",
+              userInitials: viewerUser.initials || "SP",
+              userAvatar: (viewerUser.photos && viewerUser.photos[0]) || viewerUser.avatar || "",
+              gymName: viewerUser.gymName || "Spor Salonu",
+              viewedAt: Date.now()
+            });
+            story.likesCount = Math.max((story.likesCount || 0) + 1, story.viewedBy.length);
+            changed = true;
+          }
+        }
+        if (changed) {
+          this.setCollection("stories", stories);
+          this.notifySubscribers("stories", stories);
+        }
+      }
+    } catch (e) {}
+  }
+
+  recordStoryInteraction(storyId, { userId, userName, userAvatar, userInitials, emoji, replyText }) {
+    try {
+      const stories = this.getCollection("stories") || [];
+      const story = stories.find(s => s.id === storyId);
+      if (!story) return;
+
+      if (!Array.isArray(story.viewedBy)) story.viewedBy = [];
+      let viewerEntry = story.viewedBy.find(v => v.userId === userId);
+      if (!viewerEntry) {
+        viewerEntry = {
+          userId,
+          userName: userName || "Sporcu",
+          userInitials: userInitials || "SP",
+          userAvatar: userAvatar || "",
+          viewedAt: Date.now()
+        };
+        story.viewedBy.unshift(viewerEntry);
+      }
+      if (emoji) viewerEntry.reaction = emoji;
+      if (replyText) viewerEntry.replyText = replyText;
+
+      if (!Array.isArray(story.interactions)) story.interactions = [];
+      story.interactions.unshift({
+        userId,
+        userName: userName || "Sporcu",
+        userAvatar: userAvatar || "",
+        emoji: emoji || "",
+        text: replyText || "",
+        timestamp: Date.now()
+      });
+
+      story.likesCount = Math.max(story.likesCount || 0, story.viewedBy.length);
+      this.setCollection("stories", stories);
+      this.notifySubscribers("stories", stories);
+    } catch (e) {}
+  }
+
+  deleteStory(storyId) {
+    try {
+      const stories = this.getCollection("stories") || [];
+      const filtered = stories.filter(s => s.id !== storyId);
+      this.setCollection("stories", filtered);
+      this.notifySubscribers("stories", filtered);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   // ==========================================

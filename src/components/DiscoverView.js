@@ -73,6 +73,14 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
     render();
   });
 
+  // Subscribe to story updates (new stories, views, reactions)
+  db.subscribe("stories", () => {
+    const viewerOpen = document.getElementById("story-viewer-overlay")?.classList.contains("open");
+    if (!viewerOpen) {
+      render();
+    }
+  });
+
   function getActiveFilterCount() {
     let count = 0;
     if (filters.city && filters.city !== "all") count++;
@@ -325,47 +333,110 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
       return false;
     });
 
-    // 3. Deduplicate stories by both user and avatar so two stories never share the same photo
-    const uniqueStoriesMap = new Map();
-    const seenAvatars = new Set();
+    // 3. Separate current user's own stories (can have multiple) and group community stories by user
     const storiesPool = localizedStories.length > 0 ? localizedStories : storiesWithDistance;
+    const myStories = storiesPool
+      .filter(s => s.userId === currentUser.id || s.userId === "current-user")
+      .sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+
+    const userGroupsMap = new Map();
+    const seenAvatars = new Set();
+
     storiesPool.forEach(story => {
+      if (story.userId === currentUser.id || story.userId === "current-user") return;
       const key = story.userId || story.userName;
       const avatarKey = story.userAvatar || "";
-      if (!uniqueStoriesMap.has(key) && (!avatarKey || !seenAvatars.has(avatarKey))) {
-        uniqueStoriesMap.set(key, story);
+
+      if (!userGroupsMap.has(key)) {
+        if (avatarKey && seenAvatars.has(avatarKey)) return;
         if (avatarKey) seenAvatars.add(avatarKey);
+        userGroupsMap.set(key, {
+          userId: key,
+          userName: story.userName,
+          userInitials: story.userInitials,
+          userAvatar: story.userAvatar,
+          tag: story.tag,
+          stories: []
+        });
       }
+      userGroupsMap.get(key).stories.push(story);
     });
 
-    const displayStories = Array.from(uniqueStoriesMap.values()).slice(0, 10);
+    const groupedCommunity = Array.from(userGroupsMap.values()).map(group => {
+      group.stories.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+      const allViewed = group.stories.every(s => db.isStoryViewedByUser(s, currentUser.id));
+      const firstTarget = group.stories.find(s => !db.isStoryViewedByUser(s, currentUser.id)) || group.stories[0];
+      const latestTs = Math.max(...group.stories.map(s => s.timestamp || 0));
+      return {
+        ...group,
+        allViewed,
+        targetStoryId: firstTarget.id,
+        count: group.stories.length,
+        latestTs
+      };
+    });
+
+    // Sort: Unviewed stories first, viewed stories pushed to the VERY BACK (bakılanlar tarafına)
+    groupedCommunity.sort((a, b) => {
+      if (a.allViewed !== b.allViewed) {
+        return a.allViewed ? 1 : -1;
+      }
+      return b.latestTs - a.latestTs;
+    });
+
+    const displayGroups = groupedCommunity.slice(0, 12);
+    const myTotalViews = myStories.reduce((sum, s) => sum + Math.max(s.likesCount || 0, Array.isArray(s.viewedBy) ? s.viewedBy.length : 0), 0);
 
     return `
       <div class="stories-tray-container" style="margin-bottom: 8px; overflow-x: auto; scrollbar-width: none;">
         <div style="display: flex; gap: 14px; align-items: flex-start; padding: 2px 2px 2px 2px;">
-          <!-- User Add Story Circle -->
-          <div id="btn-add-story-trigger" class="story-circle-item" style="display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; flex-shrink: 0;" title="Hikaye Paylaş">
+          <!-- User Add Story Circle (Always available to post multiple stories) -->
+          <div id="btn-add-story-trigger" class="story-circle-item" style="display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; flex-shrink: 0;" title="Yeni Hikaye Paylaş">
             <div style="position: relative; width: 52px; height: 52px;">
-              <div class="member-avatar accent-kor" style="width: 52px; height: 52px; font-size: 15px; border: 1.5px dashed rgba(255, 255, 255, 0.35); background: rgba(255, 255, 255, 0.04);">
-                ${currentUser.initials || "SP"}
+              <div class="member-avatar accent-kor" style="width: 52px; height: 52px; font-size: 15px; border: 1.5px dashed rgba(255, 255, 255, 0.35); background: rgba(255, 255, 255, 0.04); overflow: hidden; padding: 0;">
+                ${currentUser.photos?.[0] ? `<img src="${currentUser.photos[0]}" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.75;">` : (currentUser.initials || "SP")}
               </div>
               <div style="position: absolute; bottom: -1px; right: -1px; width: 18px; height: 18px; border-radius: 50%; background: var(--color-kor); color: #FFF; display: flex; align-items: center; justify-content: center; border: 2px solid #0B0C0E;">
                 ${icons.plus(10)}
               </div>
             </div>
-            <span style="font-size: 11px; font-weight: 600; color: var(--text-secondary);">Hikayen</span>
+            <span style="font-size: 11px; font-weight: 600; color: var(--text-secondary);">${myStories.length > 0 ? 'Yeni Ekle' : 'Hikayen'}</span>
           </div>
 
-          <!-- Community Athlete Stories (Nearby / In Same Location) -->
-          ${displayStories.map(story => `
-            <div class="story-circle-item" data-story-id="${story.id}" style="display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; flex-shrink: 0;" title="${story.userName} - ${story.tag || 'Hikaye'}">
-              <div class="story-avatar-ring ${story.viewed ? 'viewed' : 'unviewed'}" style="position: relative; width: 52px; height: 52px; border-radius: 50%; padding: 2px; background: ${story.viewed ? 'rgba(255,255,255,0.16)' : 'linear-gradient(135deg, #FF5722 0%, #FF8A65 100%)'}; transition: all 0.2s ease;">
+          <!-- User's Own Active Stories Circle (If user posted 1 or more stories) -->
+          ${myStories.length > 0 ? `
+            <div class="story-circle-item" data-story-id="${myStories[0].id}" style="display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; flex-shrink: 0;" title="Kendi Hikayelerin (${myStories.length} adet · ${myTotalViews} görüntülenme)">
+              <div class="story-avatar-ring unviewed" style="position: relative; width: 52px; height: 52px; border-radius: 50%; padding: 2px; background: linear-gradient(135deg, #FF5722 0%, #10B981 100%);">
                 <div style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: #14151B; border: 2px solid #0B0C0E;">
-                  ${story.userAvatar ? `<img src="${story.userAvatar}" style="width: 100%; height: 100%; object-fit: cover;">` : `<div class="member-avatar accent-kor" style="width: 100%; height: 100%; font-size: 14px;">${story.userInitials || "SP"}</div>`}
+                  <img src="${myStories[myStories.length - 1].image}" style="width: 100%; height: 100%; object-fit: cover;" alt="Hikayen">
                 </div>
+                ${myStories.length > 1 ? `
+                  <span style="position: absolute; top: -3px; right: -3px; min-width: 18px; height: 18px; padding: 0 4px; border-radius: 999px; background: var(--color-kor); color: #FFF; font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center; border: 2px solid #0B0C0E;">
+                    ${myStories.length}
+                  </span>
+                ` : ''}
               </div>
-              <span style="font-size: 11px; font-weight: ${story.viewed ? '500' : '600'}; color: ${story.viewed ? 'var(--text-muted)' : '#E5E7EB'}; max-width: 56px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                ${story.userName.split(' ')[0]}
+              <span style="font-size: 11px; font-weight: 700; color: #FFFFFF; max-width: 60px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                Hikayen ${myTotalViews > 0 ? `(${myTotalViews})` : ''}
+              </span>
+            </div>
+          ` : ''}
+
+          <!-- Community Athlete Stories (Unviewed first, Viewed at the very back) -->
+          ${displayGroups.map(group => `
+            <div class="story-circle-item" data-story-id="${group.targetStoryId}" style="display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; flex-shrink: 0; opacity: ${group.allViewed ? '0.62' : '1'};" title="${group.userName} - ${group.tag || 'Hikaye'}">
+              <div class="story-avatar-ring ${group.allViewed ? 'viewed' : 'unviewed'}" style="position: relative; width: 52px; height: 52px; border-radius: 50%; padding: 2px; background: ${group.allViewed ? 'rgba(255,255,255,0.18)' : 'linear-gradient(135deg, #FF5722 0%, #FF8A65 100%)'}; transition: all 0.2s ease;">
+                <div style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: #14151B; border: 2px solid #0B0C0E;">
+                  ${group.userAvatar ? `<img src="${group.userAvatar}" style="width: 100%; height: 100%; object-fit: cover;">` : `<div class="member-avatar accent-kor" style="width: 100%; height: 100%; font-size: 14px;">${group.userInitials || "SP"}</div>`}
+                </div>
+                ${group.count > 1 ? `
+                  <span style="position: absolute; top: -3px; right: -3px; min-width: 17px; height: 17px; padding: 0 4px; border-radius: 999px; background: ${group.allViewed ? '#4B5563' : 'var(--color-kor)'}; color: #FFF; font-size: 9.5px; font-weight: 800; display: flex; align-items: center; justify-content: center; border: 2px solid #0B0C0E;">
+                    ${group.count}
+                  </span>
+                ` : ''}
+              </div>
+              <span style="font-size: 11px; font-weight: ${group.allViewed ? '500' : '600'}; color: ${group.allViewed ? 'var(--text-muted)' : '#E5E7EB'}; max-width: 56px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                ${group.userName.split(' ')[0]}
               </span>
             </div>
           `).join('')}
@@ -741,7 +812,9 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
     container.querySelectorAll(".story-circle-item[data-story-id]").forEach(item => {
       item.addEventListener("click", () => {
         const sId = item.dataset.storyId;
-        showStoryViewerModal(sId, onOpenChat);
+        showStoryViewerModal(sId, onOpenChat, () => {
+          render();
+        });
       });
     });
 
