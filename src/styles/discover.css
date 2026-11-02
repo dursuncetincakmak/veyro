@@ -1,720 +1,431 @@
-/* Veyro - Keşfet (Discover) Styles - Design System v2.0 (Adaptive Dark Space & Clean Light Ice) */
+/* Veyro - Keşfet (Discover) Styles */
 
 .discover-page {
-  padding: 4px 14px 12px;
+  padding: 6px 12px 6px;
   flex: 1;
   display: flex;
   flex-direction: column;
   min-height: 0;
-  gap: 10px;
+  height: 100%;
 }
 
-/* 4.3. GPS & Yarıçap Paneli */
-.veyro-gps-radius-panel {
+/* Horizontal Filter Bar */
+.filter-pills-scroll {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  background: var(--bg-card);
-  border: var(--border-card);
-  border-radius: 14px;
-  padding: 7px 10px 7px 12px;
-  box-shadow: var(--shadow-sm);
   gap: 8px;
-}
-
-[data-theme="light"] .veyro-gps-radius-panel {
-  background: linear-gradient(90deg, #E2E8F0 0%, #EDF2F7 50%, #E2E8F0 100%);
-  border: 1px solid #CBD5E1;
-}
-
-.gps-location-trigger {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  background: transparent;
-  border: none;
-  color: var(--text-main);
-  font-family: var(--font-heading);
-  font-size: 13.5px;
-  font-weight: 700;
-  cursor: pointer;
-  padding: 2px 0;
-  min-width: 0;
-}
-
-.gps-cyan-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--color-cyan-vivid);
-  box-shadow: 0 0 8px var(--color-cyan-vivid);
-  flex-shrink: 0;
-}
-
-.gps-radius-right {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  flex-shrink: 0;
-}
-
-.gps-radius-label {
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text-muted);
-}
-
-.gps-radius-select-wrap {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-}
-
-.gps-radius-select {
-  appearance: none;
-  -webkit-appearance: none;
-  background: linear-gradient(135deg, #4338CA 0%, #0369A1 100%);
-  color: #FFFFFF;
-  border: 1px solid rgba(103, 232, 249, 0.45);
-  border-radius: 10px;
-  padding: 4px 24px 4px 10px;
-  font-family: var(--font-heading);
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  outline: none;
-  box-shadow: 0 2px 10px rgba(34, 211, 238, 0.2);
-}
-
-[data-theme="light"] .gps-radius-select {
-  background: linear-gradient(135deg, #C7D2FE 0%, #BAE6FD 100%);
-  color: #17213D;
-  border: 1px solid #818CF8;
-  box-shadow: none;
-}
-
-/* 4.4. Story & Canlı Sporcu Şeridi (Horizontal Rail) */
-.stories-tray-container {
-  display: flex;
-  align-items: center;
-  padding: 2px 0 4px;
-  width: 100%;
   overflow-x: auto;
+  padding-bottom: 6px;
+  margin-bottom: 10px;
   scrollbar-width: none;
 }
 
-.stories-tray-container::-webkit-scrollbar {
+.filter-pills-scroll::-webkit-scrollbar {
   display: none;
 }
 
-.story-circle-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
+.filter-pill {
+  background: var(--bg-surface-elevated);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-glass);
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
   cursor: pointer;
-  flex-shrink: 0;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  user-select: none;
-}
-
-.story-circle-item:active {
-  transform: scale(0.93);
-}
-
-.story-my-avatar-ring {
-  position: relative;
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  border: 1.5px dashed #8B5CF6;
-  background: var(--bg-card);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-heading);
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--text-main);
-  box-shadow: 0 0 14px rgba(139, 92, 246, 0.18);
-}
-
-.story-plus-badge {
-  position: absolute;
-  bottom: -1px;
-  right: -1px;
-  width: 19px;
-  height: 19px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #6366F1 0%, #38BDF8 100%);
-  color: #FFFFFF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid var(--bg-app);
-  font-size: 12px;
-  font-weight: 800;
-}
-
-.story-avatar-ring {
-  position: relative;
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  padding: 2.2px;
-  background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 45%, #22D3EE 100%);
-  box-shadow: 0 0 14px rgba(139, 92, 246, 0.35);
   transition: all 0.2s ease;
 }
 
-.story-avatar-ring.viewed {
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.45) 0%, rgba(34, 211, 238, 0.45) 100%);
-  box-shadow: none;
-}
-
-.story-avatar-inner {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  overflow: hidden;
-  background: var(--bg-card);
-  border: 2px solid var(--bg-app);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.story-user-name {
-  font-size: 12px;
-  line-height: 15px;
-  font-weight: 700;
+.filter-pill:hover {
+  border-color: var(--border-glass-bright);
   color: var(--text-main);
-  max-width: 60px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
-.story-user-distance {
-  font-size: 11px;
-  line-height: 13px;
-  font-weight: 700;
-  color: var(--color-cyan-vivid);
+.filter-pill.active {
+  background: var(--color-kor);
+  color: #FFFFFF;
+  border-color: var(--color-kor);
+  box-shadow: 0 4px 14px var(--color-kor-glow);
 }
 
-[data-theme="light"] .story-user-distance {
-  color: #0284C7;
-}
-
-/* 4.5. Antrenman Planlama CTA Paneli */
-.workout-plan-callout-card {
-  position: relative;
-  background: var(--bg-card);
-  border: 1px solid rgba(139, 92, 246, 0.38);
-  border-radius: 20px;
-  padding: 14px 15px;
-  box-shadow: 0 0 28px rgba(139, 92, 246, 0.20), 0 0 42px rgba(34, 211, 238, 0.10);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  overflow: hidden;
-}
-
-.workout-plan-callout-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 15% 20%, rgba(139, 92, 246, 0.16), transparent 60%),
-              radial-gradient(circle at 85% 80%, rgba(34, 211, 238, 0.12), transparent 60%);
-  pointer-events: none;
-}
-
-[data-theme="light"] .workout-plan-callout-card {
-  background: linear-gradient(135deg, rgba(243, 232, 255, 0.9) 0%, rgba(255, 255, 255, 0.96) 50%, rgba(224, 242, 254, 0.9) 100%);
-  border: 1px solid rgba(139, 92, 246, 0.3);
-  box-shadow: 0 8px 28px rgba(139, 92, 246, 0.14), 0 4px 16px rgba(34, 211, 238, 0.10);
-}
-
-.workout-plan-callout-card.collapsed {
-  padding: 10px 14px;
-  border-radius: 16px;
-  cursor: pointer;
-}
-
-.callout-header {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-.callout-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 11px;
-  background: linear-gradient(135deg, #4C1D95 0%, #1E3A8A 100%);
-  border: 1px solid rgba(103, 232, 249, 0.45);
-  color: #67E8F9;
+/* Gym Live Activity Banner */
+.gym-stats-card {
+  background: linear-gradient(135deg, rgba(32, 35, 46, 0.9) 0%, rgba(20, 21, 27, 0.9) 100%);
+  border: 1px solid var(--border-glass-bright);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  margin-bottom: 20px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  box-shadow: 0 0 14px rgba(139, 92, 246, 0.4);
+  justify-content: space-between;
 }
 
-[data-theme="light"] .callout-icon {
-  background: linear-gradient(135deg, #DDD6FE 0%, #BAE6FD 100%);
-  border: 1px solid #8B5CF6;
-  color: #6D28D9;
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+.gym-stats-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.callout-text h4 {
+.live-pulse {
+  width: 10px;
+  height: 10px;
+  background: var(--color-emerald);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--color-emerald);
+  animation: pulseEmerald 2s infinite;
+}
+
+@keyframes pulseEmerald {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.gym-stats-text strong {
   font-size: 14px;
-  line-height: 19px;
-  font-weight: 700;
   color: var(--text-main);
-  margin: 0 0 3px 0;
-}
-
-.callout-text p {
-  font-size: 11.5px;
-  line-height: 16px;
-  color: var(--text-muted);
-  margin: 0;
-}
-
-.btn-collapse-pill {
-  padding: 5px 9px;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--text-muted);
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid var(--border-glass);
-  border-radius: 8px;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  flex-shrink: 0;
-  cursor: pointer;
-}
-
-[data-theme="light"] .btn-collapse-pill {
-  background: rgba(15, 23, 42, 0.06);
-  color: #475569;
-}
-
-/* Active Published Workout Plan Banner */
-.active-plan-banner {
-  position: relative;
-  background: var(--bg-card);
-  border: 1.5px solid rgba(139, 92, 246, 0.55);
-  border-radius: 20px;
-  padding: 13px 15px;
-  box-shadow: 0 0 26px rgba(139, 92, 246, 0.22);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.active-plan-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 6px;
-}
-
-.active-plan-badge {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--color-cyan-vivid);
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-}
-
-[data-theme="light"] .active-plan-badge {
-  color: #6D28D9;
-}
-
-.active-plan-title {
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--text-main);
-  margin-bottom: 4px;
-}
-
-.active-plan-details {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  font-size: 12px;
-  color: var(--text-muted);
-  font-weight: 600;
-}
-
-.active-plan-note {
-  font-size: 11.5px;
-  color: var(--text-muted);
-  font-style: italic;
-  margin-top: 6px;
-  background: var(--bg-card-elevated);
-  padding: 5px 10px;
-  border-radius: 8px;
-  border-left: 2px solid var(--color-purple-primary);
-}
-
-/* 4.7. Sporcu Eşleşme Kartı (Main Match Card - .veyro-athlete-card) */
-.tinder-deck-container {
-  position: relative;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.veyro-athlete-card {
-  width: 100%;
-  background: var(--bg-card);
-  border: var(--border-card);
-  border-radius: var(--veyro-radius-card);
-  padding: 16px 16px 14px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 12px 32px -6px rgba(0, 0, 0, 0.38), 0 0 24px rgba(139, 92, 246, 0.14);
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
-}
-
-/* Subtle diagonal purple & cyan aurora light waves inside card */
-.veyro-athlete-card::before {
-  content: "";
-  position: absolute;
-  top: -20px;
-  left: -20px;
-  right: -20px;
-  height: 195px;
-  background:
-    radial-gradient(ellipse at 25% 25%, rgba(168, 85, 247, 0.28) 0%, transparent 55%),
-    radial-gradient(ellipse at 78% 30%, rgba(34, 211, 238, 0.22) 0%, transparent 58%),
-    linear-gradient(125deg, rgba(139, 92, 246, 0.16) 0%, transparent 45%, rgba(34, 211, 238, 0.14) 100%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-[data-theme="light"] .veyro-athlete-card {
-  background: linear-gradient(160deg, #FDF4FF 0%, #FFFFFF 42%, #ECFEFF 100%);
-  border: 1px solid #E2E8F0;
-  box-shadow: 0 10px 30px rgba(139, 92, 246, 0.10);
-}
-
-[data-theme="light"] .veyro-athlete-card::before {
-  background:
-    radial-gradient(ellipse at 22% 20%, rgba(232, 121, 249, 0.18) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 25%, rgba(34, 211, 238, 0.16) 0%, transparent 55%);
-}
-
-/* 1. Üst Durum Bandı */
-.veyro-card-topbar {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-
-.veyro-status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 11px;
-  border-radius: 999px;
-  font-size: 11.5px;
-  font-weight: 700;
-  background: rgba(16, 185, 129, 0.14);
-  border: 1px solid rgba(16, 185, 129, 0.38);
-  color: #34D399;
-}
-
-[data-theme="light"] .veyro-status-pill {
-  background: #6EE7B7;
-  border-color: #34D399;
-  color: #064E3B;
-}
-
-.veyro-distance-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 5px 11px;
-  border-radius: 999px;
-  font-size: 11.5px;
-  font-weight: 600;
-  background: rgba(15, 23, 42, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  color: var(--text-main);
-}
-
-.veyro-distance-pill strong {
-  color: var(--color-cyan-vivid);
-  font-weight: 700;
-}
-
-[data-theme="light"] .veyro-distance-pill {
-  background: rgba(241, 245, 249, 0.92);
-  border: 1px solid #94A3B8;
-  color: #17213D;
-}
-
-[data-theme="light"] .veyro-distance-pill strong {
-  color: #0284C7;
-}
-
-/* 2. Kullanıcı Bilgisi (64x64 Avatar + Name + Gym) */
-.veyro-card-profile-center {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  margin-bottom: 12px;
-}
-
-.veyro-card-avatar-ring {
-  width: 68px;
-  height: 68px;
-  border-radius: 50%;
-  padding: 2.5px;
-  background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 50%, #22D3EE 100%);
-  box-shadow: 0 0 20px rgba(139, 92, 246, 0.45), 0 0 30px rgba(34, 211, 238, 0.25);
-  margin-bottom: 8px;
-  cursor: pointer;
-  position: relative;
-}
-
-.veyro-card-avatar-inner {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  overflow: hidden;
-  background: var(--bg-card-elevated);
-  border: 2px solid var(--bg-card);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-heading);
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--text-main);
-}
-
-.veyro-card-avatar-inner img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
   display: block;
 }
 
-.veyro-card-name {
+.gym-stats-text span {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* Workout Partner Feed */
+.members-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.member-card {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-sm);
+}
+
+.member-card:hover {
+  border-color: var(--border-glass-bright);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.member-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.member-profile-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.member-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2D303E 0%, #1A1C24 100%);
+  border: 2px solid var(--border-glass-bright);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-heading);
-  font-size: 19px;
-  line-height: 24px;
   font-weight: 800;
+  font-size: 16px;
+  color: #FFFFFF;
+  position: relative;
+}
+
+.member-avatar.accent-kor {
+  background: var(--color-kor-gradient);
+}
+
+.member-meta h4 {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.verified-icon {
+  width: 14px;
+  height: 14px;
+  color: var(--color-kor);
+}
+
+.member-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.member-tag-chip {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-surface-card);
+  padding: 3px 8px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border-glass);
+}
+
+.member-workout-slot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  margin-top: 10px;
+}
+
+.workout-slot-time {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
   color: var(--text-main);
+}
+
+.workout-slot-time svg {
+  width: 16px;
+  height: 16px;
+  color: var(--color-kor);
+}
+
+.btn-send-request {
+  background: var(--color-kor);
+  color: #FFFFFF;
+  border: none;
+  padding: 9px 16px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px var(--color-kor-glow);
+}
+
+.btn-send-request:hover {
+  background: var(--color-kor-hover);
+  transform: translateY(-1px);
+}
+
+.btn-send-request.sent {
+  background: var(--bg-surface-card);
+  color: var(--text-secondary);
+  box-shadow: none;
+  border: 1px solid var(--border-glass);
+  cursor: default;
+}
+
+/* ----------------------------------------------------
+   EDITORIAL LUXURY FULL-BLEED ATHLETE CARD & DOCK
+---------------------------------------------------- */
+.tinder-deck-container {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tinder-athlete-card.editorial-luxury-card {
+  width: 100%;
+  flex: 1;
+  min-height: 360px;
+  background: #101218;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 26px;
+  padding: 0;
+  position: relative;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.tinder-athlete-card.editorial-luxury-card::before {
+  display: none;
+}
+
+.editorial-card-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  cursor: pointer;
+  background: radial-gradient(circle at 50% 30%, #252836 0%, #0E1015 100%);
+}
+
+.editorial-backdrop-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.editorial-backdrop-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 35%, rgba(255, 87, 34, 0.25) 0%, #101218 75%);
+  font-family: var(--font-heading);
+  font-size: 64px;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.25);
+  letter-spacing: 0.05em;
+}
+
+.editorial-vignette-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 9, 12, 0.55) 0%,
+    rgba(8, 9, 12, 0.05) 24%,
+    rgba(8, 9, 12, 0.18) 48%,
+    rgba(10, 11, 15, 0.86) 72%,
+    rgba(10, 11, 15, 0.98) 100%
+  );
+  pointer-events: none;
+}
+
+.editorial-top-layer {
+  position: relative;
+  z-index: 3;
+  padding: 14px 16px 0;
+  pointer-events: none;
+}
+
+.editorial-glass-pill {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 2px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  background: rgba(12, 13, 18, 0.62);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #F3F4F6;
 }
 
-.veyro-card-gym {
-  font-size: 12px;
-  line-height: 16px;
-  color: var(--text-muted);
-  font-weight: 500;
+.editorial-glass-pill.status-pill {
+  color: #34D399;
 }
 
-/* 3. Çağrı & Program Paneli */
-.veyro-card-workout-box {
+.editorial-glass-pill.distance-pill strong {
+  color: #FFFFFF;
+}
+
+.editorial-bottom-layer {
   position: relative;
-  z-index: 2;
+  z-index: 3;
+  padding: 20px 18px 16px;
+  margin-top: auto;
+}
+
+.editorial-rating-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #F9FAFB;
+  flex-shrink: 0;
+}
+
+.editorial-workout-strip {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  padding: 11px 13px;
-  border-radius: 14px;
-  background: rgba(20, 25, 38, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  margin-bottom: 12px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 10px;
 }
 
-[data-theme="light"] .veyro-card-workout-box {
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid #E2E8F0;
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
-}
-
-.veyro-workout-box-left {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  min-width: 0;
-}
-
-.veyro-workout-flame-box {
-  width: 36px;
-  height: 36px;
+.editorial-workout-flame {
+  width: 32px;
+  height: 32px;
   border-radius: 10px;
-  background: linear-gradient(135deg, #7C3AED 0%, #BE185D 100%);
-  border: 1px solid rgba(244, 114, 182, 0.35);
+  background: var(--color-kor-gradient);
   color: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 4px 12px rgba(190, 24, 93, 0.32);
+  box-shadow: 0 4px 12px rgba(255, 87, 34, 0.35);
 }
 
-.veyro-workout-title {
-  font-family: var(--font-heading);
-  font-size: 14px;
-  line-height: 19px;
-  font-weight: 700;
-  color: var(--text-main);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.veyro-workout-sub {
-  font-size: 12px;
-  line-height: 16px;
-  color: var(--text-muted);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.veyro-active-call-badge {
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-family: var(--font-heading);
+.editorial-goal-tag {
   font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: #FFEDD5;
-  background: linear-gradient(135deg, rgba(154, 52, 18, 0.65) 0%, rgba(136, 19, 55, 0.65) 100%);
-  border: 1.5px solid #FF5722;
-  box-shadow: 0 0 14px rgba(255, 87, 34, 0.35);
-  flex-shrink: 0;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.veyro-active-call-badge:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 18px rgba(255, 87, 34, 0.55);
-}
-
-[data-theme="light"] .veyro-active-call-badge {
-  background: linear-gradient(135deg, #7C2D12 0%, #831843 100%);
-  color: #FFEDD5;
-  border-color: #F97316;
-}
-
-/* 4. Hedef Rozetleri (Badges) */
-.veyro-card-goals-row {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-
-.veyro-goal-badge {
-  padding: 4px 13px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 4px 9px;
   border-radius: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  color: #E0F2FE;
-  background: rgba(3, 105, 161, 0.25);
-  border: 1px solid rgba(56, 189, 248, 0.5);
 }
 
-[data-theme="light"] .veyro-goal-badge {
-  background: #E0F2FE;
-  border: 1px solid #0284C7;
-  color: #0C4A6E;
-}
-
-/* 5. Kullanıcı Biyografisi (Bio Quote) */
-.veyro-card-bio-quote {
-  position: relative;
-  z-index: 2;
-  padding: 10px 13px;
-  border-radius: 12px;
-  background: rgba(15, 23, 42, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+.editorial-bio-text {
   font-size: 12.5px;
-  line-height: 18px;
-  font-style: italic;
-  color: var(--text-secondary);
-  margin-bottom: 12px;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.42;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-[data-theme="light"] .veyro-card-bio-quote {
-  background: rgba(241, 245, 249, 0.85);
-  border: 1px solid #E2E8F0;
-  color: #334155;
-}
-
-/* 6. Güven & Sadakat İstatistikleri (Footer Stats) */
-.veyro-card-footer-stats {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding-top: 10px;
-  border-top: 1px solid var(--border-glass);
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
-.veyro-stat-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.veyro-stat-item strong {
-  font-family: var(--font-heading);
-  font-size: 13.5px;
-  font-weight: 800;
-  color: var(--text-main);
-}
-
-/* Floating Action Dock Below Card */
+/* Refined Floating Action Dock */
 .tinder-actions-bar.editorial-actions-dock {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 16px;
-  margin-top: 2px;
+  margin-top: 10px;
   margin-bottom: 2px;
   width: 100%;
+  flex-shrink: 0;
 }
 
 .tinder-action-btn {
@@ -734,45 +445,67 @@
   transform: translateY(1px) scale(0.94);
 }
 
+/* Pass */
 .tinder-action-btn.pass {
-  width: 44px;
-  height: 44px;
-  background: var(--bg-card) !important;
-  color: #F43F5E !important;
-  border: 1px solid rgba(244, 63, 94, 0.35) !important;
-  box-shadow: var(--shadow-sm);
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #F87171 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
+/* Chat */
 .tinder-action-btn.chat {
   width: 44px;
   height: 44px;
-  background: var(--bg-card) !important;
-  color: var(--color-cyan-vivid) !important;
-  border: 1px solid rgba(34, 211, 238, 0.35) !important;
-  box-shadow: var(--shadow-sm);
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #E5E7EB !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
-[data-theme="light"] .tinder-action-btn.chat {
-  color: #0284C7 !important;
-  border-color: rgba(2, 132, 199, 0.35) !important;
-}
-
+/* Match / Flame */
 .tinder-action-btn.match {
-  width: 54px;
-  height: 54px;
-  background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 50%, #FF5722 100%) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+  width: 58px;
+  height: 58px;
+  background: var(--color-kor-gradient) !important;
+  border: 1px solid rgba(255, 255, 255, 0.28) !important;
   color: #FFFFFF !important;
-  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.45);
+  box-shadow: 0 10px 28px rgba(255, 87, 34, 0.48);
 }
 
+/* Info */
 .tinder-action-btn.info {
   width: 44px;
   height: 44px;
-  background: var(--bg-card) !important;
-  color: var(--text-muted) !important;
-  border: var(--border-card) !important;
-  box-shadow: var(--shadow-sm);
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #9CA3AF !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Shorter screens (iPhone SE, smaller Androids) */
+@media (max-height: 720px) {
+  .discover-page {
+    padding: 4px 10px 10px;
+  }
+  .tinder-large-avatar {
+    width: 44px;
+    height: 44px;
+    font-size: 17px;
+    margin-bottom: 2px;
+  }
+  .tinder-athlete-name {
+    font-size: 16px;
+  }
+  .tinder-activity-box {
+    padding: 4px 8px;
+    margin-bottom: 4px;
+  }
+  .tinder-action-btn.pass { width: 44px; height: 44px; }
+  .tinder-action-btn.match { width: 50px; height: 50px; }
+  .tinder-action-btn.chat, .tinder-action-btn.info { width: 38px; height: 38px; }
 }
 
 /* Swiping Animations */
@@ -792,142 +525,177 @@
   animation: swipeRightAnim 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Workout Partner Feed (Liste Akışı) */
-.members-feed {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.member-card {
-  background: var(--bg-card);
-  border: var(--border-card);
-  border-radius: var(--veyro-radius-card);
-  padding: 16px;
-  position: relative;
+/* User Workout Planning Callout Banner */
+.workout-plan-callout-card {
+  background: linear-gradient(135deg, rgba(255, 87, 34, 0.12) 0%, rgba(24, 26, 36, 0.85) 100%);
+  border: 1.5px solid rgba(255, 87, 34, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  box-shadow: 0 8px 24px rgba(255, 87, 34, 0.08);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: var(--shadow-sm);
 }
 
-.member-card-header {
+.workout-plan-callout-card.collapsed {
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  background: linear-gradient(135deg, rgba(255, 87, 34, 0.10) 0%, rgba(20, 22, 30, 0.92) 100%);
+}
+
+.workout-plan-callout-card.collapsed:hover {
+  border-color: rgba(255, 87, 34, 0.55);
+  background: linear-gradient(135deg, rgba(255, 87, 34, 0.16) 0%, rgba(26, 28, 38, 0.95) 100%);
+}
+
+.callout-header {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
   margin-bottom: 12px;
 }
 
-.member-profile-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  cursor: pointer;
-}
-
-.member-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);
-  border: 2px solid rgba(34, 211, 238, 0.45);
+.callout-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--color-kor-gradient);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-heading);
+  font-size: 18px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px var(--color-kor-glow);
+}
+
+.callout-text h4 {
+  font-size: 14.5px;
   font-weight: 800;
-  font-size: 16px;
   color: #FFFFFF;
-  position: relative;
+  margin: 0 0 2px 0;
 }
 
-.member-meta h4 {
-  font-size: 16px;
-  color: var(--text-main);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.verified-icon {
-  width: 15px;
-  height: 15px;
-  color: var(--color-emerald);
-}
-
-.member-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 5px;
-}
-
-.member-tag-chip {
-  font-size: 11px;
-  font-weight: 600;
+.callout-text p {
+  font-size: 11.5px;
   color: var(--text-secondary);
-  background: var(--bg-card-elevated);
-  padding: 3px 8px;
-  border-radius: 6px;
-  border: 1px solid var(--border-glass);
+  line-height: 1.35;
+  margin: 0;
 }
 
-.member-workout-slot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--bg-card-elevated);
-  border: 1px solid var(--border-glass);
+.btn-callout-action {
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 800;
   border-radius: 12px;
-  padding: 10px 12px;
-  margin-top: 8px;
 }
 
-.workout-slot-time {
+/* Active Published Workout Plan Banner */
+.active-plan-banner {
+  background: linear-gradient(135deg, rgba(30, 33, 44, 0.95) 0%, rgba(18, 19, 26, 0.95) 100%);
+  border: 1.5px solid rgba(255, 87, 34, 0.5);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  box-shadow: 0 8px 28px rgba(255, 87, 34, 0.15);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.active-plan-banner.collapsed {
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.active-plan-banner.collapsed:hover {
+  border-color: rgba(255, 87, 34, 0.75);
+}
+
+.active-plan-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.active-plan-badge {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text-main);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--color-kor);
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
 }
 
-.btn-send-request {
-  background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);
+.active-plan-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.active-plan-title {
+  font-size: 16px;
+  font-weight: 800;
   color: #FFFFFF;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 10px;
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 12.5px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 12px var(--veyro-purple-glow);
+  margin-bottom: 6px;
+}
+
+.active-plan-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.active-plan-note {
+  font-size: 11.5px;
+  color: #9BA0B2;
+  font-style: italic;
+  margin-top: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 6px 10px;
+  border-radius: 8px;
+  border-left: 2px solid var(--color-kor);
 }
 
 /* Clean Empty State Card */
 .empty-athletes-card {
   text-align: center;
-  padding: 36px 20px;
-  background: var(--bg-card);
-  border: var(--border-card);
-  border-radius: var(--veyro-radius-card);
-  margin-top: 8px;
+  padding: 44px 20px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  margin-top: 10px;
 }
 
-.live-pulse {
-  width: 8px;
-  height: 8px;
-  background: var(--color-status-online);
-  border-radius: 50%;
-  box-shadow: 0 0 8px var(--color-status-online);
-  animation: pulseEmerald 2s infinite;
-  display: inline-block;
+/* Athlete Stories Tray Styles */
+.stories-tray-container {
+  display: flex;
+  align-items: center;
+  padding: 4px 0 8px;
+  width: 100%;
 }
 
-@keyframes pulseEmerald {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-  70% { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+.story-circle-item {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.story-circle-item:active {
+  transform: scale(0.92);
+}
+
+.story-avatar-ring.unviewed {
+  background: linear-gradient(135deg, #FF5722 0%, #FF9100 50%, #00E5FF 100%);
+  box-shadow: 0 2px 10px rgba(255, 87, 34, 0.35);
+}
+
+.story-avatar-ring.viewed {
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: none;
 }
 
 .story-viewer-overlay {
@@ -943,3 +711,21 @@
 .story-viewer-overlay.open {
   display: flex !important;
 }
+
+@keyframes floatUpFade {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.6);
+  }
+  25% {
+    opacity: 1;
+    transform: translateY(-25px) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-80px) scale(1.4);
+  }
+}
+
+
+

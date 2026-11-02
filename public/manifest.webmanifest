@@ -1,19 +1,13 @@
 {
-  "name": "VEYRO - Sporun Yeni Sosyal Hali",
-  "short_name": "VEYRO",
+  "name": "Veyro - Spor ve Antrenman Arkadaşı",
+  "short_name": "Veyro",
   "description": "Salonda aynı saatte çalışan antrenman arkadaşını bul, randevunu kur, takvimine ekle.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0B0D14",
-  "theme_color": "#0B0D14",
+  "background_color": "#0B0C0E",
+  "theme_color": "#0B0C0E",
   "orientation": "portrait-primary",
   "icons": [
-    {
-      "src": "/brand/app_icon.jpg",
-      "type": "image/jpeg",
-      "sizes": "512x512 1024x1024",
-      "purpose": "any"
-    },
     {
       "src": "/icon-192.svg",
       "type": "image/svg+xml",

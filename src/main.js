@@ -50,14 +50,6 @@ class VeyroApp {
   }
 
   init() {
-    // Initialize Theme Engine: Adaptive Dark Space ('dark') or Clean Light Ice ('light')
-    const savedTheme = localStorage.getItem("veyro_theme") || "dark";
-    document.documentElement.setAttribute("data-theme", savedTheme);
-    const metaTheme = document.querySelector('meta[name="theme-color"]');
-    if (metaTheme) {
-      metaTheme.setAttribute("content", savedTheme === "light" ? "#F4F8FF" : "#0B0D14");
-    }
-
     this.appRoot = document.getElementById("app-root");
     if (!this.appRoot) {
       console.error("Root element #app-root not found.");
@@ -65,7 +57,6 @@ class VeyroApp {
     }
 
     this.renderShell();
-    this.mountSplashScreen(savedTheme);
 
     // Check if first-time onboarding is needed
     const user = auth.getCurrentUser();
@@ -170,44 +161,6 @@ class VeyroApp {
     this.updateHeader();
     this.updateTabBar();
     this.renderCurrentView();
-  }
-
-  mountSplashScreen(theme = "dark") {
-    if (sessionStorage.getItem("veyro_splash_shown") === "1") return;
-    sessionStorage.setItem("veyro_splash_shown", "1");
-
-    const splashBg = theme === "light" ? "/brand/light_splash.jpg" : "/brand/dark_splash.jpg";
-    const splashEl = document.createElement("div");
-    splashEl.id = "veyro-splash-screen";
-    splashEl.className = "veyro-splash-screen";
-    splashEl.style.backgroundImage = `url('${splashBg}')`;
-    splashEl.innerHTML = `
-      <div style="width: 100%; padding: 0 28px; display: flex; flex-direction: column; align-items: center; text-align: center; background: ${theme === 'light' ? 'linear-gradient(180deg, transparent 0%, rgba(244,248,255,0.92) 45%, #F4F8FF 100%)' : 'linear-gradient(180deg, transparent 0%, rgba(11,13,20,0.88) 45%, #0B0D14 100%)'}; padding-top: 40px;">
-        <div style="font-family: var(--font-heading); font-size: 16px; font-weight: 600; letter-spacing: 2px; color: ${theme === 'light' ? '#17213D' : '#F1F5F9'}; margin-bottom: 18px; text-transform: uppercase;">
-          SPORUN YENİ SOSYAL HALİ
-        </div>
-        <div style="font-size: 12.5px; font-weight: 500; color: ${theme === 'light' ? '#334155' : '#CBD5E1'}; margin-bottom: 8px;">
-          Yükleniyor...
-        </div>
-        <div style="width: 78%; max-width: 280px; height: 6px; border-radius: 999px; background: ${theme === 'light' ? 'rgba(23,33,61,0.12)' : 'rgba(255,255,255,0.12)'}; border: 1px solid ${theme === 'light' ? 'rgba(139,92,246,0.35)' : 'rgba(255,255,255,0.22)'}; overflow: hidden; margin-bottom: 22px;">
-          <div class="splash-progress-bar-fill"></div>
-        </div>
-        <div style="font-size: 11px; line-height: 15px; color: var(--text-muted); font-weight: 500;">
-          <div>v1.0</div>
-          <div style="letter-spacing: 0.04em;">cetion.co</div>
-        </div>
-      </div>
-    `;
-
-    this.appRoot.appendChild(splashEl);
-
-    const dismiss = () => {
-      splashEl.classList.add("fade-out");
-      setTimeout(() => splashEl.remove(), 460);
-    };
-
-    splashEl.addEventListener("click", dismiss);
-    setTimeout(dismiss, 1100);
   }
 
   updateHeader() {
