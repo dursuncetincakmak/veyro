@@ -9,6 +9,10 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "node test/phase_tests.js",
+    "mobile:sync": "vite build && npx cap sync",
+    "mobile:android": "vite build && npx cap sync android && npx cap open android",
+    "mobile:ios": "vite build && npx cap sync ios && npx cap open ios",
+    "mobile:assets": "npx @capacitor/assets generate --iconBackgroundColor #0B0C0E --splashBackgroundColor #0B0C0E",
     "expo:start": "npm --prefix expo-client/test-expo start",
     "expo:tunnel": "npm --prefix expo-client/test-expo start -- --tunnel"
   },

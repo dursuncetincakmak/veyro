@@ -289,6 +289,8 @@ const INITIAL_USERS = [];
 class DatabaseEngine {
   constructor() {
     this.subscribers = new Map();
+    this.memoryCache = new Map();
+    this._isSyncing = false;
     this.initDatabase();
 
     this.broadcastChannel = null;
@@ -299,10 +301,14 @@ class DatabaseEngine {
       }
     } catch (e) {}
 
-    // Initial server-side sync with local Wi-Fi dev server
+    // Non-blocking background sync (throttled to 15s and paused when tab is hidden)
     if (typeof window !== "undefined") {
-      this.syncWithServer();
-      setInterval(() => this.syncWithServer(), 3000);
+      setTimeout(() => this.syncWithServer(), 800);
+      setInterval(() => {
+        if (typeof document === "undefined" || !document.hidden) {
+          this.syncWithServer();
+        }
+      }, 15000);
     }
   }
 
@@ -422,14 +428,22 @@ class DatabaseEngine {
   ensureCollection(name, initialData) {
     const key = STORAGE_PREFIX + name;
     if (!localStorage.getItem(key)) {
-      localStorage.setItem(key, JSON.stringify(initialData));
+      this.memoryCache.set(name, initialData);
+      try {
+        localStorage.setItem(key, JSON.stringify(initialData));
+      } catch (e) {}
     }
   }
 
   getCollection(name) {
+    if (this.memoryCache.has(name)) {
+      return this.memoryCache.get(name);
+    }
     try {
       const data = localStorage.getItem(STORAGE_PREFIX + name);
-      return data ? JSON.parse(data) : [];
+      const parsed = data ? JSON.parse(data) : [];
+      this.memoryCache.set(name, parsed);
+      return parsed;
     } catch (e) {
       console.error(`Error reading collection ${name}`, e);
       return [];
@@ -437,14 +451,14 @@ class DatabaseEngine {
   }
 
   setCollection(name, items) {
+    this.memoryCache.set(name, items);
     try {
       localStorage.setItem(STORAGE_PREFIX + name, JSON.stringify(items));
-      this.notifySubscribers(name, items);
-      return true;
     } catch (e) {
-      console.error(`Error saving collection ${name}`, e);
-      return false;
+      console.warn(`Quota warning saving collection ${name}:`, e?.message);
     }
+    this.notifySubscribers(name, items);
+    return true;
   }
 
   getItemById(collection, id) {
@@ -677,20 +691,68 @@ class DatabaseEngine {
     return true;
   }
 
-  async syncWithServer(forceCloud = false) {
-    // 0. Primary Cloud Sync with Google Cloud Firestore (throttled to once every 60s)
-    const now = Date.now();
-    if (forceCloud || (!this._lastFirestoreSync || now - this._lastFirestoreSync > 60000)) {
-      this._lastFirestoreSync = now;
-      try {
-        await this.syncWithFirestore();
-      } catch (e) {}
-    }
+  async syncUsersOnly() {
+    try {
+      const timeout = (ms) => new Promise((_, rej) => setTimeout(() => rej(new Error("timeout")), ms));
+      const tasks = [];
 
-    // Only query local Vite middleware /api/sync/ if on a local dev environment (localhost / 127.0.0.1)
-    if (!isLocalSyncServerAvailable()) {
-      return;
-    }
+      if (isLocalSyncServerAvailable()) {
+        tasks.push(
+          fetch("/api/sync/users")
+            .then(r => (r && r.ok ? r.json() : []))
+            .catch(() => [])
+        );
+      }
+      tasks.push(getFirestoreCollection("users").catch(() => []));
+
+      const results = await Promise.race([Promise.all(tasks), timeout(2200)]).catch(() => []);
+      const incoming = results.flat().filter(Boolean);
+      if (incoming.length === 0) return;
+
+      const localUsers = this.getCollection("users") || [];
+      let updated = false;
+      for (const rUser of incoming) {
+        if (!rUser || (!rUser.id && !rUser.phone && !rUser.email)) continue;
+        const rLast10 = rUser.phone ? String(rUser.phone).replace(/\D/g, '').slice(-10) : '';
+        const idx = localUsers.findIndex(u => {
+          if (u.id === rUser.id) return true;
+          if (rLast10 && rLast10.length === 10 && u.phone) {
+            return String(u.phone).replace(/\D/g, '').slice(-10) === rLast10;
+          }
+          if (rUser.email && u.email && rUser.email.trim().toLowerCase() === u.email.trim().toLowerCase()) return true;
+          return false;
+        });
+        if (idx >= 0) {
+          localUsers[idx] = { ...localUsers[idx], ...rUser };
+          updated = true;
+        } else {
+          localUsers.push(rUser);
+          updated = true;
+        }
+      }
+      if (updated) {
+        this.setCollection("users", localUsers);
+      }
+    } catch (e) {}
+  }
+
+  async syncWithServer(forceCloud = false) {
+    if (this._isSyncing) return;
+    this._isSyncing = true;
+    try {
+      // 0. Primary Cloud Sync with Google Cloud Firestore (throttled to once every 60s)
+      const now = Date.now();
+      if (forceCloud || (!this._lastFirestoreSync || now - this._lastFirestoreSync > 60000)) {
+        this._lastFirestoreSync = now;
+        try {
+          await this.syncWithFirestore();
+        } catch (e) {}
+      }
+
+      // Only query local Vite middleware /api/sync/ if on a local dev environment (localhost / 127.0.0.1)
+      if (!isLocalSyncServerAvailable()) {
+        return;
+      }
 
     // 1. Sync Chats (Local Server / Dev Fallback)
     try {
@@ -872,6 +934,9 @@ class DatabaseEngine {
         }
       }
     } catch (e) {}
+    } finally {
+      this._isSyncing = false;
+    }
   }
 
   async syncWithFirestore() {
@@ -912,9 +977,9 @@ class DatabaseEngine {
         this.setCollection("users", localUsers);
       }
 
-      // Seed local registered users to Firestore Cloud if not yet present
+      // Only sync real registered users (never upload 200 static ath_tr_* catalog profiles)
       for (const lUser of localUsers) {
-        if (!lUser || !lUser.id) continue;
+        if (!lUser || !lUser.id || String(lUser.id).startsWith("ath_")) continue;
         const existsInRemote = remoteUsers.some(ru => {
           if (ru.id === lUser.id) return true;
           if (ru.phone && lUser.phone) {

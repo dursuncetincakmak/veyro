@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
+	<string>tr</string>
 	<key>CFBundleDisplayName</key>
-        <string>Veyro</string>
+	<string>Veyro</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -45,5 +45,19 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Veyro, yakınınızdaki spor salonlarını ve antrenman arkadaşlarını harita üzerinde göstermek için konum izninize ihtiyaç duyar.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Veyro, yakınınızdaki spor salonlarını ve antrenman eşleşmelerini bulabilmeniz için konum bilginizi kullanır.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Veyro, profil fotoğrafı ve antrenman hikayesi çekebilmeniz için kameranıza erişmek ister.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Veyro, galerinizden profil fotoğrafı ve antrenman paylaşımı seçebilmeniz için fotoğraf arşivinize erişmek ister.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Veyro, antrenman görsellerini cihazınıza kaydedebilmek için fotoğraf arşivinize erişmek ister.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Veyro, canlı antrenman odalarında ve hikaye paylaşımlarında ses kaydedebilmeniz için mikrofonunuza erişmek ister.</string>
 </dict>
 </plist>

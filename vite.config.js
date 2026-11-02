@@ -74,6 +74,10 @@ function veyroSyncPlugin() {
                 }
                 return false;
               });
+              if (Array.isArray(user.photos) && user.photos.length > 0 && user.avatar && user.avatar.startsWith('data:image')) {
+                user.avatar = '';
+              }
+              const isNewUser = idx < 0;
               if (idx >= 0) {
                 data.users[idx] = { ...data.users[idx], ...user };
               } else {
@@ -81,11 +85,13 @@ function veyroSyncPlugin() {
               }
               writeData(data);
 
-              // Keep seedUsers.js updated so all devices have access offline
-              try {
-                const seedFile = path.resolve('./src/services/seedUsers.js');
-                fs.writeFileSync(seedFile, 'export const REAL_REGISTERED_USERS = ' + JSON.stringify(data.users, null, 2) + ';\n', 'utf-8');
-              } catch (e) {}
+              // Only update seedUsers.js when a new user registers (prevents file churn)
+              if (isNewUser) {
+                try {
+                  const seedFile = path.resolve('./src/services/seedUsers.js');
+                  fs.writeFileSync(seedFile, 'export const REAL_REGISTERED_USERS = ' + JSON.stringify(data.users, null, 2) + ';\n', 'utf-8');
+                } catch (e) {}
+              }
 
               res.setHeader('Content-Type', 'application/json');
               res.end(JSON.stringify({ success: true, user }));
@@ -260,7 +266,7 @@ export default defineConfig({
     host: true,
     allowedHosts: true,
     watch: {
-      ignored: ['**/android/**', '**/ios/**', '**/dist/**', '**/.veyro_sync_store.json']
+      ignored: ['**/android/**', '**/ios/**', '**/dist/**', '**/.veyro_sync_store.json', '**/src/services/seedUsers.js']
     }
   },
   preview: {

@@ -21,7 +21,8 @@ import {
 
 export function createOnboardingModal(container, onComplete) {
   // Navigation states: 'splash' | 'login' | 'register' | 'forgot' | 'wizard_step2' | 'wizard_step3' | 'wizard_step4'
-  let currentScreen = 'splash';
+  const splashAlreadySeen = typeof sessionStorage !== "undefined" && sessionStorage.getItem("veyro_splash_seen") === "1";
+  let currentScreen = splashAlreadySeen ? 'login' : 'splash';
   // Auth method preference: 'phone' (default) | 'email'
   let authMethod = 'phone';
 
@@ -127,6 +128,7 @@ export function createOnboardingModal(container, onComplete) {
     `;
 
     const goToAuth = () => {
+      try { sessionStorage.setItem("veyro_splash_seen", "1"); } catch (e) {}
       currentScreen = 'login';
       render();
     };
@@ -139,12 +141,12 @@ export function createOnboardingModal(container, onComplete) {
       }
     });
 
-    // Auto-advance after 3.2 seconds
+    // Fast auto-advance after 1.2 seconds
     const splashTimer = setTimeout(() => {
       if (currentScreen === 'splash') {
         goToAuth();
       }
-    }, 3200);
+    }, 1200);
 
     wrap?.addEventListener("click", () => clearTimeout(splashTimer));
   }
@@ -281,13 +283,13 @@ export function createOnboardingModal(container, onComplete) {
       state.phone = fullPhone;
       state.phoneDisplay = phoneInput.value;
 
-      try {
-        await db.syncWithServer();
-      } catch (e) {}
+      // Sync users in background without blocking the UI
+      const syncPromise = db.syncUsersOnly ? db.syncUsersOnly() : Promise.resolve();
 
-      // Open SMS OTP Verification Modal
-      showVerificationModal('phone', fullPhone, () => {
+      // Open SMS OTP Verification Modal immediately
+      showVerificationModal('phone', fullPhone, async () => {
         state.verified = true;
+        await syncPromise.catch(() => {});
         const existing = auth.findUserByPhone(last10);
 
         if (existing && existing.onboarded) {
@@ -339,9 +341,32 @@ export function createOnboardingModal(container, onComplete) {
         return;
       }
 
-      notify.info("Giriş yapılıyor...");
+      const btn = document.getElementById("btn-submit-email-login");
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = `<span>Giriş yapılıyor...</span>`;
+      }
+
+      if (db.syncUsersOnly) {
+        await db.syncUsersOnly().catch(() => {});
+      }
+
+      // Check if user already exists in cross-device DB first
+      const existingPre = auth.findUserByEmail(email);
       const res = await signInWithFirebaseEmail(email, password);
+
       if (!res.success) {
+        // Allow login if user exists in cross-device DB (e.g. registered on mobile/web)
+        if (existingPre && existingPre.onboarded && (!existingPre.password || existingPre.password === password)) {
+          auth.loginExistingUser(existingPre);
+          notify.success(`Tekrar hoş geldin, ${existingPre.name}!`);
+          onComplete();
+          return;
+        }
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = `<span>→ Giriş Yap</span>`;
+        }
         notify.error(res.message);
         return;
       }
@@ -351,8 +376,7 @@ export function createOnboardingModal(container, onComplete) {
       state.name = res.user.displayName;
       state.provider = "email";
 
-      // Check if user exists in local database
-      const existing = auth.findUserByEmail(email);
+      const existing = existingPre || auth.findUserByEmail(email);
       if (existing && existing.onboarded) {
         auth.loginExistingUser(existing);
         notify.success(`Tekrar hoş geldin, ${existing.name}!`);
@@ -1050,20 +1074,11 @@ export function createOnboardingModal(container, onComplete) {
       render();
     });
 
-    let coords;
-    try {
-      const getPos = locationService.getCurrentPosition || locationService.getCurrentCoords;
-      coords = getPos ? await getPos.call(locationService) : locationService.currentCoords;
-    } catch (e) {
-      coords = locationService.currentCoords || { latitude: 40.9875, longitude: 29.0280 };
-    }
+    let coords = locationService.currentCoords || { latitude: 41.1603, longitude: 27.7989 };
 
-    let gymList = [];
-    try {
-      gymList = await gymPlacesService.fetchNearbyGymsFromMaps(coords);
-    } catch (e) {
-      gymList = [];
-    }
+    // Immediately load verified catalog gyms so there is zero spinning/waiting
+    const initialCatalogGyms = locationService.sortGymsByDistance(db.getCollection("gyms") || [], coords).slice(0, 20);
+    let gymList = initialCatalogGyms;
     let selectedGym = gymList[0] || null;
     if (selectedGym) state.gymId = selectedGym.id;
 
@@ -1115,6 +1130,25 @@ export function createOnboardingModal(container, onComplete) {
 
     renderGymCards(gymList);
 
+    // Fetch live GPS + Maps gyms in the background without blocking UI
+    (async () => {
+      try {
+        const getPos = locationService.getCurrentPosition || locationService.getCurrentCoords;
+        if (getPos) {
+          coords = await getPos.call(locationService);
+        }
+        const liveGyms = await gymPlacesService.fetchNearbyGymsFromMaps(coords);
+        if (liveGyms && liveGyms.length > 0 && (!searchInput || !searchInput.value.trim())) {
+          gymList = liveGyms;
+          if (!selectedGym) {
+            selectedGym = gymList[0];
+            if (selectedGym) state.gymId = selectedGym.id;
+          }
+          renderGymCards(gymList);
+        }
+      } catch (e) {}
+    })();
+
     // Search filter
     let debounceTimer;
     searchInput?.addEventListener("input", (e) => {
@@ -1145,7 +1179,7 @@ export function createOnboardingModal(container, onComplete) {
         email: state.email || "",
         provider: state.provider || "phone",
         photos: state.photos || [],
-        avatar: (state.photos && state.photos[0]) || "",
+        avatar: (state.photos && state.photos[0] && !state.photos[0].startsWith("data:image")) ? state.photos[0] : "",
         goals: state.goals,
         level: state.level,
         preferredTimes: state.preferredTimes,

@@ -193,12 +193,33 @@ export function renderProfileView(container, {
           </svg>
         </button>
 
+        <!-- Gizlilik Politikası & Kullanım Koşulları -->
+        <button class="profile-menu-item" id="btn-pv-privacy">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="color: var(--color-kor);">${icons.shield(18)}</div>
+            <span>Gizlilik Politikası & Kullanım Koşulları</span>
+          </div>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
 
         <!-- ÇIKIŞ YAP (Oturumu Kapat) -->
         <button class="profile-menu-item profile-menu-item-danger" id="btn-pv-signout">
           <div style="display: flex; align-items: center; gap: 12px;">
             <div style="color: var(--color-rose);">${icons.logout(18)}</div>
             <span style="font-weight: 800;">Çıkış Yap (Hesaptan Ayrıl)</span>
+          </div>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+
+        <!-- HESABIMI SİL (App Store & Play Store Zorunluluğu) -->
+        <button class="profile-menu-item profile-menu-item-danger" id="btn-pv-delete-account" style="opacity: 0.88;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="color: var(--color-rose);">${icons.alertTriangle(18)}</div>
+            <span style="font-weight: 700; font-size: 13px;">Hesabımı Kalıcı Olarak Sil</span>
           </div>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="9 18 15 12 9 6"></polyline>
@@ -237,6 +258,10 @@ export function renderProfileView(container, {
     onReportTracking?.();
   });
 
+  container.querySelector("#btn-pv-privacy")?.addEventListener("click", () => {
+    window.open("./privacy.html", "_blank");
+  });
+
   container.querySelector("#btn-pv-back")?.addEventListener("click", () => {
     onBack?.();
   });
@@ -250,6 +275,21 @@ export function renderProfileView(container, {
       isDanger: true,
       icon: icons.logout(26),
       onConfirm: () => {
+        onSignOut?.();
+      }
+    });
+  });
+
+  container.querySelector("#btn-pv-delete-account")?.addEventListener("click", () => {
+    showConfirmModal({
+      title: "Hesabı Kalıcı Olarak Sil",
+      message: "Hesabınızı, fotoğraflarınızı ve tüm antrenman randevularınızı kalıcı olarak silmek istediğinize emin misiniz? Bu işlem geri alınamaz.",
+      confirmText: "Hesabımı Sil",
+      cancelText: "Vazgeç",
+      isDanger: true,
+      icon: icons.alertTriangle(26),
+      onConfirm: () => {
+        auth.deleteAccount();
         onSignOut?.();
       }
     });

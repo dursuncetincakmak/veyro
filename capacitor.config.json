@@ -2,7 +2,6 @@
   "appId": "com.veyro.fitness",
   "appName": "Veyro",
   "webDir": "dist",
-  "bundledWebRuntime": false,
   "server": {
     "androidScheme": "https"
   },

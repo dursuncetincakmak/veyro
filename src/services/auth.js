@@ -300,6 +300,25 @@ class AuthService {
       signOutFromFirebase();
     } catch (e) {}
   }
+
+  /**
+   * Permanently delete current user account and associated data
+   * Required by Apple App Store (Guideline 5.1.1(v)) & Google Play Store User Data policy
+   */
+  deleteAccount() {
+    const userId = this.currentUser?.id;
+    if (userId) {
+      db.deleteItem("users", userId);
+      const appointments = db.getCollection("appointments") || [];
+      appointments.forEach(apt => {
+        if (apt.hostId === userId || apt.partnerId === userId || apt.creatorId === userId) {
+          db.deleteItem("appointments", apt.id);
+        }
+      });
+    }
+    this.signOut();
+    return true;
+  }
 }
 
 export const auth = new AuthService();

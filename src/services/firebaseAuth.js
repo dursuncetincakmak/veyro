@@ -89,7 +89,13 @@ export async function triggerFirebaseGoogleSignIn() {
 export async function signInWithFirebaseEmail(email, password) {
   try {
     const auth = getFirebaseAuth();
-    const cred = await signInWithEmailAndPassword(auth, email.trim(), password);
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject({ code: "auth/network-request-failed", message: "Bağlantı zaman aşımı" }), 4000)
+    );
+    const cred = await Promise.race([
+      signInWithEmailAndPassword(auth, email.trim(), password),
+      timeoutPromise
+    ]);
     const fbUser = cred.user;
 
     return {
