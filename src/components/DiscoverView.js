@@ -211,63 +211,49 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
 
     container.innerHTML = `
       <div class="discover-page fade-in">
-        <!-- 0. ACTIVE LOCATION & PROXIMITY HEADER BAR (MAPS GEOLOCATION) -->
-        <div class="discover-location-strip" style="display: flex; align-items: center; justify-content: space-between; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border-glass); border-radius: 12px; padding: 7px 12px; margin-bottom: 12px;">
-          <button class="btn-ghost" id="btn-trigger-location-modal" style="padding: 0; display: inline-flex; align-items: center; gap: 7px; color: #FFF; font-size: 13px; font-weight: 800; cursor: pointer; text-align: left;" title="Konumu Değiştir veya GPS Konumunu Al">
-            <span class="live-pulse" style="width: 7px; height: 7px; background: #00E5FF; box-shadow: 0 0 8px #00E5FF; flex-shrink: 0;"></span>
-            <span style="color: #00E5FF; display: flex; flex-shrink: 0;">${icons.pin(13)}</span>
-            <span style="letter-spacing: -0.2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 170px;">
-              ${activeLocation.label || `${activeLocation.district}, ${activeLocation.city}`}
-            </span>
-            <span style="font-size: 10px; color: var(--text-secondary); margin-left: -2px;">▾</span>
-          </button>
-
-          <div style="display: flex; align-items: center; gap: 6px; flex-shrink: 0;">
-            <span style="font-size: 11px; color: var(--text-secondary); font-weight: 700;">Yarıçap:</span>
-            <select id="select-quick-radius-bar" style="background: rgba(0, 229, 255, 0.12); border: 1px solid rgba(0, 229, 255, 0.35); border-radius: 8px; color: #00E5FF; font-size: 11px; font-weight: 800; padding: 3px 6px; outline: none; cursor: pointer;">
-              <option value="10" ${filters.maxDistanceKm === '10' ? 'selected' : ''}>10 km</option>
-              <option value="25" ${filters.maxDistanceKm === '25' ? 'selected' : ''}>25 km</option>
-              <option value="35" ${filters.maxDistanceKm === '35' ? 'selected' : ''}>35 km</option>
-              <option value="75" ${filters.maxDistanceKm === '75' ? 'selected' : ''}>75 km</option>
-              <option value="all" ${filters.maxDistanceKm === 'all' ? 'selected' : ''}>Tüm TR</option>
-            </select>
-          </div>
-        </div>
-
         <!-- 1. ATHLETE STORIES TRAY (24H WORKOUT MOMENTS) -->
         ${renderStoriesTray()}
 
-        <!-- 2. USER'S OWN WORKOUT PLAN BANNER ("Ne zaman ve nerede spor yapacaksın?") -->
-        ${renderMyWorkoutBanner(myPlan)}
-
-        <!-- 3. VIEW SWITCHER & FILTER BUTTON (SLEEK & SINGLE LINE) -->
-        <div class="view-switcher-bar">
-          <!-- Professional Terminology: Sporcu Kartları / Liste Akışı with Unified SVG Icons -->
-          <div class="segmented-control">
-            <div class="segmented-option ${mode === 'deck' ? 'selected' : ''}" id="btn-mode-deck" role="button">
-              ${icons.cards(14)} <span>Sporcu Kartları</span>
+        <!-- 2. UNIFIED LUXURY CONTROL BAR (Mode Switcher + Plan + Radius + Filter) -->
+        <div class="view-switcher-bar" style="display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-bottom: 8px;">
+          <div class="segmented-control" style="padding: 3px; border-radius: 12px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);">
+            <div class="segmented-option ${mode === 'deck' ? 'selected' : ''}" id="btn-mode-deck" role="button" style="padding: 5px 11px; font-size: 12px; border-radius: 9px;">
+              ${icons.cards(13)} <span>Sporcu Kartları</span>
             </div>
-            <div class="segmented-option ${mode === 'feed' ? 'selected' : ''}" id="btn-mode-feed" role="button">
-              ${icons.list(14)} <span>Liste Akışı</span>
+            <div class="segmented-option ${mode === 'feed' ? 'selected' : ''}" id="btn-mode-feed" role="button" style="padding: 5px 11px; font-size: 12px; border-radius: 9px;">
+              ${icons.list(13)} <span>Liste Akışı</span>
             </div>
           </div>
 
-          <!-- Comprehensive Filter Button & Reset -->
-          <div style="display: inline-flex; align-items: center; gap: 6px;">
-            <button class="btn-filter-trigger ${filterCount > 0 ? 'active' : ''}" id="btn-open-filters" type="button">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <div style="display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0;">
+            <!-- Compact Workout Plan Trigger -->
+            <button type="button" id="btn-mini-plan-action" title="Antrenmanını Planla" style="height: 32px; padding: 0 10px; border-radius: 10px; font-size: 11.5px; font-weight: 800; color: #FFF; background: ${myPlan?.time ? 'rgba(255, 87, 34, 0.2)' : 'var(--color-kor-gradient)'}; border: ${myPlan?.time ? '1px solid rgba(255, 87, 34, 0.5)' : 'none'}; display: inline-flex; align-items: center; gap: 4px; cursor: pointer; box-shadow: 0 2px 10px rgba(255,87,34,0.25);">
+              ${myPlan?.time ? `${icons.flame(12)} <span>${myPlan.time}</span>` : `${icons.plus(12)} <span>Planla</span>`}
+            </button>
+
+            <!-- Compact Radius & GPS Trigger -->
+            <button type="button" id="btn-trigger-location-modal" title="Mesafe Yarıçapı ve Konum" style="height: 32px; padding: 0 9px; border-radius: 10px; font-size: 11.5px; font-weight: 700; color: #E5E7EB; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09); display: inline-flex; align-items: center; gap: 4px; cursor: pointer;">
+              <span style="color: var(--color-kor); display: flex;">${icons.pin(11)}</span>
+              <span>${filters.maxDistanceKm === 'all' ? 'Tüm TR' : `${filters.maxDistanceKm} km`}</span>
+            </button>
+
+            <!-- Filter Icon Button -->
+            <button class="btn-filter-trigger ${filterCount > 0 ? 'active' : ''}" id="btn-open-filters" type="button" title="Filtrele" style="height: 32px; padding: 0 9px; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09); display: inline-flex; align-items: center; gap: 4px;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
               </svg>
-              <span>Filtrele</span>
-              ${filterCount > 0 ? `<span style="background: var(--color-kor); color: #FFF; font-size: 10px; min-width: 17px; height: 17px; padding: 0 4px; border-radius: 9px; display: inline-flex; align-items: center; justify-content: center; font-weight: 800;">${filterCount}</span>` : ''}
+              ${filterCount > 0 ? `<span style="background: var(--color-kor); color: #FFF; font-size: 10px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-weight: 800;">${filterCount}</span>` : ''}
             </button>
             ${filterCount > 0 ? `
-              <button class="btn-ghost" id="btn-clear-filters" title="Filtreleri Sıfırla" style="height: 38px; padding: 0 10px; font-size: 11px; color: var(--color-rose); background: rgba(244,63,94,0.12); border-radius: var(--radius-md); border: 1px solid rgba(244,63,94,0.25); cursor: pointer; display: inline-flex; align-items: center; justify-content: center;">
+              <button class="btn-ghost" id="btn-clear-filters" title="Filtreleri Sıfırla" style="height: 32px; padding: 0 8px; font-size: 11px; color: var(--color-rose); background: rgba(244,63,94,0.12); border-radius: 10px; border: 1px solid rgba(244,63,94,0.25); cursor: pointer; display: inline-flex; align-items: center; justify-content: center;">
                 ✕
               </button>
             ` : ''}
           </div>
         </div>
+
+        <!-- 3. ACTIVE WORKOUT BANNER (Only visible when user has an active workout published) -->
+        ${myPlan?.time ? renderMyWorkoutBanner(myPlan) : ''}
 
         <!-- 4. CONTENT: CARDS OR FEED -->
         ${mode === 'deck' ? renderAthleteDeck(athlete, athletes.length) : renderFeedList(athletes)}
@@ -330,56 +316,48 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
       return false;
     });
 
-    // 3. Deduplicate stories so each athlete appears at most ONCE in the tray!
+    // 3. Deduplicate stories by both user and avatar so two stories never share the same photo
     const uniqueStoriesMap = new Map();
+    const seenAvatars = new Set();
     const storiesPool = localizedStories.length > 0 ? localizedStories : storiesWithDistance;
     storiesPool.forEach(story => {
       const key = story.userId || story.userName;
-      if (!uniqueStoriesMap.has(key)) {
+      const avatarKey = story.userAvatar || "";
+      if (!uniqueStoriesMap.has(key) && (!avatarKey || !seenAvatars.has(avatarKey))) {
         uniqueStoriesMap.set(key, story);
-      } else {
-        const existing = uniqueStoriesMap.get(key);
-        // Prioritize unviewed stories
-        if (existing.viewed && !story.viewed) {
-          uniqueStoriesMap.set(key, story);
-        }
+        if (avatarKey) seenAvatars.add(avatarKey);
       }
     });
 
     const displayStories = Array.from(uniqueStoriesMap.values()).slice(0, 10);
 
     return `
-      <div class="stories-tray-container" style="margin-bottom: 12px; overflow-x: auto; scrollbar-width: none;">
-        <div style="display: flex; gap: 12px; align-items: flex-start; padding: 2px 2px 4px 2px;">
+      <div class="stories-tray-container" style="margin-bottom: 8px; overflow-x: auto; scrollbar-width: none;">
+        <div style="display: flex; gap: 14px; align-items: flex-start; padding: 2px 2px 2px 2px;">
           <!-- User Add Story Circle -->
-          <div id="btn-add-story-trigger" class="story-circle-item" style="display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; flex-shrink: 0;" title="Hikaye Paylaş">
-            <div style="position: relative; width: 56px; height: 56px;">
-              <div class="member-avatar accent-kor" style="width: 56px; height: 56px; font-size: 17px; border: 2px dashed rgba(255, 87, 34, 0.7); background: rgba(255, 87, 34, 0.12);">
+          <div id="btn-add-story-trigger" class="story-circle-item" style="display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; flex-shrink: 0;" title="Hikaye Paylaş">
+            <div style="position: relative; width: 52px; height: 52px;">
+              <div class="member-avatar accent-kor" style="width: 52px; height: 52px; font-size: 15px; border: 1.5px dashed rgba(255, 255, 255, 0.35); background: rgba(255, 255, 255, 0.04);">
                 ${currentUser.initials || "SP"}
               </div>
-              <div style="position: absolute; bottom: -2px; right: -2px; width: 20px; height: 20px; border-radius: 50%; background: var(--color-kor); color: #FFF; display: flex; align-items: center; justify-content: center; border: 2px solid #000; box-shadow: 0 2px 6px rgba(0,0,0,0.5);">
-                ${icons.plus(11)}
+              <div style="position: absolute; bottom: -1px; right: -1px; width: 18px; height: 18px; border-radius: 50%; background: var(--color-kor); color: #FFF; display: flex; align-items: center; justify-content: center; border: 2px solid #0B0C0E;">
+                ${icons.plus(10)}
               </div>
             </div>
-            <span style="font-size: 11px; font-weight: 700; color: #FFF;">Hikayen</span>
+            <span style="font-size: 11px; font-weight: 600; color: var(--text-secondary);">Hikayen</span>
           </div>
 
           <!-- Community Athlete Stories (Nearby / In Same Location) -->
           ${displayStories.map(story => `
-            <div class="story-circle-item" data-story-id="${story.id}" style="display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; flex-shrink: 0;" title="${story.userName} - ${story.tag || 'Hikaye'} (${story.calculatedDistanceText || story.gymName})">
-              <div class="story-avatar-ring ${story.viewed ? 'viewed' : 'unviewed'}" style="position: relative; width: 56px; height: 56px; border-radius: 50%; padding: 2.5px; background: ${story.viewed ? 'rgba(255,255,255,0.2)' : 'linear-gradient(135deg, #FF5722 0%, #FF9100 50%, #00E5FF 100%)'}; box-shadow: ${story.viewed ? 'none' : '0 2px 10px rgba(255, 87, 34, 0.35)'}; transition: all 0.2s ease;">
-                <div style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: #000; border: 2px solid #0B0C0E;">
-                  ${story.userAvatar ? `<img src="${story.userAvatar}" style="width: 100%; height: 100%; object-fit: cover;">` : `<div class="member-avatar accent-kor" style="width: 100%; height: 100%; font-size: 15px;">${story.userInitials || "SP"}</div>`}
+            <div class="story-circle-item" data-story-id="${story.id}" style="display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; flex-shrink: 0;" title="${story.userName} - ${story.tag || 'Hikaye'}">
+              <div class="story-avatar-ring ${story.viewed ? 'viewed' : 'unviewed'}" style="position: relative; width: 52px; height: 52px; border-radius: 50%; padding: 2px; background: ${story.viewed ? 'rgba(255,255,255,0.16)' : 'linear-gradient(135deg, #FF5722 0%, #FF8A65 100%)'}; transition: all 0.2s ease;">
+                <div style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: #14151B; border: 2px solid #0B0C0E;">
+                  ${story.userAvatar ? `<img src="${story.userAvatar}" style="width: 100%; height: 100%; object-fit: cover;">` : `<div class="member-avatar accent-kor" style="width: 100%; height: 100%; font-size: 14px;">${story.userInitials || "SP"}</div>`}
                 </div>
               </div>
-              <span style="font-size: 11px; font-weight: ${story.viewed ? '500' : '700'}; color: ${story.viewed ? 'var(--text-secondary)' : '#FFF'}; max-width: 58px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+              <span style="font-size: 11px; font-weight: ${story.viewed ? '500' : '600'}; color: ${story.viewed ? 'var(--text-muted)' : '#E5E7EB'}; max-width: 56px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                 ${story.userName.split(' ')[0]}
               </span>
-              ${story.calculatedDistanceText ? `
-                <span style="font-size: 9.5px; font-weight: 800; color: #00E5FF; line-height: 1; margin-top: -2px;">
-                  ${story.calculatedDistanceText}
-                </span>
-              ` : ''}
             </div>
           `).join('')}
         </div>
@@ -533,108 +511,116 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
 
     return `
       <div class="tinder-deck-container">
-        <!-- Interactive Athlete Card -->
-        <div class="tinder-athlete-card" id="active-swipe-card" data-athlete-id="${athlete.id}">
-          <!-- Card Top Info -->
-          <div class="tinder-card-topbar">
-            <span class="tinder-online-badge">
-              <span class="live-pulse" style="width: 7px; height: 7px;"></span>
-              Şimdi Salonda
-            </span>
-            <span class="tinder-distance-badge" style="display: inline-flex; align-items: center; gap: 4px; font-weight: 700; color: #FFF; background: rgba(0, 229, 255, 0.14); border: 1px solid rgba(0, 229, 255, 0.35); padding: 3px 8px; border-radius: 6px;">
-              ${icons.pin(11)} <strong style="color: #00E5FF;">${distText}</strong> · ${gymDistrict} (${gymCity})
-            </span>
+        <!-- Full-Bleed Editorial Luxury Athlete Card -->
+        <div class="tinder-athlete-card editorial-luxury-card" id="active-swipe-card" data-athlete-id="${athlete.id}">
+          <!-- Full-Bleed Portrait Backdrop -->
+          <div class="editorial-card-backdrop" id="card-avatar-container" title="${athletePhotos.length > 1 ? 'Diğer fotoğrafları görmek için dokun' : ''}">
+            ${athletePhotos.length > 0 ? `
+              <img src="${athletePhotos[0]}" id="card-hero-photo-img" class="editorial-backdrop-img" alt="${athlete.name}" />
+            ` : `
+              <div class="editorial-backdrop-fallback">
+                <span>${athlete.initials || athlete.name.substring(0, 2).toUpperCase()}</span>
+              </div>
+            `}
+            <div class="editorial-vignette-overlay"></div>
           </div>
 
-          <!-- Hero Section -->
-          <div class="tinder-hero-section">
-            <div class="tinder-large-avatar" id="card-avatar-container" style="overflow: hidden; padding: 0; position: relative; cursor: pointer;" title="${athletePhotos.length > 1 ? 'Fotoğrafları görmek için dokun' : ''}">
-              ${athletePhotos.length > 1 ? `
-                <div class="card-story-indicators" style="top: 4px; left: 6px; right: 6px;">
-                  ${athletePhotos.map((_, i) => `<span class="card-story-indicator-bar ${i === 0 ? 'active' : ''}"></span>`).join('')}
-                </div>
-              ` : ''}
-              ${athletePhotos.length > 0 ? `
-                <img src="${athletePhotos[0]}" id="card-hero-photo-img" style="width: 100%; height: 100%; object-fit: cover; display: block;" alt="${athlete.name}" />
-              ` : (athlete.initials || athlete.name.substring(0, 2).toUpperCase())}
+          <!-- Top Bar Over Portrait: Story Bars + Status Pills -->
+          <div class="editorial-top-layer">
+            ${athletePhotos.length > 1 ? `
+              <div class="card-story-indicators" style="position: static; margin-bottom: 10px;">
+                ${athletePhotos.map((_, i) => `<span class="card-story-indicator-bar ${i === 0 ? 'active' : ''}"></span>`).join('')}
+              </div>
+            ` : ''}
+            <div class="tinder-card-topbar" style="margin-bottom: 0;">
+              <span class="editorial-glass-pill status-pill">
+                <span class="live-pulse" style="width: 6px; height: 6px;"></span>
+                Şimdi Salonda
+              </span>
+              <span class="editorial-glass-pill distance-pill">
+                ${icons.pin(11)} <strong>${distText}</strong> · ${gymDistrict}
+              </span>
             </div>
-            <div class="tinder-athlete-name">
-              ${athlete.name}, ${athlete.age || 26}
-              ${athlete.verified ? `
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="#10B981">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                </svg>
-              ` : ''}
-            </div>
-            <div class="tinder-athlete-gym">${gymLabel}</div>
           </div>
 
-          <!-- Activity Spotlight Box -->
-          <div class="tinder-activity-box">
-            <div class="tinder-activity-left">
-              <div class="tinder-activity-icon">${icons.flame(16)}</div>
-              <div class="tinder-activity-text">
-                <strong>${athlete.nextWorkout?.time || 'Bugün 19:00'} · ${athlete.nextWorkout?.workoutType || athlete.nextWorkout?.type || 'Fitness'}</strong>
-                <span>${athlete.level || 'Orta Seviye'} · ${athlete.nextWorkout?.expectation || 'Partner arıyor'}</span>
+          <!-- Bottom Editorial Info Overlay -->
+          <div class="editorial-bottom-layer">
+            <!-- Name, Age, Verified & Rating Row -->
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 4px;">
+              <div class="tinder-athlete-name" style="justify-content: flex-start; font-size: 24px; font-weight: 800; letter-spacing: -0.02em; color: #FFFFFF; text-shadow: 0 2px 12px rgba(0,0,0,0.6);">
+                <span>${athlete.name}, ${athlete.age || 26}</span>
+                ${athlete.verified ? `
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="#10B981" style="flex-shrink: 0; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                  </svg>
+                ` : ''}
+              </div>
+              <div class="editorial-rating-chip">
+                <span style="color: #FBBF24; display: flex;">${icons.starFilled(12)}</span>
+                <span>${athlete.rating || 4.9}</span>
+                <span style="opacity: 0.45;">·</span>
+                <span>${athlete.workoutsCompleted || 14} seans</span>
               </div>
             </div>
-            <span class="badge badge-kor" style="font-size: 10px;">AKTİF ÇAĞRI</span>
-          </div>
 
-          <!-- Goals Tags -->
-          <div class="member-tags" style="justify-content: center; margin-bottom: 14px;">
-            ${(athlete.goals || []).map(g => `<span class="member-tag-chip" style="font-size: 11.5px; padding: 4px 10px;">${g}</span>`).join('')}
-          </div>
+            <!-- Gym Subtitle -->
+            <div class="tinder-athlete-gym" style="text-align: left; font-size: 12.5px; color: rgba(255,255,255,0.78); font-weight: 500; margin-bottom: 10px; display: flex; align-items: center; gap: 5px;">
+              <span style="color: var(--color-kor); display: flex;">${icons.dumbbell(12)}</span>
+              <span>${gymLabel}</span>
+            </div>
 
-          <!-- Bio -->
-          <div class="tinder-athlete-bio">
-            "${athlete.bio || 'Haftada 4 gün antrenmandayım. Karşılıklı spotter olabileceğim disiplinli partner arıyorum.'}"
-          </div>
+            <!-- Sleek Glass Workout & Goal Strip -->
+            <div class="editorial-workout-strip">
+              <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+                <div class="editorial-workout-flame">${icons.flame(14)}</div>
+                <div style="min-width: 0;">
+                  <div style="font-size: 12.5px; font-weight: 800; color: #FFFFFF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    ${athlete.nextWorkout?.time || 'Bugün 19:00'} · ${athlete.nextWorkout?.workoutType || athlete.nextWorkout?.type || 'Fitness'}
+                  </div>
+                  <div style="font-size: 11px; color: rgba(255,255,255,0.65); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    ${athlete.level || 'Orta'} Seviye · ${athlete.nextWorkout?.expectation || 'Partner arıyor'}
+                  </div>
+                </div>
+              </div>
+              <div style="display: flex; gap: 4px; flex-shrink: 0;">
+                ${(athlete.goals || ['Kas', 'Güç']).slice(0, 2).map(g => `<span class="editorial-goal-tag">${g}</span>`).join('')}
+              </div>
+            </div>
 
-          <!-- Stats Strip -->
-          <div class="tinder-stats-strip">
-            <div class="tinder-stat-col">
-              <span class="tinder-stat-val" style="display: inline-flex; align-items: center; justify-content: center; gap: 3px;">${icons.starFilled(13)} ${athlete.rating || 4.9}</span>
-              <span class="tinder-stat-label">Puan</span>
-            </div>
-            <div class="tinder-stat-col">
-              <span class="tinder-stat-val" style="display: inline-flex; align-items: center; justify-content: center; gap: 3px;">${icons.flame(13)} ${athlete.attendanceStreak || 6} Gün</span>
-              <span class="tinder-stat-label">Seri</span>
-            </div>
-            <div class="tinder-stat-col">
-              <span class="tinder-stat-val" style="display: inline-flex; align-items: center; justify-content: center; gap: 3px;">${icons.dumbbell(13)} ${athlete.workoutsCompleted || 14}</span>
-              <span class="tinder-stat-label">Antrenman</span>
-            </div>
+            <!-- Understated Bio Line -->
+            <p class="editorial-bio-text">
+              ${athlete.bio || 'Haftada 4 gün antrenmandayım. Karşılıklı spotter olabileceğim disiplinli partner arıyorum.'}
+            </p>
           </div>
         </div>
 
-        <!-- The Athletic Circular Action Buttons Bar -->
-        <div class="tinder-actions-bar">
-          <!-- Pass (Red X) -->
+        <!-- Refined Luxury Floating Action Dock -->
+        <div class="tinder-actions-bar editorial-actions-dock">
+          <!-- Pass -->
           <button class="tinder-action-btn pass" id="btn-card-pass" title="Pas Geç (Sonraki Sporcu)">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2.5">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
           </button>
 
-          <!-- Chat (Cyan Message Bubble) -->
-          <button class="tinder-action-btn chat" id="btn-card-chat" title="Hızlı Sohbet">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00F0FF" stroke-width="2.5">
+          <!-- Chat -->
+          <button class="tinder-action-btn chat" id="btn-card-chat" title="Mesaj Gönder">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
               <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
             </svg>
           </button>
 
-          <!-- Match (Flame Glowing Center) -->
-          <button class="tinder-action-btn match" id="btn-card-match" title="Antrenman Eşleşmesi / Davet Gönder!">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5">
+          <!-- Match / Invite -->
+          <button class="tinder-action-btn match" id="btn-card-match" title="Antrenman Daveti Gönder">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4">
               <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
             </svg>
           </button>
 
-          <!-- Info (Grey Info) -->
-          <button class="tinder-action-btn info" id="btn-card-info" title="Profili Detaylı İncele">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9BA0B2" stroke-width="2.5">
+          <!-- Info -->
+          <button class="tinder-action-btn info" id="btn-card-info" title="Profili İncele">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
               <circle cx="12" cy="12" r="10"></circle>
               <line x1="12" y1="16" x2="12" y2="12"></line>
               <line x1="12" y1="8" x2="12.01" y2="8"></line>
