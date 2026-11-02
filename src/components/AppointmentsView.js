@@ -20,10 +20,12 @@ export function renderAppointmentsView(container, onOpenRoutines, onOpenChat, on
   let activeTab = "upcoming"; // 'upcoming' | 'requests' | 'history'
   const currentUser = auth.getCurrentUser() || {};
 
-  // Seed realistic starter appointments if empty so the user can immediately experience the interactive features
+  // Clean up any legacy auto-seeded sample appointments that were not explicitly requested
   const existingApts = db.getCollection("appointments") || [];
-  if (existingApts.length === 0) {
-    db.ensureSampleAppointments(currentUser.id || "current-user", currentUser.name || "Sporcu");
+  const legacyDemoIds = new Set(["apt_mert_bacak_today", "apt_selin_invite_pending", "apt_burak_past_history"]);
+  if (existingApts.some(a => legacyDemoIds.has(a.id) && !a.isExplicitDemo)) {
+    const cleaned = existingApts.filter(a => !(legacyDemoIds.has(a.id) && !a.isExplicitDemo));
+    db.setCollection("appointments", cleaned);
   }
 
   function getFilteredAppointments() {

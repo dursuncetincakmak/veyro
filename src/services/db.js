@@ -385,6 +385,32 @@ class DatabaseEngine {
     this.setCollection("users", realUsersOnly);
 
     this.ensureCollection("appointments", []);
+    // Purge legacy auto-seeded sample appointments if not explicitly requested
+    const rawApts = this.getCollection("appointments") || [];
+    const legacyIds = new Set(["apt_mert_bacak_today", "apt_selin_invite_pending", "apt_burak_past_history"]);
+    if (rawApts.some(a => legacyIds.has(a.id) && !a.isExplicitDemo)) {
+      this.setCollection("appointments", rawApts.filter(a => !(legacyIds.has(a.id) && !a.isExplicitDemo)));
+    }
+
+    // Ensure deals & campaigns always have active items even if localStorage had an older empty array
+    const currentDeals = this.getCollection("deals") || [];
+    if (currentDeals.length === 0) {
+      this.setCollection("deals", INITIAL_DEALS);
+    } else {
+      let dealsUpdated = false;
+      INITIAL_DEALS.forEach(d => {
+        if (!currentDeals.some(cd => cd.id === d.id)) {
+          currentDeals.push(d);
+          dealsUpdated = true;
+        }
+      });
+      if (dealsUpdated) this.setCollection("deals", currentDeals);
+    }
+
+    const currentCampaigns = this.getCollection("campaigns") || [];
+    if (currentCampaigns.length === 0) {
+      this.setCollection("campaigns", INITIAL_CAMPAIGNS);
+    }
 
     // Localized Community Stories: Seed and merge nearby workout moments
     const existingStories = this.getCollection("stories") || [];
@@ -1457,6 +1483,7 @@ class DatabaseEngine {
     const sampleApts = [
       {
         id: "apt_mert_bacak_today",
+        isExplicitDemo: true,
         userId: "usr_mert_partner",
         userName: "Mert Demir",
         partnerId: currentUserId,
@@ -1474,6 +1501,7 @@ class DatabaseEngine {
       },
       {
         id: "apt_selin_invite_pending",
+        isExplicitDemo: true,
         userId: "usr_selin_partner",
         userName: "Selin Öztürk",
         partnerId: currentUserId,
@@ -1489,6 +1517,7 @@ class DatabaseEngine {
       },
       {
         id: "apt_burak_past_history",
+        isExplicitDemo: true,
         userId: currentUserId,
         userName: currentUserName,
         partnerId: "usr_burak_partner",

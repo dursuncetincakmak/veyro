@@ -68,12 +68,17 @@ class VeyroApp {
 
     // Subscribe to DB updates for real-time reactive sync
     db.subscribe("appointments", () => {
+      this.renderedTabs.delete("appointments");
+      this.renderedTabs.delete("routines");
       this.updateTabBar();
-      if (this.currentTab === "appointments") this.renderCurrentView();
+      if (this.currentTab === "appointments" || this.currentTab === "routines") {
+        this.renderCurrentView(true);
+      }
     });
 
     db.subscribe("deals", () => {
-      if (this.currentTab === "deals") this.renderCurrentView();
+      this.renderedTabs.delete("deals");
+      if (this.currentTab === "deals") this.renderCurrentView(true);
     });
 
     db.subscribe("auth_state_changed", (user) => {
@@ -121,10 +126,10 @@ class VeyroApp {
   }
 
   switchToTab(tab) {
-    const isProfile = tab === 'profile';
+    const shouldRefresh = tab !== 'discover';
     this.currentTab = tab;
     this.updateTabBar();
-    this.renderCurrentView(isProfile);
+    this.renderCurrentView(shouldRefresh);
     if (this.viewContainer) {
       this.viewContainer.scrollTop = 0;
     }
@@ -215,9 +220,15 @@ class VeyroApp {
           (appointment, partner) => this.openAttendance(appointment, partner)
         );
       } else if (this.currentTab === 'routines') {
-        renderRoutinesView(activePane, () => {
-          this.switchToTab('appointments');
-        });
+        renderRoutinesView(
+          activePane,
+          () => {
+            this.switchToTab('appointments');
+          },
+          () => {
+            this.switchToTab('discover');
+          }
+        );
       } else if (this.currentTab === 'deals') {
         renderDealsView(activePane);
       } else if (this.currentTab === 'profile') {
@@ -266,6 +277,16 @@ class VeyroApp {
         (partnerId) => this.openChat(partnerId),
         (appointment, partner) => this.openLiveSession(appointment, partner),
         (appointment, partner) => this.openAttendance(appointment, partner)
+      );
+    } else if (tab === 'routines') {
+      renderRoutinesView(
+        pane,
+        () => {
+          this.switchToTab('appointments');
+        },
+        () => {
+          this.switchToTab('discover');
+        }
       );
     } else if (tab === 'deals') {
       renderDealsView(pane);
@@ -354,6 +375,9 @@ class VeyroApp {
         this.renderCurrentView();
       },
       (appointment) => {
+        this.renderedTabs.delete("appointments");
+        this.renderedTabs.delete("routines");
+        this.updateTabBar();
         onComplete?.(true, appointment);
         this.renderCurrentView();
       }

@@ -1,97 +1,273 @@
 /* Veyro - Fırsatlar (Deals & Partner Perks) Styles */
 
 .deals-page {
-  padding: 16px 20px 24px;
+  padding: 14px 16px 28px;
+}
+
+.deals-header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.deals-count-pill {
+  background: rgba(255, 87, 34, 0.12);
+  border: 1px solid rgba(255, 87, 34, 0.28);
+  color: var(--color-kor);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 5px 10px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+.deals-category-bar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  margin-bottom: 10px;
+  scrollbar-width: none;
+}
+
+.deals-category-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.deal-cat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-glass);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.deal-cat-pill.active {
+  background: var(--color-kor-gradient);
+  border-color: var(--color-kor);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(255, 87, 34, 0.25);
+}
+
+.deal-cat-count {
+  font-size: 10.5px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: inherit;
 }
 
 .deals-grid {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 .deal-card {
   background: var(--bg-surface-elevated);
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-lg);
-  padding: 18px;
+  padding: 16px;
   position: relative;
   overflow: hidden;
   box-shadow: var(--shadow-sm);
   transition: all 0.2s ease;
 }
 
+.deal-card-featured {
+  border-color: rgba(255, 87, 34, 0.4);
+  background: linear-gradient(160deg, rgba(255, 87, 34, 0.08) 0%, var(--bg-surface-elevated) 55%);
+}
+
 .deal-card:hover {
   border-color: var(--border-glass-bright);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
+}
+
+.deal-banner-wrap {
+  margin: -16px -16px 12px -16px;
+  height: 128px;
+  overflow: hidden;
+  position: relative;
+}
+
+.deal-banner-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.deal-banner-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(11, 12, 14, 0.95) 0%, rgba(11, 12, 14, 0.2) 60%, transparent 100%);
+}
+
+.deal-banner-brand {
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--color-kor);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 .deal-badge-pill {
   position: absolute;
-  top: 18px;
-  right: 18px;
+  top: 12px;
+  right: 12px;
   background: var(--color-kor);
   color: #FFFFFF;
   font-weight: 800;
-  font-size: 11px;
+  font-size: 10.5px;
   padding: 4px 10px;
   border-radius: var(--radius-full);
   letter-spacing: 0.04em;
+  z-index: 2;
 }
 
 .deal-brand {
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 11.5px;
+  font-weight: 800;
   color: var(--color-kor);
   text-transform: uppercase;
+  letter-spacing: 0.05em;
   margin-bottom: 4px;
 }
 
 .deal-title {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 800;
-  margin-bottom: 8px;
+  margin: 0 0 6px 0;
   color: var(--text-main);
+  line-height: 1.3;
 }
 
 .deal-desc {
-  font-size: 13px;
+  font-size: 12.5px;
   color: var(--text-secondary);
   line-height: 1.45;
-  margin-bottom: 16px;
+  margin: 0 0 14px 0;
 }
 
 .deal-code-box {
   background: var(--bg-surface-card);
   border: 1px dashed var(--border-glass-bright);
   border-radius: var(--radius-md);
-  padding: 12px 14px;
+  padding: 10px 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .code-text {
   font-family: monospace;
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 14.5px;
+  font-weight: 800;
   color: var(--text-paper);
   letter-spacing: 0.08em;
 }
 
+.deal-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .btn-copy-code {
-  background: var(--color-kor-subtle);
-  color: var(--color-kor);
-  border: 1px solid rgba(255, 87, 34, 0.3);
-  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-main);
+  border: 1px solid var(--border-glass-bright);
+  padding: 7px 11px;
   border-radius: var(--radius-sm);
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .btn-copy-code:hover {
-  background: var(--color-kor);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.btn-copy-code.copied {
+  background: rgba(16, 185, 129, 0.18);
+  border-color: #10B981;
+  color: #10B981;
+}
+
+.btn-use-deal {
+  background: var(--color-kor-gradient);
   color: #FFFFFF;
+  border: none;
+  padding: 7px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 11.5px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(255, 87, 34, 0.25);
+  transition: all 0.2s ease;
+}
+
+.btn-use-deal:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 14px rgba(255, 87, 34, 0.35);
+}
+
+.deal-footer-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.deal-verified-tag {
+  color: #10B981;
+  font-weight: 700;
+}
+
+.deal-qr-pass-box {
+  background: linear-gradient(145deg, #161820, #0D0F14);
+  border: 1px solid var(--border-glass-bright);
+  border-radius: 14px;
+  padding: 14px;
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.deal-qr-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+
+.deal-barcode-bars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
 }
