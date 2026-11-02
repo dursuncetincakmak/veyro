@@ -185,11 +185,11 @@ export function showPlanWorkoutModal(onSuccess, onClose) {
 
         <div style="display: flex; gap: 10px; margin-top: 14px;">
           ${currentPlan.time ? `
-            <button class="btn-ghost" id="btn-delete-plan" style="padding: 12px 14px; color: var(--color-rose); font-size: 13px; font-weight: 700;">
-              Planı Kaldır
+            <button type="button" class="btn-ghost" id="btn-delete-plan" style="padding: 12px 14px; color: #FF5252; background: rgba(244, 63, 94, 0.12); border: 1px solid rgba(244, 63, 94, 0.35); border-radius: 12px; font-size: 13px; font-weight: 800; cursor: pointer;">
+              Çağrıyı İptal Et
             </button>
           ` : ''}
-          <button class="btn-kor" id="btn-save-plan" style="flex: 1; padding: 14px; font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
+          <button type="button" class="btn-kor" id="btn-save-plan" style="flex: 1; padding: 14px; font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
             ${icons.rocket(16)} <span>Antrenman Çağrımı Yayınla</span>
           </button>
         </div>

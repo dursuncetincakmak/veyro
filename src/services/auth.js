@@ -279,9 +279,17 @@ class AuthService {
 
   updateProfile(updates) {
     if (!this.currentUser) return null;
-    const updated = { ...this.currentUser, ...updates };
+    const updated = { ...this.currentUser, ...updates, updatedAt: Date.now() };
+    if ("nextWorkout" in updates && !updates.nextWorkout) {
+      updated.nextWorkout = null;
+    }
     this.saveSession(updated);
-    db.updateItem("users", updated.id, updated);
+    const existingInDb = db.getItemById("users", updated.id);
+    if (existingInDb) {
+      db.updateItem("users", updated.id, updated);
+    } else {
+      db.addItem("users", updated);
+    }
     return updated;
   }
 

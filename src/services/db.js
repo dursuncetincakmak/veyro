@@ -749,7 +749,10 @@ class DatabaseEngine {
           return false;
         });
         if (idx >= 0) {
-          localUsers[idx] = { ...localUsers[idx], ...rUser };
+          const localNewer = (localUsers[idx].updatedAt || 0) > (rUser.updatedAt || 0);
+          localUsers[idx] = localNewer
+            ? { ...rUser, ...localUsers[idx] }
+            : { ...localUsers[idx], ...rUser };
           updated = true;
         } else {
           localUsers.push(rUser);
@@ -861,8 +864,12 @@ class DatabaseEngine {
           });
 
           if (idx >= 0) {
-            if (JSON.stringify(localUsers[idx]) !== JSON.stringify(sUser)) {
-              localUsers[idx] = { ...localUsers[idx], ...sUser };
+            const localNewer = (localUsers[idx].updatedAt || 0) > (sUser.updatedAt || 0);
+            const mergedUser = localNewer
+              ? { ...sUser, ...localUsers[idx] }
+              : { ...localUsers[idx], ...sUser };
+            if (JSON.stringify(localUsers[idx]) !== JSON.stringify(mergedUser)) {
+              localUsers[idx] = mergedUser;
               updatedUsers = true;
             }
           } else {
@@ -989,8 +996,12 @@ class DatabaseEngine {
         });
 
         if (idx >= 0) {
-          if (JSON.stringify(localUsers[idx]) !== JSON.stringify(rUser)) {
-            localUsers[idx] = { ...localUsers[idx], ...rUser };
+          const localNewer = (localUsers[idx].updatedAt || 0) > (rUser.updatedAt || 0);
+          const mergedUser = localNewer
+            ? { ...rUser, ...localUsers[idx] }
+            : { ...localUsers[idx], ...rUser };
+          if (JSON.stringify(localUsers[idx]) !== JSON.stringify(mergedUser)) {
+            localUsers[idx] = mergedUser;
             updatedUsers = true;
           }
         } else {

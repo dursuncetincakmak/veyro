@@ -254,9 +254,12 @@ export function renderAppointmentsView(container, onOpenRoutines, onOpenChat, on
                         <line x1="3" y1="10" x2="21" y2="10"></line>
                       </svg>
                     </button>
+                    <button type="button" class="btn-card-action danger" data-action="cancel-request" data-apt-id="${item.id}" style="display: inline-flex; align-items: center; justify-content: center; gap: 5px;">
+                      ${icons.close(13)} İptal Et
+                    </button>
                   ` : `
-                    <button class="btn-card-action danger" data-action="cancel-request" data-apt-id="${item.id}">
-                      İsteği geri çek
+                    <button type="button" class="btn-card-action danger" data-action="cancel-request" data-apt-id="${item.id}" style="display: inline-flex; align-items: center; justify-content: center; gap: 5px;">
+                      ${icons.close(13)} Çağrıyı / İsteği İptal Et
                     </button>
                   `}
                 </div>
@@ -309,12 +312,22 @@ export function renderAppointmentsView(container, onOpenRoutines, onOpenChat, on
       });
     });
 
-    // Cancel pending request
+    // Cancel pending or active appointment request
     container.querySelectorAll("[data-action='cancel-request']").forEach(btn => {
-      btn.addEventListener("click", () => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
         const id = btn.dataset.aptId;
+        const apt = db.getItemById("appointments", id);
         db.deleteItem("appointments", id);
-        notify.info("Gönderilen antrenman isteği geri çekildi.");
+        if (apt) {
+          const likes = db.getCollection("likes") || [];
+          const filteredLikes = likes.filter(lk =>
+            !((lk.fromUserId === apt.userId && lk.toUserId === apt.partnerId) ||
+              (lk.fromUserId === apt.partnerId && lk.toUserId === apt.userId))
+          );
+          db.setCollection("likes", filteredLikes);
+        }
+        notify.info("Antrenman çağrısı / randevusu iptal edildi.");
         render();
       });
     });

@@ -22,11 +22,19 @@ import { calculateDistanceMeters, locationService } from '../services/location.j
 import { icons } from './icons.js';
 
 export function renderDiscoverView(container, onSelectUser, onRequestAppointment, onOpenChat) {
-  const currentUser = auth.getCurrentUser() || {};
-  const currentUserId = currentUser.id || "current-user";
-  const isAllGyms = !currentUser.gymId || currentUser.gymId === "all";
-  const allUsers = db.getCollection("users") || [];
-  const allGyms = db.getCollection("gyms") || [];
+  let currentUser = auth.getCurrentUser() || {};
+  let currentUserId = currentUser.id || "current-user";
+  let isAllGyms = !currentUser.gymId || currentUser.gymId === "all";
+  let allUsers = db.getCollection("users") || [];
+  let allGyms = db.getCollection("gyms") || [];
+
+  function refreshUserAndCollections() {
+    currentUser = auth.getCurrentUser() || {};
+    currentUserId = currentUser.id || "current-user";
+    isAllGyms = !currentUser.gymId || currentUser.gymId === "all";
+    allUsers = db.getCollection("users") || [];
+    allGyms = db.getCollection("gyms") || [];
+  }
 
   // Active Location state from LocationService (default: Çorlu, Tekirdağ)
   let activeLocation = locationService.getActiveLocation();
@@ -201,6 +209,7 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
   }
 
   function render() {
+    refreshUserAndCollections();
     const athletes = getFilteredAthletes();
     if (activeIndex >= athletes.length && athletes.length > 0) {
       activeIndex = Math.max(0, athletes.length - 1);
@@ -385,10 +394,15 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
               </div>
             </div>
             <div style="display: flex; align-items: center; gap: 6px; flex-shrink: 0;">
-              <button class="btn-ghost" id="btn-mini-plan-action" style="padding: 3px 8px; font-size: 10.5px; font-weight: 800; color: #FFF; background: var(--color-kor); border-radius: 6px; display: inline-flex; align-items: center; gap: 4px;">
+              <button type="button" class="btn-ghost btn-edit-active-plan" style="padding: 4px 8px; font-size: 10.5px; font-weight: 800; color: #FFF; background: var(--color-kor); border-radius: 6px; display: inline-flex; align-items: center; gap: 4px;">
                 ${hasPlan ? `${icons.edit(12)} Düzenle` : `${icons.plus(11)} Planla`}
               </button>
-              <button class="btn-ghost" style="padding: 2px 4px; color: var(--text-secondary); display: flex; align-items: center;" aria-label="Genişlet">
+              ${hasPlan ? `
+                <button type="button" class="btn-ghost btn-cancel-active-plan" style="padding: 4px 8px; font-size: 10.5px; font-weight: 800; color: #FF5252; background: rgba(244, 63, 94, 0.14); border: 1px solid rgba(244, 63, 94, 0.35); border-radius: 6px; display: inline-flex; align-items: center; gap: 3px;">
+                  ${icons.close(11)} İptal
+                </button>
+              ` : ''}
+              <button type="button" class="btn-ghost" style="padding: 2px 4px; color: var(--text-secondary); display: flex; align-items: center;" aria-label="Genişlet">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
@@ -432,13 +446,13 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
             <span>AKTİF ANTRENMAN ÇAĞRIN</span>
           </div>
           <div class="active-plan-actions" style="display: flex; align-items: center; gap: 4px;">
-            <button class="btn-ghost" id="btn-edit-active-plan" style="padding: 3px 6px; font-size: 11px; color: var(--text-secondary); font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
+            <button type="button" class="btn-ghost btn-edit-active-plan" id="btn-edit-active-plan" style="padding: 4px 8px; font-size: 11px; color: var(--text-secondary); font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
               ${icons.edit(12)} Düzenle
             </button>
-            <button class="btn-ghost" id="btn-cancel-active-plan" style="padding: 3px 6px; font-size: 11px; color: var(--color-rose); font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
+            <button type="button" class="btn-ghost btn-cancel-active-plan" id="btn-cancel-active-plan" style="padding: 4px 8px; font-size: 11px; color: #FF5252; background: rgba(244, 63, 94, 0.12); border: 1px solid rgba(244, 63, 94, 0.3); border-radius: 6px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; cursor: pointer;">
               ${icons.close(12)} İptal
             </button>
-            <button class="btn-ghost" id="btn-toggle-plan-banner" style="padding: 3px 6px; font-size: 11px; color: var(--text-secondary); display: flex; align-items: center; gap: 2px; background: rgba(255,255,255,0.06); border-radius: 6px;" title="Daralt">
+            <button type="button" class="btn-ghost" id="btn-toggle-plan-banner" style="padding: 4px 6px; font-size: 11px; color: var(--text-secondary); display: flex; align-items: center; gap: 2px; background: rgba(255,255,255,0.06); border-radius: 6px;" title="Daralt">
               <span>Daralt</span>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <polyline points="18 15 12 9 6 15"></polyline>
@@ -755,21 +769,27 @@ export function renderDiscoverView(container, onSelectUser, onRequestAppointment
       e.stopPropagation();
       openPlanModal();
     });
-    document.getElementById("btn-edit-active-plan")?.addEventListener("click", (e) => {
-      e.stopPropagation();
-      openPlanModal();
+    container.querySelectorAll(".btn-edit-active-plan").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        openPlanModal();
+      });
     });
     document.getElementById("btn-feed-plan-workout")?.addEventListener("click", (e) => {
       e.stopPropagation();
       openPlanModal();
     });
 
-    // Cancel Active Workout Plan
-    document.getElementById("btn-cancel-active-plan")?.addEventListener("click", (e) => {
-      e.stopPropagation();
-      auth.updateProfile({ nextWorkout: null });
-      notify.info("Antrenman planı kaldırıldı.");
-      render();
+    // Cancel Active Workout Plan (Works in both collapsed and expanded banners)
+    container.querySelectorAll(".btn-cancel-active-plan").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        auth.updateProfile({ nextWorkout: null });
+        refreshUserAndCollections();
+        notify.info("Aktrenman çağrın iptal edildi ve yayından kaldırıldı.");
+        render();
+      });
     });
 
     // Detailed Filter Modal
